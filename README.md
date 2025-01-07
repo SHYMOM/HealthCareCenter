@@ -76,4 +76,4 @@ Still Not Licensed
 ---
 
 ## Contact
-For queries or suggestions, please reach out at: [shymomsheikh@gmail.com](mailto:shymomsheikh@gmail.com).
+For queries or suggestions, please reach out at: shymomsheikh@gmail.com.
