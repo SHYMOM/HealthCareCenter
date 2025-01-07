@@ -75,5 +75,12 @@ Still Not Licensed
 
 ---
 
+## Important
+This project uses resources from the following sources:
+- **Icons**: [Flaticon](https://www.flaticon.com)
+- **Images**: Various sources via Google Search (Not sure if I have the appropriate permissions to use these images).
+
+---
+
 ## Contact
 For queries or suggestions, please reach out at: shymomsheikh@gmail.com.
