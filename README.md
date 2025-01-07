@@ -1,7 +1,7 @@
 # HealthCare Center
 
 ## Overview
-The HealthCare Center Management System is a Java-based application designed to streamline operations for patients, doctors, and administrators. The application offers features such as user registration, appointment scheduling, health record management, and a blood bank inventory system. All data is stored in a JSON file for simplicity and portability.
+The HealthCare Center is a Java-based application designed to streamline operations for patients, doctors, and administrators. The application offers features such as user registration, appointment scheduling, health record management, and a blood bank inventory system. All data is stored in a JSON file for simplicity and portability.
 
 ---
 
