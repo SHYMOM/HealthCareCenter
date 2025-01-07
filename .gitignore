@@ -1,0 +1,27 @@
+# Java compiled class files
+*.class
+
+# Package Files
+target/
+
+# Log files
+*.log
+
+# IDE files
+/.idea/
+*.iml
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Dependency directories
+/.mvn/
+/.gradle/
+
+# JSON Database
+*.json
+
+# Other
+*.bak
+*.tmp
