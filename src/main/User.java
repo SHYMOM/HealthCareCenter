@@ -8,7 +8,7 @@ public class User {
     private String password;
     private String bloodGroup;
     private String gender;
-    private final String bills = "{\"appointmentCost\": 100,\"medicineCost\": 50,\"testCost\": 30,\"otherCost\": 10}";
+    private final String bills = "{\"appointmentCost\": 0,\"medicineCost\": 0,\"testCost\": 0,\"otherCost\": 0}";
     private final String role = "User";
     private final String appointment = "[]";
     private final String healthRecords = "[]";
