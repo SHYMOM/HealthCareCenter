@@ -334,6 +334,7 @@ public class userSignUp extends JFrame implements ActionListener{
             @Override
             public void mouseEntered(MouseEvent e) {
                 termsAndConditionsLabel.setForeground(new Color(0x00FF00));
+                termsAndConditionsLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
             @Override
             public void mouseExited(MouseEvent e) {

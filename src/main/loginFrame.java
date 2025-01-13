@@ -5,8 +5,6 @@ import javax.swing.*;
 
 public class loginFrame extends JFrame implements ActionListener {
 
-    private designs design = new designs();
-
     private final JButton login = new JButton();
     private final JButton signUp = new JButton();
     private final JTextField email = new JTextField();
@@ -20,7 +18,7 @@ public class loginFrame extends JFrame implements ActionListener {
 
         //!<<<<<<<<<<<<<<<<<<<<<<<< Frame settings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ImageIcon appIcon = new ImageIcon("HealthCareCenter/src/main/resources/icons/appIcon.png"); //*Image.. 1 ............
-        
+
         this.setIconImage(appIcon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(900,500);

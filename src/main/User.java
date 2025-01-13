@@ -8,6 +8,7 @@ public class User {
     private String password;
     private String bloodGroup;
     private String gender;
+    private final String bill = "{""}";
     private final String role = "User";
     private final String appointment = "[]";
     private final String healthRecords = "[]";
@@ -60,6 +61,7 @@ public class User {
                 "  \"password\": \"" + password + "\",\n" +
                 "  \"bloodGroup\": \"" + bloodGroup + "\",\n" +
                 "  \"gender\": \"" + gender + "\",\n" +
+                "  \"bill\": \"" + bill + "\",\n" +
                 "  \"role\": \"" + role + "\",\n" +
                 "  \"appointment\": " + appointment + ",\n" +
                 "  \"healthRecords\": " + healthRecords + "\n" +
