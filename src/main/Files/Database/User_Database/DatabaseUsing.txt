@@ -1,0 +1,40 @@
+[User]
+name=Name
+username=UserName
+age=20
+email=useremail@email.com
+address=Address
+contactNumber=123456785
+password=123qweasd
+bloodGroup=B+
+gender=Male
+role=User
+isDonor=false
+
+[Bills]
+appointmentCost=100
+medicineCost=50
+testCost=30
+otherCost=10
+
+[Appointments]
+appointment1.doctorName=Dr. Name
+appointment1.doctorId=1234
+appointment1.time=10:00 AM
+appointment1.date=2023-04-01
+appointment1.appointmentCost=100
+appointment1.status=Pending
+
+appointment2.doctorName=Dr. Alice
+appointment2.doctorId=1234
+appointment2.time=11:30 AM
+appointment2.date=2024-01-02
+appointment2.appointmentCost=100
+appointment2.status=Confirmed
+
+[HealthRecords]
+healthRecord1.date=2023-04-01
+healthRecord1.symptoms=Symptoms
+healthRecord1.diagnosis=Diagnosis
+healthRecord1.medicines=Medicines
+healthRecord1.tests=Tests
