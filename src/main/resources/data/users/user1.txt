@@ -1,0 +1,94 @@
+appointment and healthrecords are not a fixed size so there can be more appointment and more health records and don't add the appointment list or health record at first it will be added after the registration is completed i will call the user class from registration class
+            else {
+                User user = new User(name.getText(), username.getText(), Integer.parseInt(age.getText()), email.getText(), address.getText(), contactNumber.getText(), password.getText(), selectedBloodGroup, selectedGender);
+                final String filePath = "data/users/"+username.getText()+".txt";
+                
+                try {
+                    user.saveToFile(filePath);
+                } catch (IOException ex) {
+
+                }
+                this.dispose();
+                new loginFrame();
+            }
+
+after calling the saveToFile(filePath) method it will initially create a new file named as the user name and save the initial details like
+<<<---File-Start--->
+[User]
+name=Name
+username=UserName
+age=20
+email=useremail@email.com
+address=Address
+contactNumber=123456785
+password=123qweasd
+bloodGroup=B+
+gender=Male
+role=User
+isDonor=false
+
+[Bills]
+appointmentCost=100
+medicineCost=50
+testCost=30
+otherCost=10
+
+[Appointments]
+
+
+[HealthRecords]
+
+
+<<<---File-End--->>>
+
+
+
+and make another class called getUserData class which will have setter and getter methods to get a user specific details using users username
+setName(String filePath, String newName){}
+String getName(String filePath){the file path will get using FileUtils.getFile(filePath) a method from FileUtils class}
+and this class will be used to update the user details. And also make a method to get the user details except the password and username in a HashMap format.
+so the hashmap will contain all the user details except the password and username. and maybe the appointments and health records will be in Array Of HashMap.
+
+the appointment and health records will be in a format like
+
+[Appointments]
+
+<<<Appoint-Start>>>
+doctorName = Dr. Name
+doctorId = 1234
+time = 10:00 AM
+date = 2023-04-01
+appointmentCost = 100
+status = Pending
+<<<Appoint-End>>>
+
+<<<Appoint-Start>>>
+doctorName = Dr. Alice
+doctorId = 1234
+time = 11:30 AM
+date = 2024-01-02
+appointmentCost = 100
+status = Confirmed
+<<<Appoint-End>>>
+
+[HealthRecords]
+
+<<<HealthRecord-Start>>>
+date = 2023-04-01
+symptoms = Symptoms
+diagnosis = Diagnosis
+medicines = Medicines
+tests = Tests
+<<<HealthRecord-End>>>
+
+<<<HealthRecord-Start>>>
+date = 2023-04-01
+symptoms = Symptoms
+diagnosis = Diagnosis
+medicines = Medicines
+tests = Tests
+<<<HealthRecord-End>>>
+
+
+ 
+
