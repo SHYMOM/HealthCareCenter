@@ -1,3 +1,5 @@
+package com.healthcarecenter.frames;
+import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

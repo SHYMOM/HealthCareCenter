@@ -1,6 +1,8 @@
+package com.healthcarecenter.frames;
+import com.healthcarecenter.models.*;
+import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import javax.swing.*;
 
 public class loginFrame extends JFrame implements ActionListener {
@@ -196,6 +198,23 @@ public class loginFrame extends JFrame implements ActionListener {
         passwordPanel.add(password);
         //!---------------------------------------------------------
 
+        //!Forgot Password text-------------------------------------
+        JLabel forgotPassword = new JLabel();
+        forgotPassword.setText("Forgot Password?");
+        forgotPassword.setForeground(new Color(0x00FF00));
+        forgotPassword.setFont(new Font("SansSerif", Font.BOLD, 15));
+        forgotPassword.setBounds(150, 300, 250, 30);
+        forgotPassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        forgotPassword.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new forgetPassword();
+            }
+        });
+
+        //!---------------------------------------------------------
+
         //!Login Button
         login.setText("Login");
         login.setForeground(new Color(0x00FF00));
@@ -210,6 +229,7 @@ public class loginFrame extends JFrame implements ActionListener {
         rightPanel.add(loginText2);
         rightPanel.add(emailPanel);
         rightPanel.add(passwordPanel);
+        rightPanel.add(forgotPassword);
         rightPanel.add(login);
 
         return rightPanel;
@@ -217,7 +237,6 @@ public class loginFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == login){
-            User user = new User(email.getText(), password.getText());
             allValidations checkValidations = new allValidations();
             if(this.email.getText().isEmpty() || this.password.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Please Fill The Credentials");
@@ -228,13 +247,13 @@ public class loginFrame extends JFrame implements ActionListener {
             else if(!checkValidations.isValidPassword(password.getText())){
                 JOptionPane.showMessageDialog(null, "Password must be at least 6 characters long", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            else if(!checkValidations.isEmailRegistered(email.getText(), new File("HealthCareCenter/src/main/Files/Database/User_Database/user_details.json"))){
+            else if(!checkValidations.isEmailRegistered(email.getText(),"data/users/" )){
                 JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
             }
             else{
-                if(checkValidations.isUserRegistered(email.getText(), password.getText(), new File("HealthCareCenter/src/main/Files/Database/User_Database/user_details.json"))){
+                if(checkValidations.isUserRegistered(email.getText(), password.getText(), "data/users/")){
                     this.dispose();
-                    //new homePageFrame(email.getText());
+                    new userHomePage();
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
@@ -243,7 +262,16 @@ public class loginFrame extends JFrame implements ActionListener {
         }
         else if(e.getSource() == signUp){
             new userSignUp();
+            GetUserData getUserData = new GetUserData("data/users/iuytrasd.txt");
+            try{
+            System.out.println(getUserData.getUserDetails());
+            }catch(Exception e1){
+                System.out.println(e1);
+            }
             this.dispose();
         }
+    }
+    public static void main(String[] args) {
+        new loginFrame();
     }
 }

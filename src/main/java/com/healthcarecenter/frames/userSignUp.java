@@ -1,6 +1,8 @@
+package com.healthcarecenter.frames;
+import com.healthcarecenter.models.*;
+import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import javax.swing.*;
 public class userSignUp extends JFrame implements ActionListener{
 
@@ -19,8 +21,6 @@ public class userSignUp extends JFrame implements ActionListener{
     private final JComboBox<String> bloodGroupComboBox = new JComboBox<>(bloodGroupOptions);
     private final JPasswordField password = new JPasswordField();
     private final JCheckBox termsAndConditionsCheckBox = new JCheckBox("I agree to the ");
-    //!File path
-    private final File file = new  File("HealthCareCenter/src/main/Files/Database/User_Database/user_details.json");
 
     public userSignUp() {
             initializeUI();
@@ -425,66 +425,17 @@ public class userSignUp extends JFrame implements ActionListener{
             else if (!termsAndConditionsCheckBox.isSelected()) {
                 JOptionPane.showMessageDialog(null, "Please agree to the terms and conditions", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            else if (checkValidations.isEmailRegistered(email.getText(), file)) {
-                JOptionPane.showMessageDialog(null, "Email is already registered", "Error", JOptionPane.ERROR_MESSAGE);
+            else if (checkValidations.isEmailRegistered(email.getText(), "data/users/")) {
+                JOptionPane.showMessageDialog(null, "Email Already Registered", "Error", JOptionPane.ERROR_MESSAGE);
             }
             else {
-                try {
-                    //? For Understanding.. condition ? expressionIfTrue : expressionIfFalse;
-                    String bloodGroup = selectedBloodGroup != null ? selectedBloodGroup : "A+";
-                    String gender = selectedGender != null ? selectedGender : "Male";
-                    int ageValue = Integer.parseInt(age.getText());
-
-                    User user = new User(
-                            name.getText(),
-                            username.getText(),
-                            ageValue,
-                            email.getText(),
-                            address.getText(),
-                            contactNumber.getText(),
-                            password.getText(),
-                            bloodGroup,
-                            gender
-                    );
-
-                    try {
-                            //!Reading existing data from file
-                            StringBuilder jsonData = new StringBuilder();
-                            try {
-                                if (file.exists()) {
-                                    BufferedReader reader = new BufferedReader(new FileReader(file));
-                                    String line;
-                                    while ((line = reader.readLine()) != null) {
-                                        jsonData.append(line);
-                                    }
-                                    reader.close();
-                                }
-                            } catch (IOException ex) {
-                                ex.printStackTrace();
-                            }
-
-                            //! If the file is not empty
-                            String jsonContent = jsonData.toString().trim();
-                            if (!jsonContent.isEmpty()) {
-                                jsonContent = jsonContent.substring(0, jsonContent.length() - 1) + ",";
-                            } else {
-                                jsonContent = "[";//!Create a JSON array
-                            }
-                            jsonContent += "\n" + user.toJSON() + "\n]"; //! Close the JSON array
-                            try (FileWriter fileWriter = new FileWriter(file, false)) {
-                                fileWriter.write(jsonContent);
-                            }
-                            //? After Registration
-                            JOptionPane.showMessageDialog(null, "User registered successfully!");
-                            this.dispose();
-                            new loginFrame();
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "An error occurred. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Error Occured", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                User user = new User(name.getText(), username.getText(), Integer.parseInt(age.getText()), email.getText(), address.getText(), contactNumber.getText(), password.getText(), selectedBloodGroup, selectedGender);
+                user.saveToFile("data/users/" + username.getText() + ".txt");
+                
             }
         }
+    }
+    public static void main(String[] args) {
+        new userSignUp();
     }
 }
