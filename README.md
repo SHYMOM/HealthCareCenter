@@ -53,6 +53,33 @@ The HealthCare Center is a Java-based application designed to streamline operati
 
 ---
 
+### Folder Structure:
+
+```bash
+HealthCareCenter/
+      src/
+      ├── main/
+      │   ├── java/
+      │   │   └── com/
+      │   │       └── healthcarecenter/
+      │   │           ├── Main.java
+      │   │           ├── frames/
+      │   │           │    ├── loginpage.java
+      │   │           ├── models/
+      │   │           │    ├──User.java  
+      │   │           ├── utils/
+      │   │           │    ├──ImagePanel.java
+      │   │           └── database/
+      │   └── resources/
+      │       ├── images/
+      │       ├── icons/
+      │       └── data/
+      │           └── 
+
+```
+
+---
+
 ## Future Enhancements
 
 - Add multi-user support for simultaneous access.

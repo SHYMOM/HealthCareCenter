@@ -1,3 +1,4 @@
+<<<---File-Start--->
 [User]
 name=Name
 username=UserName
@@ -18,23 +19,40 @@ testCost=30
 otherCost=10
 
 [Appointments]
-appointment1.doctorName=Dr. Name
-appointment1.doctorId=1234
-appointment1.time=10:00 AM
-appointment1.date=2023-04-01
-appointment1.appointmentCost=100
-appointment1.status=Pending
 
-appointment2.doctorName=Dr. Alice
-appointment2.doctorId=1234
-appointment2.time=11:30 AM
-appointment2.date=2024-01-02
-appointment2.appointmentCost=100
-appointment2.status=Confirmed
+<<<Appoint-Start>>>
+doctorName = Dr. Name
+doctorId = 1234
+time = 10:00 AM
+date = 2023-04-01
+appointmentCost = 100
+status = Pending
+<<<Appoint-End>>>
+
+<<<Appoint-Start>>>
+doctorName = Dr. Alice
+doctorId = 1234
+time = 11:30 AM
+date = 2024-01-02
+appointmentCost = 100
+status = Confirmed
+<<<Appoint-End>>>
 
 [HealthRecords]
-healthRecord1.date=2023-04-01
-healthRecord1.symptoms=Symptoms
-healthRecord1.diagnosis=Diagnosis
-healthRecord1.medicines=Medicines
-healthRecord1.tests=Tests
+
+<<<HealthRecord-Start>>>
+date = 2023-04-01
+symptoms = Symptoms
+diagnosis = Diagnosis
+medicines = Medicines
+tests = Tests
+<<<HealthRecord-End>>>
+
+<<<HealthRecord-Start>>>
+date = 2023-04-01
+symptoms = Symptoms
+diagnosis = Diagnosis
+medicines = Medicines
+tests = Tests
+<<<HealthRecord-End>>>
+<<<---File-End--->>>

@@ -9,8 +9,10 @@ public class loginFrame extends JFrame implements ActionListener {
     private final JButton signUp = new JButton();
     private final JTextField email = new JTextField();
     private final JPasswordField password = new JPasswordField();
+    private String userRole;
 
-    public loginFrame() {
+    public loginFrame(String userRole) {
+        this.userRole = userRole;
         initializeFrame();
     }
 
