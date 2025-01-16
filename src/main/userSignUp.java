@@ -476,7 +476,7 @@ public class userSignUp extends JFrame implements ActionListener{
                             //? After Registration
                             JOptionPane.showMessageDialog(null, "User registered successfully!");
                             this.dispose();
-                            new loginFrame();
+                            new userHomePage();
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "An error occurred. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
