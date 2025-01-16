@@ -92,7 +92,7 @@ public class termsAndConditionsFrame extends JFrame implements ActionListener {
         agreeButton.setFont(new Font("Arial", Font.BOLD, 16));
         agreeButton.setBackground(new Color(0x00FF00));
         agreeButton.setForeground(Color.BLACK);
-        agreeButton.addActionListener(this);
+        agreeButton.setFocusable(false);
         return agreeButton;
     }
     

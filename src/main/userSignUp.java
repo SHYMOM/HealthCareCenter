@@ -165,7 +165,6 @@ public class userSignUp extends JFrame implements ActionListener{
         JLabel nameLabel = new JLabel("Full Name");
         nameLabel.setBounds(10, 0, 70, 30);
         nameLabel.setForeground(new Color(0xFFFFFF));
-
         name.setBounds(80, 0, 170, 30);
         name.setForeground(new Color(0x000000));
         name.setFont(new Font("Arial", Font.PLAIN, 15));
