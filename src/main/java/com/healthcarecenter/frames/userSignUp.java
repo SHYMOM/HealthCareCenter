@@ -400,7 +400,7 @@ public class userSignUp extends JFrame implements ActionListener{
         String selectedGender = (String) genderComboBox.getSelectedItem();
         if(e.getSource() == signIn){
             this.dispose();
-            new loginFrame();
+            new loginFrame("User");
         }
         else if (e.getSource() == signUp) {
             allValidations checkValidations = new allValidations();

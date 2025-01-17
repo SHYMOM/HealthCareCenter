@@ -10,6 +10,7 @@ public class forgetPassword extends JFrame implements ActionListener {
     private final JTextField email = new JTextField();
     private final JTextField username = new JTextField();
     private final JPasswordField password = new JPasswordField();
+
     public forgetPassword() {
         initializeFrame();
     }
@@ -66,7 +67,7 @@ public class forgetPassword extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new loginFrame();
+                new loginFrame("User");
             }
         });
 
