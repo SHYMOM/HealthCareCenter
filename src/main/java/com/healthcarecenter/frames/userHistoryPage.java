@@ -1,7 +1,7 @@
 package com.healthcarecenter.frames;
-import javax.swing.*;
-import java.awt.event.*;
 import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 public class userHistoryPage extends JFrame implements ActionListener
 {
 
@@ -299,6 +299,4 @@ public class userHistoryPage extends JFrame implements ActionListener
     {
         // code to handle the action event
     }
-
-
 }

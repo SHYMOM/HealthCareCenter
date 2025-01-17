@@ -1,7 +1,8 @@
 package com.healthcarecenter.frames;
-import javax.swing.*;
-import java.awt.event.*;
+import com.healthcarecenter.utils.ImagePanel;
 import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 public class userHomePage extends JFrame implements ActionListener
 {
 
@@ -194,7 +195,7 @@ public class userHomePage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(home).dispose();  
+                SwingUtilities.getWindowAncestor(home).dispose();
                 new userHistoryPage();
             }
         });
@@ -288,11 +289,11 @@ public class userHomePage extends JFrame implements ActionListener
         lower_panel.setBounds(0,200,900,500);
         lower_panel.setBackground(Color.white);
         
-       /*  ImagePanel image_panel = new ImagePanel("HealthCareCenter/src/main/resources/Images/signUpBG1.jpg");
+        ImagePanel image_panel = new ImagePanel("HealthCareCenter/src/main/resources/images/signUpBG1.jpg");
         image_panel.setBounds(0,0,900,300);
         image_panel.setLayout(null);
         image_panel.setOpaque(false);
-        lower_panel.add(image_panel);*/
+        lower_panel.add(image_panel);
 
         JLabel welcome= new JLabel("Welcome User");
         welcome.setHorizontalAlignment(JLabel.CENTER);
@@ -340,5 +341,6 @@ public class userHomePage extends JFrame implements ActionListener
      public static void main(String[] args) {
         new userHomePage().setVisible(true);
     }
+    
 
 }
