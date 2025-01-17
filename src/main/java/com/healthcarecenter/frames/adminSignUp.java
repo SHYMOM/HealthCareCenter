@@ -1,7 +1,6 @@
 package com.healthcarecenter.frames;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import javax.swing.*;
 
 public class adminSignUp extends JFrame implements ActionListener 
@@ -311,7 +310,7 @@ public class adminSignUp extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
               SwingUtilities.getWindowAncestor(signUp).dispose();
-              new loginFrame();
+              new loginFrame("Admin");
             }
         });
     
