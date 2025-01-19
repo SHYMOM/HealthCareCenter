@@ -1,6 +1,4 @@
 package com.healthcarecenter.models;
-import com.healthcarecenter.utils.FileUtils;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,6 +18,7 @@ public class Doctor {
     private String consultationHours;
     private String daysAvailable;
     private double consultationFee;
+    private double salary;
 
     // Constructor
     public Doctor(  String fullName, 
@@ -34,7 +33,8 @@ public class Doctor {
                     String medicalLicenseNumber, 
                     String consultationHours, 
                     String daysAvailable,
-                    double consultationFee  
+                    double consultationFee, 
+                    double salary
                 ) 
     {
         this.fullName = fullName;
