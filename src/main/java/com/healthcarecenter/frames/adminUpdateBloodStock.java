@@ -1,10 +1,10 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-public class ManageDoctor extends JFrame implements ActionListener
+public class adminUpdateBloodStock extends JFrame implements ActionListener
 {
 
-    public ManageDoctor()
+    public adminUpdateBloodStock()
     {
         UserUI();
     }
@@ -96,7 +96,6 @@ public class ManageDoctor extends JFrame implements ActionListener
          JLabel Mang_Doc= new JLabel();
          Mang_Doc.setText("Manage Doctors");
          Mang_Doc.setForeground(new Color(000000));
-		 Mang_Doc.setForeground(Color.RED );
          Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
          Mang_Doc.setBounds(80, 15, 140, 20);
 
@@ -104,36 +103,22 @@ public class ManageDoctor extends JFrame implements ActionListener
          JLabel upd_bloo = new JLabel();
          upd_bloo.setText("Update Blood Stock");
          upd_bloo.setForeground(new Color(000000));
+		 upd_bloo.setForeground(Color.RED );
          upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 15));
          upd_bloo.setBounds(225, 15, 160, 20);
 		 
-		 //level for manage admin
-         JLabel Mang_Admin = new JLabel();
-         Mang_Admin.setText("Manage Admin");
-         Mang_Admin.setForeground(new Color(000000));
-         Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         Mang_Admin.setBounds(410, 15, 120, 20);
-
-         //level for paySalary 
-         JLabel paySalary = new JLabel();
-         paySalary .setText("Pay Salary");
-         paySalary .setForeground(new Color(000000));
-         paySalary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-         paySalary .setBounds(560, 15, 120, 20);
 
          //level for log out
          JLabel log_out = new JLabel();
          log_out.setText("Log out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(700, 15, 130, 20);
+         log_out.setBounds(450, 15, 130, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
           middle_panel.add(Mang_Doc);
-          middle_panel.add(upd_bloo);
-          middle_panel.add(paySalary );
-		  middle_panel.add(Mang_Admin);
+          middle_panel.add(upd_bloo);   
           middle_panel.add(log_out);
 
 
@@ -155,7 +140,7 @@ public class ManageDoctor extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new Homepage();
+				new adminHomePage();
             }
         });
 
@@ -167,18 +152,17 @@ public class ManageDoctor extends JFrame implements ActionListener
                 Mang_Doc.setForeground(new Color(0x00FF00));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 18));
 				Mang_Doc.setBounds(70, 10, 150, 30);
-				Mang_Doc.setForeground(Color.RED );
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 Mang_Doc.setForeground(new Color(0, 0, 0));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
 				Mang_Doc.setBounds(80, 15, 140, 20);
-				Mang_Doc.setForeground(Color.RED );
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-              
+                SwingUtilities.getWindowAncestor(home).dispose();
+				new adminManageDoctor();
                 
             }
         });
@@ -189,6 +173,7 @@ public class ManageDoctor extends JFrame implements ActionListener
                upd_bloo.setForeground(new Color(0x00FF00));
                upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 18));
 			   upd_bloo.setBounds(215, 10, 170, 30);
+			   upd_bloo.setForeground(Color.RED );
 			  
             }
             @Override
@@ -196,90 +181,32 @@ public class ManageDoctor extends JFrame implements ActionListener
                upd_bloo.setForeground(new Color(0, 0, 0));
                upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 15));
 			   upd_bloo.setBounds(225, 15, 160, 20);
+			   upd_bloo.setForeground(Color.RED );
 			  
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-				SwingUtilities.getWindowAncestor(home).dispose();
-				new UpdateBloodStock();
-                
+			
             }
         });
 		
-		Mang_Admin.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-               Mang_Admin.setForeground(new Color(0x00FF00));
-               Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   Mang_Admin.setBounds(400, 10, 130, 30);
-			  
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-               Mang_Admin.setForeground(new Color(0, 0, 0));
-               Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   Mang_Admin.setBounds(410, 15, 120, 20);
-			  
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-				SwingUtilities.getWindowAncestor(home).dispose();
-				new ManageAdmin();
-                
-            }
-        });
-        
-
-
-        paySalary  .addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                paySalary .setForeground(new Color(0x00FF00));
-                paySalary .setFont(new Font("SansSerif", Font.PLAIN, 18));
-				paySalary .setBounds(550, 10, 130, 30);
-				
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                paySalary .setForeground(new Color(0, 0, 0));
-                paySalary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-				paySalary .setBounds(560, 15, 120, 20);
-				
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                Object[] options = {"Pay Admin Salary", "Pay Doctor Salary", "Cancel"};
-				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
-					if (choice == 0) {
-						new payAdminSalary();
-					} else if (choice == 1) {
-						new payDoctorSalary();
-					} else {
-						
-					}
-            }			
-                
-            
-        });
-
-
-
+		
          log_out.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(693, 10, 100, 30);
+			log_out.setBounds(443, 10, 100, 30);
 			
           }
           @Override
          public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(700, 15, 130, 20);
+			log_out.setBounds(450, 15, 130, 20);
 			
           }
-         @Override
+       @Override
           public void mouseClicked(MouseEvent e)  
           {
             int result = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -302,7 +229,6 @@ public class ManageDoctor extends JFrame implements ActionListener
            
       });
 
-
         return middle_panel;
     }
 
@@ -313,9 +239,6 @@ public class ManageDoctor extends JFrame implements ActionListener
         lower_panel.setBounds(0,130,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));
        
-
-  
-
         return lower_panel;
     }
 
@@ -326,7 +249,7 @@ public class ManageDoctor extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new ManageDoctor();
+        new adminUpdateBloodStock();
     }
 
 }
