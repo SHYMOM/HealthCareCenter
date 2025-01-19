@@ -1,7 +1,7 @@
-package com.healthcarecenter.frames;
-import javax.swing.*;
+
+package com.healthcarecenter.frames;import java.awt.*;
 import java.awt.event.*;
-import java.awt.*;
+import javax.swing.*;
 public class userAppointPage extends JFrame implements ActionListener
 {
 
@@ -42,7 +42,7 @@ public class userAppointPage extends JFrame implements ActionListener
         JPanel upper_panel = new JPanel();                                  
         upper_panel.setLayout(null);
         upper_panel.setBounds(0,0,900,200);
-        upper_panel.setBackground(Color.white);
+        upper_panel.setBackground(new Color(0x3a8cdb));
 
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
@@ -59,7 +59,7 @@ public class userAppointPage extends JFrame implements ActionListener
         JPanel user_panel = new JPanel(); 
         user_panel.setLayout(null);
         user_panel.setBounds(5,5,200,40);
-        user_panel.setBackground(Color.yellow);
+        user_panel.setBackground(new Color(0x3a8cdb));
         upper_panel.add(user_panel);
 
 
@@ -80,15 +80,15 @@ public class userAppointPage extends JFrame implements ActionListener
         JPanel middle_panel = new JPanel();                                  
         middle_panel.setLayout(null);
         middle_panel.setBounds(0,150,900,50);
-        middle_panel.setBackground(new Color(25, 25, 105));
+        middle_panel.setBackground(new Color(0x3a8cdb));
 
 
         //level for home
         JLabel home = new JLabel();
         home.setText("Home");
-        home.setForeground(new Color(200, 120, 150));
+        home.setForeground(new Color(000000));
         home.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        home.setBounds(25, 15, 100, 20);
+        home.setBounds(15, 15, 50, 20);
 
 
 
@@ -97,35 +97,35 @@ public class userAppointPage extends JFrame implements ActionListener
          appoinment.setText("Book Appoinment");
          appoinment.setForeground(Color.red);
          appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         appoinment.setBounds(110, 15, 165, 20);
+         appoinment.setBounds(90, 15, 120, 20);
 
           //level for history
         JLabel History = new JLabel();
         History.setText("View Medicle History");
-        History.setForeground(new Color(200, 120, 150));
+        History.setForeground(new Color(000000));
         History.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        History.setBounds(275, 15, 200, 20);
+        History.setBounds(235, 15, 140,20);
 
          //level for blood
          JLabel blood = new JLabel();
          blood.setText("Blood Bank");
-         blood.setForeground(new Color(200, 120, 150));
+         blood.setForeground(new Color(000000));
          blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         blood.setBounds(475, 15, 100, 20);
+         blood.setBounds(400, 15, 80,  20);
 
           //level for bill
         JLabel bill = new JLabel();
         bill.setText("Pay Bill");
-        bill.setForeground(new Color(200, 120, 150));
+        bill.setForeground(new Color(000000));
         bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        bill.setBounds(625, 15, 100, 20);
+        bill.setBounds(505, 15, 50, 20);
 
          //level for log out
          JLabel log_out = new JLabel();
          log_out.setText("log_out");
-         log_out.setForeground(new Color(200, 120, 150));
+         log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(750, 15, 250, 20);
+         log_out.setBounds(580, 15, 50, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
@@ -140,14 +140,14 @@ public class userAppointPage extends JFrame implements ActionListener
             @Override
             public void mouseEntered(MouseEvent e) {
                home.setForeground(new Color(0x00FF00));
-               home.setBounds(23, 10, 110, 30);
+               home.setBounds(13, 10, 60, 30);
                home.setFont(new Font("SansSerif", Font.PLAIN, 17));
     
             }
             @Override
           public void mouseExited(MouseEvent e) {
-                home.setForeground(new Color(200, 120, 150)); 
-                home.setBounds(25, 15, 100, 20);
+                home.setForeground(new Color(000000)); 
+                home.setBounds(15, 15, 50, 20);
                 home.setFont(new Font("SansSerif", Font.PLAIN, 15));
                  
             }
@@ -164,14 +164,14 @@ public class userAppointPage extends JFrame implements ActionListener
             @Override
             public void mouseEntered(MouseEvent e) {
                 appoinment.setForeground(Color.red);
-                appoinment.setBounds(110, 15, 165, 20);
+                appoinment.setBounds(90, 15, 120, 20);
                 appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
 
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 appoinment.setForeground(Color.red);
-                appoinment.setBounds(110, 15, 165, 20);
+                appoinment.setBounds(90, 15, 120, 20);
                 appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
@@ -185,13 +185,13 @@ public class userAppointPage extends JFrame implements ActionListener
             @Override
             public void mouseEntered(MouseEvent e) {
                 History.setForeground(new Color(0x00FF00));
-                History.setBounds(265,5, 220, 40);
+                History.setBounds(230,10, 155, 30);
                 History.setFont(new Font("SansSerif", Font.PLAIN,17));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                History.setForeground(new Color(200, 120, 150));
-                History.setBounds(275, 15, 200, 20);
+                History.setForeground(new Color(000000));
+                History.setBounds(235, 15, 140, 20);
                 History.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
@@ -207,13 +207,13 @@ public class userAppointPage extends JFrame implements ActionListener
             @Override
             public void mouseEntered(MouseEvent e) {
                 blood .setForeground(new Color(0x00FF00));
-                blood.setBounds(470, 10, 120, 30);
+                blood.setBounds(398, 10, 85, 30);
                 blood.setFont(new Font("SansSerif", Font.PLAIN, 17));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                blood .setForeground(new Color(200, 120, 150));
-                blood.setBounds(475, 15, 100, 20);
+                blood .setForeground(new Color(000000));
+                blood.setBounds(400, 15, 80, 20);
                 blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
@@ -229,13 +229,13 @@ public class userAppointPage extends JFrame implements ActionListener
           @Override
           public void mouseEntered(MouseEvent e) {
             bill.setForeground(new Color(0x00FF00));
-            bill.setBounds(620, 5, 120, 40);
+            bill.setBounds(503, 10, 55, 30);
             bill.setFont(new Font("SansSerif", Font.PLAIN, 17));
           }
           @Override
           public void mouseExited(MouseEvent e) {
-            bill.setForeground(new Color(200, 120, 150));
-            bill.setBounds(625, 15, 100, 20);
+            bill.setForeground(new Color(000000));
+            bill.setBounds(505, 15, 50, 20);
             bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
           }
           @Override
@@ -246,24 +246,40 @@ public class userAppointPage extends JFrame implements ActionListener
       });
 
 
-      log_out.addMouseListener(new MouseAdapter() {
+      log_out.addMouseListener(new MouseAdapter() 
+     {
           @Override
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
-            log_out.setBounds(747, 10, 280, 30);
+            log_out.setBounds(578, 10, 60, 30);
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 17));
           }
           @Override
         public void mouseExited(MouseEvent e) {
-            log_out.setForeground(new Color(200, 120, 150));
-            log_out.setBounds(750, 15, 250, 20);
+            log_out.setForeground(new Color(000000));
+            log_out.setBounds(580, 15, 50, 20);
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
           }
           @Override
-          public void mouseClicked(MouseEvent e) {
-            SwingUtilities.getWindowAncestor(appoinment).dispose();
-            new userLogOutPage();
+          public void mouseClicked(MouseEvent e) 
+          {
+            int result = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (result == JOptionPane.YES_OPTION)
+             {
+                System.out.println("Yes selected");
+                SwingUtilities.getWindowAncestor(appoinment).dispose();
+                //new loginFrame();
+             }  
+            else if (result == JOptionPane.NO_OPTION)
+             {
+                System.out.println("No selected");
+             } 
+            else if (result == JOptionPane.CANCEL_OPTION) 
+             {
+                 System.out.println("Cancel selected");
+             }
           }
+           
       });
 
 
@@ -277,25 +293,6 @@ public class userAppointPage extends JFrame implements ActionListener
         lower_panel.setBounds(0,200,900,500);
         lower_panel.setBackground(Color.white);
         
-        /*ImagePanel image_panel = new ImagePanel("HealthCareCenter/src/main/resources/Images/signUpBG1.jpg");
-        image_panel.setBounds(0,0,900,300);
-        image_panel.setLayout(null);
-        image_panel.setOpaque(false);
-        lower_panel.add(image_panel);*/
-
-        JLabel welcome= new JLabel("Welcome User");
-        welcome.setHorizontalAlignment(JLabel.CENTER);
-        welcome.setBounds(300,330,300,30);
-        welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
-
-        JLabel health_tips= new JLabel("Random Health Tips");
-        health_tips.setHorizontalAlignment(JLabel.CENTER);
-        health_tips.setBounds(350,300,200,30);
-        health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
-
-
-        lower_panel.add(welcome);
-        lower_panel.add(health_tips);
 
         return lower_panel;
     }

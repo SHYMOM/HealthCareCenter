@@ -1,10 +1,12 @@
-import javax.swing.*;
-import java.awt.event.*;
 import java.awt.*;
-public class ManageDoctor extends JFrame implements ActionListener
-{
+import java.awt.event.*;
+import javax.swing.*;
+public class payDoctorSalary extends JFrame implements ActionListener
 
-    public ManageDoctor()
+{
+    JButton pay_DoctorsSalary = new JButton("Pay Doctors Salary");
+
+    public payDoctorSalary ()
     {
         UserUI();
     }
@@ -15,8 +17,6 @@ public class ManageDoctor extends JFrame implements ActionListener
         panel.setBounds(0,0,900,600);
         panel.setBackground(Color.red);
         panel.setLayout(null);
-
-
         panel.add(createUpperpanel());
         panel.add(createLowerpanel());
         
@@ -96,7 +96,6 @@ public class ManageDoctor extends JFrame implements ActionListener
          JLabel Mang_Doc= new JLabel();
          Mang_Doc.setText("Manage Doctors");
          Mang_Doc.setForeground(new Color(000000));
-		 Mang_Doc.setForeground(Color.RED );
          Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
          Mang_Doc.setBounds(80, 15, 140, 20);
 
@@ -112,27 +111,28 @@ public class ManageDoctor extends JFrame implements ActionListener
          Mang_Admin.setText("Manage Admin");
          Mang_Admin.setForeground(new Color(000000));
          Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         Mang_Admin.setBounds(410, 15, 120, 20);
+         Mang_Admin.setBounds(390, 15, 120, 20);
 
-         //level for paySalary 
-         JLabel paySalary = new JLabel();
-         paySalary .setText("Pay Salary");
-         paySalary .setForeground(new Color(000000));
-         paySalary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-         paySalary .setBounds(560, 15, 120, 20);
+         //level for pay_Do_Salary 
+         JLabel pay_Do_Salary = new JLabel();
+         pay_Do_Salary .setText("Pay Doctors Salary");
+         pay_Do_Salary .setForeground(new Color(000000));
+		 pay_Do_Salary .setForeground(Color.RED );
+         pay_Do_Salary .setFont(new Font("SansSerif", Font.PLAIN, 15));
+         pay_Do_Salary .setBounds(540, 15, 160, 20);
 
          //level for log out
          JLabel log_out = new JLabel();
          log_out.setText("Log out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(700, 15, 130, 20);
+         log_out.setBounds(750, 15, 250, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
           middle_panel.add(Mang_Doc);
           middle_panel.add(upd_bloo);
-          middle_panel.add(paySalary );
+          middle_panel.add(pay_Do_Salary );
 		  middle_panel.add(Mang_Admin);
           middle_panel.add(log_out);
 
@@ -167,18 +167,17 @@ public class ManageDoctor extends JFrame implements ActionListener
                 Mang_Doc.setForeground(new Color(0x00FF00));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 18));
 				Mang_Doc.setBounds(70, 10, 150, 30);
-				Mang_Doc.setForeground(Color.RED );
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 Mang_Doc.setForeground(new Color(0, 0, 0));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
 				Mang_Doc.setBounds(80, 15, 140, 20);
-				Mang_Doc.setForeground(Color.RED );
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-              
+                SwingUtilities.getWindowAncestor(home).dispose();
+				new ManageDoctor();
                 
             }
         });
@@ -211,14 +210,14 @@ public class ManageDoctor extends JFrame implements ActionListener
             public void mouseEntered(MouseEvent e) {
                Mang_Admin.setForeground(new Color(0x00FF00));
                Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   Mang_Admin.setBounds(400, 10, 130, 30);
+			   Mang_Admin.setBounds(380, 10, 130, 30);
 			  
             }
             @Override
             public void mouseExited(MouseEvent e) {
                Mang_Admin.setForeground(new Color(0, 0, 0));
                Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   Mang_Admin.setBounds(410, 15, 120, 20);
+			   Mang_Admin.setBounds(390, 15, 120, 20);
 			  
             }
             @Override
@@ -231,52 +230,45 @@ public class ManageDoctor extends JFrame implements ActionListener
         
 
 
-        paySalary  .addMouseListener(new MouseAdapter() {
+        pay_Do_Salary  .addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                paySalary .setForeground(new Color(0x00FF00));
-                paySalary .setFont(new Font("SansSerif", Font.PLAIN, 18));
-				paySalary .setBounds(550, 10, 130, 30);
+                pay_Do_Salary .setForeground(new Color(0x00FF00));
+                pay_Do_Salary .setFont(new Font("SansSerif", Font.PLAIN, 18));
+				pay_Do_Salary .setBounds(530, 10, 170, 30);
+				pay_Do_Salary .setForeground(Color.RED );
 				
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                paySalary .setForeground(new Color(0, 0, 0));
-                paySalary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-				paySalary .setBounds(560, 15, 120, 20);
+                pay_Do_Salary .setForeground(new Color(0, 0, 0));
+                pay_Do_Salary .setFont(new Font("SansSerif", Font.PLAIN, 15));
+				pay_Do_Salary .setBounds(540, 15, 160, 20);
+				pay_Do_Salary .setForeground(Color.RED );
 				
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                Object[] options = {"Pay Admin Salary", "Pay Doctor Salary", "Cancel"};
-				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
-					if (choice == 0) {
-						new payAdminSalary();
-					} else if (choice == 1) {
-						new payDoctorSalary();
-					} else {
-						
-					}
-            }			
+				
                 
-            
+            }
         });
 
 
 
-         log_out.addMouseListener(new MouseAdapter() {
+      log_out.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(693, 10, 100, 30);
+			log_out.setBounds(740, 10, 200, 30);
 			
           }
           @Override
-         public void mouseExited(MouseEvent e) {
+        public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(700, 15, 130, 20);
+			log_out.setBounds(750, 15, 250, 20);
 			
           }
          @Override
@@ -302,7 +294,6 @@ public class ManageDoctor extends JFrame implements ActionListener
            
       });
 
-
         return middle_panel;
     }
 
@@ -312,21 +303,41 @@ public class ManageDoctor extends JFrame implements ActionListener
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,130,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));
+
+        pay_DoctorsSalary.setBounds(350, 450, 200, 50);
+        pay_DoctorsSalary.setFocusable(false);
+        pay_DoctorsSalary.addActionListener(this);
+        this.add(pay_DoctorsSalary);
        
 
-  
-
+      
         return lower_panel;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        // code to handle the action event
+        public void actionPerformed(ActionEvent e)
+        {
+            if(e.getSource() ==pay_DoctorsSalary )
+            {
+                String doctorname = JOptionPane.showInputDialog("Enter Doctor Username:");
+                if (doctorname != null && !doctorname.trim().isEmpty()) {
+                String salaryInput = JOptionPane.showInputDialog("Enter salary for Doctor " + doctorname + ":");
+                try {
+                   double salary = Double.parseDouble(salaryInput);
+                   JOptionPane.showMessageDialog(null, "Pay Salary: " + salary + " to Doctor " + doctorname);
+               } catch (NumberFormatException ex) {
+                   JOptionPane.showMessageDialog(null, "Invalid salary entered. Please enter a valid number.");
+               }
+             }
+             else {
+               JOptionPane.showMessageDialog(null, "No doctor name entered. Operation cancelled.");
+            }
+        }
     }
 
+   
     public static void main(String[] args) {
-        new ManageDoctor();
+        new payDoctorSalary();
     }
 
 }

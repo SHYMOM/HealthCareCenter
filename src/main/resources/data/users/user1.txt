@@ -91,4 +91,68 @@ tests = Tests
 
 
  
+<<<Doctor-Start>>>
+Full Name 
+Username (unique)
+Email Address
+Contact Number
+Address
+Password
+Gender
+Role: "Doctor"
+Specialization (e.g., Cardiologist, Dermatologist)
+Qualifications (e.g., MBBS, MD)
+Medical License Number
+Consultation Hours (e.g., 9:00 AM - 5:00 PM)
+Days Available (e.g., Monday-Friday)
+Consultation Fee
+<<<Doctor-End>>>
 
+[Appointments]
+
+<<<Appoint-Start>>>
+patientName =  Alice
+patientUsername = 1234
+time = 11:30 AM
+date = 2024-01-02
+status = Confirmed
+<<<Appoint-End>>>
+
+<<<Appoint-Start>>>
+patientName =  Alice2
+patientUsername = 1234fdfD
+time = 11:40 AM
+date = 2024-01-02
+status = Confirmed
+<<<Appoint-End>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Now make a class of java swing where all the doctors details will be in a JTable and have an option to book appointment for users when booking the book details will save to that user file 
+<<<Appoint-Start>>>
+doctorName = Dr. Alice
+doctorId = 1234
+time = 11:30 AM
+date = 2024-01-02
+appointmentCost = 100
+status = Confirmed
+<<<Appoint-End>>>
+
+make another class to validate time date means when the doctor is free or not and 

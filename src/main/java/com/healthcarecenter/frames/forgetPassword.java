@@ -67,7 +67,7 @@ public class forgetPassword extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new loginFrame();
+                new loginFrame("User");
             }
         });
 
