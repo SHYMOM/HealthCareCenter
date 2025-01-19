@@ -67,14 +67,16 @@ public class welcomeFrame extends JFrame implements ActionListener
         if(e.getSource() == patient)
         {
             this.dispose();
-            new loginFrame();
+            new loginFrame("User");
         }
         else if(e.getSource() == doctor)
         {
+            new loginFrame("Doctor");
             this.dispose();
         }
         else if(e.getSource() == admin)
         {
+            new loginFrame("Admin");
             this.dispose();
         }
     }
