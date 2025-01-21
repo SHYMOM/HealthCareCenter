@@ -1,3 +1,4 @@
+package com.healthcarecenter.frames;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -156,7 +157,7 @@ public class payAdminSalary extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new Homepage();
+				new superadminHomePage();
             }
         });
 

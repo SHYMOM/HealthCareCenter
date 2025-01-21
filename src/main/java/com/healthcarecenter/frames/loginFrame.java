@@ -1,5 +1,5 @@
 package com.healthcarecenter.frames;
-import com.healthcarecenter.models.*;
+
 import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -251,57 +251,59 @@ public class loginFrame extends JFrame implements ActionListener {
             else if(!checkValidations.isValidPassword(password.getText())){
                 JOptionPane.showMessageDialog(null, "Password must be at least 6 characters long", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            if(userRole.equals("User")){
-                if(!checkValidations.isEmailRegistered(email.getText(),"data/users/" )){
-                    JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
+            else{
+                if(email.getText().equals("super.admin@healthcarecenter.com")&& password.getText().equals("@super.admin")){
+                    new superadminHomePage();
+                    this.dispose();
                 }
                 else{
-                    if(checkValidations.isUserRegistered(email.getText(), password.getText(), "data/users/")){
-                        this.dispose();
-                        new userHomePage();
+                    if(userRole.equals("User")){
+                        if(!checkValidations.isEmailRegistered(email.getText(),"/data/users/")){
+                            JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        else{
+                            if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/users/")){
+                                this.dispose();
+                                new userHomePage();
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
                     }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
+                    else if(userRole.equals("Admin")){
+                        if(!checkValidations.isEmailRegistered(email.getText(),"" )){
+                            JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        else{
+                            if(checkValidations.isUserRegistered(email.getText(), password.getText(), "")){
+                                this.dispose();
+                                new adminHomePage();
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    }
+                    else if(userRole.equals("Doctor")){
+                        if(!checkValidations.isEmailRegistered(email.getText(),"" )){
+                            JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        else{
+                            if(checkValidations.isUserRegistered(email.getText(), password.getText(), "")){
+                                this.dispose();
+                                //new doctorHomePage();
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
                     }
                 }
             }
-            else if(userRole.equals("Admin")){
-                if(!checkValidations.isEmailRegistered(email.getText(),"data/admins/" )){
-                    JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else{
-                    if(checkValidations.isUserRegistered(email.getText(), password.getText(), "data/admins/")){
-                        this.dispose();
-                        new adminHomePage();
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            }
-            else if(userRole.equals("Doctor")){
-                if(!checkValidations.isEmailRegistered(email.getText(),"data/doctors/" )){
-                    JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else{
-                    if(checkValidations.isUserRegistered(email.getText(), password.getText(), "data/doctors/")){
-                        this.dispose();
-                        //new doctorHomePage();
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            }
-        }
+    }
         else if(e.getSource() == signUp){
             new userSignUp();
-            GetUserData getUserData = new GetUserData("data/users/iuytrasd.txt");
-            try{
-            System.out.println(getUserData.getUserDetails());
-            }catch(Exception e1){
-                System.out.println(e1);
-            }
             this.dispose();
         }
     }

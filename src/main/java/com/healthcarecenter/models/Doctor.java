@@ -1,4 +1,6 @@
 package com.healthcarecenter.models;
+
+import com.healthcarecenter.utils.FileUtils;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -50,10 +52,12 @@ public class Doctor {
         this.consultationHours = consultationHours;
         this.daysAvailable = daysAvailable;
         this.consultationFee = consultationFee;
+        this.salary = salary;
     }
 
-public void saveToFile(String filePath) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+public void saveToFile(String username) throws IOException {
+    String filePath = "data/admin/"+username+".txt";
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath()))) {
             writer.write("<<<Doctor-Start>>>\n");
             writer.write("fullName=" + fullName + "\n");
             writer.write("username=" + username + "\n");
@@ -69,13 +73,15 @@ public void saveToFile(String filePath) throws IOException {
             writer.write("consultationHours=" + consultationHours + "\n");
             writer.write("daysAvailable=" + daysAvailable + "\n");
             writer.write("consultationFee=" + consultationFee + "\n");
+            writer.write("salary=" + salary + "\n");
             writer.write("<<<Doctor-End>>>\n");
             writer.write("\n[Appointments]\n");
         }
-    }
+}
 
-    public void addAppointment(String filePath, String patientName, String patientUsername, String time, String date, String status) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+public void addAppointment(String username, String patientName, String patientUsername, String time, String date, String status) {
+    String filePath = "data/admin/"+username+".txt";    
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath(), true))) {
             writer.write("\n<<<Appoint-Start>>>\n");
             writer.write("patientName=" + patientName + "\n");
             writer.write("patientUsername=" + patientUsername + "\n");

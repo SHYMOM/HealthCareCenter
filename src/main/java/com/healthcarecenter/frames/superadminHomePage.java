@@ -1,3 +1,4 @@
+package com.healthcarecenter.frames;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -86,7 +87,7 @@ public class superadminHomePage extends JFrame implements ActionListener
         //level for home
         JLabel home = new JLabel();
         home.setText("Home");
-        home.setForeground(new Color(000000));
+        home.setForeground(new Color(255,00,00));
         home.setFont(new Font("SansSerif", Font.PLAIN, 15));
         home.setBounds(20, 15, 60, 20);
 
@@ -213,23 +214,20 @@ public class superadminHomePage extends JFrame implements ActionListener
             }
             @Override
             public void mouseExited(MouseEvent e) {
-               Mang_Admin.setForeground(new Color(0, 0, 0));
-               Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   Mang_Admin.setBounds(410, 15, 120, 20);
-			  
+                Mang_Admin.setForeground(new Color(0, 0, 0));
+                Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
+                Mang_Admin.setBounds(410, 15, 120, 20);
             }
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new ManageAdmin();
-				
-                
+				new AdminManage();
             }
         });
         
 
 
-         paySalary.addMouseListener(new MouseAdapter() {
+        paySalary.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 paySalary .setForeground(new Color(0x00FF00));

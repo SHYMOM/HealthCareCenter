@@ -1,5 +1,6 @@
 package com.healthcarecenter.utils;
 import java.io.*;
+import javax.swing.*;
 public class allValidations {
     public static boolean isValidEmail(String email) {
         return email.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
@@ -37,6 +38,7 @@ public static boolean isEmailRegistered(String email, String filePath) {
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, e.getMessage());
                     }
                 }
             }
@@ -70,7 +72,7 @@ public static boolean isEmailRegistered(String email, String filePath) {
                             }
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, e.getMessage());
                     }
                 }
             }

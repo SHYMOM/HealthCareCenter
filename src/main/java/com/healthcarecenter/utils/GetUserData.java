@@ -1,5 +1,4 @@
-package com.healthcarecenter.models;
-import com.healthcarecenter.utils.FileUtils;
+package com.healthcarecenter.utils;
 import java.io.*;
 import java.util.*;
 

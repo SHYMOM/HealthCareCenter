@@ -1,3 +1,4 @@
+package com.healthcarecenter.frames;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -32,7 +33,6 @@ public class adminHomePage extends JFrame implements ActionListener
         this.setVisible(true);
 
         this.add(panel);
-   
 
     }
 

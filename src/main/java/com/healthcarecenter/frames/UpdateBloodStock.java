@@ -1,3 +1,4 @@
+package com.healthcarecenter.frames;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -155,7 +156,7 @@ public class UpdateBloodStock extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new Homepage();
+				new superadminHomePage();
             }
         });
 

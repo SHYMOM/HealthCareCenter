@@ -1,6 +1,5 @@
-package com.healthcarecenter.models;
+package com.healthcarecenter.utils;
 
-import com.healthcarecenter.utils.FileUtils;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;

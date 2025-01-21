@@ -428,11 +428,18 @@ public class userSignUp extends JFrame implements ActionListener{
             else if (checkValidations.isEmailRegistered(email.getText(), "data/users/")) {
                 JOptionPane.showMessageDialog(null, "Email Already Registered", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            else if (FileUtils.doesFileExist("data/users/"+username.getText()+".txt")) {
+                JOptionPane.showMessageDialog(null, "Username Already Registered", "Error", JOptionPane.ERROR_MESSAGE);
+            }
             else {
                 User user = new User(name.getText(), username.getText(), Integer.parseInt(age.getText()), email.getText(), address.getText(), contactNumber.getText(), password.getText(), selectedBloodGroup, selectedGender);
-                user.saveToFile("data/users/" + username.getText() + ".txt");
-                
+                user.saveToFile(username.getText());
             }
+        }
+    }
+    public userSignUp(boolean stutus) {
+        if (stutus) {
+            this.dispose();
         }
     }
     public static void main(String[] args) {

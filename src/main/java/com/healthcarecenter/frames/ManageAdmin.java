@@ -1,3 +1,4 @@
+package com.healthcarecenter.frames;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -150,12 +151,11 @@ public class ManageAdmin extends JFrame implements ActionListener
                 home.setForeground(new Color(0, 0, 0)); 
                 home.setBounds(20, 15, 60, 20);
                 home.setFont(new Font("SansSerif", Font.PLAIN, 15));
-                 
             }
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new Homepage();
+				new superadminHomePage();
 			}
 				
         });

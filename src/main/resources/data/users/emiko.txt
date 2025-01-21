@@ -1,0 +1,25 @@
+<<<User-Start>>>
+[User]
+name=Emiko
+username=emiko
+age=19
+email=emiko@gmail.com
+address=Tokyo, Japan
+contactNumber=0123456789
+password=12345678
+bloodGroup=O-
+gender=Female
+role=User
+isDonor=false
+<<<User-End>>>
+
+[Bills]
+medicineCost=0.00
+otherCost=0.00
+testCost=0.00
+appointmentCost=0.00
+
+[Appointments]
+
+[HealthRecords]
+

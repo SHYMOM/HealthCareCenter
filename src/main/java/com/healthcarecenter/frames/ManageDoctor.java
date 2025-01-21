@@ -1,3 +1,4 @@
+package com.healthcarecenter.frames;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -140,22 +141,21 @@ public class ManageDoctor extends JFrame implements ActionListener
         home.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-               home.setForeground(new Color(0x00FF00));
-               home.setBounds(15, 10, 70, 30);
-               home.setFont(new Font("SansSerif", Font.PLAIN, 18));
+                home.setForeground(new Color(0x00FF00));
+                home.setBounds(15, 10, 70, 30);
+                home.setFont(new Font("SansSerif", Font.PLAIN, 18));
     
             }
             @Override
-          public void mouseExited(MouseEvent e) {
+            public void mouseExited(MouseEvent e) {
                 home.setForeground(new Color(0, 0, 0)); 
                 home.setBounds(20, 15, 60, 20);
                 home.setFont(new Font("SansSerif", Font.PLAIN, 15));
-                 
             }
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new Homepage();
+				new superadminHomePage();
             }
         });
 

@@ -1,5 +1,5 @@
-
-package com.healthcarecenter.frames;import java.awt.*;
+package com.healthcarecenter.frames;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 public class userHistoryPage extends JFrame implements ActionListener
