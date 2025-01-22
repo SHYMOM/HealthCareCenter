@@ -253,7 +253,7 @@ public class LoginPage extends JFrame implements ActionListener {
             }
             else{
                 if(email.getText().equals("super.admin@healthcarecenter.com")&& password.getText().equals("@super.admin")){
-                    new superadminHomePage();
+                    new SuperAdminHomePage();
                     this.dispose();
                 }
                 else{

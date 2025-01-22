@@ -156,7 +156,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new superadminHomePage();
+				new SuperAdminHomePage();
             }
         });
 

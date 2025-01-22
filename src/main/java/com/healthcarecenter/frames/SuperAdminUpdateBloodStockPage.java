@@ -156,7 +156,7 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new superadminHomePage();
+				new SuperAdminHomePage();
             }
         });
 
