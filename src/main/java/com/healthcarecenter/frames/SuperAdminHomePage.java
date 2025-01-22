@@ -2,10 +2,10 @@ package com.healthcarecenter.frames;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class superadminHomePage extends JFrame implements ActionListener
+public class SuperAdminHomePage extends JFrame implements ActionListener
 {
 
-    public superadminHomePage()
+    public SuperAdminHomePage()
     {
         UserUI();
     }
@@ -334,7 +334,7 @@ public class superadminHomePage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new superadminHomePage();
+        new SuperAdminHomePage();
     }
 
 }
