@@ -2,12 +2,12 @@ package com.healthcarecenter.frames;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class welcomeFrame extends JFrame implements ActionListener
+public class WelcomePage extends JFrame implements ActionListener
 {
     JLabel label,title;
     JButton patient,doctor,admin;
 
-    public welcomeFrame()
+    public WelcomePage()
     {
         //!Labels
         label = new JLabel("Welcome To Health Care Center");
@@ -67,14 +67,16 @@ public class welcomeFrame extends JFrame implements ActionListener
         if(e.getSource() == patient)
         {
             this.dispose();
-            new loginFrame();
+            new LoginPage("User");
         }
         else if(e.getSource() == doctor)
         {
+            new LoginPage("Doctor");
             this.dispose();
         }
         else if(e.getSource() == admin)
         {
+            new LoginPage("Admin");
             this.dispose();
         }
     }

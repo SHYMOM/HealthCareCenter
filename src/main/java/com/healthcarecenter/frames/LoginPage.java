@@ -1,18 +1,20 @@
 package com.healthcarecenter.frames;
-import com.healthcarecenter.models.*;
+
 import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class loginFrame extends JFrame implements ActionListener {
+public class LoginPage extends JFrame implements ActionListener {
 
     private final JButton login = new JButton();
     private final JButton signUp = new JButton();
     private final JTextField email = new JTextField();
     private final JPasswordField password = new JPasswordField();
+    private String userRole;
 
-    public loginFrame() {
+    public LoginPage(String userRole) {
+        this.userRole = userRole;
         initializeFrame();
     }
 
@@ -58,75 +60,77 @@ public class loginFrame extends JFrame implements ActionListener {
         leftPanel.setBounds(0, 0, 350, 500);
         leftPanel.setBackground(new Color(0, 33, 0, 150));
 
-        //!Left Inside Panel
-        JPanel leftInsidePanel = new JPanel();
-        leftInsidePanel.setBounds(50, 80, 250, 300);
-        leftInsidePanel.setLayout(null);
-        Color transparentColor = new Color(0, 33, 0, 80);
-        leftInsidePanel.setBackground(transparentColor);
-        leftInsidePanel.setBorder(BorderFactory.createLineBorder(new Color(0x00FF00), 1));
-        leftInsidePanel.setOpaque(true);
+        if (userRole.equals("User")) {
+            //!Left Inside Panel
+            JPanel leftInsidePanel = new JPanel();
+            leftInsidePanel.setBounds(50, 80, 250, 300);
+            leftInsidePanel.setLayout(null);
+            Color transparentColor = new Color(0, 33, 0, 80);
+            leftInsidePanel.setBackground(transparentColor);
+            leftInsidePanel.setBorder(BorderFactory.createLineBorder(new Color(0x00FF00), 1));
+            leftInsidePanel.setOpaque(true);
 
-        //!Welcome Title-----------------------------------------
-        JLabel welTitle1 = new JLabel();
-        welTitle1.setText("Have");
-        welTitle1.setForeground(new Color(0x00FF00));
-        welTitle1.setFont(new Font("MV Boli", Font.BOLD, 20));
-        welTitle1.setBounds(15, 10, 250, 50);
-        JLabel welTitle2 = new JLabel();
-        welTitle2.setText("An Account ?");
-        welTitle2.setForeground(new Color(0x00FF00));
-        welTitle2.setFont(new Font("MV Boli", Font.BOLD, 20));
-        welTitle2.setBounds(45, 50, 250, 50);
-        //?Panel
-        JPanel welTitlePanel = new JPanel();
-        welTitlePanel.setBounds(0, 0, 250, 150);
-        welTitlePanel.setLayout(null);
-        welTitlePanel.add(welTitle1);
-        welTitlePanel.add(welTitle2);
-        welTitlePanel.setOpaque(false);
-        //?Message1
-        JLabel message1 = new JLabel();
-        message1.setText("Create One Instead.");
-        message1.setForeground(new Color(0x00FF00));
-        message1.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        message1.setBounds(10, 0, 250, 20);
-        //?Message2
-        JLabel message2 = new JLabel();
-        message2.setText("Click Sign Up Below.");
-        message2.setForeground(new Color(0x00FF00));
-        message2.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        message2.setBounds(60, 20, 250, 20);
-        //?Message3
-        JLabel message3 = new JLabel();
-        message3.setText("It's Free.");
-        message3.setForeground(new Color(0x00FF00));
-        message3.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        message3.setBounds(140, 40, 250, 20);
+            //!Welcome Title-----------------------------------------
+            JLabel welTitle1 = new JLabel();
+            welTitle1.setText("Have");
+            welTitle1.setForeground(new Color(0x00FF00));
+            welTitle1.setFont(new Font("MV Boli", Font.BOLD, 20));
+            welTitle1.setBounds(15, 10, 250, 50);
+            JLabel welTitle2 = new JLabel();
+            welTitle2.setText("An Account ?");
+            welTitle2.setForeground(new Color(0x00FF00));
+            welTitle2.setFont(new Font("MV Boli", Font.BOLD, 20));
+            welTitle2.setBounds(45, 50, 250, 50);
+            //?Panel
+            JPanel welTitlePanel = new JPanel();
+            welTitlePanel.setBounds(0, 0, 250, 150);
+            welTitlePanel.setLayout(null);
+            welTitlePanel.add(welTitle1);
+            welTitlePanel.add(welTitle2);
+            welTitlePanel.setOpaque(false);
+            //?Message1
+            JLabel message1 = new JLabel();
+            message1.setText("Create One Instead.");
+            message1.setForeground(new Color(0x00FF00));
+            message1.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            message1.setBounds(10, 0, 250, 20);
+            //?Message2
+            JLabel message2 = new JLabel();
+            message2.setText("Click Sign Up Below.");
+            message2.setForeground(new Color(0x00FF00));
+            message2.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            message2.setBounds(60, 20, 250, 20);
+            //?Message3
+            JLabel message3 = new JLabel();
+            message3.setText("It's Free.");
+            message3.setForeground(new Color(0x00FF00));
+            message3.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            message3.setBounds(140, 40, 250, 20);
 
-        //!Message Panel
-        JPanel messagePanel = new JPanel();
-        messagePanel.setBounds(0, 130, 250, 70);
-        messagePanel.setLayout(null);
-        messagePanel.setOpaque(false);
-        messagePanel.add(message1);
-        messagePanel.add(message2);
-        messagePanel.add(message3);
-        //!----------------------------------------------------
+            //!Message Panel
+            JPanel messagePanel = new JPanel();
+            messagePanel.setBounds(0, 130, 250, 70);
+            messagePanel.setLayout(null);
+            messagePanel.setOpaque(false);
+            messagePanel.add(message1);
+            messagePanel.add(message2);
+            messagePanel.add(message3);
+            //!----------------------------------------------------
 
-        //!Sign Up Button
-        signUp.setText("Sign Up");
-        signUp.setForeground(new Color(18, 28, 38));
-        signUp.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        signUp.setBounds(75, 230, 100, 30);
-        signUp.setFocusable(false);
-        signUp.addActionListener(this);
+            //!Sign Up Button
+            signUp.setText("Sign Up");
+            signUp.setForeground(new Color(18, 28, 38));
+            signUp.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            signUp.setBounds(75, 230, 100, 30);
+            signUp.setFocusable(false);
+            signUp.addActionListener(this);
 
-        //!Adding Components To Left Inside/Left Panel-------------------------
-        leftInsidePanel.add(welTitlePanel);
-        leftInsidePanel.add(messagePanel);
-        leftInsidePanel.add(signUp);
-        leftPanel.add(leftInsidePanel);
+            //!Adding Components To Left Inside/Left Panel-------------------------
+            leftInsidePanel.add(welTitlePanel);
+            leftInsidePanel.add(messagePanel);
+            leftInsidePanel.add(signUp);
+            leftPanel.add(leftInsidePanel);
+        }
 
         return leftPanel;
     }
@@ -209,7 +213,7 @@ public class loginFrame extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new forgetPassword();
+                new ForgetPasswordPage();
             }
         });
 
@@ -237,7 +241,7 @@ public class loginFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == login){
-            allValidations checkValidations = new allValidations();
+            All_Validations checkValidations = new All_Validations();
             if(this.email.getText().isEmpty() || this.password.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Please Fill The Credentials");
             }
@@ -247,31 +251,63 @@ public class loginFrame extends JFrame implements ActionListener {
             else if(!checkValidations.isValidPassword(password.getText())){
                 JOptionPane.showMessageDialog(null, "Password must be at least 6 characters long", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            else if(!checkValidations.isEmailRegistered(email.getText(),"data/users/" )){
-                JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
-            }
             else{
-                if(checkValidations.isUserRegistered(email.getText(), password.getText(), "data/users/")){
+                if(email.getText().equals("super.admin@healthcarecenter.com")&& password.getText().equals("@super.admin")){
+                    new SuperAdminHomePage();
                     this.dispose();
-                    new userHomePage();
                 }
                 else{
-                    JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
+                    if(userRole.equals("User")){
+                        if(!checkValidations.isEmailRegistered(email.getText(),"/data/users/")){
+                            JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        else{
+                            if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/users/")){
+                                this.dispose();
+                                new UserHomePage(email.getText(), false);
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    }
+                    else if(userRole.equals("Admin")){
+                        if(!checkValidations.isEmailRegistered(email.getText(),"" )){
+                            JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        else{
+                            if(checkValidations.isUserRegistered(email.getText(), password.getText(), "")){
+                                this.dispose();
+                                new AdminHomePage();
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    }
+                    else if(userRole.equals("Doctor")){
+                        if(!checkValidations.isEmailRegistered(email.getText(),"" )){
+                            JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        else{
+                            if(checkValidations.isUserRegistered(email.getText(), password.getText(), "")){
+                                this.dispose();
+                                new DoctorHomePage();
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    }
                 }
             }
-        }
+    }
         else if(e.getSource() == signUp){
-            new userSignUp();
-            GetUserData getUserData = new GetUserData("data/users/iuytrasd.txt");
-            try{
-            System.out.println(getUserData.getUserDetails());
-            }catch(Exception e1){
-                System.out.println(e1);
-            }
+            new UserSignUp();
             this.dispose();
         }
     }
     public static void main(String[] args) {
-        new loginFrame();
+        new LoginPage("User");
     }
 }

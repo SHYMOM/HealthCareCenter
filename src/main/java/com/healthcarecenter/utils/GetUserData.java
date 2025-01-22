@@ -1,13 +1,13 @@
-package com.healthcarecenter.models;
+package com.healthcarecenter.utils;
 
-import com.healthcarecenter.utils.FileUtils;
 import java.io.*;
 import java.util.*;
 
 public class GetUserData {
     private final String filePath;
 
-    public GetUserData(String filePath) {
+    public GetUserData(String username) {
+        String filePath = "/data/users/" + username + ".txt";
         this.filePath = FileUtils.getFile(filePath).getAbsolutePath();
     }
 
@@ -94,16 +94,16 @@ public class GetUserData {
         return userDetails;
     }
 
-    public List<HashMap<String, String>> getAppointments() throws IOException {
+    public ArrayList<HashMap<String, String>> getAppointments() throws IOException {
         return getSectionData("[Appointments]", "<<<Appoint-Start>>>", "<<<Appoint-End>>>");
     }
 
-    public List<HashMap<String, String>> getHealthRecords() throws IOException {
+    public ArrayList<HashMap<String, String>> getHealthRecords() throws IOException {
         return getSectionData("[HealthRecords]", "<<<HealthRecord-Start>>>", "<<<HealthRecord-End>>>");
     }
 
-    private List<HashMap<String, String>> getSectionData(String sectionHeader, String startMarker, String endMarker) throws IOException {
-        List<HashMap<String, String>> dataList = new ArrayList<>();
+    private ArrayList<HashMap<String, String>> getSectionData(String sectionHeader, String startMarker, String endMarker) throws IOException {
+        ArrayList<HashMap<String, String>> dataList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             boolean section = false;

@@ -4,7 +4,7 @@ import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class userSignUp extends JFrame implements ActionListener{
+public class UserSignUp extends JFrame implements ActionListener{
 
     private final ImagePanel background = new ImagePanel("HealthCareCenter/src/main/resources/Images/signUpBG1.jpg");//*Image.. 1 ............
     
@@ -22,7 +22,7 @@ public class userSignUp extends JFrame implements ActionListener{
     private final JPasswordField password = new JPasswordField();
     private final JCheckBox termsAndConditionsCheckBox = new JCheckBox("I agree to the ");
 
-    public userSignUp() {
+    public UserSignUp() {
             initializeUI();
     }
 
@@ -342,7 +342,7 @@ public class userSignUp extends JFrame implements ActionListener{
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                new termsAndConditionsFrame();
+                new TermsAndConditionsFrame();
             }
         });
 
@@ -400,10 +400,10 @@ public class userSignUp extends JFrame implements ActionListener{
         String selectedGender = (String) genderComboBox.getSelectedItem();
         if(e.getSource() == signIn){
             this.dispose();
-            new loginFrame();
+            new LoginPage("User");
         }
         else if (e.getSource() == signUp) {
-            allValidations checkValidations = new allValidations();
+            All_Validations checkValidations = new All_Validations();
             if (name.getText().equals("") || username.getText().equals("") || age.getText().equals("") || email.getText().equals("") || address.getText().equals("") || contactNumber.getText().equals("") || password.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please Fill The Credentials");
             } 
@@ -417,7 +417,7 @@ public class userSignUp extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(null, "Contact number should be a digit number", "Error", JOptionPane.ERROR_MESSAGE);
             }
             else if (!checkValidations.isValidEmail(email.getText())) {
-                JOptionPane.showMessageDialog(null, "Invalid email format", "Error", JOptionPane.ERROR_MESSAGE);
+            
             } 
             else if (!checkValidations.isValidPassword(password.getText())) {
                 JOptionPane.showMessageDialog(null, "Password must be at least 6 characters long", "Error", JOptionPane.ERROR_MESSAGE);
@@ -428,14 +428,21 @@ public class userSignUp extends JFrame implements ActionListener{
             else if (checkValidations.isEmailRegistered(email.getText(), "data/users/")) {
                 JOptionPane.showMessageDialog(null, "Email Already Registered", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            else if (FileUtils.doesFileExist("data/users/"+username.getText()+".txt")) {
+                JOptionPane.showMessageDialog(null, "Username Already Registered", "Error", JOptionPane.ERROR_MESSAGE);
+            }
             else {
                 User user = new User(name.getText(), username.getText(), Integer.parseInt(age.getText()), email.getText(), address.getText(), contactNumber.getText(), password.getText(), selectedBloodGroup, selectedGender);
-                user.saveToFile("data/users/" + username.getText() + ".txt");
-                
+                user.saveToFile(username.getText());
             }
         }
     }
+    public UserSignUp(boolean stutus) {
+        if (stutus) {
+            this.dispose();
+        }
+    }
     public static void main(String[] args) {
-        new userSignUp();
+        new UserSignUp();
     }
 }

@@ -4,14 +4,14 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class forgetPassword extends JFrame implements ActionListener {
+public class ForgetPasswordPage extends JFrame implements ActionListener {
 
     private final JButton  changePass = new JButton("Change Password");
     private final JTextField email = new JTextField();
     private final JTextField username = new JTextField();
     private final JPasswordField password = new JPasswordField();
 
-    public forgetPassword() {
+    public ForgetPasswordPage() {
         initializeFrame();
     }
 
@@ -67,7 +67,7 @@ public class forgetPassword extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new loginFrame();
+                new LoginPage("User");
             }
         });
 
@@ -116,6 +116,6 @@ public class forgetPassword extends JFrame implements ActionListener {
         
     }
     public static void main(String[] args) {
-        new forgetPassword();
+        new ForgetPasswordPage();
     }
 }
