@@ -30,7 +30,7 @@ public class FrameUtils {
                         new AdminHomePage();
                     }
                     else if (role.equals("superadmin")) {
-                        new superadminHomePage();
+                        new SuperAdminHomePage();
                     }
                 } 
                 else {
