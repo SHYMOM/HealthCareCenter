@@ -1,7 +1,7 @@
 package com.healthcarecenter.models;
 
-import com.healthcarecenter.frames.userSignUp;
-import com.healthcarecenter.frames.userHomePage;
+import com.healthcarecenter.frames.UserSignUp;
+import com.healthcarecenter.frames.UserHomePage;
 import com.healthcarecenter.utils.FileUtils;
 import java.io.*;
 import java.util.HashMap;
@@ -39,9 +39,6 @@ public class User {
         bills.put("testCost", 0.0);
         bills.put("otherCost", 0.0);
     }
-    public String getName() {
-        return name;
-    }
 
     public void saveToFile(String username) {
     String filePath = "data/users/"+username+".txt";
@@ -72,8 +69,8 @@ public class User {
 
 
             JOptionPane.showMessageDialog(null, "Signup successful!");
-            new userSignUp(true);
-            new userHomePage();
+            new UserSignUp(true);
+            new UserHomePage(email, false);
         }
         catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error saving user data: " + e.getMessage());

@@ -1,11 +1,13 @@
 package com.healthcarecenter.utils;
+
 import java.io.*;
 import java.util.*;
 
 public class GetUserData {
     private final String filePath;
 
-    public GetUserData(String filePath) {
+    public GetUserData(String username) {
+        String filePath = "/data/users/" + username + ".txt";
         this.filePath = FileUtils.getFile(filePath).getAbsolutePath();
     }
 

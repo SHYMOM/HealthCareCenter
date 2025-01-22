@@ -1,11 +1,13 @@
 package com.healthcarecenter.frames;
+
+import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class adminHomePage extends JFrame implements ActionListener
+public class AdminHomePage extends JFrame implements ActionListener
 {
 
-    public adminHomePage()
+    public AdminHomePage()
     {
         UserUI();
     }
@@ -161,7 +163,7 @@ public class adminHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new adminManageDoctor();
+				new AdminManageDoctorPage();
                 
             }
         });
@@ -184,7 +186,7 @@ public class adminHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new adminUpdateBloodStock();
+				new AdminUpdateBloodStockPage();
                 
             }
         });
@@ -245,7 +247,8 @@ public class adminHomePage extends JFrame implements ActionListener
         welcome.setBounds(300,330,300,30);
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
 
-        JLabel health_tips= new JLabel("Random Health Tips");
+        HealthTips healthTips = new HealthTips();
+        JLabel health_tips= new JLabel(healthTips.getRandomHealthTip());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
         health_tips.setBounds(350,300,200,30);
         health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
@@ -264,7 +267,7 @@ public class adminHomePage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new adminHomePage();
+        new AdminHomePage();
     }
 
 }

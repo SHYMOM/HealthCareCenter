@@ -2,10 +2,10 @@ package com.healthcarecenter.frames;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class userBillPage extends JFrame implements ActionListener
+public class UserBloodBankPage extends JFrame implements ActionListener
 {
 
-    public userBillPage()
+    public UserBloodBankPage()
     {
         UserUI();
     }
@@ -109,14 +109,14 @@ public class userBillPage extends JFrame implements ActionListener
          //level for blood
          JLabel blood = new JLabel();
          blood.setText("Blood Bank");
-         blood.setForeground(new Color(000000));
+         blood.setForeground(Color.red);
          blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
          blood.setBounds(400, 15, 80,  20);
 
           //level for bill
         JLabel bill = new JLabel();
         bill.setText("Pay Bill");
-        bill.setForeground(Color.red);
+        bill.setForeground(new Color(000000));
         bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
         bill.setBounds(505, 15, 50, 20);
 
@@ -125,7 +125,7 @@ public class userBillPage extends JFrame implements ActionListener
          log_out.setText("log_out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(580, 15, 50, 20);
+         log_out.setBounds(580, 15, 50,20);
  
           //add level in middle_panel
           middle_panel.add(home);
@@ -153,8 +153,8 @@ public class userBillPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(bill).dispose();
-                new userHomePage();
+                SwingUtilities.getWindowAncestor(blood).dispose();
+                //new userHomePage();
             }
         });
 
@@ -176,8 +176,8 @@ public class userBillPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(bill).dispose();
-                new userAppointPage();
+                SwingUtilities.getWindowAncestor(blood).dispose();
+                new UserBookAppointmentPage();
             }
         });
 
@@ -196,8 +196,8 @@ public class userBillPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(bill).dispose();  
-                new userHistoryPage();
+                SwingUtilities.getWindowAncestor(blood).dispose();  
+                new UserMedicalHistoryPage();
             }
         });
         
@@ -206,20 +206,19 @@ public class userBillPage extends JFrame implements ActionListener
         blood .addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                blood .setForeground(new Color(0x00FF00));
-                blood.setBounds(398, 10, 85, 30);
-                blood.setFont(new Font("SansSerif", Font.PLAIN, 17));
+                blood .setForeground(Color.red);
+                blood.setBounds(400, 15, 80,  20);
+                blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                blood .setForeground(new Color(000000));
+                blood .setForeground(Color.red);
                 blood.setBounds(400, 15, 80,  20);
                 blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(bill).dispose();
-                new userBloodPage();
+                //SwingUtilities.getWindowAncestor(blood).dispose(); 
             }
         });
 
@@ -228,19 +227,20 @@ public class userBillPage extends JFrame implements ActionListener
         bill.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseEntered(MouseEvent e) {
-            bill.setForeground(Color.red);
-            bill.setBounds(505, 15, 50, 20);
-            bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            bill.setForeground(new Color(0x00FF00));
+            bill.setBounds(503, 10, 55, 30);
+            bill.setFont(new Font("SansSerif", Font.PLAIN, 17));
           }
           @Override
           public void mouseExited(MouseEvent e) {
-            bill.setForeground(Color.red);
+            bill.setForeground(new Color(000000));
             bill.setBounds(505, 15, 50, 20);
             bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
           }
           @Override
           public void mouseClicked(MouseEvent e) {
-            //SwingUtilities.getWindowAncestor(bill).dispose();  
+            SwingUtilities.getWindowAncestor(blood).dispose();  
+            new UserPayBillPage();
           }
       });
 
@@ -255,17 +255,17 @@ public class userBillPage extends JFrame implements ActionListener
           @Override
         public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(000000));
-            log_out.setBounds(580, 15, 50,20);
+            log_out.setBounds(580, 15, 50, 20);
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
           }
           @Override
-          public void mouseClicked(MouseEvent e)  
+          public void mouseClicked(MouseEvent e)
           {
             int result = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
             if (result == JOptionPane.YES_OPTION)
              {
                 System.out.println("Yes selected");
-                SwingUtilities.getWindowAncestor(bill).dispose();
+                SwingUtilities.getWindowAncestor(blood).dispose();
                  //new loginFrame();
              }  
             else if (result == JOptionPane.NO_OPTION)
@@ -278,8 +278,8 @@ public class userBillPage extends JFrame implements ActionListener
              }
           }
            
-           
-      });
+          });
+
 
         return middle_panel;
     }
@@ -290,7 +290,7 @@ public class userBillPage extends JFrame implements ActionListener
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,200,900,500);
         lower_panel.setBackground(Color.white);
-        
+ 
 
         return lower_panel;
     }

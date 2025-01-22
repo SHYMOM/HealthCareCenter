@@ -2,10 +2,10 @@ package com.healthcarecenter.frames;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-public class ManageDoctor extends JFrame implements ActionListener
+public class SuperAdminManageAdminPage extends JFrame implements ActionListener
 {
 
-    public ManageDoctor()
+    public SuperAdminManageAdminPage()
     {
         UserUI();
     }
@@ -97,7 +97,6 @@ public class ManageDoctor extends JFrame implements ActionListener
          JLabel Mang_Doc= new JLabel();
          Mang_Doc.setText("Manage Doctors");
          Mang_Doc.setForeground(new Color(000000));
-		 Mang_Doc.setForeground(Color.RED );
          Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
          Mang_Doc.setBounds(80, 15, 140, 20);
 
@@ -112,6 +111,7 @@ public class ManageDoctor extends JFrame implements ActionListener
          JLabel Mang_Admin = new JLabel();
          Mang_Admin.setText("Manage Admin");
          Mang_Admin.setForeground(new Color(000000));
+		 Mang_Admin.setForeground(Color.RED );
          Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
          Mang_Admin.setBounds(410, 15, 120, 20);
 
@@ -141,13 +141,13 @@ public class ManageDoctor extends JFrame implements ActionListener
         home.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                home.setForeground(new Color(0x00FF00));
-                home.setBounds(15, 10, 70, 30);
-                home.setFont(new Font("SansSerif", Font.PLAIN, 18));
+               home.setForeground(new Color(0x00FF00));
+               home.setBounds(15, 10, 70, 30);
+               home.setFont(new Font("SansSerif", Font.PLAIN, 18));
     
             }
             @Override
-            public void mouseExited(MouseEvent e) {
+          public void mouseExited(MouseEvent e) {
                 home.setForeground(new Color(0, 0, 0)); 
                 home.setBounds(20, 15, 60, 20);
                 home.setFont(new Font("SansSerif", Font.PLAIN, 15));
@@ -156,10 +156,9 @@ public class ManageDoctor extends JFrame implements ActionListener
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
 				new superadminHomePage();
-            }
+			}
+				
         });
-
-
 
         Mang_Doc.addMouseListener(new MouseAdapter() {
             @Override
@@ -167,18 +166,17 @@ public class ManageDoctor extends JFrame implements ActionListener
                 Mang_Doc.setForeground(new Color(0x00FF00));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 18));
 				Mang_Doc.setBounds(70, 10, 150, 30);
-				Mang_Doc.setForeground(Color.RED );
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 Mang_Doc.setForeground(new Color(0, 0, 0));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
 				Mang_Doc.setBounds(80, 15, 140, 20);
-				Mang_Doc.setForeground(Color.RED );
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-              
+                SwingUtilities.getWindowAncestor(home).dispose();
+				new SuperAdminManageDoctorPage();
                 
             }
         });
@@ -201,7 +199,7 @@ public class ManageDoctor extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new UpdateBloodStock();
+				new SuperAdminUpdateBloodStockPage();
                 
             }
         });
@@ -210,6 +208,7 @@ public class ManageDoctor extends JFrame implements ActionListener
             @Override
             public void mouseEntered(MouseEvent e) {
                Mang_Admin.setForeground(new Color(0x00FF00));
+			   Mang_Admin.setForeground(Color.RED );
                Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 18));
 			   Mang_Admin.setBounds(400, 10, 130, 30);
 			  
@@ -217,16 +216,15 @@ public class ManageDoctor extends JFrame implements ActionListener
             @Override
             public void mouseExited(MouseEvent e) {
                Mang_Admin.setForeground(new Color(0, 0, 0));
+			   Mang_Admin.setForeground(Color.RED );
                Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
 			   Mang_Admin.setBounds(410, 15, 120, 20);
 			  
             }
             @Override
-            public void mouseClicked(MouseEvent e) {
-				SwingUtilities.getWindowAncestor(home).dispose();
-				new ManageAdmin();
-                
-            }
+            public void mouseClicked(MouseEvent e) { 
+			
+			}
         });
         
 
@@ -251,9 +249,9 @@ public class ManageDoctor extends JFrame implements ActionListener
                 Object[] options = {"Pay Admin Salary", "Pay Doctor Salary", "Cancel"};
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
-						new payAdminSalary();
+						new SuperAdminPayAdminSalaryPage();
 					} else if (choice == 1) {
-						new payDoctorSalary();
+						new SuperAdminPayDoctorSalary();
 					} else {
 						
 					}
@@ -302,7 +300,6 @@ public class ManageDoctor extends JFrame implements ActionListener
            
       });
 
-
         return middle_panel;
     }
 
@@ -314,8 +311,7 @@ public class ManageDoctor extends JFrame implements ActionListener
         lower_panel.setBackground(new Color(0xECF8FD));
        
 
-  
-
+     
         return lower_panel;
     }
 
@@ -326,7 +322,7 @@ public class ManageDoctor extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new ManageDoctor();
+        new SuperAdminManageAdminPage();
     }
 
 }

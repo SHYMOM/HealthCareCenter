@@ -1,11 +1,11 @@
-package HealthCareCenter.src.main.java.com.healthcarecenter.frames;
+package com.healthcarecenter.frames;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-public class records extends JFrame implements ActionListener
+public class DoctorPatientRecordsPage extends JFrame implements ActionListener
 {
 
-    public records()
+    public DoctorPatientRecordsPage()
     {
         UserUI();
     }
@@ -142,7 +142,7 @@ public class records extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new home();
+				new DoctorHomePage();
 				
                 
             }
@@ -168,7 +168,7 @@ public class records extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
             SwingUtilities.getWindowAncestor(appoinment).dispose();
-              new ViewAppoinment();  
+              new DoctorViewAppoinmentsPage();  
             }
         });
 
@@ -209,7 +209,7 @@ public class records extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
              SwingUtilities.getWindowAncestor(prescripitions).dispose(); 
-             new prescripitions();			 
+             new DoctorAddPrescripitionsPage();			 
             }
         });
 
@@ -254,7 +254,7 @@ public class records extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new records().setVisible(true);
+        new DoctorPatientRecordsPage().setVisible(true);
     }
 
 }

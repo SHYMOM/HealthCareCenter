@@ -1,11 +1,11 @@
-package HealthCareCenter.src.main.java.com.healthcarecenter.frames;
+package com.healthcarecenter.frames;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-public class ViewAppoinment extends JFrame implements ActionListener
+public class DoctorAddPrescripitionsPage extends JFrame implements ActionListener
 {
 
-    public ViewAppoinment()
+    public DoctorAddPrescripitionsPage()
     {
         UserUI();
     }
@@ -84,26 +84,26 @@ public class ViewAppoinment extends JFrame implements ActionListener
         JPanel middle_panel = new JPanel();                                  
         middle_panel.setLayout(null);
         middle_panel.setBounds(0,130,900,50);
-        //middle_panel.setBackground(new Color(10, 10, 10));
+        middle_panel.setBackground(new Color(10, 10, 10));
 		middle_panel.setBackground(new Color(0x3a8cdb));
 		
 		//level for home 
-		JLabel home= new JLabel();
+		 JLabel home= new JLabel();
          home.setText("Home");
-         home.setForeground(Color.black);
+         home.setForeground(new Color(000000));
          home.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		 home.setForeground(Color.black);
+		 home.setForeground(new Color(000000));
          home.setBounds(25, 15, 42, 20);
-		 
-		 //level for appoinment
+
+
+        //level for appoinment
          JLabel appoinment= new JLabel();
          appoinment.setText("View Appoinment");
-         appoinment.setForeground(new Color(0, 0, 0));
+         appoinment.setForeground(new Color(000000));
          appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		 appoinment.setForeground(Color.RED);
          appoinment.setBounds(110, 15, 120, 20);
 
-        //level for records
+          //level for records
         JLabel records = new JLabel();
         records.setText("Access patient Records");
         records.setForeground(new Color(000000));
@@ -115,6 +115,7 @@ public class ViewAppoinment extends JFrame implements ActionListener
          prescripitions.setText("Add prescripitions");
          prescripitions.setForeground(new Color(000000));
          prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		 prescripitions.setForeground(Color.RED);
          prescripitions.setBounds(500, 15, 125, 20);
  
           //add level in middle_panel
@@ -139,33 +140,32 @@ public class ViewAppoinment extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-               SwingUtilities.getWindowAncestor(home).dispose();
-				new home();
+                SwingUtilities.getWindowAncestor(home).dispose();
+				new DoctorHomePage();
                 
             }
         });
-		  
-		  
+          
           
 
 
             appoinment.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                appoinment.setForeground(Color.RED);
+                appoinment.setForeground(new Color(0x00FF00));
                 appoinment.setFont(new Font("SansSerif", Font.PLAIN, 17));
 				appoinment.setBounds(105, 10, 130, 30);
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                appoinment.setForeground(Color.RED);
+                appoinment.setForeground(new Color(0, 0, 0));
                 appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
 				appoinment.setBounds(110, 15, 120, 20);
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-               // SwingUtilities.getWindowAncestor(appoinment).dispose();
-                
+                SwingUtilities.getWindowAncestor(appoinment).dispose();
+                new DoctorViewAppoinmentsPage();
             }
         });
 
@@ -184,8 +184,8 @@ public class ViewAppoinment extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-				 SwingUtilities.getWindowAncestor(records).dispose();
-                new records();
+             SwingUtilities.getWindowAncestor(records).dispose();
+             new DoctorPatientRecordsPage();			 
             }
         });
         
@@ -194,20 +194,19 @@ public class ViewAppoinment extends JFrame implements ActionListener
         prescripitions.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                prescripitions .setForeground(new Color(0x00FF00));
+                prescripitions.setForeground(Color.RED);
                 prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 17));
 				prescripitions.setBounds(495, 10, 170, 30);
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                prescripitions.setForeground(new Color(0, 0, 0));
+                prescripitions.setForeground(Color.RED);
                 prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		        prescripitions.setBounds(500, 15, 125, 20);
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-				 SwingUtilities.getWindowAncestor(prescripitions).dispose();
-                new prescripitions();
+                
             }
         });
 
@@ -246,14 +245,13 @@ public class ViewAppoinment extends JFrame implements ActionListener
     }
 
     @Override
-    public void actionPerformed(ActionEvent e)
+   public void actionPerformed(ActionEvent e)
     {
         // code to handle the action event
     }
 
     public static void main(String[] args) {
-        new ViewAppoinment().setVisible(true);
+        new DoctorAddPrescripitionsPage().setVisible(true);
     }
 
 }
-

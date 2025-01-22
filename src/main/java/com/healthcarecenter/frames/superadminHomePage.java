@@ -176,7 +176,7 @@ public class superadminHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new ManageDoctor();
+				new SuperAdminManageDoctorPage();
                 
             }
         });
@@ -199,7 +199,7 @@ public class superadminHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new UpdateBloodStock();
+				new SuperAdminUpdateBloodStockPage();
                 
             }
         });
@@ -221,7 +221,7 @@ public class superadminHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new AdminManage();
+				new SuperPopManageAdminsPage();
             }
         });
         
@@ -247,9 +247,9 @@ public class superadminHomePage extends JFrame implements ActionListener
                 Object[] options = {"Pay Admin Salary", "Pay Doctor Salary", "Cancel"};
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
-						new payAdminSalary();
+						new SuperAdminPayAdminSalaryPage();
 					} else if (choice == 1) {
-						new payDoctorSalary();
+						new SuperAdminPayDoctorSalary();
 					} else {
 						
 					}

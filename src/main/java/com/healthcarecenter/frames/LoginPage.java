@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class loginFrame extends JFrame implements ActionListener {
+public class LoginPage extends JFrame implements ActionListener {
 
     private final JButton login = new JButton();
     private final JButton signUp = new JButton();
@@ -13,7 +13,7 @@ public class loginFrame extends JFrame implements ActionListener {
     private final JPasswordField password = new JPasswordField();
     private String userRole;
 
-    public loginFrame(String userRole) {
+    public LoginPage(String userRole) {
         this.userRole = userRole;
         initializeFrame();
     }
@@ -213,7 +213,7 @@ public class loginFrame extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new forgetPassword();
+                new ForgetPasswordPage();
             }
         });
 
@@ -241,7 +241,7 @@ public class loginFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == login){
-            allValidations checkValidations = new allValidations();
+            All_Validations checkValidations = new All_Validations();
             if(this.email.getText().isEmpty() || this.password.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Please Fill The Credentials");
             }
@@ -264,7 +264,7 @@ public class loginFrame extends JFrame implements ActionListener {
                         else{
                             if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/users/")){
                                 this.dispose();
-                                new userHomePage();
+                                new UserHomePage(email.getText(), false);
                             }
                             else{
                                 JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
@@ -278,7 +278,7 @@ public class loginFrame extends JFrame implements ActionListener {
                         else{
                             if(checkValidations.isUserRegistered(email.getText(), password.getText(), "")){
                                 this.dispose();
-                                new adminHomePage();
+                                new AdminHomePage();
                             }
                             else{
                                 JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
@@ -292,7 +292,7 @@ public class loginFrame extends JFrame implements ActionListener {
                         else{
                             if(checkValidations.isUserRegistered(email.getText(), password.getText(), "")){
                                 this.dispose();
-                                //new doctorHomePage();
+                                new DoctorHomePage();
                             }
                             else{
                                 JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
@@ -303,11 +303,11 @@ public class loginFrame extends JFrame implements ActionListener {
             }
     }
         else if(e.getSource() == signUp){
-            new userSignUp();
+            new UserSignUp();
             this.dispose();
         }
     }
     public static void main(String[] args) {
-        new loginFrame("User");
+        new LoginPage("User");
     }
 }

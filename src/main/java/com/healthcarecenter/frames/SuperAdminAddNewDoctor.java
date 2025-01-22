@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 
-public class doctorSignUp extends JFrame implements ActionListener {
+public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
    
     private final  JButton signUp = new JButton();
     private final  JPanel fullNamePanel = new JPanel();
@@ -26,7 +26,7 @@ public class doctorSignUp extends JFrame implements ActionListener {
   
 
 
-   public doctorSignUp ()
+   public SuperAdminAddNewDoctor ()
     {
         doctorUI();
     }
@@ -412,7 +412,7 @@ public class doctorSignUp extends JFrame implements ActionListener {
           }
           @Override
           public void mouseClicked(MouseEvent e) {
-              new termsAndConditionsFrame();
+              new TermsAndConditionsFrame();
           }
       });
 
@@ -498,7 +498,7 @@ public class doctorSignUp extends JFrame implements ActionListener {
 
     public static void main(String[] args)
      {
-        new doctorSignUp();
+        new SuperAdminAddNewDoctor();
     }
 
 } 

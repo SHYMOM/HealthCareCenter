@@ -1,24 +1,23 @@
 package com.healthcarecenter.frames;
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-public class payAdminSalary extends JFrame implements ActionListener
-
+import java.awt.event.*;
+import java.awt.*;
+public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionListener
 {
-    JButton pay_AdminSalary = new JButton("Pay Admin Salary");
 
-    public payAdminSalary ()
+    public SuperAdminUpdateBloodStockPage()
     {
         UserUI();
     }
 
     private void UserUI()
     {
-        
         JPanel panel = new JPanel();                                  
         panel.setBounds(0,0,900,600);
         panel.setBackground(Color.red);
         panel.setLayout(null);
+
+
         panel.add(createUpperpanel());
         panel.add(createLowerpanel());
         
@@ -105,6 +104,7 @@ public class payAdminSalary extends JFrame implements ActionListener
          JLabel upd_bloo = new JLabel();
          upd_bloo.setText("Update Blood Stock");
          upd_bloo.setForeground(new Color(000000));
+		 upd_bloo.setForeground(Color.RED );
          upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 15));
          upd_bloo.setBounds(225, 15, 160, 20);
 		 
@@ -113,22 +113,21 @@ public class payAdminSalary extends JFrame implements ActionListener
          Mang_Admin.setText("Manage Admin");
          Mang_Admin.setForeground(new Color(000000));
          Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         Mang_Admin.setBounds(390, 15, 120, 20);
+         Mang_Admin.setBounds(410, 15, 120, 20);
 
          //level for paySalary 
          JLabel paySalary = new JLabel();
-         paySalary .setText("Pay Admin Salary");
+         paySalary .setText("Pay Salary");
          paySalary .setForeground(new Color(000000));
-		 paySalary .setForeground(Color.RED );
          paySalary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-         paySalary .setBounds(540, 15, 160, 20);
+         paySalary .setBounds(560, 15, 120, 20);
 
          //level for log out
          JLabel log_out = new JLabel();
          log_out.setText("Log out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(750, 15, 250, 20);
+         log_out.setBounds(700, 15, 100, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
@@ -179,7 +178,7 @@ public class payAdminSalary extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new ManageDoctor();
+				new SuperAdminManageDoctorPage();
                 
             }
         });
@@ -190,6 +189,7 @@ public class payAdminSalary extends JFrame implements ActionListener
                upd_bloo.setForeground(new Color(0x00FF00));
                upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 18));
 			   upd_bloo.setBounds(215, 10, 170, 30);
+			   upd_bloo.setForeground(Color.RED );
 			  
             }
             @Override
@@ -197,12 +197,12 @@ public class payAdminSalary extends JFrame implements ActionListener
                upd_bloo.setForeground(new Color(0, 0, 0));
                upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 15));
 			   upd_bloo.setBounds(225, 15, 160, 20);
+			   upd_bloo.setForeground(Color.RED );
 			  
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-				SwingUtilities.getWindowAncestor(home).dispose();
-				new UpdateBloodStock();
+
                 
             }
         });
@@ -212,20 +212,20 @@ public class payAdminSalary extends JFrame implements ActionListener
             public void mouseEntered(MouseEvent e) {
                Mang_Admin.setForeground(new Color(0x00FF00));
                Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   Mang_Admin.setBounds(380, 10, 130, 30);
+			   Mang_Admin.setBounds(400, 10, 130, 30);
 			  
             }
             @Override
             public void mouseExited(MouseEvent e) {
                Mang_Admin.setForeground(new Color(0, 0, 0));
                Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   Mang_Admin.setBounds(390, 15, 120, 20);
+			   Mang_Admin.setBounds(410, 15, 120, 20);
 			  
             }
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new ManageAdmin();
+				new SuperAdminManageAdminPage();
                 
             }
         });
@@ -237,42 +237,50 @@ public class payAdminSalary extends JFrame implements ActionListener
             public void mouseEntered(MouseEvent e) {
                 paySalary .setForeground(new Color(0x00FF00));
                 paySalary .setFont(new Font("SansSerif", Font.PLAIN, 18));
-				paySalary .setBounds(530, 10, 170, 30);
-				paySalary .setForeground(Color.RED );
+				paySalary .setBounds(550, 10, 130, 30);
 				
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 paySalary .setForeground(new Color(0, 0, 0));
                 paySalary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-				paySalary .setBounds(540, 15, 160, 20);
-				paySalary .setForeground(Color.RED );
+				paySalary .setBounds(560, 15, 120, 20);
 				
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-           
-                }
+                Object[] options = {"Pay Admin Salary", "Pay Doctor Salary", "Cancel"};
+				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+					if (choice == 0) {
+						new SuperAdminPayAdminSalaryPage();
+					} else if (choice == 1) {
+						new SuperAdminPayDoctorSalary();
+					} else {
+						
+					}
+            }			
+                
+            
         });
 
 
 
-      log_out.addMouseListener(new MouseAdapter() {
+         log_out.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(740, 10, 200, 30);
+			log_out.setBounds(693, 10, 100, 30);
 			
           }
           @Override
-        public void mouseExited(MouseEvent e) {
+         public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(750, 15, 250, 20);
+			log_out.setBounds(700, 15, 130, 20);
 			
           }
-         @Override
+        @Override
           public void mouseClicked(MouseEvent e)  
           {
             int result = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -305,43 +313,19 @@ public class payAdminSalary extends JFrame implements ActionListener
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,130,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));
-
-        
-        pay_AdminSalary.setBounds(350, 450, 200, 50);
-        pay_AdminSalary.setFocusable(false);
-        pay_AdminSalary.addActionListener(this);
-        this.add(pay_AdminSalary);
-
+       
+       
         return lower_panel;
     }
-    
-      @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            if(e.getSource() ==pay_AdminSalary )
-            {
-                String adminName = JOptionPane.showInputDialog("Enter Admin Username:");
-                if (adminName != null && !adminName.trim().isEmpty()) {
-                String salaryInput = JOptionPane.showInputDialog("Enter salary for Admin " + adminName + ":");
-                try {
-                   double salary = Double.parseDouble(salaryInput);
-                   JOptionPane.showMessageDialog(null, "Pay Salary: " + salary + " to Admin " + adminName);
-               } catch (NumberFormatException ex) {
-                   JOptionPane.showMessageDialog(null, "Invalid salary entered. Please enter a valid number.");
-               }
-             }
-             else {
-               JOptionPane.showMessageDialog(null, "No admin name entered. Operation cancelled.");
-            }
-        }
-    }
-    
-        public static void main(String[] args) {
-            new payAdminSalary();
-        } 
 
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        // code to handle the action event
     }
-        
-    
-      
 
+    public static void main(String[] args) {
+        new SuperAdminUpdateBloodStockPage();
+    }
+
+}

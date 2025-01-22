@@ -4,11 +4,11 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class termsAndConditionsFrame extends JFrame implements ActionListener {
+public class TermsAndConditionsFrame extends JFrame implements ActionListener {
     private final JButton agreeButton = new JButton("Agree and Continue");
     private final JButton disagreeButton = new JButton("Disagree and Exit");
 
-    public termsAndConditionsFrame() {
+    public TermsAndConditionsFrame() {
         initializeUI();
     }
 

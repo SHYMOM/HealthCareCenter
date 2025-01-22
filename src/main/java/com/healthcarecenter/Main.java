@@ -1,7 +1,10 @@
 package com.healthcarecenter;
-import com.healthcarecenter.frames.welcomeFrame;
+
+import com.healthcarecenter.utils.FrameUtils;
+
 public class Main {
+    
     public static void main(String[] args) {
-        new welcomeFrame();
+        FrameUtils.defaultFrame();
     }
 }

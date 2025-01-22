@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class adminSignUp extends JFrame implements ActionListener 
+public class SuperAdminAddNewAdmins extends JFrame implements ActionListener 
 {
 
     private final  JPanel fullNamePanel = new JPanel();
@@ -19,7 +19,7 @@ public class adminSignUp extends JFrame implements ActionListener
 
     private final  JButton signUp= new JButton();
 
-    public adminSignUp()
+    public SuperAdminAddNewAdmins()
     {
         adminUI();
     }
@@ -276,7 +276,7 @@ public class adminSignUp extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                new termsAndConditionsFrame();
+                new TermsAndConditionsFrame();
             }
         });
 
@@ -310,7 +310,7 @@ public class adminSignUp extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
               SwingUtilities.getWindowAncestor(signUp).dispose();
-              new loginFrame("Admin");
+              new LoginPage("Admin");
             }
         });
     
@@ -350,7 +350,7 @@ public class adminSignUp extends JFrame implements ActionListener
 
     public static void main(String[] args) 
     {
-        new adminSignUp();
+        new SuperAdminAddNewAdmins();
     }
     
 }

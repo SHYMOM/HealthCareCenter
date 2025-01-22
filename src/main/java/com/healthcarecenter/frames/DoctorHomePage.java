@@ -1,11 +1,13 @@
-package HealthCareCenter.src.main.java.com.healthcarecenter.frames;
+package com.healthcarecenter.frames;
+
+import com.healthcarecenter.utils.HealthTips;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-public class home extends JFrame implements ActionListener
+public class DoctorHomePage extends JFrame implements ActionListener
 {
 
-    public home()
+    public DoctorHomePage()
     {
         UserUI();
     }
@@ -89,11 +91,10 @@ public class home extends JFrame implements ActionListener
 		
 		
 		//level for home 
-		 JLabel home= new JLabel();
+		JLabel home= new JLabel();
          home.setText("Home");
-         home.setForeground(new Color(000000));
+         home.setForeground(Color.red);
          home.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		 home.setForeground(Color.RED);
          home.setBounds(25, 15, 42, 20);
 
 
@@ -127,20 +128,20 @@ public class home extends JFrame implements ActionListener
 		  home.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-				home.setForeground(Color.RED);
-                home.setForeground(new Color(0x00FF00));
+                home.setForeground(Color.red);
                 home.setFont(new Font("SansSerif", Font.PLAIN, 17));
-				home.setBounds(20, 10, 48, 30);
+				home.setBounds(23, 10, 48, 30);
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                home.setForeground(Color.RED);
+                home.setForeground(Color.red);
                 home.setFont(new Font("SansSerif", Font.PLAIN, 15));
 				home.setBounds(25, 15, 42, 20);
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-               // SwingUtilities.getWindowAncestor(home).dispose();
+                //SwingUtilities.getWindowAncestor(home).dispose();
+				//new home();
 				
                 
             }
@@ -164,7 +165,7 @@ public class home extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(appoinment).dispose();
-				 new ViewAppoinment();
+				 new DoctorViewAppoinmentsPage();
                 
             }
         });
@@ -179,13 +180,14 @@ public class home extends JFrame implements ActionListener
             @Override
             public void mouseExited(MouseEvent e) {
                 records.setForeground(new Color(0, 0, 0));
-                records.setFont(new Font("SansSerif", Font.PLAIN, 17));
+                records.setFont(new Font("SansSerif", Font.PLAIN, 15));
 				records.setBounds(275, 15, 165, 20);
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-             SwingUtilities.getWindowAncestor(records).dispose();
-			 new records();	    
+				SwingUtilities.getWindowAncestor(records).dispose();
+				new DoctorPatientRecordsPage();
+                
             }
         });
         
@@ -207,7 +209,7 @@ public class home extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				 SwingUtilities.getWindowAncestor(prescripitions).dispose();
-				new prescripitions();
+				new DoctorAddPrescripitionsPage();
                 
             }
         });
@@ -234,14 +236,15 @@ public class home extends JFrame implements ActionListener
         welcome.setBounds(300,330,300,30);
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
 
-        JLabel health_tips= new JLabel("Random Health Tips");
+        HealthTips healthTips = new HealthTips();
+        JLabel health_tips= new JLabel(healthTips.getRandomHealthTip());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
-        health_tips.setBounds(350,300,200,30);
+        health_tips.setBounds(0,300,900,30);
         health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
 
 
         lower_panel.add(welcome);
-        lower_panel.add(health_tips);
+        lower_panel.add(health_tips, BorderLayout.CENTER);
 
         return lower_panel;
     }
@@ -253,7 +256,7 @@ public class home extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new home().setVisible(true);
+        new DoctorHomePage().setVisible(true);
     }
 
 }

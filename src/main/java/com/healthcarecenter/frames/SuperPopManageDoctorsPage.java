@@ -2,12 +2,12 @@ package com.healthcarecenter.frames;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class AdminManage extends JFrame implements ActionListener
+public class SuperPopManageDoctorsPage extends JFrame implements ActionListener
 {
     JLabel label,title,icon;
-    JButton Add_Admin,Remove_Admin,Modify_Admin;
+    JButton Add_Doctor,Remove_Doctor,Modify_Doctor;
 
-    public AdminManage()
+    public SuperPopManageDoctorsPage()
     {
         
 	   //!Labels
@@ -18,7 +18,7 @@ public class AdminManage extends JFrame implements ActionListener
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
 
         //?Title
-        title = new JLabel("Manage Admin");
+        title = new JLabel("Manage Doctor");
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBounds(0, 70, 400, 100);
         title.setForeground(new Color(0x00FF00));
@@ -33,22 +33,22 @@ public class AdminManage extends JFrame implements ActionListener
         
         //!Buttons
         //?Add_Doctor
-        Add_Admin = new JButton("Add Admin");
-        Add_Admin.setBounds(100, 150, 200, 50);
-        Add_Admin.setFocusable(false);
-        Add_Admin.addActionListener(this);
+        Add_Doctor = new JButton("Add Doctor");
+        Add_Doctor.setBounds(100, 150, 200, 50);
+        Add_Doctor.setFocusable(false);
+        Add_Doctor.addActionListener(this);
         
-        //?Remove_Doctor
-        Remove_Admin = new JButton("Remove Admin");
-        Remove_Admin.setBounds(100, 250, 200,50);
-        Remove_Admin.setFocusable(false);
-        Remove_Admin.addActionListener(this);
+        //?Doctor
+        Remove_Doctor = new JButton("Remove Doctor");
+        Remove_Doctor.setBounds(100, 250, 200,50);
+        Remove_Doctor.setFocusable(false);
+        Remove_Doctor.addActionListener(this);
 
-        //?Modify_Doctor
-        Modify_Admin = new JButton("Modify Admin");
-        Modify_Admin.setBounds(100, 350, 200, 50);
-        Modify_Admin.setFocusable(false);
-        Modify_Admin.addActionListener(this);
+        //?Admin
+        Modify_Doctor = new JButton("Modify Doctor");
+        Modify_Doctor.setBounds(100, 350, 200, 50);
+        Modify_Doctor.setFocusable(false);
+        Modify_Doctor.addActionListener(this);
 
 
         //!! main frame
@@ -64,24 +64,24 @@ public class AdminManage extends JFrame implements ActionListener
         this.add(label);
         this.add(title);
 		this.add(icon);
-        this.add(Add_Admin);
-        this.add(Remove_Admin);
-        this.add(Modify_Admin);
+        this.add(Add_Doctor);
+        this.add(Remove_Doctor);
+        this.add(Modify_Doctor);
     }
 
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        if(e.getSource() == Add_Admin)
+        if(e.getSource() == Add_Doctor)
         {
             this.dispose();
             
         }
-        else if(e.getSource() == Remove_Admin)
+        else if(e.getSource() == Remove_Doctor)
         {
             this.dispose();
         }
-        else if(e.getSource() == Modify_Admin)
+        else if(e.getSource() == Modify_Doctor)
         {
             this.dispose();
         }
@@ -89,6 +89,6 @@ public class AdminManage extends JFrame implements ActionListener
 
 
   public static void main(String[] args) {
-        new AdminManage();
+        new SuperPopManageDoctorsPage();
     }
 }

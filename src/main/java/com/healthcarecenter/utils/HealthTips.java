@@ -1,4 +1,4 @@
-package HealthCareCenter.src.main.java.com.healthcarecenter.utils;
+package com.healthcarecenter.utils;
 import java.util.ArrayList;
 import java.util.Random;
 
