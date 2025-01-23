@@ -23,10 +23,10 @@ public class AdminHomePage extends JFrame implements ActionListener
         panel.add(createUpperpanel());
         panel.add(createLowerpanel());
         
-        ImageIcon appIcon = new ImageIcon("resources/Icons/appIcon.png");
+        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
         this.setIconImage(appIcon.getImage());
 
-        this.setTitle("Health Care Center");      
+        this.setTitle("Health Care Center.Admin HomePage");      
         this.setLayout(null);
         this.setSize(900, 600);                        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);          

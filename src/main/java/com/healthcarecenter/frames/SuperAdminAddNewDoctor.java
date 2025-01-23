@@ -4,8 +4,10 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 
+import com.healthcarecenter.utils.FileUtils;
+
 public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
-   
+
     private final  JButton signUp = new JButton();
     private final  JPanel fullNamePanel = new JPanel();
     private final  JPanel usernamePanel = new JPanel();
@@ -20,13 +22,13 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
     private final  JPanel qualificationPanel = new JPanel();
     private final  JPanel licenseNumberPanel = new JPanel();
     private final  JPanel consultingHoursPanel = new JPanel();
-    private final   JPanel availablePanel = new JPanel();
-    private final   JPanel feePanel = new JPanel();
-    private final   JCheckBox termsAndConditionsCheckBox = new JCheckBox("I agree to the ");
-  
+    private final  JPanel availablePanel = new JPanel();
+    private final  JPanel feePanel = new JPanel();
+    private final  JCheckBox termsAndConditionsCheckBox = new JCheckBox("I agree to the ");
 
 
-   public SuperAdminAddNewDoctor ()
+
+    public SuperAdminAddNewDoctor ()
     {
         doctorUI();
     }
@@ -42,12 +44,12 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         panel.add(createLeftpanel());
         panel.add(createRightpanel());
 
-        ImageIcon appIcon = new ImageIcon("HealthCareCenter/src/main/resources/Icons/appIcon.png");//*Image.. 2 ............
+        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
         
         this.setIconImage(appIcon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(900,600);
-        this.setTitle("Sign Up Health Care Center");
+        this.setTitle("Add New Doctor - Health Care Center");
         this.setResizable(false);
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(0x123456));
@@ -474,14 +476,9 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         scroll.add(termsAndConditionsCheckBox);
         scroll.add(termsAndConditionsLabel);
     
-        // Set a preferred size for the scrollable content
-        scroll.setPreferredSize(new Dimension(900, 800)); // Adjust height as needed
-    
-        // Add the panel to the viewport of the scroll pane
+        scroll.setPreferredSize(new Dimension(585, 750));
         scrollPane.setViewportView(scroll);
-       
 
-    
         return scrollPane;
     }
     
@@ -491,13 +488,16 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        // code to handle the action event
+        if(e.getSource() == signUp)
+        {
+            this.dispose();
+        }
     }
 
 
 
     public static void main(String[] args)
-     {
+    {
         new SuperAdminAddNewDoctor();
     }
 

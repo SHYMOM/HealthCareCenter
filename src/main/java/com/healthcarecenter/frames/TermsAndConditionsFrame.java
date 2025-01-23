@@ -14,7 +14,7 @@ public class TermsAndConditionsFrame extends JFrame implements ActionListener {
 
     private void initializeUI() {
         //!<<<<<<<<<<<<<<<<<<<<<<<< Frame settings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        ImageIcon appIcon = new ImageIcon("/HealthCareCenter/src/main/resources/icons/appIcon.png");
+        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
         this.setIconImage(appIcon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(900, 500);

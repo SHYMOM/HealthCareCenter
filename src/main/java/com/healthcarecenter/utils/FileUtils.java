@@ -6,21 +6,22 @@ import javax.swing.JOptionPane;
 
 public class FileUtils {
 
+
     public static File getFile(String filePath) {
-        String absolutePath = new File("HealthCareCenter/src/main/resources", filePath).getAbsolutePath();
-        return new File(absolutePath);
+        String projectBasePath = System.getProperty("user.dir");
+        File file = new File(projectBasePath + "/HealthCareCenter/src/main/resources" + filePath).getAbsoluteFile();
+        return file;
     }
 
     public static boolean doesFileExist(String filePath) {
         if (filePath == null || filePath.isEmpty()) {
             return false;
         }
-        String basePath = "HealthCareCenter/src/main/resources";
-        File file = new File(basePath, filePath).getAbsoluteFile();
-        return file.exists();
+        else{
+            File file = new File(getFile(filePath).getAbsolutePath());
+            return file.exists();
+        }
     }
-
-
 
     public static String getUsernameByEmail(String email, String filePath) {
         File directory = new File(FileUtils.getFile(filePath).getAbsolutePath());

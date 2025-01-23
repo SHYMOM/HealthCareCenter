@@ -2,6 +2,8 @@ package com.healthcarecenter.frames;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import com.healthcarecenter.utils.FileUtils;
 public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListener
 
 {
@@ -22,7 +24,7 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
         panel.add(createUpperpanel());
         panel.add(createLowerpanel());
         
-        ImageIcon appIcon = new ImageIcon("resources/Icons/appIcon.png");
+        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
         this.setIconImage(appIcon.getImage());
 
         this.setTitle("Health Care Center");      

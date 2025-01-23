@@ -18,12 +18,12 @@ public class ForgetPasswordPage extends JFrame implements ActionListener {
     private void initializeFrame() {
 
         //!<<<<<<<<<<<<<<<<<<<<<<<< Frame settings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        ImageIcon appIcon = new ImageIcon("HealthCareCenter/src/main/resources/icons/appIcon.png"); //*Image.. 1 ............
+        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
 
         this.setIconImage(appIcon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(900,500);
-        this.setTitle("Forget Password - Health Care Center");
+        this.setTitle("Health Care Center - Forget Password Page");
         this.setResizable(false);
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(0x123456));
@@ -54,14 +54,14 @@ public class ForgetPasswordPage extends JFrame implements ActionListener {
         panel.setBounds(0, 0, 350, 500);
         panel.setBackground(new Color(0x123456));
 
-        ImagePanel imagePanel = new ImagePanel("HealthCareCenter/src/main/resources/images/forgetPassword.jpg");
+        ImagePanel imagePanel = new ImagePanel(FileUtils.getFile("/Images/signInBG.jpg").getAbsolutePath());
         imagePanel.setBounds(0, 0, 350, 500);
         imagePanel.setOpaque(false);
         imagePanel.setLayout(null);
 
-        ImageIcon backToLogin = ImageCompressor.compressImage("HealthCareCenter/src/main/resources/icons/close.png", 40, 40);
+        ImageIcon backToLogin = ImageCompressor.compressImage(FileUtils.getFile("/Icons/back.png").getAbsolutePath(), 40, 40);
         JLabel back = new JLabel(backToLogin);
-        back.setBounds(20, 20, 40, 40);
+        back.setBounds(20, 20, 30, 30);
         back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         back.addMouseListener(new MouseAdapter() {
             @Override

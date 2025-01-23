@@ -1,4 +1,6 @@
 package com.healthcarecenter.frames;
+
+import com.healthcarecenter.utils.FileUtils;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -34,7 +36,7 @@ public class SuperAdminAddNewAdmins extends JFrame implements ActionListener
         panel.add(createLeftpanel());
         panel.add(createRightpanel());
 
-        ImageIcon appIcon = new ImageIcon("HealthCareCenter/src/main/resources/Icons/appIcon.png");//*Image.. 2 ............
+        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
         
         this.setIconImage(appIcon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

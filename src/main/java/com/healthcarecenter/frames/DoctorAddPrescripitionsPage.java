@@ -1,5 +1,8 @@
 package com.healthcarecenter.frames;
 import javax.swing.*;
+
+import com.healthcarecenter.utils.FileUtils;
+
 import java.awt.event.*;
 import java.awt.*;
 public class DoctorAddPrescripitionsPage extends JFrame implements ActionListener
@@ -21,10 +24,10 @@ public class DoctorAddPrescripitionsPage extends JFrame implements ActionListene
         panel.add(createUpperpanel());
         panel.add(createLowerpanel());
         
-        ImageIcon appIcon = new ImageIcon("HealthCareCenter/src/main/resources/Icons/appIcon.png");
+        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
         this.setIconImage(appIcon.getImage());
 
-        this.setTitle("HealthCareCenter.DoctorPage");      
+        this.setTitle("HealthCareCenter.Doctor.AddPrescripitionsPage");      
         this.setLayout(null);
         this.setSize(900, 600);                        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);          

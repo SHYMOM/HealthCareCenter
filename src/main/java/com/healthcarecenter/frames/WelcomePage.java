@@ -2,6 +2,8 @@ package com.healthcarecenter.frames;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import com.healthcarecenter.utils.FileUtils;
 public class WelcomePage extends JFrame implements ActionListener
 {
     JLabel label,title;
@@ -47,6 +49,8 @@ public class WelcomePage extends JFrame implements ActionListener
         //!! main frame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(400, 550);
+        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
+        this.setIconImage(appIcon.getImage());
         this.setVisible(true);
         this.setTitle("Health Care Center");
         this.setResizable(false);

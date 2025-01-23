@@ -9,22 +9,6 @@ import javax.swing.JOptionPane;
 
 public class GetCurrentUserData {
     public GetCurrentUserData() {}
-        public static String getCurrentUserFromFile(String filePath) {
-        File file = FileUtils.getFile(filePath);
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    if (line.startsWith("username=")) {
-                        return line.split("=")[1].trim();
-                    }
-                }
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
-        }
-        return null;
-    }
 
     public static String getCurrentUserRole(String filePath) {
         File file = FileUtils.getFile(filePath);

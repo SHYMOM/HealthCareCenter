@@ -1,5 +1,6 @@
 package com.healthcarecenter.frames;
 
+import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.HealthTips;
 import javax.swing.*;
 import java.awt.event.*;
@@ -23,7 +24,7 @@ public class DoctorHomePage extends JFrame implements ActionListener
         panel.add(createUpperpanel());
         panel.add(createLowerpanel());
         
-        ImageIcon appIcon = new ImageIcon("HealthCareCenter/src/main/resources/Icons/appIcon.png");
+        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
         this.setIconImage(appIcon.getImage());
 
         this.setTitle("HealthCareCenter.DoctorPage");      

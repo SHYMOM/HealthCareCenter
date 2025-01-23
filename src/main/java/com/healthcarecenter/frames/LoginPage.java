@@ -21,18 +21,18 @@ public class LoginPage extends JFrame implements ActionListener {
     private void initializeFrame() {
 
         //!<<<<<<<<<<<<<<<<<<<<<<<< Frame settings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        ImageIcon appIcon = new ImageIcon("HealthCareCenter/src/main/resources/icons/appIcon.png"); //*Image.. 1 ............
+        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
 
         this.setIconImage(appIcon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(900,500);
-        this.setTitle("Login Health Care Center");
+        this.setTitle("Health Care Center.Login Page");
         this.setResizable(false);
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(0x123456));
 
         //!<<<<<<<<<<<<<<<<<<<<<<<< Background >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        ImagePanel background = new ImagePanel("HealthCareCenter/src/main/resources/images/signInBG.jpg");//*Image.. 2 ............
+        ImagePanel background = new ImagePanel(FileUtils.getFile("/images/signInBG.jpg").getAbsolutePath());
         background.setBounds(0, 0, 900, 500);
         background.setLayout(null);
         background.setOpaque(false);
@@ -252,7 +252,7 @@ public class LoginPage extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Password must be at least 6 characters long", "Error", JOptionPane.ERROR_MESSAGE);
             }
             else{
-                if(email.getText().equals("super.admin@healthcarecenter.com")&& password.getText().equals("@super.admin")){
+                if(GetSuperAdminData.isSuperAdminEmail(email.getText()) && GetSuperAdminData.getSuperAdminPassword(email.getText()).equals(password.getText())){
                     new SuperAdminHomePage();
                     this.dispose();
                 }
@@ -272,11 +272,11 @@ public class LoginPage extends JFrame implements ActionListener {
                         }
                     }
                     else if(userRole.equals("Admin")){
-                        if(!checkValidations.isEmailRegistered(email.getText(),"" )){
+                        if(!checkValidations.isEmailRegistered(email.getText(),"/data/admins/" )){
                             JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
                         }
                         else{
-                            if(checkValidations.isUserRegistered(email.getText(), password.getText(), "")){
+                            if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/admins/")){
                                 this.dispose();
                                 new AdminHomePage();
                             }
@@ -286,11 +286,11 @@ public class LoginPage extends JFrame implements ActionListener {
                         }
                     }
                     else if(userRole.equals("Doctor")){
-                        if(!checkValidations.isEmailRegistered(email.getText(),"" )){
+                        if(!checkValidations.isEmailRegistered(email.getText(),"/data/doctors/" )){
                             JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
                         }
                         else{
-                            if(checkValidations.isUserRegistered(email.getText(), password.getText(), "")){
+                            if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/doctors/")){
                                 this.dispose();
                                 new DoctorHomePage();
                             }

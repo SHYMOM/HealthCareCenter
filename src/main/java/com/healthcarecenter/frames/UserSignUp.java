@@ -6,7 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 public class UserSignUp extends JFrame implements ActionListener{
 
-    private final ImagePanel background = new ImagePanel("HealthCareCenter/src/main/resources/Images/signUpBG1.jpg");//*Image.. 1 ............
+    private final ImagePanel background = new ImagePanel(FileUtils.getFile("/Images/signUpBG1.jpg").getAbsolutePath());
     
     private final JButton signUp = new JButton();
     private final JButton signIn = new JButton();
@@ -28,7 +28,7 @@ public class UserSignUp extends JFrame implements ActionListener{
 
     private void initializeUI() {
         //!<<<<<<<<<<<<<<<<<<<<<<<< Frame settings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        ImageIcon appIcon = new ImageIcon("HealthCareCenter/src/main/resources/Icons/appIcon.png");//*Image.. 2 ............
+        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
         
         this.setIconImage(appIcon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

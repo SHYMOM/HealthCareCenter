@@ -64,17 +64,20 @@ HealthCareCenter/
       │   │       └── healthcarecenter/
       │   │           ├── Main.java
       │   │           ├── frames/
-      │   │           │    ├── loginpage.java
+      │   │           │    ├── **Frames**.java
       │   │           ├── models/
-      │   │           │    ├──User.java  
-      │   │           ├── utils/
-      │   │           │    ├──ImagePanel.java
-      │   │           └── database/
+      │   │           │    ├── **Models**.java
+      │   │           └── utils/
+      │   │                ├── **Utils**.java
+      │   │
       │   └── resources/
       │       ├── images/
       │       ├── icons/
       │       └── data/
-      │           └── 
+      │           ├── admins/
+      │           ├── CurrentUser/
+      │           ├── doctors/
+      │           └── users/
 
 ```
 
