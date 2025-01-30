@@ -4,31 +4,33 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 
+import com.healthcarecenter.utils.All_Validations;
 import com.healthcarecenter.utils.FileUtils;
 
-public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
+public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
 
-    private final  JButton signUp = new JButton();
-    private final  JPanel fullNamePanel = new JPanel();
-    private final  JPanel usernamePanel = new JPanel();
-    private final  JPanel agePanel = new JPanel();
-    private final  JPanel genderPanel = new JPanel();
+    private final  JButton registerButton = new JButton();
+    private final  JTextField name = new JTextField();
+    private final  JTextField username = new JTextField();
+    private final  JTextField age = new JTextField();
+    private final  JComboBox<String> genderComboBox = new JComboBox<>(new String[]{" Male", " Female", " Others"});
     private final  JPanel numberPanel = new JPanel();
-    private final  JPanel bloodPanel = new JPanel();
-    private final  JPanel emailPanel = new JPanel();
-    private final  JPanel passPanel = new JPanel();
-    private final  JPanel addressPanel = new JPanel();
-    private final  JPanel specializationPanel = new JPanel();
-    private final  JPanel qualificationPanel = new JPanel();
-    private final  JPanel licenseNumberPanel = new JPanel();
-    private final  JPanel consultingHoursPanel = new JPanel();
-    private final  JPanel availablePanel = new JPanel();
-    private final  JPanel feePanel = new JPanel();
+    private final  JTextField number = new JTextField();
+    private final  String[] bloodGroupOptions = {"  A+", "  A-", "  B+", "  B-", " AB+", " AB-", "  O+", "  O-"};
+    private final  JComboBox<String> bloodComboBox = new JComboBox<>(bloodGroupOptions);
+    private final  
+    private final  
+    private final  
+    private final  
+    private final  
+    private final  
+    private final  
+    private final  
     private final  JCheckBox termsAndConditionsCheckBox = new JCheckBox("I agree to the ");
 
 
 
-    public SuperAdminAddNewDoctor ()
+    public Super_AdminAddNewDoctor ()
     {
         doctorUI();
     }
@@ -113,7 +115,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     
         //!Full Name Panel-----------------------------------------
-       
+        JPanel fullNamePanel = new JPanel();
         fullNamePanel.setBounds(150, 20, 300, 30);
         fullNamePanel.setBackground(new Color(0x1A75FF));
         fullNamePanel.setLayout(null);
@@ -122,7 +124,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         nameLabel.setBounds(10, 0, 70, 30);
         nameLabel.setForeground(new Color(0xFFFFFF));
     
-        JTextField name = new JTextField();
+        
         name.setBounds(80, 0, 220, 30);
         name.setForeground(new Color(0x000000));
         name.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -131,7 +133,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         fullNamePanel.add(name);
     
         //!Username Panel-------------------------------------------
-       
+        JPanel usernamePanel = new JPanel();
         usernamePanel.setBounds(150, 60, 300, 30);
         usernamePanel.setBackground(new Color(0x1A75FF));
         usernamePanel.setLayout(null);
@@ -140,7 +142,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         usernameLabel.setBounds(10, 0, 70, 30);
         usernameLabel.setForeground(new Color(0xFFFFFF));
     
-        JTextField username = new JTextField();
+        
         username.setBounds(80, 0, 220, 30);
         username.setForeground(new Color(0x000000));
         username.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -149,7 +151,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         usernamePanel.add(username);
     
         //!Age Panel-------------------------------------------
-       
+        JPanel agePanel = new JPanel();
         agePanel.setBounds(50, 100, 250, 30);
         agePanel.setBackground(new Color(0x1A75FF));
         agePanel.setLayout(null);
@@ -158,7 +160,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         ageLabel.setBounds(10, 0, 70, 30);
         ageLabel.setForeground(new Color(0xFFFFFF));
     
-        JTextField age = new JTextField();
+        
         age.setBounds(80, 0, 170, 30);
         age.setForeground(new Color(0x000000));
         age.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -167,7 +169,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         agePanel.add(age);
     
         //!Gender Panel-------------------------------------------
-        
+        JPanel genderPanel = new JPanel();
         genderPanel.setBounds(350, 100, 180, 30);
         genderPanel.setBackground(new Color(0x1A75FF));
         genderPanel.setLayout(null);
@@ -176,7 +178,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         genderLabel.setBounds(10, 0, 70, 30);
         genderLabel.setForeground(new Color(0xFFFFFF));
     
-        JComboBox<String> genderComboBox = new JComboBox<>(new String[]{" Male", " Female", " Others"});
+        
         genderComboBox.setBounds(80, 0, 100, 30);
         genderComboBox.setForeground(new Color(0x000000));
         genderComboBox.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -194,7 +196,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         numberLabel.setBounds(10, 0, 70, 30);
         numberLabel.setForeground(new Color(0xFFFFFF));
     
-        JTextField number = new JTextField();
+        
         number.setBounds(80, 0, 170, 30);
         number.setForeground(new Color(0x000000));
         number.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -203,7 +205,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         numberPanel.add(number);
 
         //!Blood Group Panel Panel-------------------------------------------
-       
+        JPanel bloodPanel = new JPanel();
         bloodPanel.setBounds(350, 140, 180, 30);
         bloodPanel.setBackground(new Color(0x1A75FF));
         bloodPanel.setLayout(null);
@@ -213,8 +215,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         bloodLabel.setForeground(new Color(0xFFFFFF));
 
 
-        String[] bloodGroupOptions = {"  A+", "  A-", "  B+", "  B-", " AB+", " AB-", "  O+", "  O-"};
-        JComboBox<String> bloodComboBox = new JComboBox<>(bloodGroupOptions);
+        
         bloodComboBox.setBounds(110, 0, 70, 30);
         bloodComboBox.setForeground(new Color(0x000000));
         bloodComboBox.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -225,6 +226,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
 
     
         //!Email Panel-------------------------------------------
+        JPanel emailPanel = new JPanel();
         emailPanel.setBounds(150, 180, 300, 30);
         emailPanel.setBackground(new Color(0x1A75FF));
         emailPanel.setLayout(null);
@@ -242,7 +244,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         emailPanel.add(email);
     
         //!Password Panel-------------------------------------------
-        
+        JPanel passPanel = new JPanel();
         passPanel.setBounds(150, 220, 300, 30); // Place this panel far down to force scrolling
         passPanel.setBackground(new Color(0x1A75FF));
         passPanel.setLayout(null);
@@ -260,7 +262,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         passPanel.add(pass);
 
         //!Address Panel-------------------------------------------
-       
+        JPanel addressPanel = new JPanel();
         addressPanel.setBounds(100, 260, 400, 30); // Place this panel far down to force scrolling
         addressPanel.setBackground(new Color(0x1A75FF));
         addressPanel.setLayout(null);
@@ -279,7 +281,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
 
 
       //!specialization Panel-------------------------------------------
-       
+        JPanel specializationPanel = new JPanel();
         specializationPanel.setBounds(100, 300, 400, 30); // Place this panel far down to force scrolling
         specializationPanel.setBackground(new Color(0x1A75FF));
         specializationPanel.setLayout(null);
@@ -298,10 +300,10 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
 
 
       //!Qualification Panel-------------------------------------------
-      
-      qualificationPanel.setBounds(100, 340, 400, 30); // Place this panel far down to force scrolling
-      qualificationPanel.setBackground(new Color(0x1A75FF));
-      qualificationPanel.setLayout(null);
+        JPanel qualificationPanel = new JPanel();
+        qualificationPanel.setBounds(100, 340, 400, 30); // Place this panel far down to force scrolling
+        qualificationPanel.setBackground(new Color(0x1A75FF));
+        qualificationPanel.setLayout(null);
   
       JLabel qualificationLabel = new JLabel("Qualification");
       qualificationLabel.setBounds(10, 0, 90, 30);
@@ -316,7 +318,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
       qualificationPanel.add(qualification);
 
       //!licenseNumber Panel-------------------------------------------
-      
+      JPanel licenseNumberPanel = new JPanel();
       licenseNumberPanel.setBounds(150, 380, 320, 30); // Place this panel far down to force scrolling
       licenseNumberPanel.setBackground(new Color(0x1A75FF));
       licenseNumberPanel.setLayout(null);
@@ -334,7 +336,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
       licenseNumberPanel.add(licenseNumber);
 
       //!consultingHours Panel-------------------------------------------
-      
+      JPanel consultingHoursPanel = new JPanel();
       consultingHoursPanel.setBounds(320, 420, 220, 30); // Place this panel far down to force scrolling
       consultingHoursPanel.setBackground(new Color(0x1A75FF));
       consultingHoursPanel.setLayout(null);
@@ -352,7 +354,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
       consultingHoursPanel.add(consultingHours);
 
       //!available Panel-------------------------------------------
-    
+      JPanel availablePanel = new JPanel();
       availablePanel.setBounds(50, 420, 240, 30); // Place this panel far down to force scrolling
       availablePanel.setBackground(new Color(0x1A75FF));
       availablePanel.setLayout(null);
@@ -371,7 +373,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
 
 
       //!fee Panel-------------------------------------------
-     
+      JPanel feePanel = new JPanel();
       feePanel.setBounds(150, 460, 230, 30); // Place this panel far down to force scrolling
       feePanel.setBackground(new Color(0x1A75FF));
       feePanel.setLayout(null);
@@ -423,34 +425,34 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
       
         //!Button---------------------------------------------------
        
-        signUp.setText("Register");
-        signUp.setForeground(new Color(25, 117, 255));
-        signUp.setFont(new Font("MV Boli", Font.BOLD, 20));
-        signUp.setBounds(250, 540, 100, 30);
-        signUp.setFocusable(false);
-        signUp.addActionListener(this);
-        signUp.setBackground(new Color(0x182838));
-        signUp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        signUp.setBorder(BorderFactory.createLineBorder(new Color(25, 117, 255), 2, true));
-        signUp.addMouseListener(new MouseAdapter()
+        registerButton.setText("Register");
+        registerButton.setForeground(new Color(25, 117, 255));
+        registerButton.setFont(new Font("MV Boli", Font.BOLD, 20));
+        registerButton.setBounds(250, 540, 100, 30);
+        registerButton.setFocusable(false);
+        registerButton.addActionListener(this);
+        registerButton.setBackground(new Color(0x182838));
+        registerButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        registerButton.setBorder(BorderFactory.createLineBorder(new Color(25, 117, 255), 2, true));
+        registerButton.addMouseListener(new MouseAdapter()
         {
             @Override
             public void mouseEntered(MouseEvent e) {
-                signUp.setBorder(BorderFactory.createLineBorder(new Color(0x00FF00), 2, true));
-                signUp.setBounds(248, 542, 105, 30);
-                signUp.setForeground(new Color(0x00FF00));
-                signUp.setBackground(new Color(0x182838));
+                registerButton.setBorder(BorderFactory.createLineBorder(new Color(0x00FF00), 2, true));
+                registerButton.setBounds(248, 542, 105, 30);
+                registerButton.setForeground(new Color(0x00FF00));
+                registerButton.setBackground(new Color(0x182838));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                signUp.setBorder(BorderFactory.createLineBorder(new Color(0xFFFFFF), 2, true));
-                signUp.setBounds(250, 540, 100, 30);
-                signUp.setForeground(new Color(25, 117, 255));
-                signUp.setBackground(new Color(0x182838));
+                registerButton.setBorder(BorderFactory.createLineBorder(new Color(0xFFFFFF), 2, true));
+                registerButton.setBounds(250, 540, 100, 30);
+                registerButton.setForeground(new Color(25, 117, 255));
+                registerButton.setBackground(new Color(0x182838));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-              SwingUtilities.getWindowAncestor(signUp).dispose();
+              SwingUtilities.getWindowAncestor(registerButton).dispose();
             }
         });
 
@@ -473,7 +475,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         scroll.add(consultingHoursPanel);
         scroll.add(availablePanel);
         scroll.add(feePanel);
-        scroll.add(signUp);
+        scroll.add(registerButton);
         scroll.add(termsAndConditionsCheckBox);
         scroll.add(termsAndConditionsLabel);
     
@@ -489,9 +491,10 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        if(e.getSource() == signUp)
+        if(e.getSource() == registerButton)
         {
-            this.dispose();
+            All_Validations checkValidations = new All_Validations();
+            if()
         }
     }
 
@@ -499,7 +502,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
 
     public static void main(String[] args)
     {
-        new SuperAdminAddNewDoctor();
+        new Super_AdminAddNewDoctor();
     }
 
 } 

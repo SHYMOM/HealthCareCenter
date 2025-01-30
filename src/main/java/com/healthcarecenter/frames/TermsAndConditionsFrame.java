@@ -16,7 +16,7 @@ public class TermsAndConditionsFrame extends JFrame implements ActionListener {
         //!<<<<<<<<<<<<<<<<<<<<<<<< Frame settings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
         this.setIconImage(appIcon.getImage());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(900, 500);
         this.setTitle("Terms and Conditions - Health Care Center");
         this.setResizable(false);

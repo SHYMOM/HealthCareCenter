@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class SuperAdminAddNewAdmins extends JFrame implements ActionListener 
+public class Super_AdminAddNewAdmins extends JFrame implements ActionListener 
 {
 
     private final  JPanel fullNamePanel = new JPanel();
@@ -21,7 +21,7 @@ public class SuperAdminAddNewAdmins extends JFrame implements ActionListener
 
     private final  JButton signUp= new JButton();
 
-    public SuperAdminAddNewAdmins()
+    public Super_AdminAddNewAdmins()
     {
         adminUI();
     }
@@ -353,7 +353,7 @@ public class SuperAdminAddNewAdmins extends JFrame implements ActionListener
 
     public static void main(String[] args) 
     {
-        new SuperAdminAddNewAdmins();
+        new Super_AdminAddNewAdmins();
     }
     
 }
