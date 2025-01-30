@@ -29,10 +29,11 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
 
         this.setTitle("Health Care Center");      
         this.setLayout(null);
-        this.setSize(900, 600);                        
+        this.setSize(900, 600);                      
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);          
         this.getContentPane().setBackground(Color.DARK_GRAY);
         this.setResizable(false); 
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
 
         this.add(panel);

@@ -37,6 +37,7 @@ public class UserSignUp extends JFrame implements ActionListener{
         this.setResizable(false);
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(0x123456));
+        this.setLocationRelativeTo(null);
 
         //!<<<<<<<<<<<<<<<<<<<<<<<< Background >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         background.setBounds(0, 0, 900, 500);

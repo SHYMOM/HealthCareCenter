@@ -30,6 +30,7 @@ public class LoginPage extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(0x123456));
+        this.setLocationRelativeTo(null);
 
         //!<<<<<<<<<<<<<<<<<<<<<<<< Background >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ImagePanel background = new ImagePanel(FileUtils.getFile("/images/signInBG.jpg").getAbsolutePath());

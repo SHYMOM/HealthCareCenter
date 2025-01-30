@@ -26,9 +26,8 @@ public class UserHomePage extends JFrame implements ActionListener
         else {
             this.username = value;
         }
-        GetUserData userDataGrabber = new GetUserData(username);
         try {
-            this.name = userDataGrabber.getName();
+            this.name = GetUserData.getName(username);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
             new WelcomePage();
@@ -65,6 +64,7 @@ public class UserHomePage extends JFrame implements ActionListener
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);          
         this.getContentPane().setBackground(Color.DARK_GRAY);
         this.setResizable(false); 
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
 
         this.add(panel);

@@ -33,6 +33,7 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);          
         this.getContentPane().setBackground(Color.DARK_GRAY);
         this.setResizable(false); 
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
 
         this.add(panel);

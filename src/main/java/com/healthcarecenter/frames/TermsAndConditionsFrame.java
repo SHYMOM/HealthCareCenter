@@ -22,6 +22,7 @@ public class TermsAndConditionsFrame extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(0x123456));
+        this.setLocationRelativeTo(null);
 
         this.add(termsAndConditionsLabel());
         this.add(termsAndConditionsTextArea());

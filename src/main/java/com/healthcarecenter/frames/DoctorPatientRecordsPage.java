@@ -33,6 +33,7 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);          
         this.getContentPane().setBackground(Color.BLUE);
         this.setResizable(false); 
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
 
         this.add(panel);

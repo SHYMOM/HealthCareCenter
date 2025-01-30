@@ -25,7 +25,6 @@ public class Admin {
         this.salary = salary;
     }
 
-    // Method to save Admin details to file
     public void saveToFile(String username) throws IOException {
         String filePath = "data/admin/"+username+".txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath()))) {

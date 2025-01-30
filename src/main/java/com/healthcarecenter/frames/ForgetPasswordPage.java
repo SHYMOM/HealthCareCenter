@@ -27,6 +27,7 @@ public class ForgetPasswordPage extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(0x123456));
+        this.setLocationRelativeTo(null);
 
         //!<<<<<<<<<<<<<<<<<<<<<<<< Background >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         JPanel background = new JPanel();

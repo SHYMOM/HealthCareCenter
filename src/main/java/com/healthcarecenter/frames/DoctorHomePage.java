@@ -29,10 +29,11 @@ public class DoctorHomePage extends JFrame implements ActionListener
 
         this.setTitle("HealthCareCenter.DoctorPage");      
         this.setLayout(null);
-        this.setSize(900, 600);                        
+        this.setSize(900, 600);                       
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);          
         this.getContentPane().setBackground(Color.BLUE);
-        this.setResizable(false); 
+        this.setResizable(false);
+        this.setLocationRelativeTo(null); 
         this.setVisible(true);
 
         this.add(panel);

@@ -53,6 +53,7 @@ public class SuperAdminAddNewDoctor extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setLayout(null);
         this.getContentPane().setBackground(new Color(0x123456));
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
 
         this.add(panel);

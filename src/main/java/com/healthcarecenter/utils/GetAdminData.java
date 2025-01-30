@@ -1,12 +1,14 @@
 package com.healthcarecenter.utils;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.swing.JOptionPane;
 
 public class GetAdminData {
 
-    // Method to get a specific admin detail by key
-    public String getDetail(String username, String key) throws IOException {
+    public static String getDetail(String username, String key) throws IOException {
         String filePath = "data/admin/"+username+".txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(FileUtils.getFile(filePath).getAbsolutePath()))) {
             String line;
@@ -21,11 +23,10 @@ public class GetAdminData {
                 }
             }
         }
-        return null; // Key not found
+        return null; //! Key not found
     }
 
-    // Method to get all admin details in a HashMap
-    public HashMap<String, String> getAllDetails(String username) throws IOException {
+    public static HashMap<String, String> getAdminDetails(String username) throws IOException {
         String filePath = "data/admin/"+username+".txt";
         HashMap<String, String> adminDetails = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FileUtils.getFile(filePath).getAbsolutePath()))) {
@@ -47,8 +48,7 @@ public class GetAdminData {
         return adminDetails;
     }
 
-    // Method to update a specific admin detail
-    public void updateDetail(String username, String key, String newValue) throws IOException {
+    public static void updateDetail(String username, String key, String newValue) throws IOException {
         String filePath = "data/admin/"+username+".txt";
         File file = new File(FileUtils.getFile(filePath).getAbsolutePath());
         StringBuilder fileContent = new StringBuilder();
@@ -74,6 +74,43 @@ public class GetAdminData {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(fileContent.toString());
         }
+    }
+
+
+    public static ArrayList<HashMap<String, String>> getAllAdminsDetails() {
+        ArrayList<HashMap<String, String>> allAdmins = new ArrayList<>();
+        String directoryPath = null;
+
+        try {
+            directoryPath = FileUtils.getFile("/data/Admins/").getAbsolutePath();
+            File directory = new File(directoryPath);
+            if (!directory.exists() || !directory.isDirectory()) {
+                JOptionPane.showMessageDialog(null, "Admins directory not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                return allAdmins;
+            }
+            File[] AdminFiles = directory.listFiles((dir, name) -> name.endsWith(".txt"));
+            System.out.println(AdminFiles.length);
+            if (AdminFiles == null || AdminFiles.length == 0) {
+                JOptionPane.showMessageDialog(null, "No Admin profiles found in the directory.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                return allAdmins;
+            }
+
+            for (File AdminFile : AdminFiles) {
+                String username = AdminFile.getName().replace(".txt", "");
+                try {
+                    HashMap<String, String> AdminDetails = getAdminDetails(username);
+                    if (!AdminDetails.isEmpty()) {
+                        allAdmins.add(AdminDetails);
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error reading file: " + AdminFile.getName() + "\n" + e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "An unexpected error occurred.\n" + e.getMessage(), "Unexpected Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return allAdmins;
     }
 }
 

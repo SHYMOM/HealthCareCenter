@@ -39,9 +39,9 @@ The HealthCare Center is a Java-based application designed to streamline operati
 ### Prerequisites:
 
 1. Java Development Kit (JDK) 8 or higher
-2. An IDE like IntelliJ IDEA, VS Code, Eclipse, NetBeans or you can use terminal if you want(Not Recomended)
+2. An IDE like IntelliJ IDEA, VS Code, Eclipse, NetBeans or you can use terminal if you want(Not Recommended)
 
-### Steps:
+### Steps For IDE Users:
 
 1. Clone the repository:
    ```bash
@@ -51,9 +51,26 @@ The HealthCare Center is a Java-based application designed to streamline operati
 3. Compile and run the `Main` class.
 4. Interact with the GUI to explore features.
 
+### Steps For Terminal Users:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/SHYMOM/HealthCareCenter.git
+   ```
+2. Open your terminal in HealthCareCenter folder.
+3. Compile the java files:
+   ```bash
+   javac -d bin src\main\java\com\healthcarecenter\Main.java src\main\java\com\healthcarecenter\frames\*.java src\main\java\com\healthcarecenter\utils\*.java src\main\java\com\healthcarecenter\models\*.java
+   ```
+4. Run the Main class:
+   ```bash
+   java -cp bin com.healthcarecenter.Main
+   ```
+5. Interact with the GUI to explore features.
+
 ---
 
-### Folder Structure:
+## Folder Structure:
 
 ```bash
 HealthCareCenter/
