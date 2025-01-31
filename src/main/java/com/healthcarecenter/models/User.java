@@ -6,7 +6,7 @@ import com.healthcarecenter.utils.FileUtils;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class User {
     private String name;
@@ -40,8 +40,8 @@ public class User {
         bills.put("otherCost", 0.0);
     }
 
-    public void saveToFile(String username) {
-    String filePath = "data/users/"+username+".txt";
+    public void saveToFile(JFrame frame,String username) {
+    String filePath = "/data/users/"+username+".txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath)))) {
             writer.write("<<<User-Start>>>\n");
             writer.write("[User]\n");
@@ -69,8 +69,8 @@ public class User {
 
 
             JOptionPane.showMessageDialog(null, "Signup successful!");
-            new UserSignUp(true);
             new UserHomePage(email, false);
+            frame.dispose();
         }
         catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error saving user data: " + e.getMessage());

@@ -1,9 +1,12 @@
 package com.healthcarecenter.models;
 
+import com.healthcarecenter.frames.LoginPage;
 import com.healthcarecenter.utils.FileUtils;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import javax.swing.*;
 
 public class Admin {
     private String fullName;
@@ -25,8 +28,8 @@ public class Admin {
         this.salary = salary;
     }
 
-    public void saveToFile(String username) throws IOException {
-        String filePath = "data/admin/"+username+".txt";
+    public void saveToFile(JFrame frame, String username){
+        String filePath = "/data/admins/"+username+".txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath()))) {
             writer.write("<<<Admin-Start>>>\n");
             writer.write("fullName=" + fullName + "\n");
@@ -38,6 +41,14 @@ public class Admin {
             writer.write("salary=" + salary + "\n");
             writer.write("role=" + role + "\n");
             writer.write("<<<Admin-End>>>\n");
+
+            JOptionPane.showMessageDialog(null, "Signup successful!");
+            
+            new  LoginPage("Admin");
+            frame.dispose();
+            
+        }catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

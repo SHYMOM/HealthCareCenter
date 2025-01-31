@@ -1,11 +1,16 @@
 package com.healthcarecenter.frames;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 import com.healthcarecenter.utils.All_Validations;
 import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.models.Doctor;
+import com.healthcarecenter.frames.dialogs.*;
 
 public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
 
@@ -14,18 +19,18 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
     private final  JTextField username = new JTextField();
     private final  JTextField age = new JTextField();
     private final  JComboBox<String> genderComboBox = new JComboBox<>(new String[]{" Male", " Female", " Others"});
-    private final  JPanel numberPanel = new JPanel();
     private final  JTextField number = new JTextField();
     private final  String[] bloodGroupOptions = {"  A+", "  A-", "  B+", "  B-", " AB+", " AB-", "  O+", "  O-"};
     private final  JComboBox<String> bloodComboBox = new JComboBox<>(bloodGroupOptions);
-    private final  
-    private final  
-    private final  
-    private final  
-    private final  
-    private final  
-    private final  
-    private final  
+    private final  JTextField email = new JTextField();
+    private final  JTextField password = new JTextField();
+    private final  JTextField address = new JTextField();
+    private final  JTextField specialization = new JTextField();
+    private final  JTextField qualification = new JTextField();
+    private final  JTextField licenseNumber = new JTextField();
+    private String daysAvailable = "";
+    private String consultingTime = "";
+    private final  JTextField fee = new JTextField();
     private final  JCheckBox termsAndConditionsCheckBox = new JCheckBox("I agree to the ");
 
 
@@ -187,7 +192,7 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
         genderPanel.add(genderComboBox);
 
         //!Number Panel-------------------------------------------
-        
+        JPanel numberPanel = new JPanel();
         numberPanel.setBounds(50, 140, 250, 30);
         numberPanel.setBackground(new Color(0x1A75FF));
         numberPanel.setLayout(null);
@@ -235,7 +240,7 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
         emailLabel.setBounds(10, 0, 70, 30);
         emailLabel.setForeground(new Color(0xFFFFFF));
     
-        JTextField email = new JTextField();
+        
         email.setBounds(80, 0, 220, 30);
         email.setForeground(new Color(0x000000));
         email.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -253,13 +258,13 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
         passLabel.setBounds(10, 0, 70, 30);
         passLabel.setForeground(new Color(0xFFFFFF));
     
-        JTextField pass = new JTextField();
-        pass.setBounds(80, 0, 220, 30);
-        pass.setForeground(new Color(0x000000));
-        pass.setFont(new Font("Arial", Font.PLAIN, 15));
+        
+        password.setBounds(80, 0, 220, 30);
+        password.setForeground(new Color(0x000000));
+        password.setFont(new Font("Arial", Font.PLAIN, 15));
     
         passPanel.add(passLabel);
-        passPanel.add(pass);
+        passPanel.add(password);
 
         //!Address Panel-------------------------------------------
         JPanel addressPanel = new JPanel();
@@ -271,7 +276,7 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
         addressLabel.setBounds(10, 0, 70, 30);
         addressLabel.setForeground(new Color(0xFFFFFF));
     
-        JTextField address = new JTextField();
+        
         address.setBounds(80, 0, 320, 30);
         address.setForeground(new Color(0x000000));
         address.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -290,7 +295,7 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
         specializationLabel.setBounds(10, 0, 90, 30);
         specializationLabel.setForeground(new Color(0xFFFFFF));
     
-        JTextField specialization = new JTextField();
+        
         specialization.setBounds(100, 0, 300, 30);
         specialization.setForeground(new Color(0x000000));
         specialization.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -309,7 +314,7 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
       qualificationLabel.setBounds(10, 0, 90, 30);
       qualificationLabel.setForeground(new Color(0xFFFFFF));
   
-      JTextField qualification = new JTextField();
+      
       qualification.setBounds(100, 0, 300, 30);
       qualification.setForeground(new Color(0x000000));
       qualification.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -327,7 +332,7 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
       licenseNumberLabel.setBounds(10, 0, 110, 30);
       licenseNumberLabel.setForeground(new Color(0xFFFFFF));
   
-      JTextField licenseNumber = new JTextField();
+      
       licenseNumber.setBounds(120, 0, 200, 30);
       licenseNumber.setForeground(new Color(0x000000));
       licenseNumber.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -345,28 +350,66 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
       consultingHoursLabel.setBounds(0, 0, 100, 30);
       consultingHoursLabel.setForeground(new Color(0xFFFFFF));
   
-      JTextField consultingHours = new JTextField();
-      consultingHours.setBounds(100, 0, 120, 30);
+      
+      JButton consultingHours = new JButton("Select Time");
+      consultingHours.setBounds(100, 0, 100, 30);
       consultingHours.setForeground(new Color(0x000000));
       consultingHours.setFont(new Font("Arial", Font.PLAIN, 15));
+      consultingHours.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component)e.getSource());
+                consultingTime = ConsultingTimeSelect.setTimePickerDialog(frame);
+            }
+        });
   
       consultingHoursPanel.add(consultingHoursLabel);
       consultingHoursPanel.add(consultingHours);
 
       //!available Panel-------------------------------------------
       JPanel availablePanel = new JPanel();
-      availablePanel.setBounds(50, 420, 240, 30); // Place this panel far down to force scrolling
+      availablePanel.setBounds(50, 420, 190, 30);
       availablePanel.setBackground(new Color(0x1A75FF));
       availablePanel.setLayout(null);
   
       JLabel availableLabel = new JLabel("Day's Available");
       availableLabel.setBounds(10, 0, 90, 30);
       availableLabel.setForeground(new Color(0xFFFFFF));
-  
-      JTextField available = new JTextField();
-      available.setBounds(100, 0, 140, 30);
+      
+      JButton available = new JButton("Select");
+      available.setBounds(100, 0, 100, 30);
       available.setForeground(new Color(0x000000));
       available.setFont(new Font("Arial", Font.PLAIN, 15));
+      available.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+                JCheckBox[] checkBoxes = new JCheckBox[days.length];
+
+                JPanel panel = new JPanel(new GridLayout(0, 1));
+                for (int i = 0; i < days.length; i++) {
+                    checkBoxes[i] = new JCheckBox(days[i]);
+                    panel.add(checkBoxes[i]);
+                }
+                JLabel label = new JLabel("Selected Days: " + daysAvailable);
+                panel.add(label);
+
+                int result = JOptionPane.showConfirmDialog(null, panel, "Select Available Days", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                if (result == JOptionPane.OK_OPTION) {
+                    ArrayList<String> selectedDays = new ArrayList<>();
+                    for (JCheckBox checkBox : checkBoxes) {
+                        if (checkBox.isSelected()) {
+                            selectedDays.add(checkBox.getText());
+                        }
+                    }
+                    if (selectedDays.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Please select at least one day", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        daysAvailable = String.join(", ", selectedDays);
+                    }
+                }
+            }
+        });
   
       availablePanel.add(availableLabel);
       availablePanel.add(available);
@@ -382,7 +425,7 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
       feeLabel.setBounds(10, 0, 120, 30);
       feeLabel.setForeground(new Color(0xFFFFFF));
   
-      JTextField fee = new JTextField();
+      
       fee.setBounds(130, 0, 100, 30);
       fee.setForeground(new Color(0x000000));
       fee.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -450,10 +493,6 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
                 registerButton.setForeground(new Color(25, 117, 255));
                 registerButton.setBackground(new Color(0x182838));
             }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-              SwingUtilities.getWindowAncestor(registerButton).dispose();
-            }
         });
 
     
@@ -494,7 +533,46 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
         if(e.getSource() == registerButton)
         {
             All_Validations checkValidations = new All_Validations();
-            if()
+            if(name.getText().equals("") || username.getText().equals("") || age.getText().equals("") || email.getText().equals("") || address.getText().equals("") || number.getText().equals("") || password.getText().equals("") || specialization.getText().equals("") || qualification.getText().equals("") || licenseNumber.getText().equals("") || consultingTime.equals("") || specialization.getText().equals("") || daysAvailable.equals("") || fee.getText().equals(""))
+            {
+                JOptionPane.showMessageDialog(null, "Please Fill The Credentials");
+            }
+            else if(!checkValidations.isValidName(name.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Name should not contain numbers or special characters", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(!checkValidations.isValidAge(age.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Age should be a positive number", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(!checkValidations.isValidContactNumber(number.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Contact number should be a digit number", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(!checkValidations.isValidEmail(email.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid email address", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(!checkValidations.isValidLicenseNumber(licenseNumber.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid license number", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(!checkValidations.isValidPassword(password.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Password must be at least 6 characters long", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(!checkValidations.isValidAmount(fee.getText())){
+                JOptionPane.showMessageDialog(null, "Please enter a valid fee", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(!termsAndConditionsCheckBox.isSelected())
+            {
+                JOptionPane.showMessageDialog(null, "Please agree to the terms and conditions", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                Doctor doctor = new Doctor(name.getText(), username.getText(), email.getText(), number.getText(), address.getText(), password.getText(), genderComboBox.getSelectedItem().toString(), specialization.getText(), qualification.getText(), licenseNumber.getText(), consultingTime, daysAvailable, Double.parseDouble(fee.getText()), 0);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
+                doctor.saveToFile(frame, username.getText());
+            }
         }
     }
 
