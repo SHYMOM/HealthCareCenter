@@ -1,5 +1,10 @@
 package com.healthcarecenter.utils;
 import java.io.*;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.swing.*;
 public class All_Validations {
     public static boolean isValidEmail(String email) {
@@ -16,6 +21,17 @@ public class All_Validations {
     }
     public static boolean isValidContactNumber(String contactNumber) {
         return contactNumber.matches("\\d+");
+    }
+    public static boolean isValidLicenseNumber(String licenseNumber) {
+        return licenseNumber.matches("\\d+");
+    }
+    public static boolean isValidAmount(String amount) {
+        try {
+            BigDecimal value = new BigDecimal(amount);
+            return value.compareTo(BigDecimal.ZERO) > 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 
