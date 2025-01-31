@@ -41,7 +41,7 @@ public class User {
     }
 
     public void saveToFile(String username) {
-    String filePath = "data/users/"+username+".txt";
+    String filePath = "/data/users/"+username+".txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath)))) {
             writer.write("<<<User-Start>>>\n");
             writer.write("[User]\n");

@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 public class GetAdminData {
 
     public static String getDetail(String username, String key) throws IOException {
-        String filePath = "data/admin/"+username+".txt";
+        String filePath = "/data/admins/"+username+".txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(FileUtils.getFile(filePath).getAbsolutePath()))) {
             String line;
             boolean isAdminSection = false;
@@ -27,7 +27,7 @@ public class GetAdminData {
     }
 
     public static HashMap<String, String> getAdminDetails(String username) throws IOException {
-        String filePath = "data/admin/"+username+".txt";
+        String filePath = "/data/admins/"+username+".txt";
         HashMap<String, String> adminDetails = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FileUtils.getFile(filePath).getAbsolutePath()))) {
             String line;
@@ -49,7 +49,7 @@ public class GetAdminData {
     }
 
     public static void updateDetail(String username, String key, String newValue) throws IOException {
-        String filePath = "data/admin/"+username+".txt";
+        String filePath = "/data/admins/"+username+".txt";
         File file = new File(FileUtils.getFile(filePath).getAbsolutePath());
         StringBuilder fileContent = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -82,7 +82,7 @@ public class GetAdminData {
         String directoryPath = null;
 
         try {
-            directoryPath = FileUtils.getFile("/data/Admins/").getAbsolutePath();
+            directoryPath = FileUtils.getFile("/data/admins/").getAbsolutePath();
             File directory = new File(directoryPath);
             if (!directory.exists() || !directory.isDirectory()) {
                 JOptionPane.showMessageDialog(null, "Admins directory not found.", "Error", JOptionPane.ERROR_MESSAGE);

@@ -56,7 +56,7 @@ public class Doctor {
     }
 
 public void saveToFile(String username) throws IOException {
-    String filePath = "data/admin/"+username+".txt";
+    String filePath = "/data/admin/"+username+".txt";
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath()))) {
             writer.write("<<<Doctor-Start>>>\n");
             writer.write("fullName=" + fullName + "\n");

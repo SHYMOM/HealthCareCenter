@@ -1,0 +1,10 @@
+<<<Admin-Start>>>
+fullName=Alice Johnson
+username=alice_admin
+email=alice.johnson@example.com
+contactNumber=+1234567890
+password=SecurePass123
+gender=Female
+salary=75000
+role=Hospital Administrator
+<<<Admin-End>>>

@@ -1,9 +1,8 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
-import com.healthcarecenter.utils.FileUtils;
 public class SuperAdminHomePage extends JFrame implements ActionListener
 {
 
@@ -281,25 +280,10 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
           @Override
           public void mouseClicked(MouseEvent e)  
           {
-            int result = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
-            if (result == JOptionPane.YES_OPTION)
-             {
-                System.out.println("Yes selected");
-                SwingUtilities.getWindowAncestor(log_out).dispose();
-                 //new loginFrame();
-             }  
-            else if (result == JOptionPane.NO_OPTION)
-             {
-                System.out.println("No selected");
-             } 
-            else if (result == JOptionPane.CANCEL_OPTION) 
-             {
-                 System.out.println("Cancel selected");
-             }
-          }
-           
-           
-      });
+               JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+            FrameUtils.frameLogOut(frame);
+        }
+    });
 
 
         return middle_panel;
@@ -318,11 +302,11 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
         welcome.setBounds(300,330,300,30);
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
 
-        JLabel health_tips= new JLabel("Random Health Tips");
+        HealthTips healthTips = new HealthTips();
+        JLabel health_tips = new JLabel(healthTips.getRandomHealthTip());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
-        health_tips.setBounds(350,300,200,30);
+        health_tips.setBounds(0,300,900,30);
         health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
-
 
         lower_panel.add(welcome);
         lower_panel.add(health_tips);

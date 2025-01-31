@@ -26,7 +26,7 @@ public class Admin {
     }
 
     public void saveToFile(String username) throws IOException {
-        String filePath = "data/admin/"+username+".txt";
+        String filePath = "/data/admins/"+username+".txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath()))) {
             writer.write("<<<Admin-Start>>>\n");
             writer.write("fullName=" + fullName + "\n");

@@ -1,10 +1,9 @@
 package com.healthcarecenter.frames;
-import javax.swing.*;
-
 import com.healthcarecenter.utils.FileUtils;
-
-import java.awt.event.*;
+import com.healthcarecenter.utils.FrameUtils;
 import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 public class AdminUpdateBloodStockPage extends JFrame implements ActionListener
 {
 
@@ -166,7 +165,7 @@ public class AdminUpdateBloodStockPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(home).dispose();
+                SwingUtilities.getWindowAncestor(Mang_Doc).dispose();
 				new AdminManageDoctorPage();
                 
             }
@@ -191,7 +190,9 @@ public class AdminUpdateBloodStockPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-			
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+                FrameUtils.frameLogOut(frame);
+                System.out.println("logout  clicked");
             }
         });
 		
@@ -212,27 +213,13 @@ public class AdminUpdateBloodStockPage extends JFrame implements ActionListener
 			
           }
        @Override
-          public void mouseClicked(MouseEvent e)  
-          {
-            int result = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
-            if (result == JOptionPane.YES_OPTION)
-             {
-                System.out.println("Yes selected");
-                SwingUtilities.getWindowAncestor(log_out).dispose();
-                 //new loginFrame();
-             }  
-            else if (result == JOptionPane.NO_OPTION)
-             {
-                System.out.println("No selected");
-             } 
-            else if (result == JOptionPane.CANCEL_OPTION) 
-             {
-                 System.out.println("Cancel selected");
-             }
-          }
-           
-           
-      });
+       public void mouseClicked(MouseEvent e)  
+       {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+         FrameUtils.frameLogOut(frame);
+     }
+ });
+
 
         return middle_panel;
     }
@@ -250,7 +237,7 @@ public class AdminUpdateBloodStockPage extends JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        // code to handle the action event
+        
     }
 
     public static void main(String[] args) {
