@@ -1,8 +1,14 @@
 package com.healthcarecenter.utils;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 public class GetDoctorData {
@@ -150,6 +156,63 @@ public class GetDoctorData {
         }
 
         return allDoctors;
+    }
+
+
+    public static boolean verifyAvailability(String username, String userInput) {
+        HashMap<String, String> doctorDetails = getDoctorDetails(username);
+
+        if (doctorDetails.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Doctor details not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Convert user input to LocalDateTime
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy hh:mm a");
+        LocalDateTime appointmentDateTime;
+        try {
+            appointmentDateTime = LocalDateTime.parse(userInput, formatter);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Invalid date format!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Check if the day is available
+        List<String> availableDays = Arrays.asList(doctorDetails.get("daysAvailable").split(","));
+        String selectedDay = appointmentDateTime.getDayOfWeek().toString();
+
+        if (availableDays.stream().noneMatch(day -> day.trim().equalsIgnoreCase(selectedDay))) {
+            JOptionPane.showMessageDialog(null, "Doctor is not available on " + selectedDay, "Invalid Appointment", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        // Parse consultation hours
+        String consultationHours = doctorDetails.get("consultationHours");
+        if (consultationHours == null || consultationHours.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Doctor's consultation hours are missing!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+        LocalTime appointmentTime = appointmentDateTime.toLocalTime();
+
+        for (String slot : consultationHours.split(",")) {
+            String[] times = slot.trim().split("-");
+            if (times.length == 2) {
+                try {
+                    LocalTime startTime = LocalTime.parse(times[0].trim(), timeFormatter);
+                    LocalTime endTime = LocalTime.parse(times[1].trim(), timeFormatter);
+                    if (!appointmentTime.isBefore(startTime) && !appointmentTime.isAfter(endTime)) {
+                        return true; // Appointment is valid
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error parsing time: " + slot);
+                }
+            }
+        }
+
+        JOptionPane.showMessageDialog(null, "Doctor is not available at this time!", "Invalid Appointment", JOptionPane.WARNING_MESSAGE);
+        return false;
     }
 
 }

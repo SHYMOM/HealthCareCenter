@@ -434,15 +434,12 @@ public class UserSignUp extends JFrame implements ActionListener{
             }
             else {
                 User user = new User(name.getText(), username.getText(), Integer.parseInt(age.getText()), email.getText(), address.getText(), contactNumber.getText(), password.getText(), selectedBloodGroup, selectedGender);
-                user.saveToFile(username.getText());
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
+                user.saveToFile(frame, username.getText());
             }
         }
     }
-    public UserSignUp(boolean stutus) {
-        if (stutus) {
-            this.dispose();
-        }
-    }
+
     public static void main(String[] args) {
         new UserSignUp();
     }
