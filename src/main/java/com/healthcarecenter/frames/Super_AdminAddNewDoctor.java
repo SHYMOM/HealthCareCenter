@@ -4,11 +4,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import javax.swing.*;
 
 import com.healthcarecenter.utils.All_Validations;
 import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.GetDoctorData;
 import com.healthcarecenter.models.Doctor;
 import com.healthcarecenter.frames.dialogs.*;
 
@@ -35,9 +36,33 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
 
 
 
-    public Super_AdminAddNewDoctor ()
+    public Super_AdminAddNewDoctor (String EditMode, String username)
     {
-        doctorUI();
+        if (EditMode.equals("Edit"))
+        {
+            HashMap<String, String> doctorData = GetDoctorData.getDoctorDetails(username);
+            this.name.setText(doctorData.get("fullName"));
+            this.username.setText(doctorData.get("username"));
+            this.age.setText(doctorData.get("age"));
+            this.genderComboBox.setSelectedItem(doctorData.get("gender"));
+            this.number.setText(doctorData.get("contactNumber"));
+            this.bloodComboBox.setSelectedItem(doctorData.get("bloodGroup"));
+            this.email.setText(doctorData.get("email"));
+            this.password.setText(GetDoctorData.getFieldValue(username, "password"));
+            this.address.setText(doctorData.get("address"));
+            this.specialization.setText(doctorData.get("specialization"));
+            this.qualification.setText(doctorData.get("qualifications"));
+            this.licenseNumber.setText(doctorData.get("medicalLicenseNumber"));
+            this.daysAvailable = doctorData.get("daysAvailable");
+            this.consultingTime = doctorData.get("consultationHours");
+            this.fee.setText(doctorData.get("consultationFee"));
+            //this.salary.setText(doctorData.get("salary"));
+            doctorUI();
+        } 
+        else if (EditMode.equals("Add"))
+        {
+            doctorUI();
+        }
     }
 
     private void doctorUI()
@@ -569,7 +594,7 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Please agree to the terms and conditions", "Error", JOptionPane.ERROR_MESSAGE);
             }
             else{
-                Doctor doctor = new Doctor(name.getText(), username.getText(), email.getText(), number.getText(), address.getText(), password.getText(), genderComboBox.getSelectedItem().toString(), specialization.getText(), qualification.getText(), licenseNumber.getText(), consultingTime, daysAvailable, Double.parseDouble(fee.getText()), 0);
+                Doctor doctor = new Doctor(name.getText(), username.getText(), age.getText(), email.getText(), number.getText(), address.getText(), password.getText(), genderComboBox.getSelectedItem().toString(), bloodComboBox.getSelectedItem().toString(), specialization.getText(), qualification.getText(), licenseNumber.getText(), consultingTime, daysAvailable, Double.parseDouble(fee.getText()), 0);
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
                 doctor.saveToFile(frame, username.getText());
             }
@@ -580,7 +605,7 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
 
     public static void main(String[] args)
     {
-        new Super_AdminAddNewDoctor();
+        new Super_AdminAddNewDoctor("Edit", "Alice_Doctor");
     }
 
 } 

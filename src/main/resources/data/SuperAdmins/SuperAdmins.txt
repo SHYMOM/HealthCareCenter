@@ -7,4 +7,6 @@ email=super.admin2@healthcarecenter.com
 password=@super.admin2
 email=super.admin3@healthcarecenter.com
 password=@super.admin3
+email=shymom@healthcarecenter.com
+password=@shymom
 <<<Super Admins - End>>>

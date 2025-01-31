@@ -256,8 +256,10 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
 						new SuperAdminPayAdminSalaryPage();
+                        SwingUtilities.getWindowAncestor(home).dispose();
 					} else if (choice == 1) {
 						new SuperAdminPayDoctorSalary();
+                        SwingUtilities.getWindowAncestor(home).dispose();
 					} else {
 						
 					}

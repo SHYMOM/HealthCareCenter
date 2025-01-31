@@ -10,11 +10,13 @@ import javax.swing.*;
 public class Doctor {
     private String fullName;
     private String username;
+    private String age;
     private String email;
     private String contactNumber;
     private String address;
     private String password;
     private String gender;
+    private String bloodGroup;
     private final String role = "Doctor";
     private String specialization;
     private String qualifications;
@@ -27,11 +29,13 @@ public class Doctor {
     // Constructor
     public Doctor(  String fullName, 
                     String username, 
+                    String age,
                     String email, 
                     String contactNumber, 
                     String address,
                     String password, 
                     String gender, 
+                    String bloodGroup,
                     String specialization, 
                     String qualifications,
                     String medicalLicenseNumber, 
@@ -43,11 +47,13 @@ public class Doctor {
     {
         this.fullName = fullName;
         this.username = username;
+        this.age = age;
         this.email = email;
         this.contactNumber = contactNumber;
         this.address = address;
         this.password = password;
         this.gender = gender;
+        this.bloodGroup = bloodGroup;
         this.specialization = specialization;
         this.qualifications = qualifications;
         this.medicalLicenseNumber = medicalLicenseNumber;
@@ -64,11 +70,13 @@ public void saveToFile(JFrame frame, String username){
             writer.write("<<<Doctor-Start>>>\n");
             writer.write("fullName=" + fullName + "\n");
             writer.write("username=" + username + "\n");
+            writer.write("age=" + age + "\n");
             writer.write("email=" + email + "\n");
             writer.write("contactNumber=" + contactNumber + "\n");
             writer.write("address=" + address + "\n");
             writer.write("password=" + password + "\n");
             writer.write("gender=" + gender + "\n");
+            writer.write("bloodGroup=" + bloodGroup + "\n");
             writer.write("role=" + role + "\n");
             writer.write("specialization=" + specialization + "\n");
             writer.write("qualifications=" + qualifications + "\n");

@@ -4,7 +4,9 @@ import com.healthcarecenter.frames.UserSignUp;
 import com.healthcarecenter.frames.UserHomePage;
 import com.healthcarecenter.utils.FileUtils;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.*;
 
@@ -78,16 +80,6 @@ public class User {
         }
     }
 
-    public void addAppointment(String filePath, Map<String, String> appointmentDetails) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath), true))) {
-            writer.write("<<<Appoint-Start>>>\n");
-            for (Map.Entry<String, String> entry : appointmentDetails.entrySet()) {
-                writer.write(entry.getKey() + "=" + entry.getValue() + "\n");
-            }
-            writer.write("<<<Appoint-End>>>\n\n");
-        }
-    }
-
     public void addHealthRecord(String filePath, Map<String, String> healthRecordDetails) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath), true))) {
             writer.write("<<<HealthRecord-Start>>>\n");
@@ -97,4 +89,50 @@ public class User {
             writer.write("<<<HealthRecord-End>>>\n\n");
         }
     }
+
+    public void addAppointment(String filePath, Map<String, String> appointmentDetails) throws IOException {
+        File file = FileUtils.getFile(filePath);
+        List<String> lines = new ArrayList<>();
+        boolean insideAppointmentsSection = false;
+        boolean appointmentInserted = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+
+                if (line.equals("[Appointments]")) {
+                    insideAppointmentsSection = true;
+                } else if (insideAppointmentsSection && line.startsWith("[")) {
+                    //! If another section starts, insert the appointment before it
+                    if (!appointmentInserted) {
+                        insertAppointmentData(lines, appointmentDetails);
+                        appointmentInserted = true;
+                    }
+                    insideAppointmentsSection = false;
+                }
+            }
+        }
+
+        if (insideAppointmentsSection && !appointmentInserted) {
+            insertAppointmentData(lines, appointmentDetails);
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (String l : lines) {
+                writer.write(l + "\n");
+            }
+        }
+    }
+
+    //! Helper method to insert appointment details
+    private void insertAppointmentData(List<String> lines, Map<String, String> appointmentDetails) {
+        lines.add("<<<Appoint-Start>>>");
+        for (Map.Entry<String, String> entry : appointmentDetails.entrySet()) {
+            lines.add(entry.getKey() + "=" + entry.getValue());
+        }
+        lines.add("<<<Appoint-End>>>");
+        lines.add("");
+    }
+
 }

@@ -223,7 +223,7 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperPopManageAdminsPage();
+				new SuperAdminManageAdminPage();
             }
         });
         
@@ -250,8 +250,10 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
 						new SuperAdminPayAdminSalaryPage();
+                        SwingUtilities.getWindowAncestor(home).dispose();
 					} else if (choice == 1) {
 						new SuperAdminPayDoctorSalary();
+                        SwingUtilities.getWindowAncestor(home).dispose();
 					} else {
 						
 					}
