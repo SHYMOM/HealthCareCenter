@@ -1,12 +1,21 @@
 package com.healthcarecenter.frames;
-import javax.swing.*;
-
 import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.FrameUtils;
 
-import java.awt.event.*;
 import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.table.DefaultTableModel;
+import com.healthcarecenter.utils.GetAdminData;
+ 
+
 public class SuperAdminManageAdminPage extends JFrame implements ActionListener
 {
+    JButton Add_Admin,Remove_Admin,Modify_Admin,getDetails;
+    private JTable ManageAdminTable;
+    private DefaultTableModel tableModel;
 
     public SuperAdminManageAdminPage()
     {
@@ -254,8 +263,10 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
 						new SuperAdminPayAdminSalaryPage();
+                        SwingUtilities.getWindowAncestor(home).dispose();
 					} else if (choice == 1) {
 						new SuperAdminPayDoctorSalary();
+                        SwingUtilities.getWindowAncestor(home).dispose();
 					} else {
 						
 					}
@@ -284,25 +295,10 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
          @Override
           public void mouseClicked(MouseEvent e)  
           {
-            int result = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
-            if (result == JOptionPane.YES_OPTION)
-             {
-                System.out.println("Yes selected");
-                SwingUtilities.getWindowAncestor(log_out).dispose();
-                 //new loginFrame();
-             }  
-            else if (result == JOptionPane.NO_OPTION)
-             {
-                System.out.println("No selected");
-             } 
-            else if (result == JOptionPane.CANCEL_OPTION) 
-             {
-                 System.out.println("Cancel selected");
-             }
-          }
-           
-           
-      });
+               JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+            FrameUtils.frameLogOut(frame);
+        }
+    });
 
         return middle_panel;
     }
@@ -313,11 +309,77 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,130,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));
+
+        Modify_Admin = new JButton("Modify Admin");
+        Modify_Admin.setBounds(280, 380, 120, 30);
+        Modify_Admin.setFocusable(false);
+        Modify_Admin.addActionListener(this);
+
+        Add_Admin = new JButton("Add Admin");
+        Add_Admin.setBounds(410, 380, 120, 30);
+        Add_Admin.setFocusable(false);
+        Add_Admin.addActionListener(this);
+        
+        Remove_Admin = new JButton("Remove Admin");
+        Remove_Admin.setBounds(540, 380, 120,30);
+        Remove_Admin.setFocusable(false);
+        Remove_Admin.addActionListener(this);
+
+        getDetails = new JButton("Get Details");
+        getDetails.setBounds(410, 340, 120, 30);
+        getDetails.setFocusable(false);
+        getDetails.addActionListener(this);
+
+        getDetails.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               // printSelectedDoctorDetails();
+            }
+        });
+
+        tableModel = new DefaultTableModel(new String[]{
+            "Full Name", "Email", "Contact Number", "Gender","Salary"}, 0);
+
+            loadAdminData();
+
+            ManageAdminTable = new JTable(tableModel);
+            JScrollPane scrollPane = new JScrollPane(ManageAdminTable);
+            scrollPane.setBounds(0, 50, 900, 280);
+            
+            
+
+
+        lower_panel.add(Modify_Admin);
+        lower_panel.add(Add_Admin);  
+        lower_panel.add(Remove_Admin);
+        lower_panel.add(getDetails);
+        lower_panel.add(scrollPane);
        
 
-     
         return lower_panel;
     }
+
+     private void loadAdminData() {
+            // Get all doctors' details
+            ArrayList<HashMap<String, String>> allAdmins = GetAdminData.getAllAdminsDetails();
+    
+            // Add each doctor's details as a row in the table
+            for (HashMap<String, String> admin : allAdmins) {
+                System.out.println(admin);
+                tableModel.addRow(new Object[]{
+                        admin.get("fullName"),
+                        admin.get("email"),
+                        admin.get("contractNumber"),
+                        admin.get("gender"),
+                        admin.get("salary")
+                });
+            }
+        }
+
+
+
+
+
 
     @Override
     public void actionPerformed(ActionEvent e)

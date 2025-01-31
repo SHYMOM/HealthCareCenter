@@ -210,27 +210,14 @@ public class AdminHomePage extends JFrame implements ActionListener
 			
           }
        @Override
-          public void mouseClicked(MouseEvent e)  
-          {
-            int result = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
-            if (result == JOptionPane.YES_OPTION)
-             {
-                System.out.println("Yes selected");
-                SwingUtilities.getWindowAncestor(log_out).dispose();
-                 //new loginFrame();
-             }  
-            else if (result == JOptionPane.NO_OPTION)
-             {
-                System.out.println("No selected");
-             } 
-            else if (result == JOptionPane.CANCEL_OPTION) 
-             {
-                 System.out.println("Cancel selected");
-             }
-          }
-           
-           
-      });
+       public void mouseClicked(MouseEvent e)  
+       {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+         FrameUtils.frameLogOut(frame);
+     }
+ });
+
+
 
         return middle_panel;
     }
@@ -251,7 +238,7 @@ public class AdminHomePage extends JFrame implements ActionListener
         HealthTips healthTips = new HealthTips();
         JLabel health_tips= new JLabel(healthTips.getRandomHealthTip());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
-        health_tips.setBounds(350,300,200,30);
+        health_tips.setBounds(0,300,900,30);
         health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
 
 

@@ -1,0 +1,10 @@
+<<<Admin-Start>>>
+fullName=Michael Smith
+username=michael_admin
+email=michael.smith@example.com
+contactNumber=+1987654321
+password=AdminPass456
+gender=Male
+salary=82000
+role=Operations Manager
+<<<Admin-End>>>

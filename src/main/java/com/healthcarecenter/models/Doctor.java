@@ -59,6 +59,7 @@ public class Doctor {
 
 public void saveToFile(JFrame frame, String username){
     String filePath = "/data/doctors/"+username+".txt";
+  
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath()))) {
             writer.write("<<<Doctor-Start>>>\n");
             writer.write("fullName=" + fullName + "\n");

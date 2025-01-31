@@ -1,12 +1,19 @@
 package com.healthcarecenter.frames;
-import javax.swing.*;
-
 import com.healthcarecenter.utils.FileUtils;
-
-import java.awt.event.*;
+import com.healthcarecenter.utils.FrameUtils;
+import com.healthcarecenter.utils.GetDoctorData;
 import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
 {
+    JButton Add_Doctor,Remove_Doctor,Modify_Doctor,getDetails;
+    private JTable ManageDoctorsTable;
+    private DefaultTableModel tableModel;
 
     public SuperAdminManageDoctorPage()
     {
@@ -256,8 +263,10 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
 						new SuperAdminPayAdminSalaryPage();
+                        SwingUtilities.getWindowAncestor(home).dispose();
 					} else if (choice == 1) {
 						new SuperAdminPayDoctorSalary();
+                        SwingUtilities.getWindowAncestor(home).dispose();
 					} else {
 						
 					}
@@ -284,27 +293,13 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
 			
           }
          @Override
-          public void mouseClicked(MouseEvent e)  
-          {
-            int result = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
-            if (result == JOptionPane.YES_OPTION)
-             {
-                System.out.println("Yes selected");
-                SwingUtilities.getWindowAncestor(log_out).dispose();
-                 //new loginFrame();
-             }  
-            else if (result == JOptionPane.NO_OPTION)
-             {
-                System.out.println("No selected");
-             } 
-            else if (result == JOptionPane.CANCEL_OPTION) 
-             {
-                 System.out.println("Cancel selected");
-             }
-          }
-           
-           
-      });
+         public void mouseClicked(MouseEvent e)  
+         {
+               JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+            FrameUtils.frameLogOut(frame);
+        }
+    });
+
 
 
         return middle_panel;
@@ -316,12 +311,92 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,130,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));
+
+        Modify_Doctor = new JButton("Modify Doctor");
+        Modify_Doctor.setBounds(280, 380, 120, 30);
+        Modify_Doctor.setFocusable(false);
+        Modify_Doctor.addActionListener(this);
+
+        Add_Doctor= new JButton("Add Doctor");
+        Add_Doctor.setBounds(410, 380, 120, 30);
+        Add_Doctor.setFocusable(false);
+        Add_Doctor.addActionListener(this);
+        
+        Remove_Doctor = new JButton("Remove Admin");
+        Remove_Doctor.setBounds(540, 380, 120,30);
+        Remove_Doctor.setFocusable(false);
+        Remove_Doctor.addActionListener(this);
+
+        getDetails = new JButton("Get Details");
+        getDetails.setBounds(410, 340, 120, 30);
+        getDetails.setFocusable(false);
+        getDetails.addActionListener(this);
+
+
+        getDetails.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               // printSelectedDoctorDetails();
+            }
+        });
+
+        lower_panel.add(Modify_Doctor);
+        lower_panel.add(Add_Doctor);  
+        lower_panel.add(Remove_Doctor);
+        lower_panel.add(getDetails);
+        
+
+        tableModel = new DefaultTableModel(new String[]{
+            "Full Name", "Email", "Contact Number", "Gender","Salary"}, 0);
+
+            loadDoctorData();
+
+            ManageDoctorsTable = new JTable(tableModel);
+            JScrollPane scrollPane = new JScrollPane(ManageDoctorsTable);
+            scrollPane.setBounds(0, 50, 900, 280);
+            lower_panel.add(scrollPane);
+            
        
+        return lower_panel;
+    }
+    
+
+        private void loadDoctorData() {
+            // Get all doctors' details
+            ArrayList<HashMap<String, String>> allDoctors = GetDoctorData.getAllDoctorsDetails();
+    
+            // Add each doctor's details as a row in the table
+            for (HashMap<String, String> doctor : allDoctors) {
+                System.out.println(doctor);
+                tableModel.addRow(new Object[]{
+                        doctor.get("fullName"),
+                        doctor.get("email"),
+                        doctor.get("contractNumber"),
+                        doctor.get("gender"),
+                        doctor.get("salary")
+                });
+            }
+        }
+
+            
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
 
   
 
-        return lower_panel;
-    }
+    
 
     @Override
     public void actionPerformed(ActionEvent e)

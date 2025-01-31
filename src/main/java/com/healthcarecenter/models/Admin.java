@@ -28,6 +28,7 @@ public class Admin {
         this.salary = salary;
     }
 
+
     public void saveToFile(JFrame frame, String username){
         String filePath = "/data/admins/"+username+".txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath()))) {
