@@ -1,8 +1,8 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.frames.dialogs.DoctorDetailsDialog;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetDoctorData;
-import com.healthcarecenter.frames.dialogs.DoctorDetailsDialog;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -115,12 +115,12 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
          Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
          Mang_Doc.setBounds(80, 15, 140, 20);
 
-          //level forupd_bloo
-         JLabel upd_bloo = new JLabel();
-         upd_bloo.setText("Update Blood Stock");
-         upd_bloo.setForeground(new Color(000000));
-         upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         upd_bloo.setBounds(225, 15, 160, 20);
+          //level forbillingHistory
+         JLabel billingHistory = new JLabel();
+         billingHistory.setText("Billing History");
+         billingHistory.setForeground(new Color(000000));
+         billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         billingHistory.setBounds(225, 15, 160, 20);
 		 
 		 //level for manage admin
          JLabel Mang_Admin = new JLabel();
@@ -146,7 +146,7 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
           //add level in middle_panel
           middle_panel.add(home);
           middle_panel.add(Mang_Doc);
-          middle_panel.add(upd_bloo);
+          middle_panel.add(billingHistory);
           middle_panel.add(paySalary );
 		  middle_panel.add(Mang_Admin);
           middle_panel.add(log_out);
@@ -197,19 +197,19 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
             }
         });
 
-       upd_bloo.addMouseListener(new MouseAdapter() {
+       billingHistory.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-               upd_bloo.setForeground(new Color(0x00FF00));
-               upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   upd_bloo.setBounds(215, 10, 170, 30);
+               billingHistory.setForeground(new Color(0x00FF00));
+               billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 18));
+			   billingHistory.setBounds(215, 10, 170, 30);
 			  
             }
             @Override
             public void mouseExited(MouseEvent e) {
-               upd_bloo.setForeground(new Color(0, 0, 0));
-               upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   upd_bloo.setBounds(225, 15, 160, 20);
+               billingHistory.setForeground(new Color(0, 0, 0));
+               billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+			   billingHistory.setBounds(225, 15, 160, 20);
 			  
             }
             @Override
@@ -325,7 +325,7 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
         Add_Doctor.setFocusable(false);
         Add_Doctor.addActionListener(this);
         
-        Remove_Doctor = new JButton("Remove Admin");
+        Remove_Doctor = new JButton("Remove Doctor");
         Remove_Doctor.setBounds(540, 380, 120,30);
         Remove_Doctor.setFocusable(false);
         Remove_Doctor.addActionListener(this);
@@ -419,7 +419,7 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
                 tableModel.addRow(new Object[]{
                         doctor.get("fullName"),
                         doctor.get("email"),
-                        doctor.get("contractNumber"),
+                        doctor.get("contactNumber"),
                         doctor.get("gender"),
                         doctor.get("salary")
                 });
