@@ -1,5 +1,4 @@
 package com.healthcarecenter.frames;
-
 import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -187,7 +186,7 @@ public class AdminHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new AdminUpdateBloodStockPage();
+				new AdminBillingHistoryPage();
                 
             }
         });
