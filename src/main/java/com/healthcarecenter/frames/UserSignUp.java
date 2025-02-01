@@ -1,398 +1,279 @@
 package com.healthcarecenter.frames;
+
 import com.healthcarecenter.models.*;
 import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class UserSignUp extends JFrame implements ActionListener{
+import javax.swing.border.*;
 
-    private final ImagePanel background = new ImagePanel(FileUtils.getFile("/Images/signUpBG1.jpg").getAbsolutePath());
+public class UserSignUp extends JFrame implements ActionListener {
+    private static final Color PRIMARY_COLOR = new Color(41, 128, 185);
+    private static final Color SECONDARY_COLOR = new Color(52, 152, 219);
+    private static final Color ACCENT_COLOR = new Color(46, 204, 113);
+    private static final Color TEXT_COLOR = new Color(236, 240, 241);
+    private static final Color BACKGROUND_COLOR = new Color(44, 62, 80, 240);
+    private static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 24);
+    private static final Font REGULAR_FONT = new Font("Segoe UI", Font.PLAIN, 14);
     
-    private final JButton signUp = new JButton();
-    private final JButton signIn = new JButton();
-    private final JTextField name = new JTextField();
-    private final JTextField age = new JTextField();
-    private final JTextField username = new JTextField();
-    private final JTextField email = new JTextField();
-    private final JTextField contactNumber = new JTextField();
-    private final JTextField address = new JTextField();
-    private final JComboBox<String> genderComboBox = new JComboBox<>(new String[]{"Male", "Female", "Others"});
-    private final String[] bloodGroupOptions = {"A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"};
-    private final JComboBox<String> bloodGroupComboBox = new JComboBox<>(bloodGroupOptions);
-    private final JPasswordField password = new JPasswordField();
-    private final JCheckBox termsAndConditionsCheckBox = new JCheckBox("I agree to the ");
+    private final JButton signUp;
+    private final JButton signIn;
+    private final JTextField name;
+    private final JTextField age;
+    private final JTextField username;
+    private final JTextField email;
+    private final JTextField contactNumber;
+    private final JTextField address;
+    private final JComboBox<String> genderComboBox;
+    private final JComboBox<String> bloodGroupComboBox;
+    private final JPasswordField password;
+    private final JCheckBox termsAndConditionsCheckBox;
 
     public UserSignUp() {
-            initializeUI();
+        this.signUp = createStyledButton("Sign Up", ACCENT_COLOR);
+        this.signIn = createStyledButton("Sign In", PRIMARY_COLOR);
+        this.name = createStyledTextField();
+        this.age = createStyledTextField();
+        this.username = createStyledTextField();
+        this.email = createStyledTextField();
+        this.contactNumber = createStyledTextField();
+        this.address = createStyledTextField();
+        this.genderComboBox = createStyledComboBox(new String[]{"Male", "Female", "Others"});
+        this.bloodGroupComboBox = createStyledComboBox(new String[]{"A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"});
+        this.password = createStyledPasswordField();
+        this.termsAndConditionsCheckBox = createStyledCheckBox("I agree to the ");
+
+        initializeUI();
     }
 
     private void initializeUI() {
-        //!<<<<<<<<<<<<<<<<<<<<<<<< Frame settings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
-        
-        this.setIconImage(appIcon.getImage());
+        //! Frame settings
+        this.setTitle("Healthcare Center - Sign Up");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(900,500);
-        this.setTitle("Sign Up Health Care Center");
-        this.setResizable(false);
-        this.setLayout(null);
-        this.getContentPane().setBackground(new Color(0x123456));
+        this.setSize(1000, 700);
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());    
+        this.setIconImage(appIcon.getImage());
 
-        //!<<<<<<<<<<<<<<<<<<<<<<<< Background >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        background.setBounds(0, 0, 900, 500);
-        background.setLayout(null);
-        background.setOpaque(false);
+        //! Main panel
+        JPanel mainPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+                GradientPaint gradient = new GradientPaint(0, 0, new Color(44, 62, 80),
+                        getWidth(), getHeight(), new Color(52, 152, 219));
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+        mainPanel.setLayout(new GridBagLayout());
 
-        //!<<<<<<<<<<<<<<<<<<<<<<<< Left Panel >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        JPanel leftPanel = createLeftPanel();
-        background.add(leftPanel);
-
-        //!<<<<<<<<<<<<<<<<<<<<<<<< Right Panel >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        JPanel rightPanel = createRightPanel();
-        background.add(rightPanel);
-
-        this.add(background);
+        JPanel contentPanel = createContentPanel();
+        mainPanel.add(contentPanel);
+        this.add(mainPanel);
         this.setVisible(true);
     }
 
-//!<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Creating Left Panel >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    private JPanel createContentPanel() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(new Color(255, 255, 255, 240));
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(new Color(255, 255, 255, 100), 1),
+                BorderFactory.createEmptyBorder(30, 40, 30, 40)));
 
-    private JPanel createLeftPanel() {
-        //!Panel Settings
-        JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(null);
-        leftPanel.setOpaque(true);
-        leftPanel.setBounds(0, 0, 350, 500);
-        leftPanel.setBackground(new Color(0, 0, 33, 150));
-        //!Left Inside Panel
-        JPanel leftInsidePanel = new JPanel();
-        leftInsidePanel.setBounds(50, 80, 250, 300);
-        leftInsidePanel.setLayout(null);
-        Color transparentColor = new Color(0, 0, 33, 80);
-        leftInsidePanel.setBackground(transparentColor);
-        leftInsidePanel.setBorder(BorderFactory.createLineBorder(Color.CYAN, 1));
-        leftInsidePanel.setOpaque(true);
-        //!Welcome Title-----------------------------------------
-        JLabel welTitle1 = new JLabel();
-        welTitle1.setText("Have");
-        welTitle1.setForeground(new Color(0x00FF00));
-        welTitle1.setFont(new Font("MV Boli", Font.BOLD, 20));
-        welTitle1.setBounds(15, 10, 250, 50);
-        JLabel welTitle2 = new JLabel();
-        welTitle2.setText("An Account ?");
-        welTitle2.setForeground(new Color(0x00FF00));
-        welTitle2.setFont(new Font("MV Boli", Font.BOLD, 20));
-        welTitle2.setBounds(45, 50, 250, 50);
-        //?Panel
-        JPanel welTitlePanel = new JPanel();
-        welTitlePanel.setBounds(0, 0, 250, 150);
-        welTitlePanel.setLayout(null);
-        welTitlePanel.add(welTitle1);
-        welTitlePanel.add(welTitle2);
-        welTitlePanel.setOpaque(false);
-        //?Message1
-        JLabel message1 = new JLabel();
-        message1.setText("Login Instead.");
-        message1.setForeground(new Color(0x00FF00));
-        message1.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        message1.setBounds(10, 0, 250, 20);
-        //?Message2
-        JLabel message2 = new JLabel();
-        message2.setText("Click Sign In Below.");
-        message2.setForeground(new Color(0x00FF00));
-        message2.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        message2.setBounds(60, 20, 250, 20);
-        //?Message3
-        JLabel message3 = new JLabel();
-        message3.setText("Quick & Easy.");
-        message3.setForeground(new Color(0x00FF00));
-        message3.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        message3.setBounds(140, 40, 250, 20);
-        //!Message Panel
-        JPanel messagePanel = new JPanel();
-        messagePanel.setBounds(0, 130, 250, 70);
-        messagePanel.setLayout(null);
-        messagePanel.setOpaque(false);
-        messagePanel.add(message1);
-        messagePanel.add(message2);
-        messagePanel.add(message3);
-        //!----------------------------------------------------
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 0, 15, 0);
 
-        //!Sign In Button
-        signIn.setText("Sign In");
-        signIn.setForeground(new Color(18, 28, 38));
-        signIn.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        signIn.setBounds(75, 230, 100, 30);
-        signIn.setFocusable(false);
-        signIn.addActionListener(this);
-        //!Adding Components To Left Inside/Left Panel-------------------------
-        leftInsidePanel.add(welTitlePanel);
-        leftInsidePanel.add(messagePanel);
-        leftInsidePanel.add(signIn);
-        leftPanel.add(leftInsidePanel);
+        //! Header section
+        JLabel titleLabel = new JLabel("Create Your Account", SwingConstants.CENTER);
+        titleLabel.setFont(TITLE_FONT);
+        titleLabel.setForeground(PRIMARY_COLOR);
+        panel.add(titleLabel, gbc);
 
-        return leftPanel;
-    }
+        //! Form sections
+        panel.add(createFormSection(), gbc);
 
-//!<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Creating Right Panel >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    private JPanel createRightPanel() {
-        //!Panel Settings
-        JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(null);
-        rightPanel.setOpaque(false);
-        rightPanel.setBounds(350, 0, 550, 500);
-        rightPanel.setBackground(new Color(0, 0, 33, 50));
-        //!Title Settings
-        JLabel title = new JLabel();
-        title.setText("Sign Up");
-        title.setForeground(new Color(255, 255, 255));
-        title.setFont(new Font("MV Boli", Font.BOLD, 20));
-        title.setBounds(10, 10, 500, 25);
-        //!Sign Up Text
-        JLabel signUpText = new JLabel();
-        signUpText.setText("Please Fill This Form.");
-        signUpText.setForeground(new Color(255, 255, 255));
-        signUpText.setFont(new Font("Arial", Font.PLAIN, 15));
-        signUpText.setBounds(50, 40, 400, 20);
-
-        //!Full Name Panel-----------------------------------------
-        JPanel fullNamePanel = new JPanel();
-        fullNamePanel.setBounds(10, 80, 250, 30);
-        fullNamePanel.setBackground(new Color(0x1A75FF));
-        fullNamePanel.setLayout(null);
-
-        JLabel nameLabel = new JLabel("Full Name");
-        nameLabel.setBounds(10, 0, 70, 30);
-        nameLabel.setForeground(new Color(0xFFFFFF));
-
-        name.setBounds(80, 0, 170, 30);
-        name.setForeground(new Color(0x000000));
-        name.setFont(new Font("Arial", Font.PLAIN, 15));
-
-        fullNamePanel.add(nameLabel);
-        fullNamePanel.add(name);
-        //!---------------------------------------------------------
-
-        //!Username Panel-------------------------------------------
-        JPanel usernamePanel = new JPanel();
-        usernamePanel.setBounds(280, 80, 250, 30);
-        usernamePanel.setBackground(new Color(0x1A75FF));
-        usernamePanel.setLayout(null);
-
-        JLabel usernameLabel = new JLabel("Username");
-        usernameLabel.setBounds(10, 0, 70, 30);
-        usernameLabel.setForeground(new Color(0xFFFFFF));
-
-        username.setBounds(80, 0, 170, 30);
-        username.setForeground(new Color(0x000000));
-        username.setFont(new Font("Arial", Font.PLAIN, 15));
-
-        usernamePanel.add(usernameLabel);
-        usernamePanel.add(username);
-        //!---------------------------------------------------------
-
-        //!Age Panel------------------------------------------------
-        JPanel agePanel = new JPanel();
-        agePanel.setBounds(10, 130, 180, 30);
-        agePanel.setBackground(new Color(0x1A75FF));
-        agePanel.setLayout(null);
-
-        JLabel ageLabel = new JLabel("Age");
-        ageLabel.setBounds(35, 0, 70, 30);
-        ageLabel.setForeground(new Color(0xFFFFFF));
-
-        age.setBounds(80, 0, 100, 30);
-        age.setForeground(new Color(0x000000));
-        age.setFont(new Font("Arial", Font.PLAIN, 15));
-
-        agePanel.add(ageLabel);
-        agePanel.add(age);
-        //!---------------------------------------------------------
-
-        //!Email Panel----------------------------------------------
-        JPanel emailPanel = new JPanel();
-        emailPanel.setBounds(210, 130, 320, 30);
-        emailPanel.setBackground(new Color(0x1A75FF));
-        emailPanel.setLayout(null);
-
-        JLabel emailLabel = new JLabel("Email");
-        emailLabel.setBounds(20, 0, 70, 30);
-        emailLabel.setForeground(new Color(0xFFFFFF));
-
-        email.setBounds(80, 0, 240, 30);
-        email.setForeground(new Color(0x000000));
-        email.setFont(new Font("Arial", Font.PLAIN, 15));
-
-        emailPanel.add(emailLabel);
-        emailPanel.add(email);
-        //!---------------------------------------------------------
-
-        //!Contact Number Panel-------------------------------------
-        JPanel contactNumberPanel = new JPanel();
-        contactNumberPanel.setBounds(10, 180, 190, 30);
-        contactNumberPanel.setBackground(new Color(0x1A75FF));
-        contactNumberPanel.setLayout(null);
-
-        JLabel contactNumberLabel = new JLabel("Phone");
-        contactNumberLabel.setBounds(15, 0, 70, 30);
-        contactNumberLabel.setForeground(new Color(0xFFFFFF));
-
-        contactNumber.setBounds(70, 0, 120, 30);
-        contactNumber.setForeground(new Color(0x000000));
-        contactNumber.setFont(new Font("Arial", Font.PLAIN, 15));
-
-        contactNumberPanel.add(contactNumberLabel);
-        contactNumberPanel.add(contactNumber);
-        //!---------------------------------------------------------
-
-        //!Gender Panel---------------------------------------------
-        JPanel genderPanel = new JPanel();
-        genderPanel.setBounds(215, 180, 150, 30);
-        genderPanel.setBackground(new Color(0x1A75FF));
-        genderPanel.setLayout(null);
-
-        JLabel genderLabel = new JLabel("Gender");
-        genderLabel.setBounds(5, 0, 70, 30);
-        genderLabel.setForeground(new Color(0xFFFFFF));
-
-        genderComboBox.setBounds(70, 0, 80, 30);
-        genderComboBox.setForeground(new Color(0x000000));
-        genderComboBox.setFont(new Font("Arial", Font.PLAIN, 15));
-
-        genderPanel.add(genderLabel);
-        genderPanel.add(genderComboBox);
-        //!---------------------------------------------------------
-
-        //!Blood Group Panel---------------------------------------------
-        JPanel bloodGroupPanel = new JPanel();
-        bloodGroupPanel.setBounds(380, 180, 150, 30);
-        bloodGroupPanel.setBackground(new Color(0x1A75FF));
-        bloodGroupPanel.setLayout(null);
-
-        JLabel bloodGroupLabel = new JLabel("Blood Group");
-        bloodGroupLabel.setBounds(5, 0, 70, 30);
-        bloodGroupLabel.setForeground(new Color(0xFFFFFF));
-
-        bloodGroupComboBox.setBounds(95, 0, 55, 30);
-        bloodGroupComboBox.setForeground(new Color(0x000000));
-        bloodGroupComboBox.setFont(new Font("Arial", Font.PLAIN, 15));
-
-        bloodGroupPanel.add(bloodGroupLabel);
-        bloodGroupPanel.add(bloodGroupComboBox);
-        //!---------------------------------------------------------
+        //! Terms and conditions
+        JPanel termsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        termsPanel.setOpaque(false);
+        termsPanel.add(termsAndConditionsCheckBox);
         
-        //!Email Panel----------------------------------------------
-        JPanel addressPanel = new JPanel();
-        addressPanel.setBounds(50, 230, 450, 30);
-        addressPanel.setBackground(new Color(0x1A75FF));
-        addressPanel.setLayout(null);
-
-        JLabel addressLabel = new JLabel("Address");
-        addressLabel.setBounds(20, 0, 70, 30);
-        addressLabel.setForeground(new Color(0xFFFFFF));
-
-        address.setBounds(80, 0, 370, 30);
-        address.setForeground(new Color(0x000000));
-        address.setFont(new Font("Arial", Font.PLAIN, 15));
-
-        addressPanel.add(addressLabel);
-        addressPanel.add(address);
-        //!---------------------------------------------------------
-
-        //!Password Panel-----------------------------------------
-        JPanel passwordPanel = new JPanel();
-        passwordPanel.setBounds(150, 280, 250, 30);
-        passwordPanel.setBackground(new Color(0x1A75FF));
-        passwordPanel.setLayout(null);
-
-        JLabel passwordLabel = new JLabel("Password");
-        passwordLabel.setBounds(10, 0, 70, 30);
-        passwordLabel.setForeground(new Color(0xFFFFFF));
-
-        password.setBounds(80, 0, 170, 30);
-        password.setForeground(new Color(0x000000));
-        password.setFont(new Font("Arial", Font.PLAIN, 15));
-
-        passwordPanel.add(passwordLabel);
-        passwordPanel.add(password);
-        //!---------------------------------------------------------
-
-        //!Terms And Conditions Checkbox-----------------------------------------
-        termsAndConditionsCheckBox.setBounds(100, 330, 150, 30);
-        termsAndConditionsCheckBox.setForeground(new Color(200, 117, 100));
-        termsAndConditionsCheckBox.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-        termsAndConditionsCheckBox.setFocusable(false);
-        termsAndConditionsCheckBox.setOpaque(false);
-        termsAndConditionsCheckBox.addActionListener(this);
-        JLabel termsAndConditionsLabel = new JLabel("terms and conditions");
-        termsAndConditionsLabel.setForeground(new Color(200, 120, 150));
-        termsAndConditionsLabel.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-        termsAndConditionsLabel.setBounds(250, 330, 400, 30);
-
-        termsAndConditionsLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                termsAndConditionsLabel.setForeground(new Color(0x00FF00));
-                termsAndConditionsLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                termsAndConditionsLabel.setForeground(new Color(200, 120, 150));
-            }
+        JLabel termsLink = createClickableLabel("terms and conditions");
+        termsLink.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 new TermsAndConditionsFrame();
             }
         });
+        termsPanel.add(termsLink);
+        
+        panel.add(termsPanel, gbc);
 
-        //!---------------------------------------------------------
+        //! Buttons panel
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
+        buttonsPanel.setOpaque(false);
+        buttonsPanel.add(signUp);
+        buttonsPanel.add(signIn);
+        
+        gbc.insets = new Insets(20, 0, 0, 0);
+        panel.add(buttonsPanel, gbc);
 
-        //!Button---------------------------------------------------
-        signUp.setText("Sign Up");
-        signUp.setForeground(new Color(25, 117, 255));
-        signUp.setFont(new Font("MV Boli", Font.BOLD, 20));
-        signUp.setBounds(210, 380, 130, 30);
-        signUp.setFocusable(false);
-        signUp.addActionListener(this);
-        signUp.setBackground(new Color(0x182838));
-        signUp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        signUp.setBorder(BorderFactory.createLineBorder(new Color(25, 117, 255), 2, true));
-        signUp.addMouseListener(new MouseAdapter() {
+        return panel;
+    }
+
+    private JPanel createFormSection() {
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setOpaque(false);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        //! First row
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0.5;
+        formPanel.add(createInputPanel("Full Name", name), gbc);
+
+        gbc.gridx = 1;
+        formPanel.add(createInputPanel("Username", username), gbc);
+
+        //! Second row
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        formPanel.add(createInputPanel("Age", age), gbc);
+
+        gbc.gridx = 1;
+        formPanel.add(createInputPanel("Email", email), gbc);
+
+        //! Third row
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        formPanel.add(createInputPanel("Contact Number", contactNumber), gbc);
+
+        gbc.gridx = 1;
+        JPanel selectionPanel = new JPanel(new GridLayout(1, 2, 10, 0));
+        selectionPanel.setOpaque(false);
+        selectionPanel.add(createInputPanel("Gender", genderComboBox));
+        selectionPanel.add(createInputPanel("Blood Group", bloodGroupComboBox));
+        formPanel.add(selectionPanel, gbc);
+
+        //! Fourth row
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        formPanel.add(createInputPanel("Address", address), gbc);
+
+        //! Fifth row
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        formPanel.add(createInputPanel("Password", password), gbc);
+
+        return formPanel;
+    }
+
+    private JPanel createInputPanel(String labelText, JComponent input) {
+        JPanel panel = new JPanel(new BorderLayout(5, 5));
+        panel.setOpaque(false);
+
+        JLabel label = new JLabel(labelText);
+        label.setFont(REGULAR_FONT);
+        label.setForeground(PRIMARY_COLOR);
+        
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(input, BorderLayout.CENTER);
+        
+        return panel;
+    }
+
+    private JTextField createStyledTextField() {
+        JTextField field = new JTextField();
+        field.setFont(REGULAR_FONT);
+        field.setPreferredSize(new Dimension(200, 35));
+        field.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(PRIMARY_COLOR.brighter(), 1),
+                BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+        return field;
+    }
+
+    private JPasswordField createStyledPasswordField() {
+        JPasswordField field = new JPasswordField();
+        field.setFont(REGULAR_FONT);
+        field.setPreferredSize(new Dimension(200, 35));
+        field.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(PRIMARY_COLOR.brighter(), 1),
+                BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+        return field;
+    }
+
+    private JComboBox<String> createStyledComboBox(String[] items) {
+        JComboBox<String> comboBox = new JComboBox<>(items);
+        comboBox.setFont(REGULAR_FONT);
+        comboBox.setPreferredSize(new Dimension(200, 35));
+        comboBox.setBorder(BorderFactory.createLineBorder(PRIMARY_COLOR.brighter(), 1));
+        return comboBox;
+    }
+
+    private JButton createStyledButton(String text, Color color) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        button.setForeground(TEXT_COLOR);
+        button.setBackground(color);
+        button.setPreferredSize(new Dimension(120, 40));
+        button.setBorder(new EmptyBorder(5, 15, 5, 15));
+        button.setFocusPainted(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.addActionListener(this);
+
+        //! Hover effect
+        button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                signUp.setBorder(BorderFactory.createLineBorder(new Color(0x00FF00), 2, true));
-                signUp.setBounds(208, 378, 135, 35);
-                signUp.setForeground(new Color(0x00FF00));
-                signUp.setBackground(new Color(0x182838));
+                button.setBackground(color.darker());
             }
+
             @Override
             public void mouseExited(MouseEvent e) {
-                signUp.setBorder(BorderFactory.createLineBorder(new Color(0xFFFFFF), 2, true));
-                signUp.setBounds(210, 380, 130, 30);
-                signUp.setForeground(new Color(25, 117, 255));
-                signUp.setBackground(new Color(0x182838));
+                button.setBackground(color);
             }
         });
-        
-        //!Adding Components To The Right Panel---------------------
-        rightPanel.add(title);
-        rightPanel.add(signUpText);
-        rightPanel.add(fullNamePanel);
-        rightPanel.add(usernamePanel);
-        rightPanel.add(agePanel);
-        rightPanel.add(emailPanel);
-        rightPanel.add(contactNumberPanel);
-        rightPanel.add(genderPanel);
-        rightPanel.add(bloodGroupPanel);
-        rightPanel.add(addressPanel);
-        rightPanel.add(passwordPanel);
-        rightPanel.add(termsAndConditionsCheckBox);
-        rightPanel.add(termsAndConditionsLabel);
-        rightPanel.add(signUp);
 
-        return rightPanel;
+        return button;
+    }
+
+    private JCheckBox createStyledCheckBox(String text) {
+        JCheckBox checkBox = new JCheckBox(text);
+        checkBox.setFont(REGULAR_FONT);
+        checkBox.setForeground(PRIMARY_COLOR);
+        checkBox.setOpaque(false);
+        checkBox.setFocusPainted(false);
+        return checkBox;
+    }
+
+    private JLabel createClickableLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(REGULAR_FONT);
+        label.setForeground(ACCENT_COLOR);
+        label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        //! Hover effect
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                label.setForeground(ACCENT_COLOR.darker());
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                label.setForeground(ACCENT_COLOR);
+            }
+        });
+
+        return label;
     }
 
     @Override
@@ -426,16 +307,16 @@ public class UserSignUp extends JFrame implements ActionListener{
             else if (!termsAndConditionsCheckBox.isSelected()) {
                 JOptionPane.showMessageDialog(null, "Please agree to the terms and conditions", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            else if (checkValidations.isEmailRegistered(email.getText(), "data/users/")) {
+            else if (checkValidations.isEmailRegistered(email.getText(), "/data/users/")) {
                 JOptionPane.showMessageDialog(null, "Email Already Registered", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            else if (FileUtils.doesFileExist("data/users/"+username.getText()+".txt")) {
+            else if (FileUtils.doesFileExist("/data/users/"+username.getText()+".txt")) {
                 JOptionPane.showMessageDialog(null, "Username Already Registered", "Error", JOptionPane.ERROR_MESSAGE);
             }
             else {
                 User user = new User(name.getText(), username.getText(), Integer.parseInt(age.getText()), email.getText(), address.getText(), contactNumber.getText(), password.getText(), selectedBloodGroup, selectedGender);
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
-                user.saveToFile(frame, username.getText());
+                user.saveToFile(frame);
             }
         }
     }

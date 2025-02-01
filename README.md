@@ -60,7 +60,7 @@ The HealthCare Center is a Java-based application designed to streamline operati
 2. Open your terminal in HealthCareCenter folder.
 3. Compile the java files:
    ```bash
-   javac -d bin src\main\java\com\healthcarecenter\Main.java src\main\java\com\healthcarecenter\frames\*.java src\main\java\com\healthcarecenter\utils\*.java src\main\java\com\healthcarecenter\models\*.java
+   javac -d bin src\main\java\com\healthcarecenter\Main.java src\main\java\com\healthcarecenter\frames\*.java src\main\java\com\healthcarecenter\frames\dialogs\*.java src\main\java\com\healthcarecenter\utils\*.java src\main\java\com\healthcarecenter\models\*.java
    ```
 4. Run the Main class:
    ```bash
