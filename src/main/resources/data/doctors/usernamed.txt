@@ -1,0 +1,21 @@
+<<<Doctor-Start>>>
+fullName=Doc Name
+username=usernamed
+age=12
+email=122dsf@adgz.asdf
+contactNumber=234242
+address=ewfaa
+password=agarga
+gender= Male
+bloodGroup=  A+
+role=Doctor
+specialization=sdfadfa
+qualifications=efae
+medicalLicenseNumber=324442342
+consultationHours=01:00 AM - 01:00 AM
+daysAvailable=Monday, Tuesday
+consultationFee=234.0
+salary=0.0
+<<<Doctor-End>>>
+
+[Appointments]

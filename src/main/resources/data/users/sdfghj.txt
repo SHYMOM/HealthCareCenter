@@ -1,14 +1,14 @@
 <<<User-Start>>>
 [User]
-name=Emiko
-username=emiko
-age=17
-email=emiko@gmail.com
-address=Tokyo, Japan
-contactNumber=1234567890
-password=12345678
-bloodGroup=B-
-gender=Female
+name=Namde
+username=sdfghj
+age=23
+email=dshgfahsd@gmail.com
+address=esdfghjk
+contactNumber=34567
+password=dfghjk
+bloodGroup=A+
+gender=Male
 role=User
 isDonor=false
 <<<User-End>>>

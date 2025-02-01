@@ -65,7 +65,7 @@ public class FileUtils {
             "/data/doctors", 
             "/data/SuperAdmins",
             "/data/CurrentUser",
-            "/data/PatientHistory"
+            "/data/PaymentHistory"
         };
 
         for (String folderPath : requiredFolders) {
