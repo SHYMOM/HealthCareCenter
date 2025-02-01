@@ -7,6 +7,9 @@ address=e2qwrtghg3er
 password=adfbg23434t
 gender= Male
 role=Doctor
+age=23
+bloodGroup=A+
+
 specialization=2ewregfb,agfg,wrgf
 qualifications=ewthg,egfnm,reg
 medicalLicenseNumber=234562345

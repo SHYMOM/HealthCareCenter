@@ -4,212 +4,99 @@ import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.*;
 
 public class LoginPage extends JFrame implements ActionListener {
 
-    private final JButton login = new JButton();
-    private final JButton signUp = new JButton();
-    private final JTextField email = new JTextField();
-    private final JPasswordField password = new JPasswordField();
-    private String userRole;
+    private final JButton login;
+    private final JButton signUp;
+    private final JTextField email;
+    private final JPasswordField password;
+    private final String userRole;
+    private static final Color PRIMARY_COLOR = new Color(0, 128, 128); // Teal
+    private static final Color ACCENT_COLOR = new Color(144, 238, 144); // Light green
+    private static final Color TEXT_COLOR = new Color(248, 248, 255); // White smoke
+    private static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 28);
+    private static final Font REGULAR_FONT = new Font("Segoe UI", Font.PLAIN, 14);
 
     public LoginPage(String userRole) {
         this.userRole = userRole;
+        
+        login = createStyledButton("Login", PRIMARY_COLOR, TEXT_COLOR);
+        signUp = createStyledButton("Sign Up", ACCENT_COLOR, PRIMARY_COLOR);
+        email = createStyledTextField();
+        password = createStyledPasswordField();
+        
         initializeFrame();
     }
 
     private void initializeFrame() {
-
-        //!<<<<<<<<<<<<<<<<<<<<<<<< Frame settings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
-
-        this.setIconImage(appIcon.getImage());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(900,500);
-        this.setTitle("Health Care Center.Login Page");
-        this.setResizable(false);
-        this.setLayout(null);
-        this.getContentPane().setBackground(new Color(0x123456));
-        this.setLocationRelativeTo(null);
-
-        //!<<<<<<<<<<<<<<<<<<<<<<<< Background >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        ImagePanel background = new ImagePanel(FileUtils.getFile("/images/signInBG.jpg").getAbsolutePath());
-        background.setBounds(0, 0, 900, 500);
-        background.setLayout(null);
-        background.setOpaque(false);
-
-        //!<<<<<<<<<<<<<<<<<<<<<<<< Left Panel >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        JPanel leftPanel = createLeftPanel();
-        background.add(leftPanel);
-
-        //!<<<<<<<<<<<<<<<<<<<<<<<< Right Panel >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        JPanel rightPanel = createRightPanel();
-        background.add(rightPanel);
-
-        this.add(background);
-        this.setVisible(true);
-    }
-
-//!<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Creating Left Panel >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    private JPanel createLeftPanel() {
-
-        //!Panel Settings
-        JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(null);
-        leftPanel.setOpaque(true);
-        leftPanel.setBounds(0, 0, 350, 500);
-        leftPanel.setBackground(new Color(0, 33, 0, 150));
-
-        if (userRole.equals("User")) {
-            //!Left Inside Panel
-            JPanel leftInsidePanel = new JPanel();
-            leftInsidePanel.setBounds(50, 80, 250, 300);
-            leftInsidePanel.setLayout(null);
-            Color transparentColor = new Color(0, 33, 0, 80);
-            leftInsidePanel.setBackground(transparentColor);
-            leftInsidePanel.setBorder(BorderFactory.createLineBorder(new Color(0x00FF00), 1));
-            leftInsidePanel.setOpaque(true);
-
-            //!Welcome Title-----------------------------------------
-            JLabel welTitle1 = new JLabel();
-            welTitle1.setText("Have");
-            welTitle1.setForeground(new Color(0x00FF00));
-            welTitle1.setFont(new Font("MV Boli", Font.BOLD, 20));
-            welTitle1.setBounds(15, 10, 250, 50);
-            JLabel welTitle2 = new JLabel();
-            welTitle2.setText("An Account ?");
-            welTitle2.setForeground(new Color(0x00FF00));
-            welTitle2.setFont(new Font("MV Boli", Font.BOLD, 20));
-            welTitle2.setBounds(45, 50, 250, 50);
-            //?Panel
-            JPanel welTitlePanel = new JPanel();
-            welTitlePanel.setBounds(0, 0, 250, 150);
-            welTitlePanel.setLayout(null);
-            welTitlePanel.add(welTitle1);
-            welTitlePanel.add(welTitle2);
-            welTitlePanel.setOpaque(false);
-            //?Message1
-            JLabel message1 = new JLabel();
-            message1.setText("Create One Instead.");
-            message1.setForeground(new Color(0x00FF00));
-            message1.setFont(new Font("SansSerif", Font.PLAIN, 15));
-            message1.setBounds(10, 0, 250, 20);
-            //?Message2
-            JLabel message2 = new JLabel();
-            message2.setText("Click Sign Up Below.");
-            message2.setForeground(new Color(0x00FF00));
-            message2.setFont(new Font("SansSerif", Font.PLAIN, 15));
-            message2.setBounds(60, 20, 250, 20);
-            //?Message3
-            JLabel message3 = new JLabel();
-            message3.setText("It's Free.");
-            message3.setForeground(new Color(0x00FF00));
-            message3.setFont(new Font("SansSerif", Font.PLAIN, 15));
-            message3.setBounds(140, 40, 250, 20);
-
-            //!Message Panel
-            JPanel messagePanel = new JPanel();
-            messagePanel.setBounds(0, 130, 250, 70);
-            messagePanel.setLayout(null);
-            messagePanel.setOpaque(false);
-            messagePanel.add(message1);
-            messagePanel.add(message2);
-            messagePanel.add(message3);
-            //!----------------------------------------------------
-
-            //!Sign Up Button
-            signUp.setText("Sign Up");
-            signUp.setForeground(new Color(18, 28, 38));
-            signUp.setFont(new Font("SansSerif", Font.PLAIN, 15));
-            signUp.setBounds(75, 230, 100, 30);
-            signUp.setFocusable(false);
-            signUp.addActionListener(this);
-
-            //!Adding Components To Left Inside/Left Panel-------------------------
-            leftInsidePanel.add(welTitlePanel);
-            leftInsidePanel.add(messagePanel);
-            leftInsidePanel.add(signUp);
-            leftPanel.add(leftInsidePanel);
-        }
-
-        return leftPanel;
-    }
-
-//!<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Creating Right Panel >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    private JPanel createRightPanel() {
-
-        //!Panel Settings
-        JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(null);
-        rightPanel.setOpaque(true);
-        rightPanel.setBounds(350, 0, 550, 500);
-        rightPanel.setBackground(new Color(0, 100, 0, 80));
-
-        //!Title Settings
-        JLabel title = new JLabel();
-        title.setText("Login");
-        title.setForeground(new Color(0x00FF00));
-        title.setFont(new Font("MV Boli", Font.BOLD, 20));
-        title.setBounds(50, 50, 550, 50);
-
-        //!Sign In Text
-        JLabel loginText = new JLabel();
-        loginText.setText("Welcome Back User");
-        loginText.setForeground(new Color(0x00FF00));
-        loginText.setFont(new Font("MV Boli", Font.BOLD, 15));
-        loginText.setBounds(70, 100, 550, 50);
-        //?Message2
-        JLabel loginText2 = new JLabel();
-        loginText2.setText("Please Fill The Credentials");
-        loginText2.setForeground(new Color(0x00FF00));
-        loginText2.setFont(new Font("Arial", Font.PLAIN, 15));
-        loginText2.setBounds(150, 130, 550, 50);
-
-        //!Email Panel-----------------------------------------
-        JPanel emailPanel = new JPanel();
-        emailPanel.setBounds(150, 200, 250, 30);
-        emailPanel.setBackground(new Color(0x156456));
-        emailPanel.setLayout(null);
-
-        JLabel emailLabel = new JLabel("Email");
-        emailLabel.setBounds(10, 0, 70, 30);
-        emailLabel.setForeground(new Color(0xFFFFFF));
-
-        email.setBounds(80, 0, 170, 30);
-        email.setForeground(new Color(0x000000));
-        email.setFont(new Font("Arial", Font.PLAIN, 15));
-
-        emailPanel.add(emailLabel);
-        emailPanel.add(email);
-        //!---------------------------------------------------------
-
-        //!Password Panel-----------------------------------------
-        JPanel passwordPanel = new JPanel();
-        passwordPanel.setBounds(150, 250, 250, 30);
-        passwordPanel.setBackground(new Color(0x156456));
-        passwordPanel.setLayout(null);
-
-        JLabel passwordLabel = new JLabel("Password");
-        passwordLabel.setBounds(10, 0, 70, 30);
-        passwordLabel.setForeground(new Color(0xFFFFFF));
-
-        password.setBounds(80, 0, 170, 30);
-        password.setForeground(new Color(0x000000));
-        password.setFont(new Font("Arial", Font.PLAIN, 15));
+        setIconImage(appIcon.getImage());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1000, 600);
+        setTitle("Healthcare Center - Login");
+        setResizable(false);
+        setLocationRelativeTo(null);
         
-        passwordPanel.add(passwordLabel);
-        passwordPanel.add(password);
-        //!---------------------------------------------------------
+        JPanel mainPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+                GradientPaint gradient = new GradientPaint(0, 0, PRIMARY_COLOR, getWidth(), getHeight(), ACCENT_COLOR.darker());
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+        mainPanel.setLayout(new GridBagLayout());
 
-        //!Forgot Password text-------------------------------------
-        JLabel forgotPassword = new JLabel();
-        forgotPassword.setText("Forgot Password?");
-        forgotPassword.setForeground(new Color(0x00FF00));
-        forgotPassword.setFont(new Font("SansSerif", Font.BOLD, 15));
-        forgotPassword.setBounds(150, 300, 250, 30);
-        forgotPassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        JPanel contentPanel = createContentPanel();
+        mainPanel.add(contentPanel);
+
+        add(mainPanel);
+        setVisible(true);
+    }
+
+    private JPanel createContentPanel() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(new Color(255, 255, 255, 240));
+        panel.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(new Color(255, 255, 255, 100), 1),
+            BorderFactory.createEmptyBorder(30, 40, 30, 40)
+        ));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 0, 15, 0);
+
+        //! Welcome message
+        JLabel welcomeLabel = new JLabel("Welcome to Healthcare Center", SwingConstants.CENTER);
+        welcomeLabel.setFont(TITLE_FONT);
+        welcomeLabel.setForeground(PRIMARY_COLOR);
+        panel.add(welcomeLabel, gbc);
+
+        //! Role indicator
+        JLabel roleLabel = new JLabel("Login as " + userRole, SwingConstants.CENTER);
+        roleLabel.setFont(REGULAR_FONT);
+        roleLabel.setForeground(PRIMARY_COLOR.darker());
+        panel.add(roleLabel, gbc);
+
+        //! Add some spacing
+        gbc.insets = new Insets(20, 0, 5, 0);
+
+        //! Email field with icon
+        JPanel emailPanel = createInputPanel("Email", email, "/Icons/email_icon.png");
+        panel.add(emailPanel, gbc);
+
+        //! Password field with icon
+        JPanel passwordPanel = createInputPanel("Password", password, "/Icons/password_icon.png");
+        panel.add(passwordPanel, gbc);
+
+        //! Forgot password link
+        JLabel forgotPassword = createClickableLabel("Forgot Password?");
         forgotPassword.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -217,98 +104,215 @@ public class LoginPage extends JFrame implements ActionListener {
                 new ForgetPasswordPage();
             }
         });
+        gbc.insets = new Insets(5, 0, 20, 0);
+        panel.add(forgotPassword, gbc);
 
-        //!---------------------------------------------------------
+        //! Buttons panel
+        JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
+        buttonsPanel.setOpaque(false);
+        
+        if (userRole.equals("User")) {
+            buttonsPanel.add(signUp);
+        }
+        buttonsPanel.add(login);
+        
+        gbc.fill = GridBagConstraints.NONE;
+        panel.add(buttonsPanel, gbc);
 
-        //!Login Button
-        login.setText("Login");
-        login.setForeground(new Color(0x00FF00));
-        login.setFont(new Font("MV Boli", Font.BOLD, 20));
-        login.setBounds(225, 330, 100, 30);
-        login.setFocusable(false);
-        login.addActionListener(this);
-
-        //!Adding Components To The Right Panel---------------------
-        rightPanel.add(title);
-        rightPanel.add(loginText);
-        rightPanel.add(loginText2);
-        rightPanel.add(emailPanel);
-        rightPanel.add(passwordPanel);
-        rightPanel.add(forgotPassword);
-        rightPanel.add(login);
-
-        return rightPanel;
+        return panel;
     }
+
+    private JPanel createInputPanel(String labelText, JComponent input, String iconPath) {
+        JPanel panel = new JPanel(new BorderLayout(10, 0));
+        panel.setOpaque(false);
+        
+        if (iconPath != null) {
+            try {
+                ImageIcon icon = new ImageIcon(FileUtils.getFile(iconPath).getAbsolutePath());
+                Image img = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+                JLabel iconLabel = new JLabel(new ImageIcon(img));
+                iconLabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                panel.add(iconLabel, BorderLayout.WEST);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        JLabel label = new JLabel(labelText);
+        label.setFont(REGULAR_FONT);
+        label.setForeground(PRIMARY_COLOR);
+        
+        JPanel inputWrapper = new JPanel(new BorderLayout());
+        inputWrapper.setOpaque(false);
+        inputWrapper.add(label, BorderLayout.NORTH);
+        inputWrapper.add(input, BorderLayout.CENTER);
+        
+        panel.add(inputWrapper, BorderLayout.CENTER);
+        return panel;
+    }
+
+    private JButton createStyledButton(String text, Color bgColor, Color fgColor) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        button.setForeground(fgColor);
+        button.setBackground(bgColor);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setPreferredSize(new Dimension(120, 40));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.addActionListener(this);
+        
+        //! Hover effect
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(bgColor.darker());
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(bgColor);
+            }
+        });
+        
+        return button;
+    }
+
+    private JTextField createStyledTextField() {
+        JTextField field = new JTextField();
+        field.setFont(REGULAR_FONT);
+        field.setPreferredSize(new Dimension(250, 30));
+        field.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(PRIMARY_COLOR.brighter(), 1),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
+        return field;
+    }
+
+    private JPasswordField createStyledPasswordField() {
+        JPasswordField field = new JPasswordField();
+        field.setFont(REGULAR_FONT);
+        field.setPreferredSize(new Dimension(250, 30));
+        field.setBorder(BorderFactory.createCompoundBorder(
+            new LineBorder(PRIMARY_COLOR.brighter(), 1),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
+        return field;
+    }
+
+    private JLabel createClickableLabel(String text) {
+        JLabel label = new JLabel(text, SwingConstants.CENTER);
+        label.setFont(REGULAR_FONT);
+        label.setForeground(PRIMARY_COLOR);
+        label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        //! Hover effect
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                label.setForeground(PRIMARY_COLOR.darker());
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                label.setForeground(PRIMARY_COLOR);
+            }
+        });
+        
+        return label;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == login){
-            All_Validations checkValidations = new All_Validations();
-            if(this.email.getText().isEmpty() || this.password.getText().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Please Fill The Credentials");
-            }
-            else if(!checkValidations.isValidEmail(email.getText())){
-                JOptionPane.showMessageDialog(null, "Invalid email format", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            else if(!checkValidations.isValidPassword(password.getText())){
-                JOptionPane.showMessageDialog(null, "Password must be at least 6 characters long", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            else{
-                if(GetSuperAdminData.isSuperAdminEmail(email.getText()) && GetSuperAdminData.getSuperAdminPassword(email.getText()).equals(password.getText())){
-                    new SuperAdminHomePage();
-                    this.dispose();
-                }
-                else{
-                    if(userRole.equals("User")){
-                        if(!checkValidations.isEmailRegistered(email.getText(),"/data/users/")){
-                            JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                        else{
-                            if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/users/")){
-                                this.dispose();
-                                new UserHomePage(email.getText(), false);
-                            }
-                            else{
-                                JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
-                            }
-                        }
-                    }
-                    else if(userRole.equals("Admin")){
-                        if(!checkValidations.isEmailRegistered(email.getText(),"/data/admins/" )){
-                            JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                        else{
-                            if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/admins/")){
-                                this.dispose();
-                                new AdminHomePage();
-                            }
-                            else{
-                                JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
-                            }
-                        }
-                    }
-                    else if(userRole.equals("Doctor")){
-                        if(!checkValidations.isEmailRegistered(email.getText(),"/data/doctors/" )){
-                            JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                        else{
-                            if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/doctors/")){
-                                this.dispose();
-                                new DoctorHomePage();
-                            }
-                            else{
-                                JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
-                            }
-                        }
-                    }
-                }
-            }
-    }
-        else if(e.getSource() == signUp){
+        if (e.getSource() == login) {
+            handleLogin();
+        } else if (e.getSource() == signUp) {
             new UserSignUp();
             this.dispose();
         }
     }
+
+    private void handleLogin() {
+        All_Validations checkValidations = new All_Validations();
+        String emailText = email.getText();
+        String passwordText = new String(password.getPassword());
+
+        if (emailText.isEmpty() || passwordText.isEmpty()) {
+            showError("Please fill in all fields");
+        }
+        else if (!checkValidations.isValidEmail(emailText)) {
+            showError("Invalid email format");
+        }
+        else if (!checkValidations.isValidPassword(passwordText)) {
+            showError("Password must be at least 6 characters long");
+        }
+        else{
+            if(GetSuperAdminData.isSuperAdminEmail(email.getText()) && GetSuperAdminData.getSuperAdminPassword(email.getText()).equals(password.getText())){
+                new SuperAdminHomePage();
+                this.dispose();
+            }
+            else{
+                if(userRole.equals("User")){
+                    if(!checkValidations.isEmailRegistered(email.getText(),"/data/users/")){
+                        JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else{
+                        if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/users/")){
+                            this.dispose();
+                            new UserHomePage(email.getText(), false);
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+                else if(userRole.equals("Admin")){
+                    if(!checkValidations.isEmailRegistered(email.getText(),"/data/admins/" )){
+                        JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else{
+                        if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/admins/")){
+                            this.dispose();
+                            new AdminHomePage();
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+                else if(userRole.equals("Doctor")){
+                    if(!checkValidations.isEmailRegistered(email.getText(),"/data/doctors/" )){
+                        JOptionPane.showMessageDialog(null, "Email Not Registered", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else{
+                        if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/doctors/")){
+                            this.dispose();
+                            new DoctorHomePage();
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(
+            this,
+            message,
+            "Error",
+            JOptionPane.ERROR_MESSAGE
+        );
+    }
+
     public static void main(String[] args) {
-        new LoginPage("User");
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        SwingUtilities.invokeLater(() -> new LoginPage("User"));
     }
 }

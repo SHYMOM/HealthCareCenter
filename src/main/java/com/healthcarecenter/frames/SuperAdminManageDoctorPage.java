@@ -1,4 +1,5 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.frames.dialogs.DoctorDetailsDialog;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetDoctorData;
@@ -7,7 +8,9 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
 {
@@ -112,12 +115,12 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
          Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
          Mang_Doc.setBounds(80, 15, 140, 20);
 
-          //level forupd_bloo
-         JLabel upd_bloo = new JLabel();
-         upd_bloo.setText("Update Blood Stock");
-         upd_bloo.setForeground(new Color(000000));
-         upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         upd_bloo.setBounds(225, 15, 160, 20);
+          //level forbillingHistory
+         JLabel billingHistory = new JLabel();
+         billingHistory.setText("Billing History");
+         billingHistory.setForeground(new Color(000000));
+         billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         billingHistory.setBounds(225, 15, 160, 20);
 		 
 		 //level for manage admin
          JLabel Mang_Admin = new JLabel();
@@ -143,7 +146,7 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
           //add level in middle_panel
           middle_panel.add(home);
           middle_panel.add(Mang_Doc);
-          middle_panel.add(upd_bloo);
+          middle_panel.add(billingHistory);
           middle_panel.add(paySalary );
 		  middle_panel.add(Mang_Admin);
           middle_panel.add(log_out);
@@ -194,19 +197,19 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
             }
         });
 
-       upd_bloo.addMouseListener(new MouseAdapter() {
+       billingHistory.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-               upd_bloo.setForeground(new Color(0x00FF00));
-               upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   upd_bloo.setBounds(215, 10, 170, 30);
+               billingHistory.setForeground(new Color(0x00FF00));
+               billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 18));
+			   billingHistory.setBounds(215, 10, 170, 30);
 			  
             }
             @Override
             public void mouseExited(MouseEvent e) {
-               upd_bloo.setForeground(new Color(0, 0, 0));
-               upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   upd_bloo.setBounds(225, 15, 160, 20);
+               billingHistory.setForeground(new Color(0, 0, 0));
+               billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+			   billingHistory.setBounds(225, 15, 160, 20);
 			  
             }
             @Override
@@ -322,7 +325,7 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
         Add_Doctor.setFocusable(false);
         Add_Doctor.addActionListener(this);
         
-        Remove_Doctor = new JButton("Remove Admin");
+        Remove_Doctor = new JButton("Remove Doctor");
         Remove_Doctor.setBounds(540, 380, 120,30);
         Remove_Doctor.setFocusable(false);
         Remove_Doctor.addActionListener(this);
@@ -336,7 +339,15 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
         getDetails.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               // printSelectedDoctorDetails();
+                String selectedUsername = getSelectedDoctorUsername();
+                if (selectedUsername != null) {
+                    HashMap<String, String> doctorDetails = GetDoctorData.getDoctorDetails(selectedUsername);
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component)e.getSource());
+                    DoctorDetailsDialog.showDoctorDetails(frame, doctorDetails,"Admin");
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "No doctor selected.");
+                }
             }
         });
 
@@ -347,54 +358,82 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
         
 
         tableModel = new DefaultTableModel(new String[]{
-            "Full Name", "Email", "Contact Number", "Gender","Salary"}, 0);
+            "Full Name", "Email", "Contact Number", "Gender", "Salary"},0) 
+            {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
-            loadDoctorData();
+        loadDoctorData();
 
-            ManageDoctorsTable = new JTable(tableModel);
-            JScrollPane scrollPane = new JScrollPane(ManageDoctorsTable);
-            scrollPane.setBounds(0, 50, 900, 280);
-            lower_panel.add(scrollPane);
+        ManageDoctorsTable = new JTable(tableModel);
+        ManageDoctorsTable.getTableHeader().setReorderingAllowed(false);
+        ManageDoctorsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ManageDoctorsTable.setRowHeight(30);
+        ManageDoctorsTable.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        ManageDoctorsTable.setShowGrid(true);
+        ManageDoctorsTable.setGridColor(new Color(230, 230, 230));
+
+        //! Style Of The Header
+        JTableHeader header = ManageDoctorsTable.getTableHeader();
+        header.setBackground(new Color(51, 102, 204));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+
+        ManageDoctorsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, 
+                        hasFocus, row, column);
+
+                if (isSelected) {
+                    comp.setBackground(new Color(70, 130, 230));
+                    comp.setForeground(Color.WHITE);
+                } else {
+                    comp.setBackground(row % 2 == 0 ? new Color(240, 240, 255) : Color.WHITE);
+                    comp.setForeground(Color.BLACK);
+                }
+                ((JLabel) comp).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                
+                return comp;
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(ManageDoctorsTable);
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        scrollPane.setBounds(0, 50, 900, 280);
+
+        lower_panel.add(scrollPane);
             
-       
         return lower_panel;
     }
     
 
         private void loadDoctorData() {
-            // Get all doctors' details
             ArrayList<HashMap<String, String>> allDoctors = GetDoctorData.getAllDoctorsDetails();
-    
-            // Add each doctor's details as a row in the table
             for (HashMap<String, String> doctor : allDoctors) {
-                System.out.println(doctor);
                 tableModel.addRow(new Object[]{
                         doctor.get("fullName"),
                         doctor.get("email"),
-                        doctor.get("contractNumber"),
+                        doctor.get("contactNumber"),
                         doctor.get("gender"),
                         doctor.get("salary")
                 });
             }
         }
 
-            
+        private String getSelectedDoctorUsername() {
+            int selectedRow = ManageDoctorsTable.getSelectedRow();
+            if (selectedRow == -1) {
+                return null;
+            }
+            return FileUtils.getUsernameByEmail(tableModel.getValueAt(selectedRow, 1).toString(),"/data/doctors/");
+        }
 
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
-  
 
     
 

@@ -57,4 +57,26 @@ public class FileUtils {
         return null;
     }
 
+    public static boolean hasAllNeededFolders() {
+        String[] requiredFolders = {
+            "/data", 
+            "/data/users", 
+            "/data/admins", 
+            "/data/doctors", 
+            "/data/SuperAdmins",
+            "/data/CurrentUser",
+            "/data/PaymentHistory"
+        };
+
+        for (String folderPath : requiredFolders) {
+            File directory = new File(getFile(folderPath).getAbsolutePath());
+            
+            if (!directory.exists() || !directory.isDirectory()) {
+                if (!directory.mkdirs()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

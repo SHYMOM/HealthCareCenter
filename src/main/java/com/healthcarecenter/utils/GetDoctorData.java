@@ -83,7 +83,7 @@ public class GetDoctorData {
                     if (parts.length == 2 && !parts[0].isEmpty() && !parts[1].isEmpty()) {
                         String key = parts[0].trim();
                         String value = parts[1].trim();
-                        if (!key.equalsIgnoreCase("password") && !key.equalsIgnoreCase("username")) {
+                        if (!key.equalsIgnoreCase("password")) {
                             doctorDetails.put(key, value);
                         }
                     }

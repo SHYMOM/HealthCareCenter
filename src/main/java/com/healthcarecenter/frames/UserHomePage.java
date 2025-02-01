@@ -1,48 +1,62 @@
 package com.healthcarecenter.frames;
 
-import com.healthcarecenter.utils.*;
 import com.healthcarecenter.models.*;
-
+import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-
 import javax.swing.*;
 public class UserHomePage extends JFrame implements ActionListener
 {
     private String name;
     private String username;
 
-    public UserHomePage(String value, boolean isUsername)
-    {
+    public UserHomePage(String value, boolean isUsername) {
         if (!isUsername) {
-            this.username = FileUtils.getUsernameByEmail(value, "/data/users/");
-            if (this.username == null || this.username.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "No user found with the given email.");
+            try {
+                username = FileUtils.getUsernameByEmail(value, "/data/users/");
+               
+                if (username == null) {
+                        JOptionPane.showMessageDialog(null, "No user found with the given email."+value);
+                        new WelcomePage();
+                        this.dispose();
+                        return;
+                    }
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
                 new WelcomePage();
                 this.dispose();
+                return;
             }
-        }
-        else {
+        } else {
             this.username = value;
         }
+
+        if (this.username == null || this.username.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Invalid username detected.");
+            new WelcomePage();
+            this.dispose();
+            return;
+        }
+
         try {
             this.name = GetUserData.getName(username);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
             new WelcomePage();
             this.dispose();
+            return;
         }
 
-        if (!isUsername) {
-            try {
-                CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", value, "user");
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
-            }
+        try {
+            CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", GetUserData.getEmail(username), "user");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
         }
+
         UserUI();
     }
+
 
     private void UserUI()
     {
@@ -141,12 +155,12 @@ public class UserHomePage extends JFrame implements ActionListener
         History.setFont(new Font("SansSerif", Font.PLAIN, 15));
         History.setBounds(235, 15, 140, 20);
 
-         //level for blood
-         JLabel blood = new JLabel();
-         blood.setText("Blood Bank");
-         blood.setForeground(new Color(000000));
-         blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         blood.setBounds(400, 15, 80, 20);
+         //level for billingHistory
+         JLabel billingHistory = new JLabel();
+         billingHistory.setText("Billing History");
+         billingHistory.setForeground(new Color(000000));
+         billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         billingHistory.setBounds(400, 15, 80, 20);
 
           //level for bill
         JLabel bill = new JLabel();
@@ -166,7 +180,7 @@ public class UserHomePage extends JFrame implements ActionListener
           middle_panel.add(home);
           middle_panel.add(appoinment);
           middle_panel.add(History);
-          middle_panel.add(blood);
+          middle_panel.add(billingHistory);
           middle_panel.add(bill);
           middle_panel.add(log_out);
 
@@ -210,7 +224,7 @@ public class UserHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-                new UserBookAppointmentPage();
+                new UserBookAppointmentPage(username);
             }
         });
 
@@ -230,29 +244,29 @@ public class UserHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();  
-                new UserMedicalHistoryPage();
+                new UserMedicalHistoryPage(username);
             }
         });
         
 
 
-        blood .addMouseListener(new MouseAdapter() {
+        billingHistory .addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                blood .setForeground(new Color(0x00FF00));
-                blood.setBounds(398, 10, 85,  30);
-                blood.setFont(new Font("SansSerif", Font.PLAIN, 17));
+                billingHistory .setForeground(new Color(0x00FF00));
+                billingHistory.setBounds(398, 10, 85,  30);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 17));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                blood .setForeground(new Color(000000));
-                blood.setBounds(400, 15, 80,   20);
-                blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
+                billingHistory .setForeground(new Color(000000));
+                billingHistory.setBounds(400, 15, 80,   20);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose(); 
-                new UserBloodBankPage();
+                new UserBillingHistoryPage(username);
             }
         });
 
@@ -274,7 +288,7 @@ public class UserHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose(); 
-                new UserPayBillPage(); 
+                new UserPayBillPage(username); 
             }
         });
 
