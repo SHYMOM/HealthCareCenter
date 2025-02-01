@@ -12,8 +12,8 @@ import java.util.HashMap;
 
 public class DoctorDetailsFrame extends JFrame {
 
-    private JTable doctorsTable;
-    private DefaultTableModel tableModel;
+   private JTable doctorsTable;
+   private DefaultTableModel tableModel;
 
     public DoctorDetailsFrame() {
         // Set up the JFrame
@@ -28,7 +28,12 @@ public class DoctorDetailsFrame extends JFrame {
         // Table model for displaying doctor details
         tableModel = new DefaultTableModel(new String[]{
                 "Full Name", "Username", "Specialization", "Contact Number", "Consultation Fee"
-        }, 0);
+        }, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
         // Load doctor data into the table
         loadDoctorData();
@@ -66,10 +71,8 @@ public class DoctorDetailsFrame extends JFrame {
 
         // Add each doctor's details as a row in the table
         for (HashMap<String, String> doctor : allDoctors) {
-            System.out.println(doctor);
             tableModel.addRow(new Object[]{
                     doctor.get("fullName"),
-                    doctor.get("username"),
                     doctor.get("specialization"),
                     doctor.get("contactNumber"),
                     doctor.get("consultationFee")

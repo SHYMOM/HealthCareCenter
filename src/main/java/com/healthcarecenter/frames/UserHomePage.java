@@ -1,12 +1,10 @@
 package com.healthcarecenter.frames;
 
-import com.healthcarecenter.utils.*;
 import com.healthcarecenter.models.*;
-
+import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-
 import javax.swing.*;
 public class UserHomePage extends JFrame implements ActionListener
 {
@@ -210,7 +208,7 @@ public class UserHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-                new UserBookAppointmentPage();
+                new UserBookAppointmentPage(username);
             }
         });
 
@@ -230,7 +228,7 @@ public class UserHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();  
-                new UserMedicalHistoryPage();
+                new UserMedicalHistoryPage(username);
             }
         });
         
@@ -252,7 +250,7 @@ public class UserHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose(); 
-                new UserBloodBankPage();
+                new UserBloodBankPage(username);
             }
         });
 
@@ -274,7 +272,7 @@ public class UserHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose(); 
-                new UserPayBillPage(); 
+                new UserPayBillPage(username); 
             }
         });
 

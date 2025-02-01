@@ -1,14 +1,20 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.*;
-
-import com.healthcarecenter.utils.FileUtils;
+import javax.swing.table.DefaultTableModel;
 public class UserBookAppointmentPage extends JFrame implements ActionListener
 {
 
-    public UserBookAppointmentPage()
+    private JTable appoinmentTable;
+    private DefaultTableModel tableModel;
+    private String username;
+    public UserBookAppointmentPage(String username)
     {
+        this.username = username;
         UserUI();
     }
 
@@ -157,7 +163,7 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(appoinment).dispose();
-                //new userHomePage();
+                new UserHomePage(username, true);
             }
         });
 
@@ -200,7 +206,7 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(appoinment).dispose();
-                new UserMedicalHistoryPage();  
+                new UserMedicalHistoryPage(username);  
             }
         });
         
@@ -222,7 +228,7 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(appoinment).dispose(); 
-                new UserBloodBankPage();
+                new UserBloodBankPage(username);
             }
         });
 
@@ -244,7 +250,7 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
           @Override
           public void mouseClicked(MouseEvent e) {
             SwingUtilities.getWindowAncestor(appoinment).dispose(); 
-            new UserPayBillPage(); 
+            new UserPayBillPage(username); 
           }
       });
 
@@ -291,14 +297,79 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
 
     private JPanel createLowerpanel()
     {
-        JPanel lower_panel = new JPanel();                                  
-        lower_panel.setLayout(null);
-        lower_panel.setBounds(0,200,900,500);
-        lower_panel.setBackground(Color.white);
+
+        JButton takeAppoint = new JButton("Take Appoinment");
+        takeAppoint.setBounds(375, 310, 120, 40);
+        takeAppoint.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        takeAppoint.setBorder(BorderFactory.createLineBorder(new Color(0x1A75FF), 2, true));
+        takeAppoint.setFocusable(false);
+
+       
+
+
+
+        tableModel = new DefaultTableModel(new String[]
+             { "Full Name", "Specialization", "Days", "Time", "Fee"}, 0) 
+        {
+            @Override
+            public boolean isCellEditable(int row, int column)
+             {
+                return false;
+             }
+        };
+
+            appoinmentTable = new JTable(tableModel);
+            JScrollPane scrollPane = new JScrollPane(appoinmentTable);
+            scrollPane.setBounds(2, 00, 880,300);
+            scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+      
         
 
+        loadDoctorData();
+
+        appoinmentTable = new JTable(tableModel);
+        appoinmentTable.getTableHeader().setReorderingAllowed(false);
+        appoinmentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        appoinmentTable.setRowHeight(30);
+        appoinmentTable.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        appoinmentTable.setShowGrid(true);
+        appoinmentTable.setGridColor(new Color(230, 230, 230));
+
+        
+
+
+        JPanel lower_panel = new JPanel();                                  
+        lower_panel.setLayout(null);
+        lower_panel.setBounds(0,200,900,365);
+        lower_panel.setBackground(Color.white);
+        lower_panel.add(takeAppoint);
+        lower_panel.add(scrollPane);
         return lower_panel;
     }
+
+
+
+    private void loadDoctorData()
+    {
+
+        ArrayList<HashMap<String, String>> allDoctors = GetDoctorData.getAllDoctorsDetails();
+
+        for (HashMap<String, String> doctor : allDoctors)
+        {
+            tableModel.addRow(new Object[] {
+                doctor.get("fullName"),
+                doctor.get("specialization"),
+                doctor.get("daysAvailable"),
+                doctor.get("consultationHours"),
+                doctor.get("consultationFee")
+            });
+        }
+
+
+
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e)
@@ -306,8 +377,5 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
         // code to handle the action event
     }
 
-    public static void main(String[] args)
-    {
-        new UserBookAppointmentPage();
-    }
+
 }

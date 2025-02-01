@@ -1,14 +1,14 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.utils.FileUtils;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
-import com.healthcarecenter.utils.FileUtils;
 public class UserPayBillPage extends JFrame implements ActionListener
 {
-
-    public UserPayBillPage()
+    private String username;
+    public UserPayBillPage(String username)
     {
+        this.username = username;
         UserUI();
     }
 
@@ -157,7 +157,7 @@ public class UserPayBillPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(bill).dispose();
-                //new userHomePage();
+                new UserHomePage(username, true);
             }
         });
 
@@ -180,7 +180,7 @@ public class UserPayBillPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(bill).dispose();
-                new UserBookAppointmentPage();
+                new UserBookAppointmentPage(username);
             }
         });
 
@@ -200,7 +200,7 @@ public class UserPayBillPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(bill).dispose();  
-                new UserMedicalHistoryPage();
+                new UserMedicalHistoryPage(username);
             }
         });
         
@@ -222,7 +222,7 @@ public class UserPayBillPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(bill).dispose();
-                new UserBloodBankPage();
+                new UserBloodBankPage(username);
             }
         });
 

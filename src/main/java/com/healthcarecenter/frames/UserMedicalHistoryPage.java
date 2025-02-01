@@ -1,14 +1,14 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.utils.FileUtils;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
-import com.healthcarecenter.utils.FileUtils;
 public class UserMedicalHistoryPage extends JFrame implements ActionListener
 {
-
-    public UserMedicalHistoryPage()
+    private String username;
+    public UserMedicalHistoryPage(String username)
     {
+        this.username = username;
         UserUI();
     }
 
@@ -157,7 +157,7 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(History).dispose();
-                //new userHomePage();
+                new UserHomePage(username, true);
             }
         });
 
@@ -180,7 +180,7 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(History).dispose();
-                new UserBookAppointmentPage();
+                new UserBookAppointmentPage(username);
             }
         });
 
@@ -221,7 +221,7 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(History).dispose();
-                new UserBloodBankPage(); 
+                new UserBloodBankPage(username); 
             }
         });
 
@@ -243,7 +243,7 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
           @Override
           public void mouseClicked(MouseEvent e) {
             SwingUtilities.getWindowAncestor(History).dispose();  
-            new UserPayBillPage();
+            new UserPayBillPage(username);
           }
       });
 
@@ -292,9 +292,41 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,200,900,500);
         lower_panel.setBackground(Color.white);
+        lower_panel.add(scrollPane());
         
 
         return lower_panel;
+    }
+
+
+    private JScrollPane scrollPane()
+    {
+
+       JScrollPane scrollPane = new JScrollPane();
+       scrollPane.setBounds(2, 00, 880,300);
+       scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+       scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+
+       String[][] data={ 
+                         {"23-08-2023", "Headache, Fever", "Blood Test", "Paracitamol","Blood Test"},
+                         {"23-12-2023", "Headache, Fever", "Blood Test", "Paracitamol","Blood Test"},
+                         {"15-06-2024", "Headache, Fever", "Blood Test", "Paracitamol","Blood Test"},
+                         {"07-011-2024", "Headache, Fever", "Blood Test", "Paracitamol","Blood Test"}
+
+                        };
+       String[] columnNames = {"Date","Symptoms","Diagnosis","Medicines","Tests"};
+       JTable table = new JTable(data, columnNames);
+
+       
+       JPanel scroll = new JPanel();
+       scroll.setLayout(null);
+       scroll.setBackground(Color.white);
+       scroll.setPreferredSize(new Dimension(1200, 800));
+       scrollPane.setViewportView(scroll);
+       scrollPane.setViewportView(table);
+      
+       return scrollPane;
     }
 
     @Override

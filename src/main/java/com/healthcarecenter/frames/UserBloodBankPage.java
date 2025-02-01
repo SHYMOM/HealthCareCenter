@@ -1,14 +1,14 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.utils.FileUtils;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
-import com.healthcarecenter.utils.FileUtils;
 public class UserBloodBankPage extends JFrame implements ActionListener
 {
-
-    public UserBloodBankPage()
+    private String username;
+    public UserBloodBankPage(String username)
     {
+        this.username = username;
         UserUI();
     }
 
@@ -157,7 +157,7 @@ public class UserBloodBankPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(blood).dispose();
-                //new userHomePage();
+                new UserHomePage(username, true);
             }
         });
 
@@ -180,7 +180,7 @@ public class UserBloodBankPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(blood).dispose();
-                new UserBookAppointmentPage();
+                new UserBookAppointmentPage(username);
             }
         });
 
@@ -200,7 +200,7 @@ public class UserBloodBankPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(blood).dispose();  
-                new UserMedicalHistoryPage();
+                new UserMedicalHistoryPage(username);
             }
         });
         
@@ -243,7 +243,7 @@ public class UserBloodBankPage extends JFrame implements ActionListener
           @Override
           public void mouseClicked(MouseEvent e) {
             SwingUtilities.getWindowAncestor(blood).dispose();  
-            new UserPayBillPage();
+            new UserPayBillPage(username);
           }
       });
 
@@ -304,8 +304,4 @@ public class UserBloodBankPage extends JFrame implements ActionListener
         // code to handle the action event
     }
 
-    public static void main(String[] args)
-    {
-        new UserBloodBankPage();
-    }
 }
