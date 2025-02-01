@@ -1,14 +1,27 @@
 package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import javax.swing.*;
 public class UserPayBillPage extends JFrame implements ActionListener
 {
     private String username;
+    private String name;
     public UserPayBillPage(String username)
     {
         this.username = username;
+        
+
+        try {
+            this.name = GetUserData.getName(username);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
+            new WelcomePage();
+            this.dispose();
+            return;
+        }
         UserUI();
     }
 
@@ -66,7 +79,7 @@ public class UserPayBillPage extends JFrame implements ActionListener
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
+        JLabel userlabel = new JLabel(name);
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setBounds(5,5,100,30);
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
@@ -109,12 +122,12 @@ public class UserPayBillPage extends JFrame implements ActionListener
         History.setFont(new Font("SansSerif", Font.PLAIN, 15));
         History.setBounds(235, 15, 140, 20);
 
-         //level for blood
-         JLabel blood = new JLabel();
-         blood.setText("Blood Bank");
-         blood.setForeground(new Color(000000));
-         blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         blood.setBounds(400, 15, 80,  20);
+         //level for billingHistory
+         JLabel billingHistory = new JLabel();
+         billingHistory.setText("Billing History ");
+         billingHistory.setForeground(new Color(000000));
+         billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         billingHistory.setBounds(400, 15, 80,  20);
 
           //level for bill
         JLabel bill = new JLabel();
@@ -134,7 +147,7 @@ public class UserPayBillPage extends JFrame implements ActionListener
           middle_panel.add(home);
           middle_panel.add(appoinment);
           middle_panel.add(History);
-          middle_panel.add(blood);
+          middle_panel.add(billingHistory);
           middle_panel.add(bill);
           middle_panel.add(log_out);
 
@@ -206,23 +219,23 @@ public class UserPayBillPage extends JFrame implements ActionListener
         
 
 
-        blood .addMouseListener(new MouseAdapter() {
+        billingHistory .addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                blood .setForeground(new Color(0x00FF00));
-                blood.setBounds(398, 10, 85, 30);
-                blood.setFont(new Font("SansSerif", Font.PLAIN, 17));
+                billingHistory .setForeground(new Color(0x00FF00));
+                billingHistory.setBounds(398, 10, 85, 30);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 17));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                blood .setForeground(new Color(000000));
-                blood.setBounds(400, 15, 80,  20);
-                blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
+                billingHistory .setForeground(new Color(000000));
+                billingHistory.setBounds(400, 15, 80,  20);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(bill).dispose();
-                new UserBloodBankPage(username);
+                new UserBillingHistoryPage(username);
             }
         });
 

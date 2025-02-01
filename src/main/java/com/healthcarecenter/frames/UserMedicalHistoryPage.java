@@ -1,15 +1,38 @@
 package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 public class UserMedicalHistoryPage extends JFrame implements ActionListener
 {
+    private JTable ViewHistoryTable;
+    private DefaultTableModel tableModel;
     private String username;
+    private String name;
+
+    
     public UserMedicalHistoryPage(String username)
     {
         this.username = username;
+
+        try {
+            this.name = GetUserData.getName(username);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
+            new WelcomePage();
+            this.dispose();
+            return;
+        }
+
         UserUI();
+
     }
 
     private void UserUI()
@@ -66,7 +89,7 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
+        JLabel userlabel = new JLabel(name);
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setBounds(5,5,100,30);
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
@@ -109,12 +132,12 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
         History.setFont(new Font("SansSerif", Font.PLAIN, 15));
         History.setBounds(235, 15, 140, 20);
 
-         //level for blood
-         JLabel blood = new JLabel();
-         blood.setText("Blood Bank");
-         blood.setForeground(new Color(000000));
-         blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         blood.setBounds(400, 15, 80,  20);
+         //level for billingHistory
+         JLabel billingHistory = new JLabel();
+         billingHistory.setText("Billing History");
+         billingHistory.setForeground(new Color(000000));
+         billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         billingHistory.setBounds(400, 15, 80,  20);
 
           //level for bill
         JLabel bill = new JLabel();
@@ -134,7 +157,7 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
           middle_panel.add(home);
           middle_panel.add(appoinment);
           middle_panel.add(History);
-          middle_panel.add(blood);
+          middle_panel.add(billingHistory);
           middle_panel.add(bill);
           middle_panel.add(log_out);
 
@@ -205,23 +228,23 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
         
 
 
-        blood .addMouseListener(new MouseAdapter() {
+        billingHistory .addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                blood .setForeground(new Color(0x00FF00));
-                blood.setBounds(398, 10, 85, 30);
-                blood.setFont(new Font("SansSerif", Font.PLAIN, 17));
+                billingHistory .setForeground(new Color(0x00FF00));
+                billingHistory.setBounds(398, 10, 85, 30);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 17));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                blood .setForeground(new Color(000000));
-                blood.setBounds(400, 15, 80,  20);
-                blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
+                billingHistory .setForeground(new Color(000000));
+                billingHistory.setBounds(400, 15, 80,  20);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(History).dispose();
-                new UserBloodBankPage(username); 
+                new UserBillingHistoryPage(username); 
             }
         });
 
@@ -292,47 +315,99 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,200,900,500);
         lower_panel.setBackground(Color.white);
-        lower_panel.add(scrollPane());
         
+        
+
+          tableModel = new DefaultTableModel(new String[]
+             { "Full Name", "Specialization", "Days", "Time", "Fee"}, 0) 
+        {
+            @Override
+            public boolean isCellEditable(int row, int column)
+             {
+                return false;
+             }
+        };
+
+            ViewHistoryTable = new JTable(tableModel);
+
+            loadPatientHistory();
+
+            ViewHistoryTable = new JTable(tableModel);
+            ViewHistoryTable.getTableHeader().setReorderingAllowed(false);
+            ViewHistoryTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            ViewHistoryTable.setRowHeight(30);
+            ViewHistoryTable.setFont(new Font("SansSerif", Font.PLAIN, 12));
+            ViewHistoryTable.setShowGrid(true);
+            ViewHistoryTable.setGridColor(new Color(230, 230, 230));
+
+         //! Style Of The Header
+             JTableHeader header = ViewHistoryTable.getTableHeader();
+             header.setBackground(new Color(51, 102, 204));
+            header.setForeground(Color.WHITE);
+            header.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+            ViewHistoryTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, 
+                        hasFocus, row, column);
+
+                if (isSelected) {
+                    comp.setBackground(new Color(70, 130, 230));
+                    comp.setForeground(Color.WHITE);
+                } else {
+                    comp.setBackground(row % 2 == 0 ? new Color(240, 240, 255) : Color.WHITE);
+                    comp.setForeground(Color.BLACK);
+                }
+                ((JLabel) comp).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                
+                return comp;
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(ViewHistoryTable);
+        scrollPane.setBounds(2, 00, 880,300);
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        lower_panel.add(scrollPane);
 
         return lower_panel;
     }
 
 
-    private JScrollPane scrollPane()
-    {
+    private void loadPatientHistory()
+        {
+            try {
+                ArrayList<HashMap<String, String>> AllHistory = GetUserData.getHealthRecords(username);
+                for (HashMap<String, String> History : AllHistory)
+        {
+            tableModel.addRow(new Object[] 
+            {
+                History.get("fullName"),
+                History.get("specialization"),
+                History.get("daysAvailable"),
+                History.get("consultationHours"),
+                History.get("consultationFee")
+            });
+        }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,"Error reading file: " +e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+            }
+        
+        }
 
-       JScrollPane scrollPane = new JScrollPane();
-       scrollPane.setBounds(2, 00, 880,300);
-       scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-       scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-
-       String[][] data={ 
-                         {"23-08-2023", "Headache, Fever", "Blood Test", "Paracitamol","Blood Test"},
-                         {"23-12-2023", "Headache, Fever", "Blood Test", "Paracitamol","Blood Test"},
-                         {"15-06-2024", "Headache, Fever", "Blood Test", "Paracitamol","Blood Test"},
-                         {"07-011-2024", "Headache, Fever", "Blood Test", "Paracitamol","Blood Test"}
-
-                        };
-       String[] columnNames = {"Date","Symptoms","Diagnosis","Medicines","Tests"};
-       JTable table = new JTable(data, columnNames);
-
-       
-       JPanel scroll = new JPanel();
-       scroll.setLayout(null);
-       scroll.setBackground(Color.white);
-       scroll.setPreferredSize(new Dimension(1200, 800));
-       scrollPane.setViewportView(scroll);
-       scrollPane.setViewportView(table);
-      
-       return scrollPane;
-    }
+   
 
     @Override
     public void actionPerformed(ActionEvent e)
     {
         // code to handle the action event
+    }
+
+    public static void main(String[] args) {
+        new UserMedicalHistoryPage("emiko");
     }
 
 

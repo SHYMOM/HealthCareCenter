@@ -1,14 +1,27 @@
 package com.healthcarecenter.frames;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+
 import javax.swing.*;
 
 import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.GetUserData;
 public class UserViewAppointmentHistoryPage extends JFrame implements ActionListener
 {
+    String username;
+    String name;
 
     public UserViewAppointmentHistoryPage()
     {
+        try {
+            this.name = GetUserData.getName(username);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
+            new WelcomePage();
+            this.dispose();
+            return;
+        }
         UserUI();
     }
 
@@ -66,7 +79,7 @@ public class UserViewAppointmentHistoryPage extends JFrame implements ActionList
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
+        JLabel userlabel = new JLabel(name);
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setBounds(5,5,100,30);
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
@@ -211,7 +224,7 @@ public class UserViewAppointmentHistoryPage extends JFrame implements ActionList
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(appointment).dispose();
-                new UserMedicalHistoryPage();  
+                new UserBillingHistoryPage(username);  
             }
         });
         
@@ -233,7 +246,7 @@ public class UserViewAppointmentHistoryPage extends JFrame implements ActionList
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(appointment).dispose(); 
-                new UserBloodBankPage();
+               new UserBillingHistoryPage(username); 
             }
         });
 
@@ -255,7 +268,7 @@ public class UserViewAppointmentHistoryPage extends JFrame implements ActionList
           @Override
           public void mouseClicked(MouseEvent e) {
             SwingUtilities.getWindowAncestor(appointment).dispose(); 
-            new UserPayBillPage(); 
+            new UserBillingHistoryPage(username);
           }
       });
 
