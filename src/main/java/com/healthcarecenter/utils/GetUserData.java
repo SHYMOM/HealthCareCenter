@@ -53,15 +53,11 @@ public class GetUserData {
     }
 
     public static ArrayList<HashMap<String, String>> getAppointments(String username) throws IOException {
-        String filePath = "/data/users/" + username + ".txt";
-        filePath = FileUtils.getFile(filePath).getAbsolutePath();
-        return getSectionData(filePath, "[Appointments]", "<<<Appoint-Start>>>", "<<<Appoint-End>>>");
+        return getSectionData(username, "[Appointments]", "<<<Appoint-Start>>>", "<<<Appoint-End>>>");
     }
 
     public static ArrayList<HashMap<String, String>> getHealthRecords(String username) throws IOException {
-        String filePath = "/data/users/" + username + ".txt";
-        filePath = FileUtils.getFile(filePath).getAbsolutePath();
-        return getSectionData(filePath, "[HealthRecords]", "<<<HealthRecord-Start>>>", "<<<HealthRecord-End>>>");
+        return getSectionData(username, "[HealthRecords]", "<<<HealthRecord-Start>>>", "<<<HealthRecord-End>>>");
     }
 
     private static ArrayList<HashMap<String, String>> getSectionData(String username, String sectionHeader, String startMarker, String endMarker) throws IOException {

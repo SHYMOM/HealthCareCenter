@@ -393,7 +393,7 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
             });
         }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null,"Error reading file: " +e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         
         }
