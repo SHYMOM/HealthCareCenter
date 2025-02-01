@@ -1,0 +1,53 @@
+<<<Payment - Start>>>
+name=John Doe
+username=jdoe
+email=john.doe@example.com
+amount=150.0
+payedBy=Credit Card
+details=1234-5678-9012-3456
+<<<Payment - End>>>
+
+<<<Payment - Start>>>
+name=John Doe
+username=jdoe
+email=john.doe@example.com
+amount=75.0
+payedBy=PayPal
+details=jdoe@paypal.com
+<<<Payment - End>>>
+
+<<<Payment - Start>>>
+name=Jane Smith
+username=jsmith
+email=jane.smith@example.com
+amount=200.0
+payedBy=Debit Card
+details=6543-2109-8765-4321
+<<<Payment - End>>>
+
+<<<Payment - Start>>>
+name=Jane Smith
+username=jsmith
+email=jane.smith@example.com
+amount=50.0
+payedBy=Credit Card
+details=3456-7890-1234-5678
+<<<Payment - End>>>
+
+<<<Payment - Start>>>
+name=Alice Johnson
+username=ajohnson
+email=alice.johnson@example.com
+amount=120.0
+payedBy=Bank Transfer
+details=Account#123456789
+<<<Payment - End>>>
+
+<<<Payment - Start>>>
+name=Bob Brown
+username=bbrown
+email=bob.brown@example.com
+amount=180.0
+payedBy=Cryptocurrency
+details=BitcoinAddress12345
+<<<Payment - End>>>

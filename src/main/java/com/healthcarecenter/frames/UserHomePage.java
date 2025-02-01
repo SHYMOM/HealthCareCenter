@@ -13,36 +13,52 @@ public class UserHomePage extends JFrame implements ActionListener
     private String name;
     private String username;
 
-    public UserHomePage(String value, boolean isUsername)
-    {
+    public UserHomePage(String value, boolean isUsername) {
         if (!isUsername) {
-            this.username = FileUtils.getUsernameByEmail(value, "/data/users/");
-            if (this.username == null || this.username.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "No user found with the given email.");
+            try {
+                username = FileUtils.getUsernameByEmail(value, "/data/users/");
+                JOptionPane.showMessageDialog(null, "Username: " + username);
+                if (username == null) {
+                        JOptionPane.showMessageDialog(null, "No user found with the given email."+value);
+                        new WelcomePage();
+                        this.dispose();
+                        return;
+                    }
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
                 new WelcomePage();
                 this.dispose();
+                return;
             }
-        }
-        else {
+        } else {
             this.username = value;
         }
+
+        if (this.username == null || this.username.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Invalid username detected.");
+            new WelcomePage();
+            this.dispose();
+            return;
+        }
+
         try {
             this.name = GetUserData.getName(username);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
             new WelcomePage();
             this.dispose();
+            return;
         }
 
-        if (!isUsername) {
-            try {
-                CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", value, "user");
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
-            }
+        try {
+            CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", GetUserData.getEmail(username), "user");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
         }
+
         UserUI();
     }
+
 
     private void UserUI()
     {

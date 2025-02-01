@@ -7,7 +7,7 @@ import java.io.IOException;
 import com.healthcarecenter.utils.FileUtils;
 
 public class PaymentHistory {
-    public static void savePaymentHistory(String name, String email, double amount, String payedBy, String Number) throws IOException {
+    public static void savePaymentHistory(String name, String email, double amount, String payedBy, String details) throws IOException {
         String username = FileUtils.getUsernameByEmail(email, "/data/users/");
         if (username == null) {
             throw new IOException("No username found for email: " + email);
@@ -19,7 +19,7 @@ public class PaymentHistory {
             writer.write("email=" + email + "\n");
             writer.write("amount=" + amount + "\n");
             writer.write("payedBy=" + payedBy + "\n");
-            writer.write("Number=" + Number + "\n");
+            writer.write("details=" + details + "\n");
             writer.write("<<<Payment - End>>>\n");
         }
     }

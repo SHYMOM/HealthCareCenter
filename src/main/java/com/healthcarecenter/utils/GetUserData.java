@@ -10,24 +10,18 @@ public class GetUserData {
         return getField(username, "name");
     }
 
-    public static void setName(String username, String newName) throws IOException {
-        setField(username, "name", newName);
-    }
-
     public static String getPassword(String username) throws IOException {
         return getField(username, "password");
-    }
-
-    public static void setPassword(String username, String newPassword) throws IOException {
-        setField(username, "password", newPassword);
     }
 
     public static boolean isDonor(String username) throws IOException {
         return Boolean.parseBoolean(getField(username, "isDonor"));
     }
-    public static void setDonor(String username, boolean isDonor) throws IOException {
-        setField(username, "isDonor", String.valueOf(isDonor));
+
+    public static String getEmail(String username) throws IOException {
+        return getField(username, "email");
     }
+
 
     public static HashMap<String, String> getUserDetails(String username) throws IOException {
         String filePath = "/data/users/" + username + ".txt";
@@ -202,6 +196,33 @@ public class GetUserData {
         }
 
         return allUsers;
+    }
+
+    public static HashMap<String, Double> getBills(String username) throws IOException {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        HashMap<String, Double> bills = new HashMap<>();
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            boolean inBillsSection = false;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.equals("[Bills]")) {
+                    inBillsSection = true;
+                    continue;
+                }
+                if (inBillsSection) {
+                    if (line.trim().isEmpty() || line.startsWith("[")) {
+                        break;
+                    }
+                    String[] parts = line.split("=", 2);
+                    if (parts.length == 2) {
+                        bills.put(parts[0], Double.parseDouble(parts[1]));
+                    }
+                }
+            }
+        }
+        return bills;
     }
 
 }

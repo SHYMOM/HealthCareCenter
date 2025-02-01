@@ -2,411 +2,221 @@ package com.healthcarecenter.frames;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.*;
 
-import com.healthcarecenter.utils.All_Validations;
-import com.healthcarecenter.utils.FileUtils;
-import com.healthcarecenter.utils.GetDoctorData;
+import com.healthcarecenter.utils.*;
 import com.healthcarecenter.models.Doctor;
 import com.healthcarecenter.frames.dialogs.*;
 
 public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
-
-    private final  JButton registerButton = new JButton();
-    private final  JTextField name = new JTextField();
-    private final  JTextField username = new JTextField();
-    private final  JTextField age = new JTextField();
-    private final  JComboBox<String> genderComboBox = new JComboBox<>(new String[]{" Male", " Female", " Others"});
-    private final  JTextField number = new JTextField();
-    private final  String[] bloodGroupOptions = {"  A+", "  A-", "  B+", "  B-", " AB+", " AB-", "  O+", "  O-"};
-    private final  JComboBox<String> bloodComboBox = new JComboBox<>(bloodGroupOptions);
-    private final  JTextField email = new JTextField();
-    private final  JTextField password = new JTextField();
-    private final  JTextField address = new JTextField();
-    private final  JTextField specialization = new JTextField();
-    private final  JTextField qualification = new JTextField();
-    private final  JTextField licenseNumber = new JTextField();
+    private final JButton registerButton = new JButton();
+    private final JTextField name = new JTextField();
+    private final JTextField username = new JTextField();
+    private final JTextField age = new JTextField();
+    private final JComboBox<String> genderComboBox = new JComboBox<>(new String[]{" Male", " Female", " Others"});
+    private final JTextField number = new JTextField();
+    private final String[] bloodGroupOptions = {"  A+", "  A-", "  B+", "  B-", " AB+", " AB-", "  O+", "  O-"};
+    private final JComboBox<String> bloodComboBox = new JComboBox<>(bloodGroupOptions);
+    private final JTextField email = new JTextField();
+    private final JTextField password = new JTextField();
+    private final JTextField address = new JTextField();
+    private final JTextField specialization = new JTextField();
+    private final JTextField qualification = new JTextField();
+    private final JTextField licenseNumber = new JTextField();
+    private final JTextField salary = new JTextField();
     private String daysAvailable = "";
     private String consultingTime = "";
-    private final  JTextField fee = new JTextField();
-    private final  JCheckBox termsAndConditionsCheckBox = new JCheckBox("I agree to the ");
+    private final JTextField fee = new JTextField();
+    private final JCheckBox termsAndConditionsCheckBox = new JCheckBox("I agree to the ");
 
 
+    private static final Color PRIMARY_COLOR = new Color(41, 128, 185);
+    private static final Color SECONDARY_COLOR = new Color(52, 152, 219);
+    private static final Color BACKGROUND_COLOR = new Color(236, 240, 241);
+    private static final Color TEXT_COLOR = new Color(44, 62, 80);
+    private static final Color ACCENT_COLOR = new Color(46, 204, 113);
 
-    public Super_AdminAddNewDoctor (String EditMode, String username)
-    {
-        if (EditMode.equals("Edit"))
-        {
-            HashMap<String, String> doctorData = GetDoctorData.getDoctorDetails(username);
-            this.name.setText(doctorData.get("fullName"));
-            this.username.setText(doctorData.get("username"));
-            this.age.setText(doctorData.get("age"));
-            this.genderComboBox.setSelectedItem(doctorData.get("gender"));
-            this.number.setText(doctorData.get("contactNumber"));
-            this.bloodComboBox.setSelectedItem(doctorData.get("bloodGroup"));
-            this.email.setText(doctorData.get("email"));
-            this.password.setText(GetDoctorData.getFieldValue(username, "password"));
-            this.address.setText(doctorData.get("address"));
-            this.specialization.setText(doctorData.get("specialization"));
-            this.qualification.setText(doctorData.get("qualifications"));
-            this.licenseNumber.setText(doctorData.get("medicalLicenseNumber"));
-            this.daysAvailable = doctorData.get("daysAvailable");
-            this.consultingTime = doctorData.get("consultationHours");
-            this.fee.setText(doctorData.get("consultationFee"));
-            //this.salary.setText(doctorData.get("salary"));
-            doctorUI();
-        } 
-        else if (EditMode.equals("Add"))
-        {
-            doctorUI();
+    public Super_AdminAddNewDoctor(String EditMode, String username) {
+        if (EditMode.equals("Edit")) {
+            registerButton.setText("Save Changes");
+            loadDoctorData(username);
         }
+        else if (EditMode.equals("Delete")) {
+            registerButton.setText("Register Doctor");
+        }
+        setupUI();
     }
 
-    private void doctorUI()
-    {
-
-        JPanel panel = new JPanel();                                  
-        panel.setBounds(0,0,900,600);
-        panel.setBackground(Color.red);
-        panel.setLayout(null);
-
-        panel.add(createLeftpanel());
-        panel.add(createRightpanel());
-
-        ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
-        
-        this.setIconImage(appIcon.getImage());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(900,600);
-        this.setTitle("Add New Doctor - Health Care Center");
-        this.setResizable(false);
-        this.setLayout(null);
-        this.getContentPane().setBackground(new Color(0x123456));
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-
-        this.add(panel);
-
+    private void loadDoctorData(String username) {
+        HashMap<String, String> doctorData = GetDoctorData.getDoctorDetails(username);
+        name.setText(doctorData.get("fullName"));
+        this.username.setText(doctorData.get("username"));
+        age.setText(doctorData.get("age"));
+        genderComboBox.setSelectedItem(doctorData.get("gender"));
+        number.setText(doctorData.get("contactNumber"));
+        bloodComboBox.setSelectedItem(doctorData.get("bloodGroup"));
+        email.setText(doctorData.get("email"));
+        password.setText(GetDoctorData.getFieldValue(username, "password"));
+        address.setText(doctorData.get("address"));
+        specialization.setText(doctorData.get("specialization"));
+        qualification.setText(doctorData.get("qualifications"));
+        licenseNumber.setText(doctorData.get("medicalLicenseNumber"));
+        daysAvailable = doctorData.get("daysAvailable");
+        consultingTime = doctorData.get("consultationHours");
+        fee.setText(doctorData.get("consultationFee"));
+        salary.setText(doctorData.get("salary"));
     }
 
-    public JPanel createLeftpanel()
-    {
-      JPanel left_panel = new JPanel();
-        left_panel.setLayout(null);
-        left_panel.setBounds(0,0,300,600);
-       // left_panel.setBackground(new Color(0,0,33,150));
+    private void setupUI() {
+        setTitle("Doctor Registration - Health Care Center");
+        setSize(900, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setResizable(false);
 
 
-        return left_panel;
-
-    }
-
-    public JPanel createRightpanel()
-    {
-      JPanel right_panel = new JPanel();
-        right_panel.setLayout(null);
-        right_panel.setBounds(300,0,630,600);
-        right_panel.setBackground(new Color(0,0,33,100)); 
-        right_panel.add(scrollPane());
-
-        JLabel label = new JLabel("Registration For A New Doctor");
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setBounds(100,10,400,50);
-        label.setForeground(new Color(0x00FF00));
-        label.setFont(new Font("MV Boli", Font.BOLD, 20));
-        label.setLayout(null);
-        right_panel.add(label);
-
-        JLabel labelform = new JLabel("Fill The Form Below");
-        labelform.setHorizontalAlignment(JLabel.CENTER);
-        labelform.setBounds(150,60,300,50);
-        labelform.setForeground(new Color(0x00FF00));
-        labelform.setFont(new Font("MV Boli", Font.BOLD, 20));
-        labelform.setLayout(null);
-
-
-        right_panel.add(label);
-        right_panel.add(labelform);
-
-        
-
-
-        return right_panel;
-    }
-
-    private JScrollPane scrollPane() {
-
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(0, 120, 585, 600);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    
-        //!Full Name Panel-----------------------------------------
-        JPanel fullNamePanel = new JPanel();
-        fullNamePanel.setBounds(150, 20, 300, 30);
-        fullNamePanel.setBackground(new Color(0x1A75FF));
-        fullNamePanel.setLayout(null);
-    
-        JLabel nameLabel = new JLabel("Full Name");
-        nameLabel.setBounds(10, 0, 70, 30);
-        nameLabel.setForeground(new Color(0xFFFFFF));
-    
-        
-        name.setBounds(80, 0, 220, 30);
-        name.setForeground(new Color(0x000000));
-        name.setFont(new Font("Arial", Font.PLAIN, 15));
-    
-        fullNamePanel.add(nameLabel);
-        fullNamePanel.add(name);
-    
-        //!Username Panel-------------------------------------------
-        JPanel usernamePanel = new JPanel();
-        usernamePanel.setBounds(150, 60, 300, 30);
-        usernamePanel.setBackground(new Color(0x1A75FF));
-        usernamePanel.setLayout(null);
-    
-        JLabel usernameLabel = new JLabel("Username");
-        usernameLabel.setBounds(10, 0, 70, 30);
-        usernameLabel.setForeground(new Color(0xFFFFFF));
-    
-        
-        username.setBounds(80, 0, 220, 30);
-        username.setForeground(new Color(0x000000));
-        username.setFont(new Font("Arial", Font.PLAIN, 15));
-    
-        usernamePanel.add(usernameLabel);
-        usernamePanel.add(username);
-    
-        //!Age Panel-------------------------------------------
-        JPanel agePanel = new JPanel();
-        agePanel.setBounds(50, 100, 250, 30);
-        agePanel.setBackground(new Color(0x1A75FF));
-        agePanel.setLayout(null);
-    
-        JLabel ageLabel = new JLabel("Age");
-        ageLabel.setBounds(10, 0, 70, 30);
-        ageLabel.setForeground(new Color(0xFFFFFF));
-    
-        
-        age.setBounds(80, 0, 170, 30);
-        age.setForeground(new Color(0x000000));
-        age.setFont(new Font("Arial", Font.PLAIN, 15));
-    
-        agePanel.add(ageLabel);
-        agePanel.add(age);
-    
-        //!Gender Panel-------------------------------------------
-        JPanel genderPanel = new JPanel();
-        genderPanel.setBounds(350, 100, 180, 30);
-        genderPanel.setBackground(new Color(0x1A75FF));
-        genderPanel.setLayout(null);
-    
-        JLabel genderLabel = new JLabel("Gender");
-        genderLabel.setBounds(10, 0, 70, 30);
-        genderLabel.setForeground(new Color(0xFFFFFF));
-    
-        
-        genderComboBox.setBounds(80, 0, 100, 30);
-        genderComboBox.setForeground(new Color(0x000000));
-        genderComboBox.setFont(new Font("Arial", Font.PLAIN, 15));
-    
-        genderPanel.add(genderLabel);
-        genderPanel.add(genderComboBox);
-
-        //!Number Panel-------------------------------------------
-        JPanel numberPanel = new JPanel();
-        numberPanel.setBounds(50, 140, 250, 30);
-        numberPanel.setBackground(new Color(0x1A75FF));
-        numberPanel.setLayout(null);
-    
-        JLabel numberLabel = new JLabel("Phone ");
-        numberLabel.setBounds(10, 0, 70, 30);
-        numberLabel.setForeground(new Color(0xFFFFFF));
-    
-        
-        number.setBounds(80, 0, 170, 30);
-        number.setForeground(new Color(0x000000));
-        number.setFont(new Font("Arial", Font.PLAIN, 15));
-    
-        numberPanel.add(numberLabel);
-        numberPanel.add(number);
-
-        //!Blood Group Panel Panel-------------------------------------------
-        JPanel bloodPanel = new JPanel();
-        bloodPanel.setBounds(350, 140, 180, 30);
-        bloodPanel.setBackground(new Color(0x1A75FF));
-        bloodPanel.setLayout(null);
-    
-        JLabel bloodLabel = new JLabel("Blood Group");
-        bloodLabel.setBounds(10, 0, 100, 30);
-        bloodLabel.setForeground(new Color(0xFFFFFF));
-
-
-        
-        bloodComboBox.setBounds(110, 0, 70, 30);
-        bloodComboBox.setForeground(new Color(0x000000));
-        bloodComboBox.setFont(new Font("Arial", Font.PLAIN, 15));
-    
-        bloodPanel.add(bloodLabel);
-        bloodPanel.add(bloodComboBox);
-
-
-    
-        //!Email Panel-------------------------------------------
-        JPanel emailPanel = new JPanel();
-        emailPanel.setBounds(150, 180, 300, 30);
-        emailPanel.setBackground(new Color(0x1A75FF));
-        emailPanel.setLayout(null);
-    
-        JLabel emailLabel = new JLabel("E-mail");
-        emailLabel.setBounds(10, 0, 70, 30);
-        emailLabel.setForeground(new Color(0xFFFFFF));
-    
-        
-        email.setBounds(80, 0, 220, 30);
-        email.setForeground(new Color(0x000000));
-        email.setFont(new Font("Arial", Font.PLAIN, 15));
-    
-        emailPanel.add(emailLabel);
-        emailPanel.add(email);
-    
-        //!Password Panel-------------------------------------------
-        JPanel passPanel = new JPanel();
-        passPanel.setBounds(150, 220, 300, 30); // Place this panel far down to force scrolling
-        passPanel.setBackground(new Color(0x1A75FF));
-        passPanel.setLayout(null);
-    
-        JLabel passLabel = new JLabel("Password");
-        passLabel.setBounds(10, 0, 70, 30);
-        passLabel.setForeground(new Color(0xFFFFFF));
-    
-        
-        password.setBounds(80, 0, 220, 30);
-        password.setForeground(new Color(0x000000));
-        password.setFont(new Font("Arial", Font.PLAIN, 15));
-    
-        passPanel.add(passLabel);
-        passPanel.add(password);
-
-        //!Address Panel-------------------------------------------
-        JPanel addressPanel = new JPanel();
-        addressPanel.setBounds(100, 260, 400, 30); // Place this panel far down to force scrolling
-        addressPanel.setBackground(new Color(0x1A75FF));
-        addressPanel.setLayout(null);
-    
-        JLabel addressLabel = new JLabel("Address");
-        addressLabel.setBounds(10, 0, 70, 30);
-        addressLabel.setForeground(new Color(0xFFFFFF));
-    
-        
-        address.setBounds(80, 0, 320, 30);
-        address.setForeground(new Color(0x000000));
-        address.setFont(new Font("Arial", Font.PLAIN, 15));
-    
-        addressPanel.add(addressLabel);
-        addressPanel.add(address);
-
-
-      //!specialization Panel-------------------------------------------
-        JPanel specializationPanel = new JPanel();
-        specializationPanel.setBounds(100, 300, 400, 30); // Place this panel far down to force scrolling
-        specializationPanel.setBackground(new Color(0x1A75FF));
-        specializationPanel.setLayout(null);
-    
-        JLabel specializationLabel = new JLabel("specialization");
-        specializationLabel.setBounds(10, 0, 90, 30);
-        specializationLabel.setForeground(new Color(0xFFFFFF));
-    
-        
-        specialization.setBounds(100, 0, 300, 30);
-        specialization.setForeground(new Color(0x000000));
-        specialization.setFont(new Font("Arial", Font.PLAIN, 15));
-    
-        specializationPanel.add(specializationLabel);
-        specializationPanel.add(specialization);
-
-
-      //!Qualification Panel-------------------------------------------
-        JPanel qualificationPanel = new JPanel();
-        qualificationPanel.setBounds(100, 340, 400, 30); // Place this panel far down to force scrolling
-        qualificationPanel.setBackground(new Color(0x1A75FF));
-        qualificationPanel.setLayout(null);
-  
-      JLabel qualificationLabel = new JLabel("Qualification");
-      qualificationLabel.setBounds(10, 0, 90, 30);
-      qualificationLabel.setForeground(new Color(0xFFFFFF));
-  
-      
-      qualification.setBounds(100, 0, 300, 30);
-      qualification.setForeground(new Color(0x000000));
-      qualification.setFont(new Font("Arial", Font.PLAIN, 15));
-  
-      qualificationPanel.add(qualificationLabel);
-      qualificationPanel.add(qualification);
-
-      //!licenseNumber Panel-------------------------------------------
-      JPanel licenseNumberPanel = new JPanel();
-      licenseNumberPanel.setBounds(150, 380, 320, 30); // Place this panel far down to force scrolling
-      licenseNumberPanel.setBackground(new Color(0x1A75FF));
-      licenseNumberPanel.setLayout(null);
-  
-      JLabel licenseNumberLabel = new JLabel("License Number");
-      licenseNumberLabel.setBounds(10, 0, 110, 30);
-      licenseNumberLabel.setForeground(new Color(0xFFFFFF));
-  
-      
-      licenseNumber.setBounds(120, 0, 200, 30);
-      licenseNumber.setForeground(new Color(0x000000));
-      licenseNumber.setFont(new Font("Arial", Font.PLAIN, 15));
-  
-      licenseNumberPanel.add(licenseNumberLabel);
-      licenseNumberPanel.add(licenseNumber);
-
-      //!consultingHours Panel-------------------------------------------
-      JPanel consultingHoursPanel = new JPanel();
-      consultingHoursPanel.setBounds(320, 420, 220, 30); // Place this panel far down to force scrolling
-      consultingHoursPanel.setBackground(new Color(0x1A75FF));
-      consultingHoursPanel.setLayout(null);
-  
-      JLabel consultingHoursLabel = new JLabel("Consulting Hours");
-      consultingHoursLabel.setBounds(0, 0, 100, 30);
-      consultingHoursLabel.setForeground(new Color(0xFFFFFF));
-  
-      
-      JButton consultingHours = new JButton("Select Time");
-      consultingHours.setBounds(100, 0, 100, 30);
-      consultingHours.setForeground(new Color(0x000000));
-      consultingHours.setFont(new Font("Arial", Font.PLAIN, 15));
-      consultingHours.addActionListener(new ActionListener() {
+        JPanel mainPanel = new JPanel() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component)e.getSource());
-                consultingTime = ConsultingTimeSelect.setTimePickerDialog(frame);
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+                int w = getWidth(), h = getHeight();
+                GradientPaint gp = new GradientPaint(0, 0, PRIMARY_COLOR, w, h, SECONDARY_COLOR);
+                g2d.setPaint(gp);
+                g2d.fillRect(0, 0, w, h);
             }
-        });
-  
-      consultingHoursPanel.add(consultingHoursLabel);
-      consultingHoursPanel.add(consultingHours);
+        };
+        mainPanel.setLayout(new BorderLayout());
 
-      //!available Panel-------------------------------------------
-      JPanel availablePanel = new JPanel();
-      availablePanel.setBounds(50, 420, 190, 30);
-      availablePanel.setBackground(new Color(0x1A75FF));
-      availablePanel.setLayout(null);
-  
-      JLabel availableLabel = new JLabel("Day's Available");
-      availableLabel.setBounds(10, 0, 90, 30);
-      availableLabel.setForeground(new Color(0xFFFFFF));
-      
-      JButton available = new JButton("Select");
-      available.setBounds(100, 0, 100, 30);
-      available.setForeground(new Color(0x000000));
-      available.setFont(new Font("Arial", Font.PLAIN, 15));
-      available.addActionListener(new ActionListener() {
-            @Override
+        mainPanel.add(createHeaderPanel(), BorderLayout.NORTH);
+        JScrollPane scrollPane = new JScrollPane(createFormPanel());
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+
+        add(mainPanel);
+        setVisible(true);
+    }
+
+    private JPanel createHeaderPanel() {
+        JPanel headerPanel = new JPanel();
+        headerPanel.setOpaque(false);
+        headerPanel.setLayout(new BorderLayout());
+        headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel titleLabel = new JLabel("Doctor Registration Form");
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        headerPanel.add(titleLabel, BorderLayout.CENTER);
+
+        return headerPanel;
+    }
+
+    private JPanel createFormPanel() {
+        JPanel formPanel = new JPanel();
+        formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
+        formPanel.setBackground(BACKGROUND_COLOR);
+        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        formPanel.add(createPersonalInfoSection());
+        formPanel.add(Box.createVerticalStrut(20));
+        formPanel.add(createContactInfoSection());
+        formPanel.add(Box.createVerticalStrut(20));
+        formPanel.add(createProfessionalInfoSection());
+        formPanel.add(Box.createVerticalStrut(20));
+        formPanel.add(createAvailabilitySection());
+        formPanel.add(Box.createVerticalStrut(20));
+        formPanel.add(createSubmitSection());
+
+        return formPanel;
+    }
+
+    private JPanel createFormSection(String title) {
+        JPanel section = new JPanel();
+        section.setLayout(new BoxLayout(section, BoxLayout.Y_AXIS));
+        section.setBackground(Color.WHITE);
+        section.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(PRIMARY_COLOR, 1),
+            BorderFactory.createEmptyBorder(15, 15, 15, 15)
+        ));
+
+        JLabel titleLabel = new JLabel(title);
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        titleLabel.setForeground(PRIMARY_COLOR);
+        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        section.add(titleLabel);
+        section.add(Box.createVerticalStrut(10));
+
+        return section;
+    }
+
+    private JPanel createPersonalInfoSection() {
+        JPanel section = createFormSection("Personal Information");
+        
+        JPanel grid = new JPanel(new GridLayout(0, 2, 10, 10));
+        grid.setOpaque(false);
+
+        grid.add(createFormField("Full Name", name));
+        grid.add(createFormField("Username", username));
+        grid.add(createFormField("Age", age));
+        grid.add(createFormField("Gender", genderComboBox));
+        grid.add(createFormField("Blood Group", bloodComboBox));
+
+        section.add(grid);
+        return section;
+    }
+
+    private JPanel createContactInfoSection() {
+        JPanel section = createFormSection("Contact Information");
+        
+        JPanel grid = new JPanel(new GridLayout(0, 2, 10, 10));
+        grid.setOpaque(false);
+
+        grid.add(createFormField("Phone Number", number));
+        grid.add(createFormField("Email", email));
+        grid.add(createFormField("Address", address));
+        grid.add(createFormField("Password", password));
+
+        section.add(grid);
+        return section;
+    }
+
+    private JPanel createProfessionalInfoSection() {
+        JPanel section = createFormSection("Professional Information");
+        
+        JPanel grid = new JPanel(new GridLayout(0, 2, 10, 10));
+        grid.setOpaque(false);
+
+        grid.add(createFormField("Specialization", specialization));
+        grid.add(createFormField("Qualification", qualification));
+        grid.add(createFormField("License Number", licenseNumber));
+        grid.add(createFormField("Salary", salary));
+
+        section.add(grid);
+        return section;
+    }
+
+    private JPanel createAvailabilitySection() {
+        JPanel section = createFormSection("Availability & Fees");
+        
+        JPanel grid = new JPanel(new GridLayout(0, 2, 10, 10));
+        grid.setOpaque(false);
+
+        // Create consulting hours button
+        JButton consultingHoursBtn = createStyledButton("Select Consulting Hours");
+        consultingHoursBtn.addActionListener(e -> {
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(consultingHoursBtn);
+            consultingTime = ConsultingTimeSelect.setTimePickerDialog(frame);
+        });
+
+        // Create days available button
+        JButton daysAvailableBtn = createStyledButton("Select Available Days");
+        daysAvailableBtn.addActionListener(new ActionListener() {
+         @Override
             public void actionPerformed(ActionEvent e) {
                 String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
                 JCheckBox[] checkBoxes = new JCheckBox[days.length];
@@ -435,122 +245,126 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
                 }
             }
         });
-  
-      availablePanel.add(availableLabel);
-      availablePanel.add(available);
 
+        grid.add(createFormField("Consulting Hours", consultingHoursBtn));
+        grid.add(createFormField("Days Available", daysAvailableBtn));
+        grid.add(createFormField("Consultation Fee", fee));
 
-      //!fee Panel-------------------------------------------
-      JPanel feePanel = new JPanel();
-      feePanel.setBounds(150, 460, 230, 30); // Place this panel far down to force scrolling
-      feePanel.setBackground(new Color(0x1A75FF));
-      feePanel.setLayout(null);
-  
-      JLabel feeLabel = new JLabel("Consultation Fee");
-      feeLabel.setBounds(10, 0, 120, 30);
-      feeLabel.setForeground(new Color(0xFFFFFF));
-  
-      
-      fee.setBounds(130, 0, 100, 30);
-      fee.setForeground(new Color(0x000000));
-      fee.setFont(new Font("Arial", Font.PLAIN, 15));
-  
-      feePanel.add(feeLabel);
-      feePanel.add(fee);
+        section.add(grid);
+        return section;
+    }
 
-      //!Terms And Conditions Checkbox-----------------------------------------
+    private JPanel createSubmitSection() {
+        JPanel section = new JPanel();
+        section.setLayout(new BoxLayout(section, BoxLayout.Y_AXIS));
+        section.setBackground(Color.WHITE);
+        section.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
+        // Terms and conditions panel
+        JPanel termsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        termsPanel.setOpaque(false);
         
-      termsAndConditionsCheckBox.setBounds(100, 500, 150, 30);
-      termsAndConditionsCheckBox.setForeground(new Color(200, 117, 100));
-      termsAndConditionsCheckBox.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-      termsAndConditionsCheckBox.setFocusable(false);
-      termsAndConditionsCheckBox.setOpaque(false);
-      termsAndConditionsCheckBox.addActionListener(this);
+        termsAndConditionsCheckBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        termsPanel.add(termsAndConditionsCheckBox);
 
-      JLabel termsAndConditionsLabel = new JLabel("terms and conditions");
-      termsAndConditionsLabel.setForeground(new Color(200, 120, 150));
-      termsAndConditionsLabel.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-      termsAndConditionsLabel.setBounds(250, 500, 400, 30);
-
-      termsAndConditionsLabel.addMouseListener(new MouseAdapter() {
-          @Override
-          public void mouseEntered(MouseEvent e) {
-              termsAndConditionsLabel.setForeground(new Color(0x00FF00));
-              termsAndConditionsLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-          }
-          @Override
-          public void mouseExited(MouseEvent e) {
-              termsAndConditionsLabel.setForeground(new Color(200, 120, 150));
-          }
-          @Override
-          public void mouseClicked(MouseEvent e) {
-              new TermsAndConditionsFrame();
-          }
-      });
-
-
-      
-        //!Button---------------------------------------------------
-       
-        registerButton.setText("Register");
-        registerButton.setForeground(new Color(25, 117, 255));
-        registerButton.setFont(new Font("MV Boli", Font.BOLD, 20));
-        registerButton.setBounds(250, 540, 100, 30);
-        registerButton.setFocusable(false);
-        registerButton.addActionListener(this);
-        registerButton.setBackground(new Color(0x182838));
-        registerButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        registerButton.setBorder(BorderFactory.createLineBorder(new Color(25, 117, 255), 2, true));
-        registerButton.addMouseListener(new MouseAdapter()
-        {
+        JLabel termsLabel = new JLabel("terms and conditions");
+        termsLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        termsLabel.setForeground(PRIMARY_COLOR);
+        termsLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        termsLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new TermsAndConditionsFrame();
+            }
             @Override
             public void mouseEntered(MouseEvent e) {
-                registerButton.setBorder(BorderFactory.createLineBorder(new Color(0x00FF00), 2, true));
-                registerButton.setBounds(248, 542, 105, 30);
-                registerButton.setForeground(new Color(0x00FF00));
-                registerButton.setBackground(new Color(0x182838));
+                termsLabel.setForeground(ACCENT_COLOR);
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                registerButton.setBorder(BorderFactory.createLineBorder(new Color(0xFFFFFF), 2, true));
-                registerButton.setBounds(250, 540, 100, 30);
-                registerButton.setForeground(new Color(25, 117, 255));
-                registerButton.setBackground(new Color(0x182838));
+                termsLabel.setForeground(PRIMARY_COLOR);
             }
         });
+        termsPanel.add(termsLabel);
 
-    
-        //!Scrollable Content--------------------------------------
-        JPanel scroll = new JPanel();
-        scroll.setLayout(null);
-        scroll.add(fullNamePanel);
-        scroll.add(usernamePanel);
-        scroll.add(agePanel);
-        scroll.add(genderPanel);
-        scroll.add(numberPanel);
-        scroll.add(bloodPanel);
-        scroll.add(emailPanel);
-        scroll.add(passPanel);
-        scroll.add(addressPanel);
-        scroll.add(specializationPanel);
-        scroll.add(qualificationPanel);
-        scroll.add(licenseNumberPanel);
-        scroll.add(consultingHoursPanel);
-        scroll.add(availablePanel);
-        scroll.add(feePanel);
-        scroll.add(registerButton);
-        scroll.add(termsAndConditionsCheckBox);
-        scroll.add(termsAndConditionsLabel);
-    
-        scroll.setPreferredSize(new Dimension(585, 750));
-        scrollPane.setViewportView(scroll);
+        styleButton(registerButton);
+        registerButton.addActionListener(this);
 
-        return scrollPane;
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setOpaque(false);
+        buttonPanel.add(registerButton);
+
+        section.add(termsPanel);
+        section.add(Box.createVerticalStrut(20));
+        section.add(buttonPanel);
+
+        return section;
     }
-    
-    
 
+    private JPanel createFormField(String labelText, JComponent field) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setOpaque(false);
+        panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        JLabel label = new JLabel(labelText);
+        label.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        label.setForeground(TEXT_COLOR);
+
+        styleFormComponent(field);
+
+        panel.add(label);
+        panel.add(Box.createVerticalStrut(5));
+        panel.add(field);
+
+        return panel;
+    }
+
+    private void styleFormComponent(JComponent component) {
+        component.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        
+        if (component instanceof JTextField) {
+            component.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(PRIMARY_COLOR),
+                BorderFactory.createEmptyBorder(8, 10, 8, 10)
+            ));
+        } else if (component instanceof JComboBox) {
+            component.setBackground(Color.WHITE);
+            ((JComboBox<?>) component).setRenderer(new DefaultListCellRenderer() {
+                @Override
+                public Component getListCellRendererComponent(JList<?> list, Object value, 
+                        int index, boolean isSelected, boolean cellHasFocus) {
+                    super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                    setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+                    return this;
+                }
+            });
+        }
+    }
+
+    private JButton createStyledButton(String text) {
+        JButton button = new JButton(text);
+        styleButton(button);
+        return button;
+    }
+
+    private void styleButton(JButton button) {
+        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        button.setForeground(Color.WHITE);
+        button.setBackground(ACCENT_COLOR);
+        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        button.setFocusPainted(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(ACCENT_COLOR.darker());
+            }
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(ACCENT_COLOR);
+            }
+        });
+    }
 
     @Override
     public void actionPerformed(ActionEvent e)
@@ -601,11 +415,7 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
         }
     }
 
-
-
-    public static void main(String[] args)
-    {
-        new Super_AdminAddNewDoctor("Edit", "Alice_Doctor");
+    public static void main(String[] args) {
+        new Super_AdminAddNewDoctor("Edit","Alice_Doctor");
     }
-
-} 
+}

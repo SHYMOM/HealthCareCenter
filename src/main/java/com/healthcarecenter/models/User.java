@@ -2,7 +2,9 @@ package com.healthcarecenter.models;
 
 import com.healthcarecenter.frames.UserSignUp;
 import com.healthcarecenter.frames.UserHomePage;
+import com.healthcarecenter.frames.LoginPage;
 import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.GetUserData;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.*;
 
-public class User {
+public class User extends GetUserData {
     private String name;
     private String username;
     private int age;
@@ -42,8 +44,8 @@ public class User {
         bills.put("otherCost", 0.0);
     }
 
-    public void saveToFile(JFrame frame,String username) {
-      
+    public void saveToFile(JFrame frame) {
+    
     String filePath = "/data/users/"+username+".txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath)))) {
             writer.write("<<<User-Start>>>\n");
@@ -69,11 +71,14 @@ public class User {
 
             writer.write("[Appointments]\n\n");
             writer.write("[HealthRecords]\n\n");
-
+            writer.close();
 
             JOptionPane.showMessageDialog(null, "Signup successful!");
-            new UserHomePage(email, false);
-            frame.dispose();
+            if(FileUtils.getFile(filePath).exists()){
+                //new LoginPage("User");
+                new UserHomePage(email,false);
+                frame.dispose();
+            }
         }
         catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error saving user data: " + e.getMessage());
@@ -135,4 +140,42 @@ public class User {
         lines.add("");
     }
 
+
+    public static void setBills(String username, HashMap<String, Double> newBills, boolean reset) throws IOException {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        File tempFile = new File(filePath + ".tmp");
+        HashMap<String, Double> existingBills = GetUserData.getBills(username);
+        for (String key : existingBills.keySet()) {
+            double newValue = reset ? 0.00 : existingBills.get(key) + newBills.getOrDefault(key, 0.00);
+            existingBills.put(key, newValue);
+        }
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+            String line;
+            boolean inBillsSection = false;
+            while ((line = reader.readLine()) != null) {
+                if (line.equals("[Bills]")) {
+                    inBillsSection = true;
+                    writer.write(line + "\n");
+                    continue;
+                }
+                if (inBillsSection) {
+                    if (line.trim().isEmpty() || line.startsWith("[")) {
+                        inBillsSection = false;
+                        for (Map.Entry<String, Double> entry : existingBills.entrySet()) {
+                            writer.write(entry.getKey() + "=" + String.format("%.2f", entry.getValue()) + "\n");
+                        }
+                        writer.write("\n" + line + "\n");
+                        continue;
+                    }
+                    continue;
+                }
+                writer.write(line + "\n");
+            }
+        }
+        
+        if (!tempFile.renameTo(new File(filePath))) {
+            JOptionPane.showMessageDialog(null, "Failed to update the file!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }
