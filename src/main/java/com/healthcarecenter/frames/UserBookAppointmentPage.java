@@ -1,21 +1,36 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.frames.dialogs.DoctorDetailsDialog;
 import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 public class UserBookAppointmentPage extends JFrame implements ActionListener
 {
 
     private JTable appoinmentTable;
     private DefaultTableModel tableModel;
     private String username;
+    private String name;
     public UserBookAppointmentPage(String username)
     {
         this.username = username;
+        try {
+            this.name = GetUserData.getName(username);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
+            new WelcomePage();
+            this.dispose();
+            return;
+        }
         UserUI();
+
+         
     }
 
     private void UserUI()
@@ -72,7 +87,7 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
+        JLabel userlabel = new JLabel(name);
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setBounds(5,5,100,30);
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
@@ -115,12 +130,12 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
         History.setFont(new Font("SansSerif", Font.PLAIN, 15));
         History.setBounds(235, 15, 140,20);
 
-         //level for blood
-         JLabel blood = new JLabel();
-         blood.setText("Blood Bank");
-         blood.setForeground(new Color(000000));
-         blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         blood.setBounds(400, 15, 80,  20);
+         //level for billingHistory
+         JLabel billingHistory = new JLabel();
+         billingHistory.setText("Billing History");
+         billingHistory.setForeground(new Color(000000));
+         billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         billingHistory.setBounds(400, 15, 80,  20);
 
           //level for bill
         JLabel bill = new JLabel();
@@ -140,7 +155,7 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
           middle_panel.add(home);
           middle_panel.add(appoinment);
           middle_panel.add(History);
-          middle_panel.add(blood);
+          middle_panel.add(billingHistory);
           middle_panel.add(bill);
           middle_panel.add(log_out);
 
@@ -212,23 +227,23 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
         
 
 
-        blood .addMouseListener(new MouseAdapter() {
+        billingHistory .addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                blood .setForeground(new Color(0x00FF00));
-                blood.setBounds(398, 10, 85, 30);
-                blood.setFont(new Font("SansSerif", Font.PLAIN, 17));
+                billingHistory .setForeground(new Color(0x00FF00));
+                billingHistory.setBounds(398, 10, 85, 30);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 17));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                blood .setForeground(new Color(000000));
-                blood.setBounds(400, 15, 80, 20);
-                blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
+                billingHistory .setForeground(new Color(000000));
+                billingHistory.setBounds(400, 15, 80, 20);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(appoinment).dispose(); 
-                new UserBloodBankPage(username);
+                new UserBillingHistoryPage(username);
             }
         });
 
@@ -299,17 +314,36 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
     {
 
         JButton takeAppoint = new JButton("Take Appoinment");
-        takeAppoint.setBounds(375, 310, 120, 40);
+        takeAppoint.setBounds(445, 310, 120, 40);
         takeAppoint.setFont(new Font("SansSerif", Font.PLAIN, 15));
         takeAppoint.setBorder(BorderFactory.createLineBorder(new Color(0x1A75FF), 2, true));
         takeAppoint.setFocusable(false);
 
+        JButton ViewDetails = new JButton("View Details");
+        ViewDetails.setBounds(305, 310, 120, 40);
+        ViewDetails.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        ViewDetails.setBorder(BorderFactory.createLineBorder(new Color(0x1A75FF), 2, true));
+        ViewDetails.setFocusable(false);
+
+        ViewDetails.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedUsername = getSelectedDoctorUsername();
+                if (selectedUsername != null) {
+                    HashMap<String, String> doctorDetails = GetDoctorData.getDoctorDetails(selectedUsername);
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component)e.getSource());
+                    DoctorDetailsDialog.showDoctorDetails(frame, doctorDetails,"Admin");
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "No doctor selected.");
+                }
+            }
+        });
+
        
 
-
-
         tableModel = new DefaultTableModel(new String[]
-             { "Full Name", "Specialization", "Days", "Time", "Fee"}, 0) 
+             { "Full Name", "email" , "Specialization", "Days", "Time", "Fee"}, 0) 
         {
             @Override
             public boolean isCellEditable(int row, int column)
@@ -319,10 +353,7 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
         };
 
             appoinmentTable = new JTable(tableModel);
-            JScrollPane scrollPane = new JScrollPane(appoinmentTable);
-            scrollPane.setBounds(2, 00, 880,300);
-            scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+           
       
         
 
@@ -336,14 +367,43 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
         appoinmentTable.setShowGrid(true);
         appoinmentTable.setGridColor(new Color(230, 230, 230));
 
-        
+         //! Style Of The Header
+        JTableHeader header = appoinmentTable.getTableHeader();
+        header.setBackground(new Color(51, 102, 204));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("SansSerif", Font.BOLD, 12));
 
+         appoinmentTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, 
+                        hasFocus, row, column);
+
+                if (isSelected) {
+                    comp.setBackground(new Color(70, 130, 230));
+                    comp.setForeground(Color.WHITE);
+                } else {
+                    comp.setBackground(row % 2 == 0 ? new Color(240, 240, 255) : Color.WHITE);
+                    comp.setForeground(Color.BLACK);
+                }
+                ((JLabel) comp).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                
+                return comp;
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(appoinmentTable);
+        scrollPane.setBounds(2, 00, 880,300);
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         JPanel lower_panel = new JPanel();                                  
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,200,900,365);
         lower_panel.setBackground(Color.white);
         lower_panel.add(takeAppoint);
+        lower_panel.add(ViewDetails);
         lower_panel.add(scrollPane);
         return lower_panel;
     }
@@ -359,6 +419,7 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
         {
             tableModel.addRow(new Object[] {
                 doctor.get("fullName"),
+                doctor.get("email"),
                 doctor.get("specialization"),
                 doctor.get("daysAvailable"),
                 doctor.get("consultationHours"),
@@ -369,6 +430,14 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
 
 
     }
+
+     private String getSelectedDoctorUsername() {
+            int selectedRow = appoinmentTable.getSelectedRow();
+            if (selectedRow == -1) {
+                return null;
+            }
+            return FileUtils.getUsernameByEmail(tableModel.getValueAt(selectedRow, 1).toString(),"/data/doctors/");
+        }
 
 
     @Override

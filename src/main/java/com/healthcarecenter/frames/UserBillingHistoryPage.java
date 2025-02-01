@@ -3,13 +3,15 @@ import com.healthcarecenter.utils.FileUtils;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class UserBloodBankPage extends JFrame implements ActionListener
+public class UserBillingHistoryPage extends JFrame implements ActionListener
 {
     private String username;
-    public UserBloodBankPage(String username)
+    public UserBillingHistoryPage(String username)
     {
         this.username = username;
         UserUI();
+
+        
     }
 
     private void UserUI()
@@ -110,11 +112,11 @@ public class UserBloodBankPage extends JFrame implements ActionListener
         History.setBounds(235, 15, 140, 20);
 
          //level for blood
-         JLabel blood = new JLabel();
-         blood.setText("Blood Bank");
-         blood.setForeground(Color.red);
-         blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         blood.setBounds(400, 15, 80,  20);
+         JLabel billingHistory = new JLabel();
+         billingHistory.setText("Blood Bank");
+         billingHistory.setForeground(Color.red);
+         billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         billingHistory.setBounds(400, 15, 80,  20);
 
           //level for bill
         JLabel bill = new JLabel();
@@ -134,7 +136,7 @@ public class UserBloodBankPage extends JFrame implements ActionListener
           middle_panel.add(home);
           middle_panel.add(appoinment);
           middle_panel.add(History);
-          middle_panel.add(blood);
+          middle_panel.add(billingHistory);
           middle_panel.add(bill);
           middle_panel.add(log_out);
 
@@ -156,7 +158,7 @@ public class UserBloodBankPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(blood).dispose();
+                SwingUtilities.getWindowAncestor(billingHistory).dispose();
                 new UserHomePage(username, true);
             }
         });
@@ -179,7 +181,7 @@ public class UserBloodBankPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(blood).dispose();
+                SwingUtilities.getWindowAncestor(billingHistory).dispose();
                 new UserBookAppointmentPage(username);
             }
         });
@@ -199,25 +201,25 @@ public class UserBloodBankPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(blood).dispose();  
+                SwingUtilities.getWindowAncestor(billingHistory).dispose();  
                 new UserMedicalHistoryPage(username);
             }
         });
         
 
 
-        blood .addMouseListener(new MouseAdapter() {
+        billingHistory .addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                blood .setForeground(Color.red);
-                blood.setBounds(400, 15, 80,  20);
-                blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
+                billingHistory .setForeground(Color.red);
+                billingHistory.setBounds(400, 15, 80,  20);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                blood .setForeground(Color.red);
-                blood.setBounds(400, 15, 80,  20);
-                blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
+                billingHistory .setForeground(Color.red);
+                billingHistory.setBounds(400, 15, 80,  20);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -242,7 +244,7 @@ public class UserBloodBankPage extends JFrame implements ActionListener
           }
           @Override
           public void mouseClicked(MouseEvent e) {
-            SwingUtilities.getWindowAncestor(blood).dispose();  
+            SwingUtilities.getWindowAncestor(billingHistory).dispose();  
             new UserPayBillPage(username);
           }
       });
@@ -268,7 +270,7 @@ public class UserBloodBankPage extends JFrame implements ActionListener
             if (result == JOptionPane.YES_OPTION)
              {
                 System.out.println("Yes selected");
-                SwingUtilities.getWindowAncestor(blood).dispose();
+                SwingUtilities.getWindowAncestor(billingHistory).dispose();
                  //new loginFrame();
              }  
             else if (result == JOptionPane.NO_OPTION)
