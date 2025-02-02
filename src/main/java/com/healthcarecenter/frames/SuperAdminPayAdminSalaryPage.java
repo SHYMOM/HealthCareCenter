@@ -1,12 +1,24 @@
 package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
+import com.healthcarecenter.utils.GetAdminData;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListener
 
 {
+     JButton getDetails;
+    private JTable ManageAdminTable;
+    private DefaultTableModel tableModel;
+
+
     JButton pay_AdminSalary = new JButton("Pay Admin Salary");
     private String email;
     
@@ -298,25 +310,129 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
         lower_panel.setBackground(new Color(0xECF8FD));
 
         
-        pay_AdminSalary.setBounds(350, 450, 200, 50);
+        pay_AdminSalary.setBounds(350, 500, 200, 50);
         pay_AdminSalary.setFocusable(false);
         pay_AdminSalary.addActionListener(this);
         this.add(pay_AdminSalary);
 
+        getDetails = new JButton("Get Details");
+        getDetails.setBounds(400, 335, 120, 30);
+        getDetails.setFocusable(false);
+        getDetails.addActionListener(this);
+
+          getDetails.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedUsername = getSelectedAdminUsername();
+                if (selectedUsername != null) {
+                    try {
+                        HashMap<String, String> adminDetails = GetAdminData.getAdminDetails(selectedUsername);
+                        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component)e.getSource());
+                        //AdminDetailsDialog.showAdminDetails(frame, adminDetails,"Admin");
+                        System.out.println(adminDetails);
+                    } catch (IOException ex) {
+                    }
+                    
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "No admin selected.");
+                }
+            }
+        });
+
+        
+        lower_panel.add(getDetails);
+
+
+
+
+        tableModel = new DefaultTableModel(new String[]{
+            "Full Name", "Email", "Contact Number", "Gender", "Salary"},0) 
+            {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        loadAdminData();
+
+        ManageAdminTable = new JTable(tableModel);
+        ManageAdminTable.getTableHeader().setReorderingAllowed(false);
+        ManageAdminTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ManageAdminTable.setRowHeight(30);
+        ManageAdminTable.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        ManageAdminTable.setShowGrid(true);
+        ManageAdminTable.setGridColor(new Color(230, 230, 230));
+
+        //! Style Of The Header
+        JTableHeader header = ManageAdminTable.getTableHeader();
+        header.setBackground(new Color(51, 102, 204));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+
+        ManageAdminTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, 
+                        hasFocus, row, column);
+
+                if (isSelected) {
+                    comp.setBackground(new Color(70, 130, 230));
+                    comp.setForeground(Color.WHITE);
+                } else {
+                    comp.setBackground(row % 2 == 0 ? new Color(240, 240, 255) : Color.WHITE);
+                    comp.setForeground(Color.BLACK);
+                }
+                ((JLabel) comp).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                
+                return comp;
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(ManageAdminTable);
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        scrollPane.setBounds(0, 50, 900, 280);
+
+        lower_panel.add(scrollPane);
+            
         return lower_panel;
     }
+
+    private void loadAdminData() {
+        ArrayList<HashMap<String, String>> allAdmins = GetAdminData.getAllAdminsDetails();
+        for (HashMap<String, String> admin : allAdmins) {
+            tableModel.addRow(new Object[]{
+                    admin.get("fullName"),
+                    admin.get("email"),
+                    admin.get("contactNumber"),
+                    admin.get("gender"),
+                    admin.get("salary")
+            });
+        }
+    }
+
+    private String getSelectedAdminUsername() {
+        int selectedRow = ManageAdminTable.getSelectedRow();
+        if (selectedRow == -1) {
+            return null;
+        }
+        return FileUtils.getUsernameByEmail(tableModel.getValueAt(selectedRow, 1).toString(),"/data/admins/");
+    }
+
+     
     
       @Override
         public void actionPerformed(ActionEvent e)
         {
             if(e.getSource() ==pay_AdminSalary )
             {
-                String adminName = JOptionPane.showInputDialog("Enter Admin Username:");
-                if (adminName != null && !adminName.trim().isEmpty()) {
-                String salaryInput = JOptionPane.showInputDialog("Enter salary for Admin " + adminName + ":");
+                String salaryInput = JOptionPane.showInputDialog("Enter salary for Admin " + GetAdminData.getName(getSelectedAdminUsername()) + ":");
                 try {
                    double salary = Double.parseDouble(salaryInput);
-                   JOptionPane.showMessageDialog(null, "Pay Salary: " + salary + " to Admin " + adminName);
+                   JOptionPane.showMessageDialog(null, "Pay Salary: " + salary + " to Admin " + GetAdminData.getName(getSelectedAdminUsername()));
                } catch (NumberFormatException ex) {
                    JOptionPane.showMessageDialog(null, "Invalid salary entered. Please enter a valid number.");
                }
@@ -325,7 +441,6 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
                JOptionPane.showMessageDialog(null, "No admin name entered. Operation cancelled.");
             }
         }
-    }
     
         public static void main(String[] args) {
             new SuperAdminPayAdminSalaryPage("shymom@healthcarecenter.com");
