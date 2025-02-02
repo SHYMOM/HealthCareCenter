@@ -14,10 +14,10 @@ isDonor=false
 <<<User-End>>>
 
 [Bills]
-medicineCost=0.00
-otherCost=0.00
-testCost=0.00
-appointmentCost=0.00
+medicineCost=230.56
+otherCost=266
+testCost=7238
+appointmentCost=500
 
 [Appointments]
 

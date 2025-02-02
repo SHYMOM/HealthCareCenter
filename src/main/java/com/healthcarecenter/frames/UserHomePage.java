@@ -312,7 +312,7 @@ public class UserHomePage extends JFrame implements ActionListener
             FrameUtils.frameLogOut(frame);
         }
     });
-
+ 
         return middle_panel;
     }
 

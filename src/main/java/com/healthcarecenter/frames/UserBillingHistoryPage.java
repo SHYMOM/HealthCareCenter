@@ -1,11 +1,20 @@
 package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.GetDoctorData;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 public class UserBillingHistoryPage extends JFrame implements ActionListener
-{
+{   
+    private JTable billingHistoryTable;
+    private DefaultTableModel tableModel;
     private String username;
+    
     public UserBillingHistoryPage(String username)
     {
         this.username = username;
@@ -113,7 +122,7 @@ public class UserBillingHistoryPage extends JFrame implements ActionListener
 
          //level for blood
          JLabel billingHistory = new JLabel();
-         billingHistory.setText("Blood Bank");
+         billingHistory.setText("Billing History");
          billingHistory.setForeground(Color.red);
          billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
          billingHistory.setBounds(400, 15, 80,  20);
@@ -291,19 +300,104 @@ public class UserBillingHistoryPage extends JFrame implements ActionListener
 
     private JPanel createLowerpanel()
     {
+    
+        tableModel = new DefaultTableModel(new String[]
+             { "Full Name", "email" , "Specialization", "Days", "Time", "Fee"}, 0) 
+        {
+            @Override
+            public boolean isCellEditable(int row, int column)
+             {
+                return false;
+             }
+        };
+
+         billingHistoryTable = new JTable(tableModel);
+           
+      
+        
+
+        loaBillingHistoryData();
+
+         //! Style Of The Header
+        JTableHeader header = billingHistoryTable.getTableHeader();
+        header.setBackground(new Color(51, 102, 204));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+        billingHistoryTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, 
+                        hasFocus, row, column);
+
+                if (isSelected) {
+                    comp.setBackground(new Color(70, 130, 230));
+                    comp.setForeground(Color.WHITE);
+                } else {
+                    comp.setBackground(row % 2 == 0 ? new Color(240, 240, 255) : Color.WHITE);
+                    comp.setForeground(Color.BLACK);
+                }
+                ((JLabel) comp).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                
+                return comp;
+            }
+        });
+
+
+
+        billingHistoryTable = new JTable(tableModel);
+        billingHistoryTable.getTableHeader().setReorderingAllowed(false);
+        billingHistoryTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        billingHistoryTable.setRowHeight(30);
+        billingHistoryTable.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        billingHistoryTable.setShowGrid(true);
+        billingHistoryTable.setGridColor(new Color(230, 230, 230));
+
+        JScrollPane scrollPane = new JScrollPane(billingHistoryTable);
+        scrollPane.setBounds(2, 00, 880,300);
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
         JPanel lower_panel = new JPanel();                                  
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,200,900,500);
         lower_panel.setBackground(Color.white);
+        lower_panel.add(scrollPane);
+        
  
-
         return lower_panel;
+    }
+    
+    private void loaBillingHistoryData()
+    {
+
+        ArrayList<HashMap<String, String>> allDoctors = GetDoctorData.getAllDoctorsDetails();
+
+        for (HashMap<String, String> doctor : allDoctors)
+        {
+            tableModel.addRow(new Object[] {
+                doctor.get("fullName"),
+                doctor.get("email"),
+                doctor.get("specialization"),
+                doctor.get("daysAvailable"),
+                doctor.get("consultationHours"),
+                doctor.get("consultationFee")
+            });
+        }
+
+
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e)
     {
         // code to handle the action event
+    }
+
+    public static void main(String[] args) {
+        new UserBillingHistoryPage("emiko");
     }
 
 }
