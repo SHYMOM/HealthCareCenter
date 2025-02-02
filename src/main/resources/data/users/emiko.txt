@@ -51,3 +51,10 @@ medicine=asdfsdd
 Date=03-02-2025
 <<<HealthRecord-End>>>
 
+<<<HealthRecord-Start>>>
+doctorName=Alice
+doctorNote=adsfadfgafg
+tests=asfsdfasd
+medicine=afasdf
+Date=03-02-2025
+<<<HealthRecord-End>>>

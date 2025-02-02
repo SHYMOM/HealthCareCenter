@@ -107,57 +107,68 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
         middle_panel.setBackground(new Color(0x3a8cdb));
 
 
-        //level for home
-        JLabel home = new JLabel();
-        home.setText("Home");
-        home.setForeground(new Color(000000));
-        home.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        home.setBounds(15, 15, 50, 20);
-
-
-
-         //level for appoinment
-         JLabel appoinment= new JLabel();
-         appoinment.setText("Book Appoinment");
-         appoinment.setForeground(Color.red);
-         appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         appoinment.setBounds(90, 15, 120, 20);
-
-          //level for history
-        JLabel History = new JLabel();
-        History.setText("View Medicle History");
-        History.setForeground(new Color(000000));
-        History.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        History.setBounds(235, 15, 140,20);
-
-         //level for billingHistory
-         JLabel billingHistory = new JLabel();
-         billingHistory.setText("Billing History");
-         billingHistory.setForeground(new Color(000000));
-         billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         billingHistory.setBounds(400, 15, 80,  20);
-
-          //level for bill
-        JLabel bill = new JLabel();
-        bill.setText("Pay Bill");
-        bill.setForeground(new Color(000000));
-        bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        bill.setBounds(505, 15, 50, 20);
-
-         //level for log out
-         JLabel log_out = new JLabel();
-         log_out.setText("log_out");
-         log_out.setForeground(new Color(000000));
-         log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(580, 15, 50, 20);
+         //level for home
+         JLabel home = new JLabel();
+         home.setText("Home");
+         home.setForeground(new Color(000000));
+         home.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         home.setBounds(15, 15, 50, 20);
  
-          //add level in middle_panel
-          middle_panel.add(home);
-          middle_panel.add(appoinment);
-          middle_panel.add(History);
-          middle_panel.add(billingHistory);
-          middle_panel.add(bill);
-          middle_panel.add(log_out);
+ 
+ 
+          //level for appointment
+          JLabel appointment= new JLabel();
+          appointment.setText("Book Appointment");
+          appointment.setForeground(Color.red);
+          appointment.setFont(new Font("SansSerif", Font.PLAIN, 15));
+          appointment.setBounds(85, 15, 120, 20);
+ 
+          //level for Appointment History
+          JLabel appointmentHistory = new JLabel();
+          appointmentHistory.setText("View Appointment History");
+          appointmentHistory.setForeground(new Color(000000));
+          appointmentHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+          appointmentHistory.setBounds(225, 15, 165, 20);
+ 
+           //level for history
+         JLabel History = new JLabel();
+         History.setText("View Medicle History");
+         History.setForeground(new Color(000000));
+         History.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         History.setBounds(410, 15, 140, 20);
+ 
+           //level for bill
+           JLabel bill = new JLabel();
+           bill.setText("Pay Bill");
+           bill.setForeground(new Color(000000));
+           bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
+           bill.setBounds(570, 15, 50, 20);
+ 
+ 
+          //level for billingHistory
+          JLabel billingHistory = new JLabel();
+          billingHistory.setText("Billing History");
+          billingHistory.setForeground(new Color(000000));
+          billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+          billingHistory.setBounds(640, 15, 90, 20);
+ 
+ 
+          //level for log out
+          JLabel log_out = new JLabel();
+          log_out.setText("LogOut");
+          log_out.setForeground(new Color(000000));
+          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+          log_out.setBounds(750, 15, 50, 20);
+  
+           //add level in middle_panel
+           middle_panel.add(home);
+           middle_panel.add(appointment);
+           middle_panel.add(appointmentHistory);
+           middle_panel.add(History);
+           middle_panel.add(bill);
+           middle_panel.add(billingHistory);
+           middle_panel.add(log_out);
+ 
 
 
         home.addMouseListener(new MouseAdapter() {
@@ -177,31 +188,50 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(appoinment).dispose();
+                SwingUtilities.getWindowAncestor(appointment).dispose();
                 new UserHomePage(username, true);
             }
         });
 
 
 
-        appoinment.addMouseListener(new MouseAdapter() {
+        appointment.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                appoinment.setForeground(Color.red);
-                appoinment.setBounds(90, 15, 120, 20);
-                appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
+                appointment.setForeground(Color.red);
+                appointment.setBounds(85, 15, 120, 20);
+                appointment.setFont(new Font("SansSerif", Font.PLAIN, 15));
 
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                appoinment.setForeground(Color.red);
-                appoinment.setBounds(90, 15, 120, 20);
-                appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
+                appointment.setForeground(Color.red);
+                appointment.setBounds(85, 15, 120, 20);
+                appointment.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-               // SwingUtilities.getWindowAncestor(appoinment).dispose();
-                
+            }  
+        });
+
+
+        appointmentHistory.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                appointmentHistory.setForeground(new Color(0x00FF00));
+                appointmentHistory.setBounds(220, 10, 180, 30);
+                appointmentHistory.setFont(new Font("SansSerif", Font.PLAIN, 16));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                appointmentHistory.setForeground(new Color(000000));
+                appointmentHistory.setBounds(225, 15, 165, 20);
+                appointmentHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                SwingUtilities.getWindowAncestor(appointment).dispose();
+                new UserViewAppointmentHistoryPage(username);
             }
         });
 
@@ -209,81 +239,81 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
             @Override
             public void mouseEntered(MouseEvent e) {
                 History.setForeground(new Color(0x00FF00));
-                History.setBounds(230,10, 155, 30);
+                History.setBounds(405,10, 155, 30);
                 History.setFont(new Font("SansSerif", Font.PLAIN,17));
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 History.setForeground(new Color(000000));
-                History.setBounds(235, 15, 140, 20);
+                History.setBounds(410, 15, 140, 20);
                 History.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
+
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(appoinment).dispose();
+                SwingUtilities.getWindowAncestor(appointment).dispose();
                 new UserMedicalHistoryPage(username);  
             }
         });
         
+
+        bill.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                bill.setForeground(new Color(0x00FF00));
+                bill.setBounds(565, 10, 55, 30);
+                bill.setFont(new Font("SansSerif", Font.PLAIN, 17));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                bill.setForeground(new Color(000000));
+                bill.setBounds(570, 15, 50, 20);
+                bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            }
+          @Override
+          public void mouseClicked(MouseEvent e) {
+            SwingUtilities.getWindowAncestor(appointment).dispose(); 
+            new UserPayBillPage(username); 
+          }
+      });
 
 
         billingHistory .addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 billingHistory .setForeground(new Color(0x00FF00));
-                billingHistory.setBounds(398, 10, 85, 30);
+                billingHistory.setBounds(638, 10, 100,  30);
                 billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 17));
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 billingHistory .setForeground(new Color(000000));
-                billingHistory.setBounds(400, 15, 80, 20);
+                billingHistory.setBounds(640, 15, 90, 20);
                 billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(appoinment).dispose(); 
+                SwingUtilities.getWindowAncestor(appointment).dispose(); 
                 new UserBillingHistoryPage(username);
             }
         });
 
 
 
-        bill.addMouseListener(new MouseAdapter() {
-          @Override
-          public void mouseEntered(MouseEvent e) {
-            bill.setForeground(new Color(0x00FF00));
-            bill.setBounds(503, 10, 55, 30);
-            bill.setFont(new Font("SansSerif", Font.PLAIN, 17));
-          }
-          @Override
-          public void mouseExited(MouseEvent e) {
-            bill.setForeground(new Color(000000));
-            bill.setBounds(505, 15, 50, 20);
-            bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
-          }
-          @Override
-          public void mouseClicked(MouseEvent e) {
-            SwingUtilities.getWindowAncestor(appoinment).dispose(); 
-            new UserPayBillPage(username); 
-          }
-      });
-
-
       log_out.addMouseListener(new MouseAdapter() 
      {
-          @Override
-          public void mouseEntered(MouseEvent e) {
+        @Override
+        public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
-            log_out.setBounds(578, 10, 60, 30);
+            log_out.setBounds(748, 10, 60, 30);
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 17));
-          }
-          @Override
+        }
+        @Override
         public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(000000));
-            log_out.setBounds(580, 15, 50, 20);
+            log_out.setBounds(750, 15, 50,20);
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-          }
+        }
           @Override
           public void mouseClicked(MouseEvent e) 
           {
@@ -291,7 +321,7 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
             if (result == JOptionPane.YES_OPTION)
              {
                 System.out.println("Yes selected");
-                SwingUtilities.getWindowAncestor(appoinment).dispose();
+                SwingUtilities.getWindowAncestor(appointment).dispose();
                 //new loginFrame();
              }  
             else if (result == JOptionPane.NO_OPTION)
@@ -352,14 +382,40 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
             public void actionPerformed(ActionEvent e) {
                 String selectedUsername = getSelectedDoctorUsername();
                 if (selectedUsername != null) {
-                    HashMap<String, String> doctorDetails = GetDoctorData.getDoctorDetails(selectedUsername);
-                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component)e.getSource());
-                    DoctorDetailsDialog.showDoctorDetails(frame, doctorDetails,"Admin");
+                    String[] options = {"Confirm", "Cancel"};
+
+                    // Show the dialog box with options
+                    int selectedOption = JOptionPane.showOptionDialog(
+                        null,                         
+                        "Do you want to confirm?",      
+                        "Confirm or Cancel",           
+                        JOptionPane.DEFAULT_OPTION,     
+                        JOptionPane.QUESTION_MESSAGE,   
+                        null,                           
+                        options,                        
+                        options[0]                    
+                    );
+            
+                   
+                    if (selectedOption == 0) {
+
+                        HashMap<String, String> appointmentDetails = new HashMap<String, String> ();
+                        int selectedRow = appoinmentTable.getSelectedRow();
+                        appointmentDetails.put("fullName", appoinmentTable.getValueAt(selectedRow, 0).toString());
+                        appointmentDetails.put("email", appoinmentTable.getValueAt(selectedRow, 1).toString());
+                        appointmentDetails.put("specialization", appoinmentTable.getValueAt(selectedRow, 2).toString());
+                        appointmentDetails.put("days", appoinmentTable.getValueAt(selectedRow, 3).toString());
+                        appointmentDetails.put("time", appoinmentTable.getValueAt(selectedRow, 4).toString());
+                        appointmentDetails.put("fee", appoinmentTable.getValueAt(selectedRow, 5).toString());
+                        JOptionPane.showMessageDialog(null, "Take Appoinment Successfully!");
+                    } 
                 }
                 else {
                     JOptionPane.showMessageDialog(null, "No doctor selected.");
                 }
             }
+
+
         });
 
        
@@ -476,5 +532,9 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         // code to handle the action event
+    }
+
+    public static void main(String[] args) {
+        new UserBookAppointmentPage("emiko");
     }
 }

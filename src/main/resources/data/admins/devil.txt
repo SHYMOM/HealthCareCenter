@@ -1,0 +1,13 @@
+<<<Admin-Start>>>
+fullName=shanto
+username=devil
+age=21
+address=hkjdhkjdskjsdf
+bloodGroup=A+
+email=jhja@hjkk.cjhas
+contactNumber=735987998
+password=34325434534
+gender=Male
+salary=65213.0
+role=Admin
+<<<Admin-End>>>
