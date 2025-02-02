@@ -6,6 +6,8 @@ import com.healthcarecenter.frames.LoginPage;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.GetUserData;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,7 +87,7 @@ public class User extends GetUserData {
         }
     }
 
-    public void addHealthRecord(String filePath, Map<String, String> healthRecordDetails) throws IOException {
+    public static void addHealthRecord(String filePath, Map<String, String> healthRecordDetails) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath), true))) {
             writer.write("<<<HealthRecord-Start>>>\n");
             for (Map.Entry<String, String> entry : healthRecordDetails.entrySet()) {
@@ -95,7 +97,7 @@ public class User extends GetUserData {
         }
     }
 
-    public void addAppointment(String filePath, Map<String, String> appointmentDetails) throws IOException {
+    public static void addAppointment(String filePath, Map<String, String> appointmentDetails) throws IOException {
         File file = FileUtils.getFile(filePath);
         List<String> lines = new ArrayList<>();
         boolean insideAppointmentsSection = false;
@@ -131,7 +133,7 @@ public class User extends GetUserData {
     }
 
     //! Helper method to insert appointment details
-    private void insertAppointmentData(List<String> lines, Map<String, String> appointmentDetails) {
+    private static void insertAppointmentData(List<String> lines, Map<String, String> appointmentDetails) {
         lines.add("<<<Appoint-Start>>>");
         for (Map.Entry<String, String> entry : appointmentDetails.entrySet()) {
             lines.add(entry.getKey() + "=" + entry.getValue());
@@ -141,41 +143,52 @@ public class User extends GetUserData {
     }
 
 
-    public static void setBills(String username, HashMap<String, Double> newBills, boolean reset) throws IOException {
-        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
-        File tempFile = new File(filePath + ".tmp");
-        HashMap<String, Double> existingBills = GetUserData.getBills(username);
-        for (String key : existingBills.keySet()) {
-            double newValue = reset ? 0.00 : existingBills.get(key) + newBills.getOrDefault(key, 0.00);
-            existingBills.put(key, newValue);
-        }
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-            String line;
-            boolean inBillsSection = false;
-            while ((line = reader.readLine()) != null) {
-                if (line.equals("[Bills]")) {
-                    inBillsSection = true;
-                    writer.write(line + "\n");
-                    continue;
+    public static void addBills(String username, HashMap<String, Double> newBills, boolean reset) throws IOException {
+    String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+    File originalFile = new File(filePath);
+    File tempFile = new File(filePath + ".tmp");
+    
+    // Get and update existing bills
+    HashMap<String, Double> existingBills = GetUserData.getBills(username);
+    for (String key : existingBills.keySet()) {
+        double newValue = reset ? 0.00 : existingBills.get(key) + newBills.getOrDefault(key, 0.00);
+        existingBills.put(key, newValue);
+    }
+    
+    try (BufferedReader reader = new BufferedReader(new FileReader(originalFile));
+         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+        
+        String line;
+        boolean inBillsSection = false;
+        
+        while ((line = reader.readLine()) != null) {
+            if (line.equals("[Bills]")) {
+                writer.write(line + "\n");
+                // Write all bills immediately after the [Bills] section
+                for (Map.Entry<String, Double> entry : existingBills.entrySet()) {
+                    writer.write(entry.getKey() + "=" + String.format("%.2f", entry.getValue()) + "\n");
                 }
-                if (inBillsSection) {
-                    if (line.trim().isEmpty() || line.startsWith("[")) {
-                        inBillsSection = false;
-                        for (Map.Entry<String, Double> entry : existingBills.entrySet()) {
-                            writer.write(entry.getKey() + "=" + String.format("%.2f", entry.getValue()) + "\n");
-                        }
-                        writer.write("\n" + line + "\n");
-                        continue;
-                    }
-                    continue;
-                }
+                inBillsSection = true;
+                continue;
+            }
+            
+            // Skip existing bill lines but keep writing once we hit a new section
+            if (inBillsSection && (line.trim().isEmpty() || line.startsWith("["))) {
+                inBillsSection = false;
+            }
+            
+            if (!inBillsSection) {
                 writer.write(line + "\n");
             }
         }
-        
-        if (!tempFile.renameTo(new File(filePath))) {
-            JOptionPane.showMessageDialog(null, "Failed to update the file!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    } catch (IOException e) {
+        throw new IOException("Error updating bills: " + e.getMessage());
     }
+    
+    // Replace original file with temp file
+    if (!tempFile.renameTo(originalFile)) {
+        Files.copy(tempFile.toPath(), originalFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        tempFile.delete();
+    }
+}
 }
