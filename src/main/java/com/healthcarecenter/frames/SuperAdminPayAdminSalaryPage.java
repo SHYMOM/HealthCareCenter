@@ -8,9 +8,10 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
 
 {
     JButton pay_AdminSalary = new JButton("Pay Admin Salary");
-
-    public SuperAdminPayAdminSalaryPage ()
-    {
+    private String email;
+    
+    public SuperAdminPayAdminSalaryPage(String email) {
+       this.email = email;
         UserUI();
     }
 
@@ -160,7 +161,7 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminHomePage();
+				new SuperAdminHomePage(email);
             }
         });
 
@@ -182,7 +183,7 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageDoctorPage();
+				new SuperAdminManageDoctorPage(email);
                 
             }
         });
@@ -205,7 +206,7 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminUpdateBloodStockPage();
+				new SuperAdminBillingHistory(email);
                 
             }
         });
@@ -228,7 +229,7 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageAdminPage();
+				new SuperAdminManageAdminPage(email);
                 
             }
         });
@@ -327,7 +328,7 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
     }
     
         public static void main(String[] args) {
-            new SuperAdminPayAdminSalaryPage();
+            new SuperAdminPayAdminSalaryPage("shymom@healthcarecenter.com");
         } 
 
     }

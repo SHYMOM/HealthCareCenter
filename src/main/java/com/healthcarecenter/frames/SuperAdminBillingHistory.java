@@ -4,14 +4,15 @@ import com.healthcarecenter.utils.FrameUtils;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionListener
+public class SuperAdminBillingHistory extends JFrame implements ActionListener
 {
-
-    public SuperAdminUpdateBloodStockPage()
-    {
+    private String email;
+    
+    public SuperAdminBillingHistory(String email) {
+       this.email = email;
         UserUI();
     }
-
+    
     private void UserUI()
     {
         JPanel panel = new JPanel();                                  
@@ -66,7 +67,7 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
+        JLabel userlabel = new JLabel(email);
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setBounds(5,5,100,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
@@ -159,7 +160,7 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminHomePage();
+				new SuperAdminHomePage(email);
             }
         });
 
@@ -181,7 +182,7 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageDoctorPage();
+				new SuperAdminManageDoctorPage(email);
                 
             }
         });
@@ -228,7 +229,7 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageAdminPage();
+				new SuperAdminManageAdminPage(email);
                 
             }
         });
@@ -255,10 +256,10 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
                 Object[] options = {"Pay Admin Salary", "Pay Doctor Salary", "Cancel"};
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
-						new SuperAdminPayAdminSalaryPage();
+						new SuperAdminPayAdminSalaryPage(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else if (choice == 1) {
-						new SuperAdminPayDoctorSalary();
+						new SuperAdminPayDoctorSalary(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else {
 						
@@ -316,7 +317,7 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
     }
 
     public static void main(String[] args) {
-        new SuperAdminUpdateBloodStockPage();
+        new SuperAdminBillingHistory("shymom@healthcarecenter.com");
     }
 
 }

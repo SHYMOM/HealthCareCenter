@@ -18,11 +18,12 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
     private JTable ManageDoctorsTable;
     private DefaultTableModel tableModel;
 
-    public SuperAdminManageDoctorPage()
-    {
+    private String email;
+    
+    public SuperAdminManageDoctorPage(String email) {
+       this.email = email;
         UserUI();
     }
-
     private void UserUI()
     {
         JPanel panel = new JPanel();                                  
@@ -169,7 +170,7 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminHomePage();
+				new SuperAdminHomePage(email);
             }
         });
 
@@ -215,7 +216,7 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminUpdateBloodStockPage();
+				new SuperAdminBillingHistory(email);
                 
             }
         });
@@ -238,7 +239,7 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageAdminPage();
+				new SuperAdminManageAdminPage(email);
                 
             }
         });
@@ -265,10 +266,10 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
                 Object[] options = {"Pay Admin Salary", "Pay Doctor Salary", "Cancel"};
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
-						new SuperAdminPayAdminSalaryPage();
+						new SuperAdminPayAdminSalaryPage(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else if (choice == 1) {
-						new SuperAdminPayDoctorSalary();
+						new SuperAdminPayDoctorSalary(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else {
 						
@@ -444,7 +445,7 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new SuperAdminManageDoctorPage();
+        new SuperAdminManageDoctorPage("shymom@healthcarecenter.com");
     }
 
 }
