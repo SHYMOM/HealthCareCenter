@@ -445,6 +445,4 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
     {
         // code to handle the action event
     }
-
-
 }

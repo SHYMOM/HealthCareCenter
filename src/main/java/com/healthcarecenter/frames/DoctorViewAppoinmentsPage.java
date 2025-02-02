@@ -1,17 +1,43 @@
 package com.healthcarecenter.frames;
-import javax.swing.*;
-
 import com.healthcarecenter.utils.FileUtils;
-
-import java.awt.event.*;
+import com.healthcarecenter.utils.GetDoctorData;
+import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
 {
 
-    public DoctorViewAppoinmentsPage()
+    private JTable viewappoinmentTable;
+    private DefaultTableModel tableModel;
+    private String username;
+    private String name;
+
+    
+    public DoctorViewAppoinmentsPage(String username)
     {
+        this.username = username;
+
+        try {
+            this.name = GetUserData.getName(username);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
+            new WelcomePage();
+            this.dispose();
+            return;
+        }
+
         UserUI();
+
     }
+
+
 
     private void UserUI()
     {
@@ -144,7 +170,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                SwingUtilities.getWindowAncestor(home).dispose();
-				new DoctorHomePage();
+				new DoctorHomePage(username,true);
                 
             }
         });
@@ -189,7 +215,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				 SwingUtilities.getWindowAncestor(records).dispose();
-                new DoctorPatientRecordsPage();
+                new DoctorPatientRecordsPage(username);
             }
         });
         
@@ -211,7 +237,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				 SwingUtilities.getWindowAncestor(prescripitions).dispose();
-                new DoctorAddPrescripitionsPage();
+                new DoctorAddPrescripitionsPage(username);
             }
         });
 
@@ -219,35 +245,161 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
         return middle_panel;
     }
 
+
+
+
+
+
     private JPanel createLowerpanel()
+    {
+
+        JButton Addprescripitions = new JButton("Add Prescripitions");
+        Addprescripitions.setBounds(445, 310, 120, 40);
+        Addprescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        Addprescripitions.setBorder(BorderFactory.createLineBorder(new Color(0x1A75FF), 2, true));
+        Addprescripitions.setFocusable(false);
+
+        JButton AccesspatientRecords = new JButton("Access patient Records");
+        AccesspatientRecords.setBounds(305, 310, 120, 40);
+        AccesspatientRecords.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        AccesspatientRecords.setBorder(BorderFactory.createLineBorder(new Color(0x1A75FF), 2, true));
+        AccesspatientRecords.setFocusable(false);
+
+        AccesspatientRecords.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedUsername = getSelectedPatientUsername();
+                if (selectedUsername != null) {
+                    new DoctorPatientRecordsPage(selectedUsername);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "No doctor selected.");
+                }
+            }
+        });
+
+       
+
+        tableModel = new DefaultTableModel(new String[]
+             { "Full Name", "email" , "Specialization", "Days", "Time", "Fee"}, 0) 
+        {
+            @Override
+            public boolean isCellEditable(int row, int column)
+             {
+                return false;
+             }
+        };
+
+            viewappoinmentTable = new JTable(tableModel);
+           
+      
+        
+
+        loadDoctorData();
+
+        viewappoinmentTable = new JTable(tableModel);
+        viewappoinmentTable.getTableHeader().setReorderingAllowed(false);
+        viewappoinmentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        viewappoinmentTable.setRowHeight(30);
+        viewappoinmentTable.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        viewappoinmentTable.setShowGrid(true);
+        viewappoinmentTable.setGridColor(new Color(230, 230, 230));
+
+         //! Style Of The Header
+        JTableHeader header = viewappoinmentTable.getTableHeader();
+        header.setBackground(new Color(51, 102, 204));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+         viewappoinmentTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, 
+                        hasFocus, row, column);
+
+                if (isSelected) {
+                    comp.setBackground(new Color(70, 130, 230));
+                    comp.setForeground(Color.WHITE);
+                } else {
+                    comp.setBackground(row % 2 == 0 ? new Color(240, 240, 255) : Color.WHITE);
+                    comp.setForeground(Color.BLACK);
+                }
+                ((JLabel) comp).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                
+                return comp;
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(viewappoinmentTable);
+        scrollPane.setBounds(0, 0, 900,300);
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        JPanel lower_panel = new JPanel();                                  
+        lower_panel.setLayout(null);
+        lower_panel.setBounds(0,180,900,385);
+        lower_panel.setBackground(Color.white);
+        lower_panel.add(Addprescripitions);
+        lower_panel.add(AccesspatientRecords);
+        lower_panel.add(scrollPane);
+        return lower_panel;
+    }
+
+
+
+    private void loadDoctorData()
+    {
+
+        ArrayList<HashMap<String, String>> allDoctors = GetDoctorData.getAllDoctorsDetails();
+
+        for (HashMap<String, String> doctor : allDoctors)
+        {
+            tableModel.addRow(new Object[] {
+                doctor.get("fullName"),
+                doctor.get("email"),
+                doctor.get("specialization"),
+                doctor.get("daysAvailable"),
+                doctor.get("consultationHours"),
+                doctor.get("consultationFee")
+            });
+        }
+
+
+
+    }
+
+
+    private String getSelectedPatientUsername() {
+        int selectedRow = viewappoinmentTable.getSelectedRow();
+        if (selectedRow == -1) {
+            return null;
+        }
+        return FileUtils.getUsernameByEmail(tableModel.getValueAt(selectedRow, 1).toString(),"/data/doctors/");
+    }
+
+
+
+
+
+    /*private JPanel createLowerpanel()
     {
         JPanel lower_panel = new JPanel();                                  
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,180,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));
         
-		/*JPanel image_panel = new JPanel();
-        image_panel.setBounds(0,0,900,300);
-        image_panel.setLayout(null);
-        image_panel.setOpaque(false);
-        lower_panel.add(image_panel);*/
-
-        JLabel welcome= new JLabel("Welcome User");
-        welcome.setHorizontalAlignment(JLabel.CENTER);
-        welcome.setBounds(300,330,300,30);
-        welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
-
-        JLabel health_tips= new JLabel("Random Health Tips");
-        health_tips.setHorizontalAlignment(JLabel.CENTER);
-        health_tips.setBounds(350,300,200,30);
-        health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
 
 
-        lower_panel.add(welcome);
-        lower_panel.add(health_tips);
+
 
         return lower_panel;
-    }
+    }*/
+
+
+
+
+
 
     @Override
     public void actionPerformed(ActionEvent e)
@@ -256,7 +408,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new DoctorViewAppoinmentsPage().setVisible(true);
+        new DoctorViewAppoinmentsPage("emiko");
     }
 
 }
