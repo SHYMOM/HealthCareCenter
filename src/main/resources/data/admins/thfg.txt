@@ -7,7 +7,7 @@ bloodGroup=4238965356
 email=sdrfgsdfg
 contactNumber=423455243
 password=Male
-gender=A+
+gender=Male
 salary=20000.0
 role=Admin
 <<<Admin-End>>>

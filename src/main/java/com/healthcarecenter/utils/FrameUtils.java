@@ -27,11 +27,9 @@ public class FrameUtils {
                         new DoctorHomePage(username, true);
                     }
                     else if (role.equals("admin")) {
-                        new AdminHomePage();
+                        new AdminHomePage(username, true);
                     }
-                    else if (role.equals("superadmin")) {
-                        new SuperAdminHomePage();
-                    }
+                    
                 } 
                 else {
                     JOptionPane.showMessageDialog(
