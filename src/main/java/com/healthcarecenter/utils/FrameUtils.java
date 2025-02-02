@@ -24,7 +24,7 @@ public class FrameUtils {
                         new UserHomePage(username, true);
                     }
                     else if (role.equals("doctor")) {
-                        new DoctorHomePage();
+                        new DoctorHomePage(username, true);
                     }
                     else if (role.equals("admin")) {
                         new AdminHomePage();
