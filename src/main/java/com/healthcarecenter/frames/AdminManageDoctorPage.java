@@ -1,15 +1,33 @@
 package com.healthcarecenter.frames;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
+import com.healthcarecenter.utils.GetUserData;
+
 import java.awt.event.*;
+import java.io.IOException;
 import java.awt.*;
 public class AdminManageDoctorPage extends JFrame implements ActionListener
 {
-
-    public AdminManageDoctorPage()
+   
+    private String username;
+    private String name;
+    public AdminManageDoctorPage(String username)
     {
+        this.username = username;
+        try {
+            this.name = GetUserData.getName(username);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
+            new WelcomePage();
+            this.dispose();
+            return;
+        }
         UserUI();
+
+         
     }
 
     private void UserUI()
@@ -66,7 +84,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
+        JLabel userlabel = new JLabel(name);
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setBounds(5,5,100,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
@@ -145,7 +163,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new AdminHomePage();
+				new AdminHomePage("emiko", true);
             }
         });
 
@@ -191,7 +209,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new AdminBillingHistoryPage();
+				new AdminBillingHistoryPage(username);
                 
             }
         });
@@ -242,7 +260,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new AdminManageDoctorPage();
+        new AdminManageDoctorPage("username");
     }
 
 }

@@ -6,8 +6,10 @@ import javax.swing.*;
 public class SuperAdminHomePage extends JFrame implements ActionListener
 {
 
-    public SuperAdminHomePage()
-    {
+     private String email;
+    
+    public SuperAdminHomePage(String email) {
+       this.email = email;
         UserUI();
     }
 
@@ -55,8 +57,6 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
         upper_panel.add(label);
 
         
-        
-
        //create userpanel for upper_panel
         JPanel user_panel = new JPanel(); 
         user_panel.setLayout(null);
@@ -65,7 +65,7 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
+        JLabel userlabel = new JLabel(email);
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setBounds(5,5,100,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
@@ -178,7 +178,7 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageDoctorPage();
+				new SuperAdminManageDoctorPage(email);
                 
             }
         });
@@ -201,7 +201,7 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminUpdateBloodStockPage();
+				new SuperAdminBillingHistory(email);
                 
             }
         });
@@ -223,7 +223,7 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageAdminPage();
+				new SuperAdminManageAdminPage(email);
             }
         });
         
@@ -249,10 +249,10 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
                 Object[] options = {"Pay Admin Salary", "Pay Doctor Salary", "Cancel"};
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
-						new SuperAdminPayAdminSalaryPage();
+						new SuperAdminPayAdminSalaryPage(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else if (choice == 1) {
-						new SuperAdminPayDoctorSalary();
+						new SuperAdminPayDoctorSalary(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else {
 						
@@ -282,7 +282,7 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
           @Override
           public void mouseClicked(MouseEvent e)  
           {
-               JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
             FrameUtils.frameLogOut(frame);
         }
     });
@@ -299,15 +299,15 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
         lower_panel.setBackground(new Color(0xECF8FD));
        
 
-        JLabel welcome= new JLabel("Welcome User");
+        JLabel welcome= new JLabel(email);
         welcome.setHorizontalAlignment(JLabel.CENTER);
-        welcome.setBounds(300,330,300,30);
+        welcome.setBounds(300,380,300,30);
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
 
         HealthTips healthTips = new HealthTips();
         JLabel health_tips = new JLabel(healthTips.getRandomHealthTip());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
-        health_tips.setBounds(0,300,900,30);
+        health_tips.setBounds(0,350,900,30);
         health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
 
         lower_panel.add(welcome);
@@ -323,7 +323,7 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new SuperAdminHomePage();
+        new SuperAdminHomePage("shymom@healthcarecenter.com");
     }
 
 }

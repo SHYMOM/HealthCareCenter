@@ -1,16 +1,63 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.models.CurrentUser;
 import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import javax.swing.*;
 public class AdminHomePage extends JFrame implements ActionListener
 {
 
-    public AdminHomePage()
-    {
+    private String name;
+    private String username;
+
+    public AdminHomePage(String value, boolean isUsername) {
+        if (!isUsername) {
+            try {
+                username = FileUtils.getUsernameByEmail(value, "/data/admins/");
+               
+                if (username == null) {
+                        JOptionPane.showMessageDialog(null, "No user found with the given email."+value);
+                        new WelcomePage();
+                        this.dispose();
+                        return;
+                    }
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
+                new WelcomePage();
+                this.dispose();
+                return;
+            }
+        } else {
+            this.username = value;
+        }
+
+        if (this.username == null || this.username.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Invalid username detected.");
+            new WelcomePage();
+            this.dispose();
+            return;
+        }
+
+        try {
+            this.name = GetUserData.getName(username);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
+            new WelcomePage();
+            this.dispose();
+            return;
+        }
+
+        try {
+            CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", GetUserData.getEmail(username), "user");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
+        }
+
         UserUI();
     }
 
+    
     private void UserUI()
     {
         JPanel panel = new JPanel();                                  
@@ -64,7 +111,7 @@ public class AdminHomePage extends JFrame implements ActionListener
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
+        JLabel userlabel = new JLabel(name);
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setBounds(5,5,100,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
@@ -163,7 +210,7 @@ public class AdminHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new AdminManageDoctorPage();
+				new AdminManageDoctorPage(username);
                 
             }
         });
@@ -186,7 +233,7 @@ public class AdminHomePage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new AdminBillingHistoryPage();
+				new AdminBillingHistoryPage(username);
                 
             }
         });
@@ -229,7 +276,7 @@ public class AdminHomePage extends JFrame implements ActionListener
         lower_panel.setBackground(new Color(0xECF8FD));
        
 
-        JLabel welcome= new JLabel("Welcome User");
+        JLabel welcome= new JLabel(name);
         welcome.setHorizontalAlignment(JLabel.CENTER);
         welcome.setBounds(300,330,300,30);
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
@@ -254,7 +301,8 @@ public class AdminHomePage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new AdminHomePage();
+        new AdminHomePage("emiko", true);
     }
+    
 
 }
