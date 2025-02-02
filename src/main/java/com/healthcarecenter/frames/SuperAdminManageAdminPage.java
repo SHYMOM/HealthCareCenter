@@ -341,6 +341,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
                         HashMap<String, String> adminDetails = GetAdminData.getAdminDetails(selectedUsername);
                         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component)e.getSource());
                         //AdminDetailsDialog.showAdminDetails(frame, adminDetails,"Admin");
+                        System.out.println(adminDetails);
                     } catch (IOException ex) {
                     }
                     

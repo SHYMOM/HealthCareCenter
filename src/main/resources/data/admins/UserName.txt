@@ -1,0 +1,13 @@
+<<<Admin-Start>>>
+fullName=Name
+username=UserName
+age=17
+address=sdfgn@gmail.com
+bloodGroup=123456
+email=asdfbgnn
+contactNumber=21eergfh
+password=Male
+gender=B+
+salary=123.0
+role=Admin
+<<<Admin-End>>>

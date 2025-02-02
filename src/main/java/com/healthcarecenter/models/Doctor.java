@@ -63,7 +63,7 @@ public class Doctor {
         this.salary = salary;
     }
 
-public void saveToFile(JFrame frame, String username){
+public void saveToFile(JFrame frame){
     String filePath = "/data/doctors/"+username+".txt";
   
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath()))) {
