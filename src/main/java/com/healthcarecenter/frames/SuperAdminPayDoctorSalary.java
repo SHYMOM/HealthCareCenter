@@ -9,8 +9,10 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
 {
     JButton pay_DoctorsSalary = new JButton("Pay Doctors Salary");
 
-    public SuperAdminPayDoctorSalary ()
-    {
+    private String email;
+    
+    public SuperAdminPayDoctorSalary(String email) {
+       this.email = email;
         UserUI();
     }
 
@@ -159,7 +161,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminHomePage();
+				new SuperAdminHomePage(email);
             }
         });
 
@@ -181,7 +183,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageDoctorPage();
+				new SuperAdminManageDoctorPage(email);
                 
             }
         });
@@ -204,7 +206,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminUpdateBloodStockPage();
+				new SuperAdminBillingHistory(email);
                 
             }
         });
@@ -227,7 +229,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageAdminPage();
+				new SuperAdminManageAdminPage(email);
                 
             }
         });
@@ -326,7 +328,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
 
    
     public static void main(String[] args) {
-        new SuperAdminPayDoctorSalary();
+        new SuperAdminPayDoctorSalary("shymom@helthcarecenter.com");
     }
 
 }

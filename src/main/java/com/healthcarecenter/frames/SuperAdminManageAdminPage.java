@@ -2,6 +2,7 @@ package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetAdminData;
+import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -19,10 +20,13 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
     private JTable ManageAdminTable;
     private DefaultTableModel tableModel;
 
-    public SuperAdminManageAdminPage()
-    {
+    private String email;
+    
+    public SuperAdminManageAdminPage(String email) {
+       this.email = email;
         UserUI();
     }
+    
 
     private void UserUI()
     {
@@ -78,7 +82,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
+        JLabel userlabel = new JLabel(email);
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setBounds(5,5,100,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
@@ -170,7 +174,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminHomePage();
+				new SuperAdminHomePage(email);
 			}
 				
         });
@@ -191,7 +195,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageDoctorPage();
+				new SuperAdminManageDoctorPage(email);
                 
             }
         });
@@ -214,7 +218,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminUpdateBloodStockPage();
+				new SuperAdminBillingHistory(email);
                 
             }
         });
@@ -264,10 +268,10 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
                 Object[] options = {"Pay Admin Salary", "Pay Doctor Salary", "Cancel"};
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
-						new SuperAdminPayAdminSalaryPage();
+						new SuperAdminPayAdminSalaryPage(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else if (choice == 1) {
-						new SuperAdminPayDoctorSalary();
+						new SuperAdminPayDoctorSalary(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else {
 						
@@ -297,7 +301,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
          @Override
           public void mouseClicked(MouseEvent e)  
           {
-               JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
             FrameUtils.frameLogOut(frame);
         }
     });
@@ -445,7 +449,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new SuperAdminManageAdminPage();
+        new SuperAdminManageAdminPage("shymom@healthcarecenter.com");
     }
 
 }

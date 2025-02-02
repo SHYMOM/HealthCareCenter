@@ -8,6 +8,10 @@ import javax.swing.JOptionPane;
 
 public class GetAdminData {
 
+    public static String getName(String username) throws IOException {
+        return getFieldValue(username, "fullName");
+    }
+
     public static String getDetail(String username, String key) throws IOException {
         String filePath = "/data/admins/"+username+".txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(FileUtils.getFile(filePath).getAbsolutePath()))) {

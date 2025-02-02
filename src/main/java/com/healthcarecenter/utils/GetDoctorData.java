@@ -13,6 +13,10 @@ import javax.swing.JOptionPane;
 
 public class GetDoctorData {
 
+    public static String getName(String username) throws IOException {
+        return getFieldValue(username, "fullName");
+    }
+
     public static String getFieldValue(String username, String fieldName) {
         String filePath = "/data/doctors/" + username + ".txt";
         filePath = FileUtils.getFile(filePath).getAbsolutePath();

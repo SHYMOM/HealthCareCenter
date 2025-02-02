@@ -5,18 +5,18 @@ username=emiko
 email=emiko@gmail.com
 amount=100.5
 method=Credit Card
-details=1234567890987654
+accountInfo=1234567890987654
 TransactionID=TXN1738492131530
 date=2025-02-02 16:28:51
 <<<Payment - End>>>
-<<<Payment - Start>>>
 
+<<<Payment - Start>>>
 name=Emiko
 username=emiko
 email=emiko@gmail.com
 amount=100.5
 method=PayPal
-details=emiko@gmail.com
+accountInfo=emiko@gmail.com
 TransactionID=TXN1738492418744
 date=2025-02-02 16:33:38
 <<<Payment - End>>>

@@ -14,14 +14,33 @@ isDonor=false
 <<<User-End>>>
 
 [Bills]
-medicineCost=230.56
-otherCost=266
-testCost=7238
-appointmentCost=500
+medicineCost=66.00
+otherCost=0.00
+testCost=147.00
+appointmentCost=0.00
+
 
 [Appointments]
 
 [HealthRecords]
+
+
+<<<HealthRecord-Start>>>
+doctorName=Alice
+doctorNote=adsfadfgafg
+tests=asfsdfasd
+medicine=afasdf
+Date=03-02-2025
+<<<HealthRecord-End>>>
+
+<<<HealthRecord-Start>>>
+doctorName=Alice
+tests=asd
+doctorNote=asd
+diseases=
+medicine=asd
+Date=03-02-2025
+<<<HealthRecord-End>>>
 
 <<<HealthRecord-Start>>>
 doctorName=Alice
