@@ -318,7 +318,7 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
         
 
         tableModel = new DefaultTableModel(new String[]
-            { "Full Name", "Specialization", "Days", "Time", "Fee"}, 0) 
+            { "Date", "Doctor Name","Medicle Test","Diagnosis","Prescription","Doctor Note"}, 0) 
         {
             @Override
             public boolean isCellEditable(int row, int column)

@@ -287,7 +287,7 @@ public class LoginPage extends JFrame implements ActionListener {
                     else{
                         if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/doctors/")){
                             this.dispose();
-                            new DoctorHomePage();
+                            new DoctorHomePage(email.getText(), false);
                         }
                         else{
                             JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);

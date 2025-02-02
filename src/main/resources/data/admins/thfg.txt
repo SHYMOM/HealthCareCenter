@@ -1,0 +1,13 @@
+<<<Admin-Start>>>
+fullName=yjtygf
+username=thfg
+age=20
+address=asd@sdf.fghj
+bloodGroup=4238965356
+email=sdrfgsdfg
+contactNumber=423455243
+password=Male
+gender=A+
+salary=20000.0
+role=Admin
+<<<Admin-End>>>

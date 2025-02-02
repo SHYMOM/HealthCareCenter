@@ -1,14 +1,17 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.frames.dialogs.BillPaymentDialog;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.HashMap;
 import javax.swing.*;
 public class UserPayBillPage extends JFrame implements ActionListener
 {
     private String username;
     private String name;
+    private double totalAmount = 0.0;
     public UserPayBillPage(String username)
     {
         this.username = username;
@@ -308,12 +311,169 @@ public class UserPayBillPage extends JFrame implements ActionListener
         lower_panel.setBackground(Color.white);
         
 
+         //level for Pay Bill
+         JLabel payBill = new JLabel();
+         payBill.setText("Pay Bill");
+         payBill.setForeground(new Color(000000));
+         payBill.setFont(new Font("SansSerif", Font.PLAIN, 20));
+         payBill.setBounds(415,25,80,30);
+
+
+        
+          //level Appointment cost
+          JLabel level1 = new JLabel();
+          level1.setText("Appointment cost  =");
+          level1.setForeground(new Color(000000));
+          level1.setFont(new Font("SansSerif", Font.PLAIN, 15));
+          level1.setBounds(350,85,150,20);
+
+          JLabel appontmentCost = new JLabel(); 
+          appontmentCost.setText("00.00");      
+          appontmentCost.setForeground(new Color(000000));
+          appontmentCost.setFont(new Font("SansSerif", Font.PLAIN, 15));
+          appontmentCost.setBounds(505,85,150,20);
+         
+          //level Medicle cost
+          JLabel level2 = new JLabel();
+          level2.setText("Medical cost          =");
+          level2.setForeground(new Color(000000));
+          level2.setFont(new Font("SansSerif", Font.PLAIN, 15));
+          level2.setBounds(350,105,150,20);
+
+          JLabel medicalCost = new JLabel();
+          medicalCost.setText("00.00");
+          medicalCost.setForeground(new Color(000000));
+          medicalCost.setFont(new Font("SansSerif", Font.PLAIN, 15));
+          medicalCost.setBounds(505,105,150,20);
+
+          //level Test cost
+          JLabel level3 = new JLabel();
+          level3.setText("Test cost               =");
+          level3.setForeground(new Color(000000));
+          level3.setFont(new Font("SansSerif", Font.PLAIN, 15));
+          level3.setBounds(350,125,150,20);
+
+          JLabel testCost = new JLabel();
+          testCost.setText("00.00");
+          testCost.setForeground(new Color(000000));
+          testCost.setFont(new Font("SansSerif", Font.PLAIN, 15));
+          testCost.setBounds(505,125,150,20);
+
+
+            //level Others cost
+            JLabel level4 = new JLabel();
+            level4.setText("Others cost           =");
+            level4.setForeground(new Color(000000));
+            level4.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            level4.setBounds(350,145,150,20);
+  
+            JLabel otherCost = new JLabel();
+            otherCost.setText("00.00");
+            otherCost.setForeground(new Color(000000));
+            otherCost.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            otherCost.setBounds(505,145,150,20);
+
+
+            JLabel level5 = new JLabel();
+            level5.setText("-------------------------------------------------------------------");
+            level5.setForeground(new Color(000000));
+            level5.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            level5.setBounds(290,165,350,5);
+
+
+            //level Total cost
+            JLabel level6 = new JLabel();
+            level6.setText("Total cost              =");
+            level6.setForeground(new Color(000000));
+            level6.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            level6.setBounds(350,180,150,20);
+            JLabel totalCost = new JLabel();
+            totalCost.setText(String.valueOf(totalAmount));
+            totalCost.setForeground(new Color(000000));
+            totalCost.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            totalCost.setBounds(505,180,150,20);
+
+            try {
+                HashMap<String, Double> bills = GetUserData.getBills(username);
+                appontmentCost.setText(bills.get("appointmentCost").toString());
+                medicalCost.setText(bills.get("medicineCost").toString());
+                testCost.setText(bills.get("testCost").toString());
+                otherCost.setText(bills.get("otherCost").toString());
+                totalAmount = bills.get("appointmentCost") + bills.get("medicineCost") + bills.get("testCost") + bills.get("otherCost");
+                totalCost.setText(String.valueOf(totalAmount));
+            } catch (IOException ex) 
+            {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            //Button Total cost
+            JButton payButton = new JButton("Pay");
+            payButton.setFont(new Font("SansSerif", Font.BOLD, 20));
+            payButton.setBounds(415,280,70,40);
+            payButton.setFocusable(false);
+            payButton.setBackground(new Color(0x182838));
+            payButton.setForeground(new Color(25, 117, 255));
+
+            payButton.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                payButton.setBorder(BorderFactory.createLineBorder(new Color(0x00FF00), 2, true));
+                payButton.setForeground(new Color(0x00FF00));
+                payButton.setFont(new Font("SansSerif", Font.BOLD, 20));
+                payButton.setBounds(415,280,70,40);
+
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                payButton.setBorder(BorderFactory.createLineBorder(new Color(0xFFFFFF), 2, true));
+                payButton.setForeground(new Color(25, 117, 255));
+                payButton.setFont(new Font("SansSerif", Font.BOLD, 20));
+                payButton.setBounds(415,280,70,40);
+                payButton.setBackground(new Color(0x182838));
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+              SwingUtilities.getWindowAncestor(payButton).dispose();
+              new BillPaymentDialog(username, totalAmount);
+            }
+        });
+
+
+
+
+     
+         
+        lower_panel.add(payBill);
+        lower_panel.add(level1);
+        lower_panel.add(appontmentCost);
+        lower_panel.add(level2);
+        lower_panel.add(medicalCost);
+        lower_panel.add(level3);
+        lower_panel.add(testCost);
+        lower_panel.add(level4);
+        lower_panel.add(otherCost);
+        lower_panel.add(level5);
+        lower_panel.add(level6);
+        lower_panel.add(totalCost);
+        lower_panel.add(payButton);
+
+        
+
+      
         return lower_panel;
     }
+
+
+
 
     @Override
     public void actionPerformed(ActionEvent e)
     {
         // code to handle the action event
+    }
+
+    public static void main(String[] args) {
+        new UserPayBillPage("emiko");
     }
 }

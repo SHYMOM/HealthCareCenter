@@ -340,8 +340,40 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
             }
         });
 
+
+
+
+
+
+
+
+        takeAppoint.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedUsername = getSelectedDoctorUsername();
+                if (selectedUsername != null) {
+                    HashMap<String, String> doctorDetails = GetDoctorData.getDoctorDetails(selectedUsername);
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component)e.getSource());
+                    DoctorDetailsDialog.showDoctorDetails(frame, doctorDetails,"Admin");
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "No doctor selected.");
+                }
+            }
+        });
+
        
 
+
+
+
+
+
+
+
+
+
+        
         tableModel = new DefaultTableModel(new String[]
              { "Full Name", "email" , "Specialization", "Days", "Time", "Fee"}, 0) 
         {
@@ -445,6 +477,4 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
     {
         // code to handle the action event
     }
-
-
 }

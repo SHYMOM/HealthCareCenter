@@ -1,5 +1,6 @@
 package com.healthcarecenter.frames;
 
+import com.healthcarecenter.models.Admin;
 import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -276,7 +277,56 @@ public class Super_AdminAddNewAdmins extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == registerButton) {
-            
+            All_Validations checkValidations = new All_Validations();
+            if (name.getText().isEmpty() || username.getText().isEmpty() || age.getText().isEmpty() || 
+                email.getText().isEmpty() || address.getText().isEmpty() || number.getText().isEmpty() || 
+                password.getText().isEmpty() || salary.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please Fill All The Credentials");
+            }
+            else if (!checkValidations.isValidName(name.getText())) {
+                JOptionPane.showMessageDialog(null, "Name should not contain numbers or special characters", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (!checkValidations.isValidAge(age.getText())) {
+                JOptionPane.showMessageDialog(null, "Age should be a positive number", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (!checkValidations.isValidContactNumber(number.getText())) {
+                JOptionPane.showMessageDialog(null, "Contact number should be a digit number", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (!checkValidations.isValidEmail(email.getText())) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid email address", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (!checkValidations.isValidPassword(password.getText())) {
+                JOptionPane.showMessageDialog(null, "Password must be at least 6 characters long", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (!checkValidations.isValidAmount(salary.getText())) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid salary amount", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (!termsAndConditionsCheckBox.isSelected()) {
+                JOptionPane.showMessageDialog(null, "Please agree to the terms and conditions", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (genderComboBox.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Please select a gender", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (bloodComboBox.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Please select a blood group", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                // Create and save admin object
+                Admin admin = new Admin(
+                    name.getText(),
+                    username.getText(),
+                    age.getText(),
+                    address.getText(),
+                    bloodComboBox.getSelectedItem().toString(),
+                    email.getText(),
+                    number.getText(), 
+                    password.getText(),
+                    genderComboBox.getSelectedItem().toString(),  
+                    Double.parseDouble(salary.getText())
+                );
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
+                admin.saveToFile(frame);
+            }
         }
     }
 

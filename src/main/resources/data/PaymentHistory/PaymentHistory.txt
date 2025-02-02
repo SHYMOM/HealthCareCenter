@@ -1,53 +1,55 @@
+
 <<<Payment - Start>>>
-name=John Doe
-username=jdoe
-email=john.doe@example.com
-amount=150.0
-payedBy=Credit Card
-details=1234-5678-9012-3456
+name=Emiko
+username=emiko
+email=emiko@gmail.com
+amount=100.5
+method=Credit Card
+details=1234567890987654
+TransactionID=TXN1738492131530
+date=2025-02-02 16:28:51
+<<<Payment - End>>>
+<<<Payment - Start>>>
+
+name=Emiko
+username=emiko
+email=emiko@gmail.com
+amount=100.5
+method=PayPal
+details=emiko@gmail.com
+TransactionID=TXN1738492418744
+date=2025-02-02 16:33:38
 <<<Payment - End>>>
 
 <<<Payment - Start>>>
-name=John Doe
-username=jdoe
-email=john.doe@example.com
-amount=75.0
-payedBy=PayPal
-details=jdoe@paypal.com
+name=Emiko
+username=emiko
+email=emiko@gmail.com
+amount=100.5
+method=Bank Transfer
+accountInfo=1112223334
+TransactionID=TXN1738492558941
+date=2025-02-02 16:35:58
 <<<Payment - End>>>
 
 <<<Payment - Start>>>
-name=Jane Smith
-username=jsmith
-email=jane.smith@example.com
-amount=200.0
-payedBy=Debit Card
-details=6543-2109-8765-4321
+name=Emiko
+username=emiko
+email=emiko@gmail.com
+amount=100.5
+method=PayPal
+accountInfo=emiko@ymail.com
+TransactionID=TXN1738516759551
+date=2025-02-02 23:19:19
 <<<Payment - End>>>
 
 <<<Payment - Start>>>
-name=Jane Smith
-username=jsmith
-email=jane.smith@example.com
-amount=50.0
-payedBy=Credit Card
-details=3456-7890-1234-5678
-<<<Payment - End>>>
-
-<<<Payment - Start>>>
-name=Alice Johnson
-username=ajohnson
-email=alice.johnson@example.com
-amount=120.0
-payedBy=Bank Transfer
-details=Account#123456789
-<<<Payment - End>>>
-
-<<<Payment - Start>>>
-name=Bob Brown
-username=bbrown
-email=bob.brown@example.com
-amount=180.0
-payedBy=Cryptocurrency
-details=BitcoinAddress12345
+name=Emiko
+username=emiko
+email=emiko@gmail.com
+amount=8234.56
+method=Bank Transfer
+accountInfo=87574868757
+TransactionID=TXN1738519271535
+date=2025-02-03 00:01:11
 <<<Payment - End>>>
