@@ -303,7 +303,6 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
                  System.out.println("Cancel selected");
              }
           }
-                  
       });
 
         return middle_panel;
@@ -318,14 +317,14 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
         
         
 
-          tableModel = new DefaultTableModel(new String[]
-             { "Full Name", "Specialization", "Days", "Time", "Fee"}, 0) 
+        tableModel = new DefaultTableModel(new String[]
+            { "Full Name", "Specialization", "Days", "Time", "Fee"}, 0) 
         {
             @Override
             public boolean isCellEditable(int row, int column)
-             {
+            {
                 return false;
-             }
+            }
         };
 
             ViewHistoryTable = new JTable(tableModel);
@@ -341,8 +340,8 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
             ViewHistoryTable.setGridColor(new Color(230, 230, 230));
 
          //! Style Of The Header
-             JTableHeader header = ViewHistoryTable.getTableHeader();
-             header.setBackground(new Color(51, 102, 204));
+            JTableHeader header = ViewHistoryTable.getTableHeader();
+            header.setBackground(new Color(51, 102, 204));
             header.setForeground(Color.WHITE);
             header.setFont(new Font("SansSerif", Font.BOLD, 12));
 
@@ -393,12 +392,11 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
             });
         }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null,"Error reading file: " +e.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         
         }
 
-   
 
     @Override
     public void actionPerformed(ActionEvent e)

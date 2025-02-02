@@ -11,6 +11,9 @@ import javax.swing.*;
 public class Admin {
     private String fullName;
     private String username;
+    private String age;
+    private String address;
+    private String bloodGroup;
     private String email;
     private String contactNumber;
     private String password;
@@ -18,9 +21,12 @@ public class Admin {
     private final String role = "Admin";
     private double salary;
 
-    public Admin(String fullName, String username, String email, String contactNumber, String password, String gender, double salary) {
+    public Admin(String fullName, String username, String age, String address, String bloodGroup, String email, String contactNumber, String password, String gender, double salary) {
         this.fullName = fullName;
         this.username = username;
+        this.age = age;
+        this.address = address;
+        this.bloodGroup = bloodGroup;
         this.email = email;
         this.contactNumber = contactNumber;
         this.password = password;
@@ -29,12 +35,15 @@ public class Admin {
     }
 
 
-    public void saveToFile(JFrame frame, String username){
+    public void saveToFile(JFrame frame){
         String filePath = "/data/admins/"+username+".txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath()))) {
             writer.write("<<<Admin-Start>>>\n");
             writer.write("fullName=" + fullName + "\n");
             writer.write("username=" + username + "\n");
+            writer.write("age=" + age + "\n");
+            writer.write("address=" + address + "\n");
+            writer.write("bloodGroup=" + bloodGroup + "\n");
             writer.write("email=" + email + "\n");
             writer.write("contactNumber=" + contactNumber + "\n");
             writer.write("password=" + password + "\n");

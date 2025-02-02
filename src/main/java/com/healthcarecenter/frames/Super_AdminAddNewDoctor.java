@@ -410,7 +410,7 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
             else{
                 Doctor doctor = new Doctor(name.getText(), username.getText(), age.getText(), email.getText(), number.getText(), address.getText(), password.getText(), genderComboBox.getSelectedItem().toString(), bloodComboBox.getSelectedItem().toString(), specialization.getText(), qualification.getText(), licenseNumber.getText(), consultingTime, daysAvailable, Double.parseDouble(fee.getText()), 0);
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
-                doctor.saveToFile(frame, username.getText());
+                doctor.saveToFile(frame);
             }
         }
     }

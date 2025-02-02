@@ -104,12 +104,12 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
          Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
          Mang_Doc.setBounds(80, 15, 140, 20);
 
-          //level forupd_bloo
-         JLabel upd_bloo = new JLabel();
-         upd_bloo.setText("Update Blood Stock");
-         upd_bloo.setForeground(new Color(000000));
-         upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         upd_bloo.setBounds(225, 15, 160, 20);
+          //level forbillingHistory
+         JLabel billingHistory = new JLabel();
+         billingHistory.setText("Billing History");
+         billingHistory.setForeground(new Color(000000));
+         billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         billingHistory.setBounds(225, 15, 160, 20);
 		 
 		 //level for manage admin
          JLabel Mang_Admin = new JLabel();
@@ -136,7 +136,7 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
           //add level in middle_panel
           middle_panel.add(home);
           middle_panel.add(Mang_Doc);
-          middle_panel.add(upd_bloo);
+          middle_panel.add(billingHistory);
           middle_panel.add(paySalary );
 		  middle_panel.add(Mang_Admin);
           middle_panel.add(log_out);
@@ -187,19 +187,19 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
             }
         });
 
-       upd_bloo.addMouseListener(new MouseAdapter() {
+       billingHistory.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-               upd_bloo.setForeground(new Color(0x00FF00));
-               upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   upd_bloo.setBounds(215, 10, 170, 30);
+               billingHistory.setForeground(new Color(0x00FF00));
+               billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 18));
+			   billingHistory.setBounds(215, 10, 170, 30);
 			  
             }
             @Override
             public void mouseExited(MouseEvent e) {
-               upd_bloo.setForeground(new Color(0, 0, 0));
-               upd_bloo.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   upd_bloo.setBounds(225, 15, 160, 20);
+               billingHistory.setForeground(new Color(0, 0, 0));
+               billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+			   billingHistory.setBounds(225, 15, 160, 20);
 			  
             }
             @Override

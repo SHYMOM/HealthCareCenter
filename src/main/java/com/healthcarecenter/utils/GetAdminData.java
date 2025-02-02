@@ -112,5 +112,21 @@ public class GetAdminData {
 
         return allAdmins;
     }
+
+    public static String getFieldValue(String username, String fieldName) {
+        String filePath = "/data/doctors/" + username + ".txt";
+        filePath = FileUtils.getFile(filePath).getAbsolutePath();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith(fieldName + "=")) {
+                    return line.split("=", 2)[1];
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
 
