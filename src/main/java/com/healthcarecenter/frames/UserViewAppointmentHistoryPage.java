@@ -1,6 +1,5 @@
 package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
-import com.healthcarecenter.utils.GetDoctorData;
 import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
 import java.awt.event.*;
@@ -349,7 +348,7 @@ public class UserViewAppointmentHistoryPage extends JFrame implements ActionList
         lower_panel.setBackground(Color.white);
 
         tableModel = new DefaultTableModel(new String[]
-            { "Date", "Doctor Name","Medicle Test","Disease","Prescription","Doctor Note"}, 0) 
+            {"Full Name", "email" , "Specialization", "Days", "Time", "Fee"}, 0) 
         {
             @Override
             public boolean isCellEditable(int row, int column)
@@ -412,18 +411,21 @@ public class UserViewAppointmentHistoryPage extends JFrame implements ActionList
     private void loadPatientAppointmentHistory()
     {
 
-        ArrayList<HashMap<String, String>> allDoctors = GetDoctorData.getAllDoctorsDetails();
-
-        for (HashMap<String, String> doctor : allDoctors)
-        {
-            tableModel.addRow(new Object[] {
-                doctor.get("fullName"),
-                doctor.get("email"),
-                doctor.get("specialization"),
-                doctor.get("daysAvailable"),
-                doctor.get("consultationHours"),
-                doctor.get("consultationFee")
-            });
+        try {
+            ArrayList<HashMap<String, String>> Appointments = GetUserData.getAppointments(username);
+            
+            for (HashMap<String, String> appointment : Appointments)
+            {
+                tableModel.addRow(new Object[] {
+                    appointment.get("fullName"),
+                    appointment.get("email"),
+                    appointment.get("specialization"),
+                    appointment.get("daysAvailable"),
+                    appointment.get("consultationHours"),
+                    appointment.get("consultationFee")
+                });
+            }
+        } catch (IOException ex) {
         }
 
 
