@@ -98,11 +98,12 @@ public void saveToFile(JFrame frame){
         }
 }
 
-public void addAppointment(String doctorUsername, String patientName, String patientUsername, String time, String date, String status) {
+public void addAppointment(String doctorUsername, String patientName, String patientEmail, String patientUsername, String time, String date, String status) {
     String filePath = "/data/doctors/"+doctorUsername+".txt";    
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath(), true))) {
             writer.write("\n<<<Appoint-Start>>>\n");
             writer.write("patientName=" + patientName + "\n");
+            writer.write("patientEmail=" + patientEmail + "\n");
             writer.write("patientUsername=" + patientUsername + "\n");
             writer.write("time=" + time + "\n");
             writer.write("date=" + date + "\n");

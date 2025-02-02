@@ -14,9 +14,9 @@ isDonor=false
 <<<User-End>>>
 
 [Bills]
-medicineCost=66.00
+medicineCost=2411.00
 otherCost=0.00
-testCost=147.00
+testCost=199.00
 appointmentCost=0.00
 
 
@@ -51,6 +51,15 @@ tests=asd
 doctorNote=asd
 diseases=
 medicine=asd
+Date=03-02-2025
+<<<HealthRecord-End>>>
+
+<<<HealthRecord-Start>>>
+doctorName=Alice
+tests=asdfasd
+doctorNote=3425sdfg
+diseases=Daefa
+medicine=asdfsdd
 Date=03-02-2025
 <<<HealthRecord-End>>>
 
