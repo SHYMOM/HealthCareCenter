@@ -1,4 +1,5 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.frames.dialogs.BillPaymentDialog;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
@@ -10,6 +11,7 @@ public class UserPayBillPage extends JFrame implements ActionListener
 {
     private String username;
     private String name;
+    private double totalAmount = 0.0;
     public UserPayBillPage(String username)
     {
         this.username = username;
@@ -385,7 +387,6 @@ public class UserPayBillPage extends JFrame implements ActionListener
             level6.setForeground(new Color(000000));
             level6.setFont(new Font("SansSerif", Font.PLAIN, 15));
             level6.setBounds(350,180,150,20);
-            double totalAmount = 0.0;
             JLabel totalCost = new JLabel();
             totalCost.setText(String.valueOf(totalAmount));
             totalCost.setForeground(new Color(000000));
@@ -398,8 +399,8 @@ public class UserPayBillPage extends JFrame implements ActionListener
                 medicalCost.setText(bills.get("medicineCost").toString());
                 testCost.setText(bills.get("testCost").toString());
                 otherCost.setText(bills.get("otherCost").toString());
-                totalCost.setText(String.valueOf(bills.get("appointmentCost") + bills.get("medicineCost") + bills.get("testCost") + bills.get("otherCost")));
-System.out.println(bills);
+                totalAmount = bills.get("appointmentCost") + bills.get("medicineCost") + bills.get("testCost") + bills.get("otherCost");
+                totalCost.setText(String.valueOf(totalAmount));
             } catch (IOException ex) 
             {
                 JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -434,7 +435,7 @@ System.out.println(bills);
             @Override
             public void mouseClicked(MouseEvent e) {
               SwingUtilities.getWindowAncestor(payButton).dispose();
-              new UserHomePage(username,true);
+              new BillPaymentDialog(username, totalAmount);
             }
         });
 

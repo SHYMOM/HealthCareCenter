@@ -1,8 +1,9 @@
 package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
-import com.healthcarecenter.utils.GetDoctorData;
+import com.healthcarecenter.utils.GetPaymentHistory;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
@@ -302,7 +303,7 @@ public class UserBillingHistoryPage extends JFrame implements ActionListener
     {
     
         tableModel = new DefaultTableModel(new String[]
-             { "Full Name", "email" , "Specialization", "Days", "Time", "Fee"}, 0) 
+             { "Date","Full Name", "Email" , "Amount", "Account Information", "Tranjection Id"}, 0) 
         {
             @Override
             public boolean isCellEditable(int row, int column)
@@ -316,7 +317,7 @@ public class UserBillingHistoryPage extends JFrame implements ActionListener
       
         
 
-        loaBillingHistoryData();
+        loadBillingHistoryData();
 
          //! Style Of The Header
         JTableHeader header = billingHistoryTable.getTableHeader();
@@ -369,21 +370,24 @@ public class UserBillingHistoryPage extends JFrame implements ActionListener
         return lower_panel;
     }
     
-    private void loaBillingHistoryData()
+    private void loadBillingHistoryData()
     {
 
-        ArrayList<HashMap<String, String>> allDoctors = GetDoctorData.getAllDoctorsDetails();
-
-        for (HashMap<String, String> doctor : allDoctors)
-        {
-            tableModel.addRow(new Object[] {
-                doctor.get("fullName"),
-                doctor.get("email"),
-                doctor.get("specialization"),
-                doctor.get("daysAvailable"),
-                doctor.get("consultationHours"),
-                doctor.get("consultationFee")
-            });
+        try {
+            ArrayList<HashMap<String, String>> PaymentHistory = GetPaymentHistory.getUserPaymentHistory(username);
+            
+            for (HashMap<String, String> payment : PaymentHistory)
+            {
+                tableModel.addRow(new Object[] {
+                    payment.get("date"),
+                    payment.get("name"),
+                    payment.get("email"),
+                    payment.get("amount"),
+                    payment.get("accountInfo"),
+                    payment.get("TransactionID")
+                });
+            }
+        } catch (IOException ex) {
         }
 
 
