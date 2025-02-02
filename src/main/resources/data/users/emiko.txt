@@ -22,7 +22,19 @@ appointmentCost=0.00
 
 [Appointments]
 
+<<<Appoint-Start>>>
+dateAndTime=February 10, 2025 11:12 AM
+consultationFee=549.0
+fullName=Alice
+specialization=2ewregfb,agfg,wrgf
+email=ergth@sfdg.sdfg
+<<<Appoint-End>>>
+
 [HealthRecords]
+
+
+
+
 
 
 <<<HealthRecord-Start>>>

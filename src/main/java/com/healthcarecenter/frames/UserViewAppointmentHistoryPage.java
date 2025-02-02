@@ -348,7 +348,7 @@ public class UserViewAppointmentHistoryPage extends JFrame implements ActionList
         lower_panel.setBackground(Color.white);
 
         tableModel = new DefaultTableModel(new String[]
-            {"Full Name", "email" , "Specialization", "Days", "Time", "Fee"}, 0) 
+            {"Full Name", "email" , "Specialization", "Date", "Fees"}, 0) 
         {
             @Override
             public boolean isCellEditable(int row, int column)
@@ -420,8 +420,7 @@ public class UserViewAppointmentHistoryPage extends JFrame implements ActionList
                     appointment.get("fullName"),
                     appointment.get("email"),
                     appointment.get("specialization"),
-                    appointment.get("daysAvailable"),
-                    appointment.get("consultationHours"),
+                    appointment.get("dateAndTime"),
                     appointment.get("consultationFee")
                 });
             }

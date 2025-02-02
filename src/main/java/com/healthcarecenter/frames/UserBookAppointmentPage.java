@@ -1,8 +1,12 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.frames.dialogs.AppointmentDateAndTimePicker;
 import com.healthcarecenter.frames.dialogs.DoctorDetailsDialog;
+import com.healthcarecenter.models.Doctor;
+import com.healthcarecenter.models.User;
 import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -382,38 +386,54 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
             public void actionPerformed(ActionEvent e) {
                 String selectedUsername = getSelectedDoctorUsername();
                 if (selectedUsername != null) {
-                    String[] options = {"Confirm", "Cancel"};
+                    int selectedRow = appoinmentTable.getSelectedRow();
 
-                    // Show the dialog box with options
-                    int selectedOption = JOptionPane.showOptionDialog(
-                        null,                         
-                        "Do you want to confirm?",      
-                        "Confirm or Cancel",           
-                        JOptionPane.DEFAULT_OPTION,     
-                        JOptionPane.QUESTION_MESSAGE,   
-                        null,                           
-                        options,                        
-                        options[0]                    
-                    );
-            
-                   
-                    if (selectedOption == 0) {
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component)e.getSource());
+                    String DateAndTime = AppointmentDateAndTimePicker.setAppointmentDateAndTimePicker(frame);
+                    if (DateAndTime != null) {
+                        System.out.println("Date and Time: " + DateAndTime);
+                        if(GetDoctorData.verifyAvailability(FileUtils.getUsernameByEmail(appoinmentTable.getValueAt(selectedRow, 1).toString(), "/data/doctors/"), DateAndTime))
+                        {
+                            String[] options = {"Confirm", "Cancel"};
 
-                        HashMap<String, String> appointmentDetails = new HashMap<String, String> ();
-                        int selectedRow = appoinmentTable.getSelectedRow();
-                        appointmentDetails.put("fullName", appoinmentTable.getValueAt(selectedRow, 0).toString());
-                        appointmentDetails.put("email", appoinmentTable.getValueAt(selectedRow, 1).toString());
-                        appointmentDetails.put("specialization", appoinmentTable.getValueAt(selectedRow, 2).toString());
-                        appointmentDetails.put("days", appoinmentTable.getValueAt(selectedRow, 3).toString());
-                        appointmentDetails.put("time", appoinmentTable.getValueAt(selectedRow, 4).toString());
-                        appointmentDetails.put("fee", appoinmentTable.getValueAt(selectedRow, 5).toString());
-                        JOptionPane.showMessageDialog(null, "Take Appoinment Successfully!");
-                    } 
+                            // Show the dialog box with options
+                            int selectedOption = JOptionPane.showOptionDialog(
+                                null,                         
+                                "Do you want to confirm?",      
+                                "Confirm or Cancel",           
+                                JOptionPane.DEFAULT_OPTION,     
+                                JOptionPane.QUESTION_MESSAGE,   
+                                null,                           
+                                options,                        
+                                options[0]                    
+                            );
+                            if (selectedOption == 0) {
+                                try {
+                                    HashMap<String, String> appointmentDetails = new HashMap<String, String> ();
+                                    appointmentDetails.put("fullName", appoinmentTable.getValueAt(selectedRow, 0).toString());
+                                    appointmentDetails.put("email", appoinmentTable.getValueAt(selectedRow, 1).toString());
+                                    appointmentDetails.put("specialization", appoinmentTable.getValueAt(selectedRow, 2).toString());
+                                    appointmentDetails.put("dateAndTime", DateAndTime);
+                                    appointmentDetails.put("consultationFee", appoinmentTable.getValueAt(selectedRow, 5).toString());
+                                    
+                                    User.addAppointment("/data/users/" + username + ".txt", appointmentDetails);
+
+                                    Doctor.addAppoinment(FileUtils.getUsernameByEmail(appoinmentTable.getValueAt(selectedRow, 1).toString(), "/data/doctors/") , name , User.getEmail(username) , username , DateAndTime , "Confirmed");
+                                    
+
+                                    JOptionPane.showMessageDialog(null, "Take Appoinment Successfully!");
+                                } catch (IOException ex) {
+                                }
+                            } else {
+                                
+                            } 
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No Date and Time selected.");
+                    }
                 }
-                else {
-                    JOptionPane.showMessageDialog(null, "No doctor selected.");
-                }
-            }
+                    
+        }
 
 
         });
