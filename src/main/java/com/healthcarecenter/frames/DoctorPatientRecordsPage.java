@@ -1,16 +1,32 @@
 package com.healthcarecenter.frames;
-import javax.swing.*;
-
 import com.healthcarecenter.utils.FileUtils;
-
-import java.awt.event.*;
+import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+import javax.swing.*;
 public class DoctorPatientRecordsPage extends JFrame implements ActionListener
 {
 
-    public DoctorPatientRecordsPage()
+    private String username;
+    private String name;
+
+    
+    public DoctorPatientRecordsPage(String username)
     {
+        this.username = username;
+
+        try {
+            this.name = GetUserData.getName(username);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
+            new WelcomePage();
+            this.dispose();
+            return;
+        }
+
         UserUI();
+
     }
 
     private void UserUI()
@@ -146,7 +162,7 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new DoctorHomePage();
+				new DoctorHomePage(username,true);
 				
                 
             }
@@ -172,7 +188,7 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
             SwingUtilities.getWindowAncestor(appoinment).dispose();
-              new DoctorViewAppoinmentsPage();  
+              new DoctorViewAppoinmentsPage(username);  
             }
         });
 
@@ -213,7 +229,7 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
              SwingUtilities.getWindowAncestor(prescripitions).dispose(); 
-             new DoctorAddPrescripitionsPage();			 
+             new DoctorAddPrescripitionsPage(username);			 
             }
         });
 
@@ -258,7 +274,7 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new DoctorPatientRecordsPage().setVisible(true);
+        new DoctorPatientRecordsPage("Username");
     }
 
 }

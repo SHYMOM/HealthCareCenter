@@ -1,17 +1,34 @@
 package com.healthcarecenter.frames;
-import javax.swing.*;
-
 import com.healthcarecenter.utils.FileUtils;
-
-import java.awt.event.*;
+import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+import javax.swing.*;
 public class DoctorAddPrescripitionsPage extends JFrame implements ActionListener
 {
 
-    public DoctorAddPrescripitionsPage()
+    private String username;
+    private String name;
+
+    
+    public DoctorAddPrescripitionsPage(String username)
     {
+        this.username = username;
+
+        try {
+            this.name = GetUserData.getName(username);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
+            new WelcomePage();
+            this.dispose();
+            return;
+        }
+
         UserUI();
+
     }
+
 
     private void UserUI()
     {
@@ -145,7 +162,7 @@ public class DoctorAddPrescripitionsPage extends JFrame implements ActionListene
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new DoctorHomePage();
+				new DoctorHomePage(username,true);
                 
             }
         });
@@ -169,7 +186,7 @@ public class DoctorAddPrescripitionsPage extends JFrame implements ActionListene
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(appoinment).dispose();
-                new DoctorViewAppoinmentsPage();
+                new DoctorViewAppoinmentsPage(username);
             }
         });
 
@@ -189,7 +206,7 @@ public class DoctorAddPrescripitionsPage extends JFrame implements ActionListene
             @Override
             public void mouseClicked(MouseEvent e) {
              SwingUtilities.getWindowAncestor(records).dispose();
-             new DoctorPatientRecordsPage();			 
+             new DoctorPatientRecordsPage(username);			 
             }
         });
         
@@ -225,11 +242,7 @@ public class DoctorAddPrescripitionsPage extends JFrame implements ActionListene
         lower_panel.setBounds(0,180,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));
         
-		/*JPanel image_panel = new JPanel();
-        image_panel.setBounds(0,0,900,300);
-        image_panel.setLayout(null);
-        image_panel.setOpaque(false);
-        lower_panel.add(image_panel);*/
+		
 
         JLabel welcome= new JLabel("Welcome User");
         welcome.setHorizontalAlignment(JLabel.CENTER);
@@ -255,7 +268,7 @@ public class DoctorAddPrescripitionsPage extends JFrame implements ActionListene
     }
 
     public static void main(String[] args) {
-        new DoctorAddPrescripitionsPage().setVisible(true);
+        new DoctorAddPrescripitionsPage("emiko");
     }
 
 }
