@@ -4,10 +4,10 @@ import com.healthcarecenter.utils.FrameUtils;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class AdminUpdateBloodStockPage extends JFrame implements ActionListener
+public class AdminBillingHistoryPage extends JFrame implements ActionListener
 {
 
-    public AdminUpdateBloodStockPage()
+    public AdminBillingHistoryPage()
     {
         UserUI();
     }
@@ -190,9 +190,9 @@ public class AdminUpdateBloodStockPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
-                FrameUtils.frameLogOut(frame);
-                System.out.println("logout  clicked");
+                //SwingUtilities.getWindowAncestor(home).dispose();
+               // FrameUtils.frameLogOut(frame);
+                //System.out.println("logout  clicked");
             }
         });
 		
@@ -241,7 +241,7 @@ public class AdminUpdateBloodStockPage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new AdminUpdateBloodStockPage();
+        new AdminBillingHistoryPage();
     }
 
 }
