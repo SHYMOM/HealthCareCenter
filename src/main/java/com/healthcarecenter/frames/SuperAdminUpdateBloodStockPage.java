@@ -36,7 +36,6 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
         this.setVisible(true);
 
         this.add(panel);
-   
 
     }
 
