@@ -4,7 +4,6 @@ import com.healthcarecenter.utils.FileUtils;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
 
 public class Super_AdminAddNewAdmins extends JFrame implements ActionListener {
     private final JPanel fullNamePanel = new JPanel();

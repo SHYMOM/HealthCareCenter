@@ -1,12 +1,10 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-
 import javax.swing.*;
-
-import com.healthcarecenter.utils.FileUtils;
-import com.healthcarecenter.utils.GetUserData;
 public class UserViewAppointmentHistoryPage extends JFrame implements ActionListener
 {
     String username;
@@ -127,14 +125,14 @@ public class UserViewAppointmentHistoryPage extends JFrame implements ActionList
         History.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         History.setToolTipText("View Medicle History");
 
-         //level for blood
-         JLabel blood = new JLabel();
-         blood.setText("Blood Bank");
-         blood.setForeground(new Color(000000));
-         blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         blood.setBounds(400, 15, 80,  20);
-         blood.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-         blood.setToolTipText("Blood Bank");
+         //level for billingHistory
+         JLabel billingHistory = new JLabel();
+         billingHistory.setText("Billing History");
+         billingHistory.setForeground(new Color(000000));
+         billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         billingHistory.setBounds(400, 15, 80,  20);
+         billingHistory.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+         billingHistory.setToolTipText("Billing History");
 
           //level for bill
         JLabel bill = new JLabel();
@@ -158,7 +156,7 @@ public class UserViewAppointmentHistoryPage extends JFrame implements ActionList
           middle_panel.add(home);
           middle_panel.add(appointment);
           middle_panel.add(History);
-          middle_panel.add(blood);
+          middle_panel.add(billingHistory);
           middle_panel.add(bill);
           middle_panel.add(log_out);
 
@@ -230,18 +228,18 @@ public class UserViewAppointmentHistoryPage extends JFrame implements ActionList
         
 
 
-        blood .addMouseListener(new MouseAdapter() {
+        billingHistory .addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                blood .setForeground(new Color(0x00FF00));
-                blood.setBounds(398, 10, 85, 30);
-                blood.setFont(new Font("SansSerif", Font.PLAIN, 17));
+                billingHistory .setForeground(new Color(0x00FF00));
+                billingHistory.setBounds(398, 10, 85, 30);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 17));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                blood .setForeground(new Color(000000));
-                blood.setBounds(400, 15, 80, 20);
-                blood.setFont(new Font("SansSerif", Font.PLAIN, 15));
+                billingHistory .setForeground(new Color(000000));
+                billingHistory.setBounds(400, 15, 80, 20);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
