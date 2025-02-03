@@ -8,6 +8,13 @@ import javax.swing.JOptionPane;
 
 public class GetAdminData {
 
+    public static String getName(String username) throws IOException {
+        return getFieldValue(username, "fullName");
+    }
+    public static String getEmail(String username) throws IOException {
+        return getFieldValue(username, "email");
+    }
+
     public static String getDetail(String username, String key) throws IOException {
         String filePath = "/data/admins/"+username+".txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(FileUtils.getFile(filePath).getAbsolutePath()))) {
@@ -48,34 +55,6 @@ public class GetAdminData {
         return adminDetails;
     }
 
-    public static void updateDetail(String username, String key, String newValue) throws IOException {
-        String filePath = "/data/admins/"+username+".txt";
-        File file = new File(FileUtils.getFile(filePath).getAbsolutePath());
-        StringBuilder fileContent = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            boolean isAdminSection = false;
-            while ((line = reader.readLine()) != null) {
-                if (line.equals("<<<Admin-Start>>>")) {
-                    isAdminSection = true;
-                    fileContent.append(line).append("\n");
-                } else if (line.equals("<<<Admin-End>>>")) {
-                    isAdminSection = false;
-                    fileContent.append(line).append("\n");
-                } else if (isAdminSection && line.startsWith(key + "=")) {
-                    fileContent.append(key).append("=").append(newValue).append("\n");
-                } else {
-                    fileContent.append(line).append("\n");
-                }
-            }
-        }
-
-        // Write the updated content back to the file
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write(fileContent.toString());
-        }
-    }
-
 
     public static ArrayList<HashMap<String, String>> getAllAdminsDetails() {
         ArrayList<HashMap<String, String>> allAdmins = new ArrayList<>();
@@ -114,7 +93,7 @@ public class GetAdminData {
     }
 
     public static String getFieldValue(String username, String fieldName) {
-        String filePath = "/data/doctors/" + username + ".txt";
+        String filePath = "/data/admins/" + username + ".txt";
         filePath = FileUtils.getFile(filePath).getAbsolutePath();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;

@@ -9,8 +9,10 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
 {
     JButton pay_DoctorsSalary = new JButton("Pay Doctors Salary");
 
-    public SuperAdminPayDoctorSalary ()
-    {
+    private String email;
+    
+    public SuperAdminPayDoctorSalary(String email) {
+       this.email = email;
         UserUI();
     }
 
@@ -50,7 +52,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -61,14 +63,14 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
        //create userpanel for upper_panel
         JPanel user_panel = new JPanel(); 
         user_panel.setLayout(null);
-        user_panel.setBounds(5,5,200,40);
+        user_panel.setBounds(5,5,250,40);
 		upper_panel.setBackground(new Color(0x3a8cdb));
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
-        userlabel.setHorizontalAlignment(JLabel.CENTER);
-        userlabel.setBounds(5,5,100,30);
+        JLabel userlabel = new JLabel(email);
+        userlabel.setHorizontalAlignment(JLabel.LEFT);
+        userlabel.setBounds(5,5,400,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
@@ -101,36 +103,36 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
          Mang_Doc.setText("Manage Doctors");
          Mang_Doc.setForeground(new Color(000000));
          Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         Mang_Doc.setBounds(80, 15, 140, 20);
+         Mang_Doc.setBounds(105, 15, 140, 20);
 
           //level forbillingHistory
          JLabel billingHistory = new JLabel();
          billingHistory.setText("Billing History");
          billingHistory.setForeground(new Color(000000));
          billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         billingHistory.setBounds(225, 15, 160, 20);
+         billingHistory.setBounds(260, 15, 160, 20);
 		 
 		 //level for manage admin
          JLabel Mang_Admin = new JLabel();
          Mang_Admin.setText("Manage Admin");
          Mang_Admin.setForeground(new Color(000000));
          Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         Mang_Admin.setBounds(390, 15, 120, 20);
+         Mang_Admin.setBounds(410, 15, 120, 20);
 
          //level for pay_Do_Salary 
          JLabel pay_Do_Salary = new JLabel();
          pay_Do_Salary .setText("Pay Doctors Salary");
          pay_Do_Salary .setForeground(new Color(000000));
-		 pay_Do_Salary .setForeground(Color.RED );
+		 pay_Do_Salary .setForeground(new Color(255,255,255));
          pay_Do_Salary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-         pay_Do_Salary .setBounds(540, 15, 160, 20);
+         pay_Do_Salary .setBounds(560, 15, 130, 20);
 
          //level for log out
          JLabel log_out = new JLabel();
          log_out.setText("Log out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(750, 15, 250, 20);
+         log_out.setBounds(720, 15, 50, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
@@ -159,7 +161,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminHomePage();
+				new SuperAdminHomePage(email);
             }
         });
 
@@ -170,18 +172,18 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             public void mouseEntered(MouseEvent e) {
                 Mang_Doc.setForeground(new Color(0x00FF00));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 18));
-				Mang_Doc.setBounds(70, 10, 150, 30);
+				Mang_Doc.setBounds(95, 10, 150, 30);
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 Mang_Doc.setForeground(new Color(0, 0, 0));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
-				Mang_Doc.setBounds(80, 15, 140, 20);
+				Mang_Doc.setBounds(105, 15, 140, 20);
             }
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageDoctorPage();
+				new SuperAdminManageDoctorPage(email);
                 
             }
         });
@@ -191,20 +193,20 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             public void mouseEntered(MouseEvent e) {
                billingHistory.setForeground(new Color(0x00FF00));
                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   billingHistory.setBounds(215, 10, 170, 30);
+			   billingHistory.setBounds(250, 10, 130, 30);
 			  
             }
             @Override
             public void mouseExited(MouseEvent e) {
                billingHistory.setForeground(new Color(0, 0, 0));
                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   billingHistory.setBounds(225, 15, 160, 20);
+			   billingHistory.setBounds(260, 15, 120, 20);
 			  
             }
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminUpdateBloodStockPage();
+				new SuperAdminBillingHistory(email);
                 
             }
         });
@@ -214,20 +216,20 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             public void mouseEntered(MouseEvent e) {
                Mang_Admin.setForeground(new Color(0x00FF00));
                Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   Mang_Admin.setBounds(380, 10, 130, 30);
+			   Mang_Admin.setBounds(400, 10, 130, 30);
 			  
             }
             @Override
             public void mouseExited(MouseEvent e) {
                Mang_Admin.setForeground(new Color(0, 0, 0));
                Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   Mang_Admin.setBounds(390, 15, 120, 20);
+			   Mang_Admin.setBounds(410, 15, 120, 20);
 			  
             }
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageAdminPage();
+				new SuperAdminManageAdminPage(email);
                 
             }
         });
@@ -238,17 +240,17 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             @Override
             public void mouseEntered(MouseEvent e) {
                 pay_Do_Salary .setForeground(new Color(0x00FF00));
-                pay_Do_Salary .setFont(new Font("SansSerif", Font.PLAIN, 18));
-				pay_Do_Salary .setBounds(530, 10, 170, 30);
-				pay_Do_Salary .setForeground(Color.RED );
+                pay_Do_Salary .setFont(new Font("SansSerif", Font.PLAIN, 17));
+				pay_Do_Salary .setBounds(551, 10, 155, 30);
+				pay_Do_Salary .setForeground(new Color(255,255,255));
 				
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 pay_Do_Salary .setForeground(new Color(0, 0, 0));
                 pay_Do_Salary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-				pay_Do_Salary .setBounds(540, 15, 160, 20);
-				pay_Do_Salary .setForeground(Color.RED );
+				pay_Do_Salary .setBounds(560, 15, 130, 20);
+				pay_Do_Salary .setForeground(new Color(255,255,255));
 				
             }
             @Override
@@ -265,14 +267,14 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(740, 10, 200, 30);
+			log_out.setBounds(715, 10, 60, 30);
 			
           }
           @Override
         public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(750, 15, 250, 20);
+			log_out.setBounds(720, 15, 50, 20);
 			
           }
          @Override
@@ -293,7 +295,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
         lower_panel.setBounds(0,130,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));
 
-        pay_DoctorsSalary.setBounds(350, 450, 200, 50);
+        pay_DoctorsSalary.setBounds(350, 500, 200, 50);
         pay_DoctorsSalary.setFocusable(false);
         pay_DoctorsSalary.addActionListener(this);
         this.add(pay_DoctorsSalary);
@@ -326,7 +328,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
 
    
     public static void main(String[] args) {
-        new SuperAdminPayDoctorSalary();
+        new SuperAdminPayDoctorSalary("shymom@helthcarecenter.com");
     }
 
 }

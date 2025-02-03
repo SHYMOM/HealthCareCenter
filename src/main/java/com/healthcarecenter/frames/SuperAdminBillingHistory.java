@@ -1,17 +1,27 @@
 package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
+import com.healthcarecenter.utils.GetPaymentHistory;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.*;
-public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionListener
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+public class SuperAdminBillingHistory extends JFrame implements ActionListener
 {
-
-    public SuperAdminUpdateBloodStockPage()
-    {
+    private JTable billingHistoryTable;
+    private DefaultTableModel tableModel;
+    private String email;
+    
+    public SuperAdminBillingHistory(String email) {
+       this.email = email;
         UserUI();
     }
-
+    
     private void UserUI()
     {
         JPanel panel = new JPanel();                                  
@@ -36,7 +46,6 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
         this.setVisible(true);
 
         this.add(panel);
-   
 
     }
 
@@ -50,7 +59,7 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -61,14 +70,14 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
        //create userpanel for upper_panel
         JPanel user_panel = new JPanel(); 
         user_panel.setLayout(null);
-        user_panel.setBounds(5,5,200,40);
+        user_panel.setBounds(5,5,250,40);
 		upper_panel.setBackground(new Color(0x3a8cdb));
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
-        userlabel.setHorizontalAlignment(JLabel.CENTER);
-        userlabel.setBounds(5,5,100,30);
+        JLabel userlabel = new JLabel(email);
+        userlabel.setHorizontalAlignment(JLabel.LEFT);
+        userlabel.setBounds(5,5,400,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
@@ -101,15 +110,15 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
          Mang_Doc.setText("Manage Doctors");
          Mang_Doc.setForeground(new Color(000000));
          Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         Mang_Doc.setBounds(80, 15, 140, 20);
+         Mang_Doc.setBounds(105, 15, 140, 20);
 
           //level forbillingHistory
          JLabel billingHistory = new JLabel();
          billingHistory.setText("Billing History");
          billingHistory.setForeground(new Color(000000));
-		 billingHistory.setForeground(Color.RED );
+		 billingHistory.setForeground(new Color(255,255,255));
          billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         billingHistory.setBounds(225, 15, 160, 20);
+         billingHistory.setBounds(260, 15, 160, 20);
 		 
 		 //level for manage admin
          JLabel Mang_Admin = new JLabel();
@@ -123,14 +132,14 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
          paySalary .setText("Pay Salary");
          paySalary .setForeground(new Color(000000));
          paySalary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-         paySalary .setBounds(560, 15, 120, 20);
+         paySalary .setBounds(560, 15, 110, 20);
 
          //level for log out
          JLabel log_out = new JLabel();
          log_out.setText("Log out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(700, 15, 100, 20);
+         log_out.setBounds(700, 15, 70, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
@@ -159,7 +168,7 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminHomePage();
+				new SuperAdminHomePage(email);
             }
         });
 
@@ -170,45 +179,23 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
             public void mouseEntered(MouseEvent e) {
                 Mang_Doc.setForeground(new Color(0x00FF00));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 18));
-				Mang_Doc.setBounds(70, 10, 150, 30);
+				Mang_Doc.setBounds(95, 10, 150, 30);
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 Mang_Doc.setForeground(new Color(0, 0, 0));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
-				Mang_Doc.setBounds(80, 15, 140, 20);
+				Mang_Doc.setBounds(105, 15, 140, 20);
             }
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageDoctorPage();
+				new SuperAdminManageDoctorPage(email);
                 
             }
         });
 
-       billingHistory.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-               billingHistory.setForeground(new Color(0x00FF00));
-               billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   billingHistory.setBounds(215, 10, 170, 30);
-			   billingHistory.setForeground(Color.RED );
-			  
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-               billingHistory.setForeground(new Color(0, 0, 0));
-               billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   billingHistory.setBounds(225, 15, 160, 20);
-			   billingHistory.setForeground(Color.RED );
-			  
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-                
-            }
-        });
+      
 		
 		Mang_Admin.addMouseListener(new MouseAdapter() {
             @Override
@@ -222,13 +209,13 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
             public void mouseExited(MouseEvent e) {
                Mang_Admin.setForeground(new Color(0, 0, 0));
                Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   Mang_Admin.setBounds(410, 15, 120, 20);
+               Mang_Admin.setBounds(410, 15, 120, 20);
 			  
             }
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageAdminPage();
+				new SuperAdminManageAdminPage(email);
                 
             }
         });
@@ -240,14 +227,14 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
             public void mouseEntered(MouseEvent e) {
                 paySalary .setForeground(new Color(0x00FF00));
                 paySalary .setFont(new Font("SansSerif", Font.PLAIN, 18));
-				paySalary .setBounds(550, 10, 130, 30);
+				paySalary .setBounds(550, 10, 120, 30);
 				
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 paySalary .setForeground(new Color(0, 0, 0));
                 paySalary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-				paySalary .setBounds(560, 15, 120, 20);
+				paySalary .setBounds(560, 15, 100, 20);
 				
             }
             @Override
@@ -255,10 +242,10 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
                 Object[] options = {"Pay Admin Salary", "Pay Doctor Salary", "Cancel"};
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
-						new SuperAdminPayAdminSalaryPage();
+						new SuperAdminPayAdminSalaryPage(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else if (choice == 1) {
-						new SuperAdminPayDoctorSalary();
+						new SuperAdminPayDoctorSalary(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else {
 						
@@ -275,20 +262,20 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(693, 10, 100, 30);
+			log_out.setBounds(693, 10, 80, 30);
 			
           }
           @Override
          public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(700, 15, 130, 20);
+			log_out.setBounds(700, 15, 70, 20);
 			
           }
         @Override
         public void mouseClicked(MouseEvent e)  
          {
-               JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
             FrameUtils.frameLogOut(frame);
         }
     });
@@ -298,15 +285,100 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
         return middle_panel;
     }
 
-    private JPanel createLowerpanel()
+   private JPanel createLowerpanel()
     {
+    
+        tableModel = new DefaultTableModel(new String[]
+             { "Date","Full Name", "Email" , "Amount", "Account Information", "Tranjection ID"}, 0) 
+        {
+            @Override
+            public boolean isCellEditable(int row, int column)
+             {
+                return false;
+             }
+        };
+
+         billingHistoryTable = new JTable(tableModel);
+           
+      
+        
+
+        loadBillingHistoryData();
+
+         //! Style Of The Header
+        JTableHeader header = billingHistoryTable.getTableHeader();
+        header.setBackground(new Color(51, 102, 204));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+        billingHistoryTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, 
+                        hasFocus, row, column);
+
+                if (isSelected) {
+                    comp.setBackground(new Color(70, 130, 230));
+                    comp.setForeground(Color.WHITE);
+                } else {
+                    comp.setBackground(row % 2 == 0 ? new Color(240, 240, 255) : Color.WHITE);
+                    comp.setForeground(Color.BLACK);
+                }
+                ((JLabel) comp).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                
+                return comp;
+            }
+        });
+
+
+
+
+        billingHistoryTable.getTableHeader().setReorderingAllowed(false);
+        billingHistoryTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        billingHistoryTable.setRowHeight(30);
+        billingHistoryTable.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        billingHistoryTable.setShowGrid(true);
+        billingHistoryTable.setGridColor(new Color(230, 230, 230));
+
+        JScrollPane scrollPane = new JScrollPane(billingHistoryTable);
+        scrollPane.setBounds(2, 00, 900,500);
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
         JPanel lower_panel = new JPanel();                                  
         lower_panel.setLayout(null);
-        lower_panel.setBounds(0,130,900,500);
-        lower_panel.setBackground(new Color(0xECF8FD));
-       
-       
+        lower_panel.setBounds(0,180,900,500);
+        lower_panel.setBackground(Color.white);
+        lower_panel.add(scrollPane);
+        
+ 
         return lower_panel;
+    }
+
+     private void loadBillingHistoryData()
+    {
+
+        try {
+            ArrayList<HashMap<String, String>> PaymentHistory = GetPaymentHistory.getAllPaymentHistory();
+            
+            for (HashMap<String, String> payment : PaymentHistory)
+            {
+                tableModel.addRow(new Object[] {
+                    payment.get("date"),
+                    payment.get("name"),
+                    payment.get("email"),
+                    payment.get("amount"),
+                    payment.get("accountInfo"),
+                    payment.get("TransactionID")
+                });
+            }
+        } catch (IOException ex) {
+
+        }
+
+
+
     }
 
     @Override
@@ -316,7 +388,7 @@ public class SuperAdminUpdateBloodStockPage extends JFrame implements ActionList
     }
 
     public static void main(String[] args) {
-        new SuperAdminUpdateBloodStockPage();
+        new SuperAdminBillingHistory("shymom@healthcarecenter.com");
     }
 
 }

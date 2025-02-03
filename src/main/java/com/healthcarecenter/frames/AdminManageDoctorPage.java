@@ -1,15 +1,44 @@
 package com.healthcarecenter.frames;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
+import com.healthcarecenter.frames.dialogs.DoctorDetailsDialog;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
+import com.healthcarecenter.utils.GetAdminData;
+import com.healthcarecenter.utils.GetDoctorData;
+import com.healthcarecenter.utils.GetUserData;
+
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.awt.*;
 public class AdminManageDoctorPage extends JFrame implements ActionListener
 {
 
-    public AdminManageDoctorPage()
+    JButton Add_Doctor,Remove_Doctor,Modify_Doctor,getDetails;
+    private JTable ManageDoctorsTable;
+    private DefaultTableModel tableModel;
+   
+    private String username;
+    private String name;
+    public AdminManageDoctorPage(String username)
     {
+        this.username = username;
+        try {
+            this.name = GetAdminData.getName(username);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
+            new WelcomePage();
+            this.dispose();
+            return;
+        }
         UserUI();
+
+         
     }
 
     private void UserUI()
@@ -50,7 +79,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -66,9 +95,9 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
-        userlabel.setHorizontalAlignment(JLabel.CENTER);
-        userlabel.setBounds(5,5,100,30);
+        JLabel userlabel = new JLabel(name);
+        userlabel.setHorizontalAlignment(JLabel.LEFT);
+        userlabel.setBounds(5,5,250,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
@@ -100,7 +129,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
          JLabel Mang_Doc= new JLabel();
          Mang_Doc.setText("Manage Doctors");
          Mang_Doc.setForeground(new Color(000000));
-		 Mang_Doc.setForeground(Color.RED );
+		 Mang_Doc.setForeground(new Color(255,255,255)  );
          Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
          Mang_Doc.setBounds(80, 15, 140, 20);
 
@@ -118,7 +147,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
          log_out.setText("Log out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(450, 15, 130, 20);
+         log_out.setBounds(350, 15, 90, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
@@ -145,53 +174,31 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new AdminHomePage();
+				new AdminHomePage(username, true);
             }
         });
 
 
-
-        Mang_Doc.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                Mang_Doc.setForeground(new Color(0x00FF00));
-                Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 18));
-				Mang_Doc.setBounds(70, 10, 150, 30);
-				Mang_Doc.setForeground(Color.RED );
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                Mang_Doc.setForeground(new Color(0, 0, 0));
-                Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
-				Mang_Doc.setBounds(80, 15, 140, 20);
-				Mang_Doc.setForeground(Color.RED );
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-             
-                
-            }
-        });
 
        billingHistory.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                billingHistory.setForeground(new Color(0x00FF00));
                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   billingHistory.setBounds(215, 10, 170, 30);
+			   billingHistory.setBounds(215, 10, 120, 30);
 			  
             }
             @Override
             public void mouseExited(MouseEvent e) {
                billingHistory.setForeground(new Color(0, 0, 0));
                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   billingHistory.setBounds(225, 15, 160, 20);
+			   billingHistory.setBounds(225, 15, 110, 20);
 			  
             }
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new AdminBillingHistoryPage();
+				new AdminBillingHistoryPage(username);
                 
             }
         });
@@ -201,14 +208,14 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(443, 10, 100, 30);
+			log_out.setBounds(343, 10, 100, 30);
 			
           }
           @Override
          public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(450, 15, 130, 20);
+			log_out.setBounds(350, 15, 90, 20);
 			
           }
          
@@ -230,10 +237,172 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,130,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));
-       
 
+        Modify_Doctor = new JButton("Modify Doctor");
+        Modify_Doctor.setBounds(280, 380, 120, 30);
+        Modify_Doctor.setFocusable(false);
+        Modify_Doctor.addActionListener(this);
+
+        Modify_Doctor.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = ManageDoctorsTable.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Please select an admin to modify.");
+                }else {
+                    new Super_AdminAddNewDoctor("Edit", getSelectedDoctorUsername());
+                }
+            }
+        });
+
+        Add_Doctor= new JButton("Add Doctor");
+        Add_Doctor.setBounds(410, 380, 120, 30);
+        Add_Doctor.setFocusable(false);
+        
+
+        Add_Doctor.addMouseListener(new MouseAdapter() {
+            @Override
+        public void mouseClicked(MouseEvent e) {
+            SwingUtilities.getWindowAncestor(Add_Doctor).dispose();
+            new Super_AdminAddNewDoctor("Add","");
+            
+        }
+    });
+        
+        Remove_Doctor = new JButton("Remove Doctor");
+        Remove_Doctor.setBounds(540, 380, 130,30);
+        Remove_Doctor.setFocusable(false);
+        Remove_Doctor.addActionListener(this);
+
+        Remove_Doctor.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = ManageDoctorsTable.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Please select an doctor to remove.");
+                }else {
+                    String selectedUsername = getSelectedDoctorUsername();
+                    if (selectedUsername != null) {
+                        String confirmText = JOptionPane.showInputDialog(null, "Write 'Confirm' to delete account");
+                        if (confirmText != null && confirmText.equals("Confirm")) {
+                            try {
+                                FileUtils.deleteFile("/data/doctors/" + selectedUsername + ".txt");
+                                new WelcomePage();
+                                dispose();
+                            } catch (IOException ex) {
+                                JOptionPane.showMessageDialog(null, "Error deleting account: " + ex.getMessage());
+                            }
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Confirmation text does not match.");
+                        }
+                    }
+                }
+            }
+        });
+
+        getDetails = new JButton("Get Details");
+        getDetails.setBounds(410, 340, 120, 30);
+        getDetails.setFocusable(false);
+        getDetails.addActionListener(this);
+
+
+        getDetails.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedUsername = getSelectedDoctorUsername();
+                if (selectedUsername != null) {
+                    HashMap<String, String> doctorDetails = GetDoctorData.getDoctorDetails(selectedUsername);
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component)e.getSource());
+                    DoctorDetailsDialog.showDoctorDetails(frame, doctorDetails,"Admin");
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "No doctor selected.");
+                }
+            }
+        });
+
+        lower_panel.add(Modify_Doctor);
+        lower_panel.add(Add_Doctor);  
+        lower_panel.add(Remove_Doctor);
+        lower_panel.add(getDetails);
+        
+
+        tableModel = new DefaultTableModel(new String[]{
+            "Full Name", "Email", "Contact Number", "Gender", "Salary"},0) 
+            {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        loadDoctorData();
+
+        ManageDoctorsTable = new JTable(tableModel);
+        ManageDoctorsTable.getTableHeader().setReorderingAllowed(false);
+        ManageDoctorsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ManageDoctorsTable.setRowHeight(30);
+        ManageDoctorsTable.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        ManageDoctorsTable.setShowGrid(true);
+        ManageDoctorsTable.setGridColor(new Color(230, 230, 230));
+
+        //! Style Of The Header
+        JTableHeader header = ManageDoctorsTable.getTableHeader();
+        header.setBackground(new Color(51, 102, 204));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+
+        ManageDoctorsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, 
+                        hasFocus, row, column);
+
+                if (isSelected) {
+                    comp.setBackground(new Color(70, 130, 230));
+                    comp.setForeground(Color.WHITE);
+                } else {
+                    comp.setBackground(row % 2 == 0 ? new Color(240, 240, 255) : Color.WHITE);
+                    comp.setForeground(Color.BLACK);
+                }
+                ((JLabel) comp).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                
+                return comp;
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(ManageDoctorsTable);
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        scrollPane.setBounds(0, 50, 900, 280);
+
+        lower_panel.add(scrollPane);
+            
         return lower_panel;
     }
+
+     private void loadDoctorData() {
+            ArrayList<HashMap<String, String>> allDoctors = GetDoctorData.getAllDoctorsDetails();
+            for (HashMap<String, String> doctor : allDoctors) {
+                tableModel.addRow(new Object[]{
+                        doctor.get("fullName"),
+                        doctor.get("email"),
+                        doctor.get("contactNumber"),
+                        doctor.get("gender"),
+                        doctor.get("salary")
+                });
+            }
+        }
+
+        private String getSelectedDoctorUsername() {
+            int selectedRow = ManageDoctorsTable.getSelectedRow();
+            if (selectedRow == -1) {
+                return null;
+            }
+            return FileUtils.getUsernameByEmail(tableModel.getValueAt(selectedRow, 1).toString(),"/data/doctors/");
+        }
+
 
     @Override
     public void actionPerformed(ActionEvent e)
@@ -242,7 +411,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new AdminManageDoctorPage();
+        new AdminManageDoctorPage("alice_admin");
     }
 
 }

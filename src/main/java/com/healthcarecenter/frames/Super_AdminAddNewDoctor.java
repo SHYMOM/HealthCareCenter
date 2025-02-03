@@ -9,6 +9,7 @@ import java.util.HashMap;
 import com.healthcarecenter.utils.*;
 import com.healthcarecenter.models.Doctor;
 import com.healthcarecenter.frames.dialogs.*;
+import com.healthcarecenter.frames.LoginPage;
 
 public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
     private final JButton registerButton = new JButton();
@@ -31,6 +32,7 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
     private final JTextField fee = new JTextField();
     private final JCheckBox termsAndConditionsCheckBox = new JCheckBox("I agree to the ");
 
+    private String EditMode;
 
     private static final Color PRIMARY_COLOR = new Color(41, 128, 185);
     private static final Color SECONDARY_COLOR = new Color(52, 152, 219);
@@ -40,11 +42,16 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
 
     public Super_AdminAddNewDoctor(String EditMode, String username) {
         if (EditMode.equals("Edit")) {
+            this.EditMode = EditMode;
             registerButton.setText("Save Changes");
+            this.username.setEditable(false);
+            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             loadDoctorData(username);
         }
-        else if (EditMode.equals("Delete")) {
+        else if (EditMode.equals("Add")) {
+            this.EditMode = EditMode;
             registerButton.setText("Register Doctor");
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
         setupUI();
     }
@@ -72,7 +79,6 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
     private void setupUI() {
         setTitle("Doctor Registration - Health Care Center");
         setSize(900, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
 
@@ -408,14 +414,36 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Please agree to the terms and conditions", "Error", JOptionPane.ERROR_MESSAGE);
             }
             else{
-                Doctor doctor = new Doctor(name.getText(), username.getText(), age.getText(), email.getText(), number.getText(), address.getText(), password.getText(), genderComboBox.getSelectedItem().toString(), bloodComboBox.getSelectedItem().toString(), specialization.getText(), qualification.getText(), licenseNumber.getText(), consultingTime, daysAvailable, Double.parseDouble(fee.getText()), 0);
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
-                doctor.saveToFile(frame);
+                if(EditMode.equals("Add")){
+                    Doctor doctor = new Doctor(name.getText(), username.getText(), age.getText(), email.getText(), number.getText(), address.getText(), password.getText(), genderComboBox.getSelectedItem().toString(), bloodComboBox.getSelectedItem().toString(), specialization.getText(), qualification.getText(), licenseNumber.getText(), consultingTime, daysAvailable, Double.parseDouble(fee.getText()), Double.parseDouble(salary.getText()));
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
+                    doctor.saveToFile(frame);
+                }
+                else if(EditMode.equals("Edit")){
+                    Doctor.setName(username.getText(), name.getText());
+                    Doctor.setAge(username.getText(), age.getText());
+                    Doctor.setEmail(username.getText(), email.getText());
+                    Doctor.setContactNumber(username.getText(), number.getText());
+                    Doctor.setAddress(username.getText(), address.getText());
+                    Doctor.setPassword(username.getText(), password.getText());
+                    Doctor.setGender(username.getText(), genderComboBox.getSelectedItem().toString());
+                    Doctor.setBloodGroup(username.getText(), bloodComboBox.getSelectedItem().toString());
+                    Doctor.setSpecialization(username.getText(), specialization.getText());
+                    Doctor.setQualifications(username.getText(), qualification.getText());
+                    Doctor.setMedicalLicenseNumber(username.getText(), licenseNumber.getText());
+                    Doctor.setConsultationHours(username.getText(), consultingTime);
+                    Doctor.setDaysAvailable(username.getText(), daysAvailable);
+                    Doctor.setConsultationFee(username.getText(), Double.parseDouble(fee.getText()));
+                    Doctor.setSalary(username.getText(), Double.parseDouble(salary.getText()));
+                    new LoginPage("Doctor");
+                    this.dispose();
+                }
+                
             }
         }
     }
 
     public static void main(String[] args) {
-        new Super_AdminAddNewDoctor("Edit","Alice_Doctor");
+        new Super_AdminAddNewDoctor("Edit","Doctor2");
     }
 }
