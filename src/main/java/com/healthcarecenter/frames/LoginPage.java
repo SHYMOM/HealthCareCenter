@@ -248,7 +248,7 @@ public class LoginPage extends JFrame implements ActionListener {
         }
         else{
             if(GetSuperAdminData.isSuperAdminEmail(email.getText()) && GetSuperAdminData.getSuperAdminPassword(email.getText()).equals(password.getText())){
-                new SuperAdminHomePage("email");
+                new SuperAdminHomePage(email.getText());
                 this.dispose();
             }
             else{

@@ -23,6 +23,8 @@ public class Super_AdminAddNewAdmins extends JFrame implements ActionListener {
     private final JButton registerButton = new JButton("Register Admin");
 
     private String EditMode;
+    private String editorRole;
+    JFrame parentFrame;
 
     private static final Color PRIMARY_COLOR = new Color(41, 128, 185);
     private static final Color SECONDARY_COLOR = new Color(52, 152, 219);
@@ -30,17 +32,21 @@ public class Super_AdminAddNewAdmins extends JFrame implements ActionListener {
     private static final Color TEXT_COLOR = new Color(44, 62, 80);
     private static final Color ACCENT_COLOR = new Color(46, 204, 113);
 
-    public Super_AdminAddNewAdmins(String EditMode, String username) {
+    public Super_AdminAddNewAdmins(JFrame parentFrame, String EditMode, String username, String editorRole) {
+        this.parentFrame = parentFrame;
         if (EditMode.equals("Edit")) {
             this.EditMode = EditMode;
+            this.editorRole = editorRole;
             registerButton.setText("Save Changes");
             this.username.setEditable(false);
             this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             loadAdminData(username);
         }
         else if (EditMode.equals("Add")) {
+            this.EditMode = EditMode;
+            this.editorRole = editorRole;
             registerButton.setText("Register Admin");
-            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
         setupUI();
     }
@@ -344,9 +350,15 @@ public class Super_AdminAddNewAdmins extends JFrame implements ActionListener {
                         Admin.setPassword(username.getText(), password.getText());
                         Admin.setGender(username.getText(), genderComboBox.getSelectedItem().toString());
                         Admin.setSalary(username.getText(), salary.getText());
-                        
-                        new LoginPage("Admin");
-                        this.dispose();
+                        if (editorRole.equals("Super Admin")) {
+                            this.dispose();
+                        } else if (editorRole.equals("Admin")) {
+                            new LoginPage("Admin");
+                            this.dispose();   
+                            if (parentFrame != null) {
+                                parentFrame.dispose();
+                            }
+                        }
                     } catch (IOException ex) {
                     }
 
@@ -357,7 +369,7 @@ public class Super_AdminAddNewAdmins extends JFrame implements ActionListener {
     
 
     public static void main(String[] args) {
-        new Super_AdminAddNewAdmins("Edit","Admin_UserName");
+        new Super_AdminAddNewAdmins(null,"Edit","Admin_UserName","Super Admin");
     }
 
 }

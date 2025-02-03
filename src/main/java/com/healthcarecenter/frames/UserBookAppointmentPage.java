@@ -417,8 +417,9 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
                     } else {
                         JOptionPane.showMessageDialog(null, "No Date and Time selected.");
                     }
-                }
-                    
+                }else {
+                    JOptionPane.showMessageDialog(null, "No doctor selected.");
+                }   
         }
 
 

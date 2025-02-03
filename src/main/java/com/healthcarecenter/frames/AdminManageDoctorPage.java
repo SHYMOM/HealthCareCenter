@@ -250,7 +250,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
                 if (selectedRow == -1) {
                     JOptionPane.showMessageDialog(null, "Please select an admin to modify.");
                 }else {
-                    new Super_AdminAddNewDoctor("Edit", getSelectedDoctorUsername());
+                    new Super_AdminAddNewDoctor(null,"Edit", getSelectedDoctorUsername(), "Admin");
                 }
             }
         });
@@ -264,7 +264,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
             @Override
         public void mouseClicked(MouseEvent e) {
             SwingUtilities.getWindowAncestor(Add_Doctor).dispose();
-            new Super_AdminAddNewDoctor("Add","");
+            new Super_AdminAddNewDoctor(null,"Add","","Admin");
             
         }
     });
@@ -286,7 +286,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
                         String confirmText = JOptionPane.showInputDialog(null, "Write 'Confirm' to delete account");
                         if (confirmText != null && confirmText.equals("Confirm")) {
                             try {
-                                FileUtils.deleteFile("/data/doctors/" + selectedUsername + ".txt");
+                                FileUtils.deleteFile(selectedUsername);
                                 new WelcomePage();
                                 dispose();
                             } catch (IOException ex) {

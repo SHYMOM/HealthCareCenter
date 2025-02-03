@@ -132,7 +132,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
          log_out.setText("Log out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(720, 15, 50, 20);
+         log_out.setBounds(720, 15, 60, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
@@ -267,14 +267,14 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(715, 10, 60, 30);
+			log_out.setBounds(715, 10, 70, 30);
 			
           }
           @Override
         public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(720, 15, 50, 20);
+			log_out.setBounds(720, 15, 60, 20);
 			
           }
          @Override

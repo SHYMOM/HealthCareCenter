@@ -52,11 +52,13 @@ public class UserSignUp extends JFrame implements ActionListener {
             this.EditMode = EditMode;
             this.signUp.setText("Save Changes");
             this.username.setEditable(false);
+            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             loadUserData(username);
         }
         else if (EditMode.equals("Add")) {
             this.EditMode = EditMode;
             this.signUp.setText("Register");
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
         
 
@@ -84,7 +86,6 @@ public class UserSignUp extends JFrame implements ActionListener {
     private void initializeUI() {
         //! Frame settings
         this.setTitle("Healthcare Center - Sign Up");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000, 700);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
