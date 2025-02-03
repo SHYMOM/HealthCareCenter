@@ -41,9 +41,7 @@ public class GetUserData {
                 }
                 if (userSection && line.contains("=")) {
                     String[] parts = line.split("=", 2);
-                    if (!parts[0].equals("password") && !parts[0].equals("username")) {
                         userDetails.put(parts[0], parts[1]);
-                    }
                 }
             }
         } catch (IOException e) {

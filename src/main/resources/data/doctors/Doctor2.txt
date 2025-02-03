@@ -1,13 +1,13 @@
 <<<Doctor-Start>>>
-fullName=Doc
+fullName=Alice
 username=Doctor2
 age=32
 email=Doctor2@gmail.com
 contactNumber=123456789
 address=Zoshor
 password=12345678
-gender= Female
-bloodGroup=  B+
+gender= Male
+bloodGroup=  A+
 role=Doctor
 specialization=Neurology
 qualifications=MBBS
