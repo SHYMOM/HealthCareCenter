@@ -327,7 +327,7 @@ public class DoctorHomePage extends JFrame implements ActionListener
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
 
         HealthTips healthTips = new HealthTips();
-        JLabel health_tips= new JLabel(healthTips.getRandomHealthTip());
+        JLabel health_tips= new JLabel(healthTips.getRandomTipForDoctor());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
         health_tips.setBounds(0,350,900,30);
         health_tips.setForeground(new Color(229,222,207));
