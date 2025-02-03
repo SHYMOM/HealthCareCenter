@@ -96,7 +96,7 @@ public class UserHomePage extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -135,7 +135,7 @@ public class UserHomePage extends JFrame implements ActionListener
         //level for home
         JLabel home = new JLabel();
         home.setText("Home");
-        home.setForeground(Color.red);
+        home.setForeground(new Color(255, 255, 255));
         home.setFont(new Font("SansSerif", Font.PLAIN, 15));
         home.setBounds(15, 15, 50, 20);
 
@@ -198,14 +198,14 @@ public class UserHomePage extends JFrame implements ActionListener
         home.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-               home.setForeground(Color.red);
+               home.setForeground(new Color(255, 255, 255));
                home.setBounds(15, 15, 50, 20);
                home.setFont(new Font("SansSerif", Font.PLAIN, 15));
     
             }
             @Override
           public void mouseExited(MouseEvent e) {
-                home.setForeground(Color.red); 
+                home.setForeground(new Color(255, 255, 255)); 
                 home.setBounds(15, 15, 50, 20);
                 home.setFont(new Font("SansSerif", Font.PLAIN, 15));
                  
@@ -345,53 +345,30 @@ public class UserHomePage extends JFrame implements ActionListener
         return middle_panel;
     }
 
-    private JPanel createLowerpanel()
+    private ImagePanel createLowerpanel()
     {
-        JPanel lower_panel = new JPanel();                                  
-        lower_panel.setLayout(null);
-        lower_panel.setBounds(0,200,900,500);
-        lower_panel.setBackground(Color.white);
-        
-        ImagePanel image_panel = new ImagePanel("HealthCareCenter/src/main/resources/Images/signUpBG1.jpg");
-        image_panel.setBounds(0,0,900,300);
-        image_panel.setLayout(null);
-        image_panel.setOpaque(false);
-        lower_panel.add(image_panel);
+        ImagePanel lower_panel = new ImagePanel(GetRandomImage.getRandomImage());
 
-        JLabel welcome= new JLabel("Welcome "+ name);
+                                         
+        lower_panel.setLayout(null);
+        lower_panel.setBounds(0,130,900,500);
+        lower_panel.setBackground(new Color(0xECF8FD));
+       
+
+        JLabel welcome= new JLabel(name);
         welcome.setHorizontalAlignment(JLabel.CENTER);
-        welcome.setBounds(300,330,300,30);
+        welcome.setBounds(300,380,300,30);
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
 
         HealthTips healthTips = new HealthTips();
         JLabel health_tips= new JLabel(healthTips.getRandomHealthTip());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
-        health_tips.setBounds(0,300,900,30);
+        health_tips.setBounds(0,350,900,30);
         health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
 
 
-        health_tips.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-              health_tips.setForeground(new Color(0x00FF00));
-              health_tips.setBounds(0,300,900,30);
-              health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
-            }
-            @Override
-          public void mouseExited(MouseEvent e) {
-              health_tips.setForeground(Color.black);
-              health_tips.setBounds(0,300,900,30);
-              health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-              //SwingUtilities.getWindowAncestor(health_tips).dispose();
-            }
-        });
-
-
         lower_panel.add(welcome);
-        lower_panel.add(health_tips, BorderLayout.CENTER);
+        lower_panel.add(health_tips);
 
         return lower_panel;
     }
