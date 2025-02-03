@@ -227,7 +227,7 @@ public class LoginPage extends JFrame implements ActionListener {
         if (e.getSource() == login) {
             handleLogin();
         } else if (e.getSource() == signUp) {
-            new UserSignUp();
+            new UserSignUp("Add", "");
             this.dispose();
         }
     }
