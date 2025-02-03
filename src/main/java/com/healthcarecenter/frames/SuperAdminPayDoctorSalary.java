@@ -123,16 +123,16 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
          JLabel pay_Do_Salary = new JLabel();
          pay_Do_Salary .setText("Pay Doctors Salary");
          pay_Do_Salary .setForeground(new Color(000000));
-		 pay_Do_Salary .setForeground(Color.RED );
+		 pay_Do_Salary .setForeground(new Color(255,255,255));
          pay_Do_Salary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-         pay_Do_Salary .setBounds(560, 15, 110, 20);
+         pay_Do_Salary .setBounds(560, 15, 130, 20);
 
          //level for log out
          JLabel log_out = new JLabel();
          log_out.setText("Log out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(700, 15, 70, 20);
+         log_out.setBounds(720, 15, 50, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
@@ -240,8 +240,8 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             @Override
             public void mouseEntered(MouseEvent e) {
                 pay_Do_Salary .setForeground(new Color(0x00FF00));
-                pay_Do_Salary .setFont(new Font("SansSerif", Font.PLAIN, 18));
-				pay_Do_Salary .setBounds(530, 10, 170, 30);
+                pay_Do_Salary .setFont(new Font("SansSerif", Font.PLAIN, 17));
+				pay_Do_Salary .setBounds(551, 10, 155, 30);
 				pay_Do_Salary .setForeground(new Color(255,255,255));
 				
             }
@@ -249,7 +249,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             public void mouseExited(MouseEvent e) {
                 pay_Do_Salary .setForeground(new Color(0, 0, 0));
                 pay_Do_Salary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-				pay_Do_Salary .setBounds(540, 15, 160, 20);
+				pay_Do_Salary .setBounds(560, 15, 130, 20);
 				pay_Do_Salary .setForeground(new Color(255,255,255));
 				
             }
@@ -267,14 +267,14 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(693, 10, 80, 30);
+			log_out.setBounds(715, 10, 60, 30);
 			
           }
           @Override
         public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(700, 15, 70, 20);
+			log_out.setBounds(720, 15, 50, 20);
 			
           }
          @Override

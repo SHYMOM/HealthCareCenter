@@ -137,14 +137,14 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
          paySalary .setForeground(new Color(000000));
 		 paySalary .setForeground(new Color(255,255,255));
          paySalary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-         paySalary .setBounds(560, 15, 110, 20);
+         paySalary .setBounds(560, 15, 120, 20);
 
          //level for log out
          JLabel log_out = new JLabel();
          log_out.setText("Log out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(700, 15, 70, 20);
+         log_out.setBounds(715, 15, 50, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
@@ -252,8 +252,8 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
             @Override
             public void mouseEntered(MouseEvent e) {
                 paySalary .setForeground(new Color(0x00FF00));
-                paySalary .setFont(new Font("SansSerif", Font.PLAIN, 18));
-				paySalary .setBounds(530, 10, 135, 30);
+                paySalary .setFont(new Font("SansSerif", Font.PLAIN, 17));
+				paySalary .setBounds(553, 10, 135, 30);
 				paySalary .setForeground(new Color(255,255,255));
 				
             }
@@ -261,7 +261,7 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
             public void mouseExited(MouseEvent e) {
                 paySalary .setForeground(new Color(0, 0, 0));
                 paySalary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-				paySalary .setBounds(560, 15, 110, 20);
+				paySalary .setBounds(560, 15, 120, 20);
 				paySalary .setForeground(new Color(255,255,255));
 				
             }
@@ -278,14 +278,14 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(693, 10, 80, 30);
+			log_out.setBounds(710, 10, 60, 30);
 			
           }
           @Override
         public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(700, 15, 70, 20);
+			log_out.setBounds(715, 15, 50, 20);
 			
           }
          @Override
