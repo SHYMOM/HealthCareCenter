@@ -19,6 +19,10 @@ public class GetDoctorData {
         return getFieldValue(username, "email");
     }
 
+    public static String getEmail(String username) throws IOException {
+        return getFieldValue(username, "email");
+    }
+
     public static String getFieldValue(String username, String fieldName) {
         String filePath = "/data/doctors/" + username + ".txt";
         filePath = FileUtils.getFile(filePath).getAbsolutePath();
@@ -186,5 +190,4 @@ public class GetDoctorData {
         JOptionPane.showMessageDialog(null, "Doctor is not available at this time!", "Invalid Appointment", JOptionPane.WARNING_MESSAGE);
         return false;
     }
-
 }

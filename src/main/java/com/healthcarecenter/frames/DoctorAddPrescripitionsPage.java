@@ -1,16 +1,15 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.models.User;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetDoctorData;
-import com.healthcarecenter.models.User;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import javax.swing.*;
 import java.util.HashMap;
+import javax.swing.*;
 public class DoctorAddPrescripitionsPage extends JFrame implements ActionListener
 {
 
@@ -482,7 +481,7 @@ private JPanel createLowerpanel() {
     }
 
     public static void main(String[] args) {
-        new DoctorAddPrescripitionsPage("Alice_Doctor", "emiko");
+        new DoctorAddPrescripitionsPage("Doctor2", "emiko");
     }
 
 }

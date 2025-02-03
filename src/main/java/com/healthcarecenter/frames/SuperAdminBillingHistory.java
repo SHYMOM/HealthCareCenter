@@ -59,7 +59,7 @@ public class SuperAdminBillingHistory extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -110,15 +110,15 @@ public class SuperAdminBillingHistory extends JFrame implements ActionListener
          Mang_Doc.setText("Manage Doctors");
          Mang_Doc.setForeground(new Color(000000));
          Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         Mang_Doc.setBounds(80, 15, 140, 20);
+         Mang_Doc.setBounds(105, 15, 140, 20);
 
           //level forbillingHistory
          JLabel billingHistory = new JLabel();
          billingHistory.setText("Billing History");
          billingHistory.setForeground(new Color(000000));
-		 billingHistory.setForeground(Color.RED );
+		 billingHistory.setForeground(new Color(255,255,255));
          billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         billingHistory.setBounds(225, 15, 160, 20);
+         billingHistory.setBounds(260, 15, 160, 20);
 		 
 		 //level for manage admin
          JLabel Mang_Admin = new JLabel();
@@ -132,14 +132,14 @@ public class SuperAdminBillingHistory extends JFrame implements ActionListener
          paySalary .setText("Pay Salary");
          paySalary .setForeground(new Color(000000));
          paySalary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-         paySalary .setBounds(560, 15, 120, 20);
+         paySalary .setBounds(560, 15, 110, 20);
 
          //level for log out
          JLabel log_out = new JLabel();
          log_out.setText("Log out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(700, 15, 100, 20);
+         log_out.setBounds(700, 15, 70, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
@@ -179,13 +179,13 @@ public class SuperAdminBillingHistory extends JFrame implements ActionListener
             public void mouseEntered(MouseEvent e) {
                 Mang_Doc.setForeground(new Color(0x00FF00));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 18));
-				Mang_Doc.setBounds(70, 10, 150, 30);
+				Mang_Doc.setBounds(95, 10, 150, 30);
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 Mang_Doc.setForeground(new Color(0, 0, 0));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
-				Mang_Doc.setBounds(80, 15, 140, 20);
+				Mang_Doc.setBounds(105, 15, 140, 20);
             }
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -195,29 +195,7 @@ public class SuperAdminBillingHistory extends JFrame implements ActionListener
             }
         });
 
-       billingHistory.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-               billingHistory.setForeground(new Color(0x00FF00));
-               billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   billingHistory.setBounds(215, 10, 170, 30);
-			   billingHistory.setForeground(Color.RED );
-			  
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-               billingHistory.setForeground(new Color(0, 0, 0));
-               billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   billingHistory.setBounds(225, 15, 160, 20);
-			   billingHistory.setForeground(Color.RED );
-			  
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-                
-            }
-        });
+      
 		
 		Mang_Admin.addMouseListener(new MouseAdapter() {
             @Override
@@ -231,7 +209,7 @@ public class SuperAdminBillingHistory extends JFrame implements ActionListener
             public void mouseExited(MouseEvent e) {
                Mang_Admin.setForeground(new Color(0, 0, 0));
                Mang_Admin.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   Mang_Admin.setBounds(410, 15, 120, 20);
+               Mang_Admin.setBounds(410, 15, 120, 20);
 			  
             }
             @Override
@@ -249,14 +227,14 @@ public class SuperAdminBillingHistory extends JFrame implements ActionListener
             public void mouseEntered(MouseEvent e) {
                 paySalary .setForeground(new Color(0x00FF00));
                 paySalary .setFont(new Font("SansSerif", Font.PLAIN, 18));
-				paySalary .setBounds(550, 10, 130, 30);
+				paySalary .setBounds(550, 10, 120, 30);
 				
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 paySalary .setForeground(new Color(0, 0, 0));
                 paySalary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-				paySalary .setBounds(560, 15, 120, 20);
+				paySalary .setBounds(560, 15, 100, 20);
 				
             }
             @Override
@@ -284,20 +262,20 @@ public class SuperAdminBillingHistory extends JFrame implements ActionListener
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(693, 10, 100, 30);
+			log_out.setBounds(693, 10, 80, 30);
 			
           }
           @Override
          public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(700, 15, 130, 20);
+			log_out.setBounds(700, 15, 70, 20);
 			
           }
         @Override
         public void mouseClicked(MouseEvent e)  
          {
-               JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
             FrameUtils.frameLogOut(frame);
         }
     });

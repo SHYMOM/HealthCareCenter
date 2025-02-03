@@ -1,7 +1,7 @@
 <<<Doctor-Start>>>
 fullName=DocTor Name
 username=Username1
-age=34
+age=35
 email=doctor@gmail.com
 contactNumber=123456787654
 address=Khulna
@@ -22,3 +22,11 @@ salary=0.0
 
 <<<Appoint-Start>>>
 
+
+<<<Appoint-Start>>>
+patientName=sanny
+patientEmail=sadmansany@gmail.com
+patientUsername=sadmansany
+date=February 17, 2025 10:24 AM
+status=Waiting
+<<<Appoint-End>>>

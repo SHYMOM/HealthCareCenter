@@ -450,7 +450,7 @@ public class UserPayBillPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-              SwingUtilities.getWindowAncestor(payButton).dispose();
+              
               new BillPaymentDialog(username, totalAmount);
             }
         });

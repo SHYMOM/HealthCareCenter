@@ -100,6 +100,24 @@ public class AdminHomePage extends JFrame implements ActionListener
         upper_panel.add(label);
 
         
+        ImageIcon settingIcon = ImageCompressor.compressImage(FileUtils.getFile("/Icons/settings.png").getAbsolutePath(), 25, 25);
+        JLabel settings = new JLabel(settingIcon);
+        settings.setBounds(850, 10, 25, 25);
+        settings.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        settings.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Object[] options = {"Edit Profile", "Cancel"};
+				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+					if (choice == 0) {
+						new Super_AdminAddNewAdmins("Edit", username);
+					} else if (choice == 1) {
+						
+					} else {
+						
+					}
+            }
+        });
         
 
        //create userpanel for upper_panel
@@ -116,6 +134,7 @@ public class AdminHomePage extends JFrame implements ActionListener
 		user_panel.setBackground(new Color(0x3a8cdb));
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
+        upper_panel.add(settings);
         upper_panel.add(createMiddlepanel());
 
         

@@ -3,9 +3,11 @@ package com.healthcarecenter.frames;
 import com.healthcarecenter.models.CurrentUser;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
-import com.healthcarecenter.utils.GetUserData;
 import com.healthcarecenter.utils.GetDoctorData;
+import com.healthcarecenter.utils.GetRandomImage;
 import com.healthcarecenter.utils.HealthTips;
+import com.healthcarecenter.utils.ImageCompressor;
+import com.healthcarecenter.utils.ImagePanel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -55,6 +57,12 @@ public class DoctorHomePage extends JFrame implements ActionListener
             new WelcomePage();
             this.dispose();
             return;
+        }
+
+        try {
+            CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", GetDoctorData.getEmail(username), "doctor");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
         }
 
         UserUI();
@@ -107,6 +115,25 @@ public class DoctorHomePage extends JFrame implements ActionListener
 
         
         
+        ImageIcon settingIcon = ImageCompressor.compressImage(FileUtils.getFile("/Icons/settings.png").getAbsolutePath(), 25, 25);
+        JLabel settings = new JLabel(settingIcon);
+        settings.setBounds(850, 10, 25, 25);
+        settings.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        settings.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Object[] options = {"Edit Profile", "Cancel"};
+				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+					if (choice == 0) {
+						new UserSignUp("Edit", username);
+					} else if (choice == 1) {
+						
+					} else {
+						
+					}
+            }
+        });
+
 
        //create userpanel for upper_panel
         JPanel user_panel = new JPanel(); 
@@ -123,6 +150,7 @@ public class DoctorHomePage extends JFrame implements ActionListener
         userlabel.setBounds(5,5,100,30);
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
+        upper_panel.add(settings);
         upper_panel.add(createMiddlepanel());
 
         
@@ -223,8 +251,7 @@ public class DoctorHomePage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-				SwingUtilities.getWindowAncestor(records).dispose();
-				new DoctorPatientRecordsPage(username);
+                JOptionPane.showMessageDialog(null, "Please select a patient from appoinment section first", "Error", JOptionPane.ERROR_MESSAGE);               
                 
             }
         });
@@ -283,28 +310,32 @@ public class DoctorHomePage extends JFrame implements ActionListener
         return middle_panel;
     }
 
-    private JPanel createLowerpanel()
+    private ImagePanel createLowerpanel()
     {
-        JPanel lower_panel = new JPanel();                                  
-        lower_panel.setLayout(null);
-        lower_panel.setBounds(0,180,900,500);
-        lower_panel.setBackground(new Color(0xECF8FD));
-        
+        ImagePanel lower_panel = new ImagePanel(GetRandomImage.getRandomImage());
 
-        JLabel welcome= new JLabel("Welcome "+name);
+                                         
+        lower_panel.setLayout(null);
+        lower_panel.setBounds(0,130,900,500);
+        lower_panel.setBackground(new Color(0xECF8FD));
+       
+
+        JLabel welcome= new JLabel(name);
         welcome.setHorizontalAlignment(JLabel.CENTER);
-        welcome.setBounds(300,330,300,30);
+        welcome.setBounds(300,380,300,30);
+        welcome.setForeground(new Color(205,194,245));
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
 
         HealthTips healthTips = new HealthTips();
         JLabel health_tips= new JLabel(healthTips.getRandomHealthTip());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
-        health_tips.setBounds(0,300,900,30);
+        health_tips.setBounds(0,350,900,30);
+        health_tips.setForeground(new Color(229,222,207));
         health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
 
 
         lower_panel.add(welcome);
-        lower_panel.add(health_tips, BorderLayout.CENTER);
+        lower_panel.add(health_tips);
 
         return lower_panel;
     }
