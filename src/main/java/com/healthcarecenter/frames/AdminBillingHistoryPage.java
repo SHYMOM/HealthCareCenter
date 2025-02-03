@@ -73,7 +73,7 @@ public class AdminBillingHistoryPage extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -130,7 +130,7 @@ public class AdminBillingHistoryPage extends JFrame implements ActionListener
          JLabel billingHistory = new JLabel();
          billingHistory.setText("Billing History");
          billingHistory.setForeground(new Color(000000));
-		 billingHistory.setForeground(Color.RED );
+		 billingHistory.setForeground (new Color(255,255,255) );
          billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
          billingHistory.setBounds(225, 15, 160, 20);
 		 
@@ -140,7 +140,7 @@ public class AdminBillingHistoryPage extends JFrame implements ActionListener
          log_out.setText("Log out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(450, 15, 130, 20);
+         log_out.setBounds(350, 15, 90, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
@@ -194,43 +194,20 @@ public class AdminBillingHistoryPage extends JFrame implements ActionListener
             }
         });
 
-       billingHistory.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-               billingHistory.setForeground(new Color(0x00FF00));
-               billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   billingHistory.setBounds(215, 10, 170, 30);
-			   billingHistory.setForeground(Color.RED );
-			  
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-               billingHistory.setForeground(new Color(0, 0, 0));
-               billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   billingHistory.setBounds(225, 15, 160, 20);
-			   billingHistory.setForeground(Color.RED );
-			  
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                
-            }
-        });
-		
 		
          log_out.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(443, 10, 100, 30);
+			log_out.setBounds(343, 10, 100, 30);
 			
           }
           @Override
          public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(450, 15, 130, 20);
+			log_out.setBounds(350, 15, 90, 20);
 			
           }
        @Override

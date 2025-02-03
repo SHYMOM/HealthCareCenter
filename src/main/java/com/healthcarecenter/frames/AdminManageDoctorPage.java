@@ -79,7 +79,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -129,7 +129,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
          JLabel Mang_Doc= new JLabel();
          Mang_Doc.setText("Manage Doctors");
          Mang_Doc.setForeground(new Color(000000));
-		 Mang_Doc.setForeground(Color.RED );
+		 Mang_Doc.setForeground(new Color(255,255,255)  );
          Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
          Mang_Doc.setBounds(80, 15, 140, 20);
 
@@ -147,7 +147,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
          log_out.setText("Log out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(450, 15, 130, 20);
+         log_out.setBounds(350, 15, 90, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
@@ -180,41 +180,19 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
 
 
 
-        Mang_Doc.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                Mang_Doc.setForeground(new Color(0x00FF00));
-                Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 18));
-				Mang_Doc.setBounds(70, 10, 150, 30);
-				Mang_Doc.setForeground(Color.RED );
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                Mang_Doc.setForeground(new Color(0, 0, 0));
-                Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
-				Mang_Doc.setBounds(80, 15, 140, 20);
-				Mang_Doc.setForeground(Color.RED );
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-             
-                
-            }
-        });
-
        billingHistory.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                billingHistory.setForeground(new Color(0x00FF00));
                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   billingHistory.setBounds(215, 10, 170, 30);
+			   billingHistory.setBounds(215, 10, 120, 30);
 			  
             }
             @Override
             public void mouseExited(MouseEvent e) {
                billingHistory.setForeground(new Color(0, 0, 0));
                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   billingHistory.setBounds(225, 15, 160, 20);
+			   billingHistory.setBounds(225, 15, 110, 20);
 			  
             }
             @Override
@@ -230,14 +208,14 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(443, 10, 100, 30);
+			log_out.setBounds(343, 10, 100, 30);
 			
           }
           @Override
          public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(450, 15, 130, 20);
+			log_out.setBounds(350, 15, 90, 20);
 			
           }
          
