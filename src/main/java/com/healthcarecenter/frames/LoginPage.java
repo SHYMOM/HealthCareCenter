@@ -227,7 +227,7 @@ public class LoginPage extends JFrame implements ActionListener {
         if (e.getSource() == login) {
             handleLogin();
         } else if (e.getSource() == signUp) {
-            new UserSignUp();
+            new UserSignUp("Add","");
             this.dispose();
         }
     }
@@ -248,7 +248,7 @@ public class LoginPage extends JFrame implements ActionListener {
         }
         else{
             if(GetSuperAdminData.isSuperAdminEmail(email.getText()) && GetSuperAdminData.getSuperAdminPassword(email.getText()).equals(password.getText())){
-                new SuperAdminHomePage();
+                new SuperAdminHomePage("email");
                 this.dispose();
             }
             else{
@@ -273,7 +273,7 @@ public class LoginPage extends JFrame implements ActionListener {
                     else{
                         if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/admins/")){
                             this.dispose();
-                            new AdminHomePage();
+                            new AdminHomePage(email.getText(), false);
                         }
                         else{
                             JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);
@@ -287,7 +287,7 @@ public class LoginPage extends JFrame implements ActionListener {
                     else{
                         if(checkValidations.isUserRegistered(email.getText(), password.getText(), "/data/doctors/")){
                             this.dispose();
-                            new DoctorHomePage();
+                            new DoctorHomePage(email.getText(), false);
                         }
                         else{
                             JOptionPane.showMessageDialog(null, "Invalid Credentials", "Error", JOptionPane.ERROR_MESSAGE);

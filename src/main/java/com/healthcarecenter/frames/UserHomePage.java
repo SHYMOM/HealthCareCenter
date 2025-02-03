@@ -96,13 +96,41 @@ public class UserHomePage extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
 
         
-        
+        ImageIcon settingIcon = ImageCompressor.compressImage(FileUtils.getFile("/Icons/settings.png").getAbsolutePath(), 25, 25);
+        JLabel settings = new JLabel(settingIcon);
+        settings.setBounds(850, 10, 25, 25);
+        settings.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        settings.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Object[] options = {"Edit Profile", "Cancel","Delete Account"};
+				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+					if (choice == 0) {
+						new UserSignUp("Edit", username);
+					} else if (choice == 1) {
+						
+					} else if (choice == 2) {
+                        String confirmText = JOptionPane.showInputDialog(null, "Write 'Confirm' to delete account");
+                        if (confirmText != null && confirmText.equals("Confirm")) {
+                            try {
+                                FileUtils.deleteFile("/data/users/" + username + ".txt");
+                                new WelcomePage();
+                                dispose();
+                            } catch (IOException ex) {
+                                JOptionPane.showMessageDialog(null, "Error deleting account: " + ex.getMessage());
+                            }
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Confirmation text does not match.");
+                        }
+					}
+            }
+        });
 
        //create userpanel for upper_panel
         JPanel user_panel = new JPanel(); 
@@ -117,6 +145,7 @@ public class UserHomePage extends JFrame implements ActionListener
         userlabel.setBounds(5,5,100,30);
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
+        upper_panel.add(settings);
         upper_panel.add(createMiddlepanel());
 
         
@@ -135,91 +164,100 @@ public class UserHomePage extends JFrame implements ActionListener
         //level for home
         JLabel home = new JLabel();
         home.setText("Home");
-        home.setForeground(Color.red);
+        home.setForeground(new Color(255, 255, 255));
         home.setFont(new Font("SansSerif", Font.PLAIN, 15));
         home.setBounds(15, 15, 50, 20);
 
 
 
          //level for appoinment
-         JLabel appoinment= new JLabel();
-         appoinment.setText("Book Appoinment");
-         appoinment.setForeground(new Color(000000));
-         appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         appoinment.setBounds(90, 15, 120, 20);
+         JLabel appointment= new JLabel();
+         appointment.setText("Book Appointment");
+         appointment.setForeground(new Color(000000));
+         appointment.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         appointment.setBounds(85, 15, 120, 20);
+
+         //level for Appointment History
+         JLabel appointmentHistory = new JLabel();
+         appointmentHistory.setText("View Appointment History");
+         appointmentHistory.setForeground(new Color(000000));
+         appointmentHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         appointmentHistory.setBounds(225, 15, 165, 20);
 
           //level for history
         JLabel History = new JLabel();
         History.setText("View Medicle History");
         History.setForeground(new Color(000000));
         History.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        History.setBounds(235, 15, 140, 20);
+        History.setBounds(410, 15, 140, 20);
+
+          //level for bill
+          JLabel bill = new JLabel();
+          bill.setText("Pay Bill");
+          bill.setForeground(new Color(000000));
+          bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
+          bill.setBounds(570, 15, 50, 20);
+
 
          //level for billingHistory
          JLabel billingHistory = new JLabel();
          billingHistory.setText("Billing History");
          billingHistory.setForeground(new Color(000000));
          billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         billingHistory.setBounds(400, 15, 80, 20);
+         billingHistory.setBounds(640, 15, 90, 20);
 
-          //level for bill
-        JLabel bill = new JLabel();
-        bill.setText("Pay Bill");
-        bill.setForeground(new Color(000000));
-        bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        bill.setBounds(505, 15, 50, 20);
 
          //level for log out
          JLabel log_out = new JLabel();
          log_out.setText("LogOut");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(580, 15, 50, 20);
+         log_out.setBounds(750, 15, 50, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
-          middle_panel.add(appoinment);
+          middle_panel.add(appointment);
+          middle_panel.add(appointmentHistory);
           middle_panel.add(History);
-          middle_panel.add(billingHistory);
           middle_panel.add(bill);
+          middle_panel.add(billingHistory);
           middle_panel.add(log_out);
 
 
         home.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-               home.setForeground(Color.red);
+               home.setForeground(new Color(255, 255, 255));
                home.setBounds(15, 15, 50, 20);
                home.setFont(new Font("SansSerif", Font.PLAIN, 15));
     
             }
             @Override
           public void mouseExited(MouseEvent e) {
-                home.setForeground(Color.red); 
+                home.setForeground(new Color(255, 255, 255)); 
                 home.setBounds(15, 15, 50, 20);
                 home.setFont(new Font("SansSerif", Font.PLAIN, 15));
                  
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                //SwingUtilities.getWindowAncestor(home).dispose();
             }
         });
 
 
 
-        appoinment.addMouseListener(new MouseAdapter() {
+        appointment.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                appoinment.setForeground(new Color(0x00FF00));
-                appoinment.setBounds(85, 10, 130, 30);
-                appoinment.setFont(new Font("SansSerif", Font.PLAIN, 17));
+                appointment.setForeground(new Color(0x00FF00));
+                appointment.setBounds(80, 10, 135, 30);
+                appointment.setFont(new Font("SansSerif", Font.PLAIN, 17));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                appoinment.setForeground(new Color(000000));
-                appoinment.setBounds(90, 15, 120, 20);
-                appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
+                appointment.setForeground(new Color(000000));
+                appointment.setBounds(85, 15, 120, 20);
+                appointment.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -228,17 +266,39 @@ public class UserHomePage extends JFrame implements ActionListener
             }
         });
 
+
+        appointmentHistory.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                appointmentHistory.setForeground(new Color(0x00FF00));
+                appointmentHistory.setBounds(220, 10, 180, 30);
+                appointmentHistory.setFont(new Font("SansSerif", Font.PLAIN, 16));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                appointmentHistory.setForeground(new Color(000000));
+                appointmentHistory.setBounds(225, 15, 165, 20);
+                appointmentHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                SwingUtilities.getWindowAncestor(home).dispose();
+                new UserViewAppointmentHistoryPage(username);
+            }
+        });
+
+
         History.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 History.setForeground(new Color(0x00FF00));
-                History.setBounds(230,10, 155, 30);
+                History.setBounds(405,10, 155, 30);
                 History.setFont(new Font("SansSerif", Font.PLAIN,17));
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 History.setForeground(new Color(000000));
-                History.setBounds(235, 15, 140, 20);
+                History.setBounds(410, 15, 140, 20);
                 History.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
@@ -249,18 +309,37 @@ public class UserHomePage extends JFrame implements ActionListener
         });
         
 
+        bill.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                bill.setForeground(new Color(0x00FF00));
+                bill.setBounds(565, 10, 55, 30);
+                bill.setFont(new Font("SansSerif", Font.PLAIN, 17));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                bill.setForeground(new Color(000000));
+                bill.setBounds(570, 15, 50, 20);
+                bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                SwingUtilities.getWindowAncestor(home).dispose(); 
+                new UserPayBillPage(username); 
+            }
+        });
 
         billingHistory .addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 billingHistory .setForeground(new Color(0x00FF00));
-                billingHistory.setBounds(398, 10, 85,  30);
+                billingHistory.setBounds(638, 10, 100,  30);
                 billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 17));
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 billingHistory .setForeground(new Color(000000));
-                billingHistory.setBounds(400, 15, 80,   20);
+                billingHistory.setBounds(640, 15, 90, 20);
                 billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
@@ -272,38 +351,17 @@ public class UserHomePage extends JFrame implements ActionListener
 
 
 
-        bill.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                bill.setForeground(new Color(0x00FF00));
-                bill.setBounds(503, 10, 55, 30);
-                bill.setFont(new Font("SansSerif", Font.PLAIN, 17));
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                bill.setForeground(new Color(000000));
-                bill.setBounds(505, 15, 50, 20);
-                bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(home).dispose(); 
-                new UserPayBillPage(username); 
-            }
-        });
-
-
     log_out.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
-            log_out.setBounds(578, 10, 60, 30);
+            log_out.setBounds(748, 10, 60, 30);
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 17));
         }
         @Override
         public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(000000));
-            log_out.setBounds(580, 15, 50,20);
+            log_out.setBounds(750, 15, 50,20);
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
         }
         @Override
@@ -312,57 +370,36 @@ public class UserHomePage extends JFrame implements ActionListener
             FrameUtils.frameLogOut(frame);
         }
     });
-
+ 
         return middle_panel;
     }
 
-    private JPanel createLowerpanel()
+    private ImagePanel createLowerpanel()
     {
-        JPanel lower_panel = new JPanel();                                  
-        lower_panel.setLayout(null);
-        lower_panel.setBounds(0,200,900,500);
-        lower_panel.setBackground(Color.white);
-        
-        ImagePanel image_panel = new ImagePanel("HealthCareCenter/src/main/resources/Images/signUpBG1.jpg");
-        image_panel.setBounds(0,0,900,300);
-        image_panel.setLayout(null);
-        image_panel.setOpaque(false);
-        lower_panel.add(image_panel);
+        ImagePanel lower_panel = new ImagePanel(GetRandomImage.getRandomImage());
 
-        JLabel welcome= new JLabel("Welcome "+ name);
+                                         
+        lower_panel.setLayout(null);
+        lower_panel.setBounds(0,130,900,500);
+        lower_panel.setBackground(new Color(0xECF8FD));
+       
+
+        JLabel welcome= new JLabel("Welcome "+name);
         welcome.setHorizontalAlignment(JLabel.CENTER);
-        welcome.setBounds(300,330,300,30);
+        welcome.setBounds(300,380,300,30);
+        welcome.setForeground(new Color(205,194,245));
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
 
         HealthTips healthTips = new HealthTips();
         JLabel health_tips= new JLabel(healthTips.getRandomHealthTip());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
-        health_tips.setBounds(0,300,900,30);
+        health_tips.setBounds(0,350,900,30);
+        health_tips.setForeground(new Color(229,222,207));
         health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
 
 
-        health_tips.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-              health_tips.setForeground(new Color(0x00FF00));
-              health_tips.setBounds(0,300,900,30);
-              health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
-            }
-            @Override
-          public void mouseExited(MouseEvent e) {
-              health_tips.setForeground(Color.black);
-              health_tips.setBounds(0,300,900,30);
-              health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-              //SwingUtilities.getWindowAncestor(health_tips).dispose();
-            }
-        });
-
-
         lower_panel.add(welcome);
-        lower_panel.add(health_tips, BorderLayout.CENTER);
+        lower_panel.add(health_tips);
 
         return lower_panel;
     }
