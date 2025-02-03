@@ -321,6 +321,18 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
         Modify_Doctor.setFocusable(false);
         Modify_Doctor.addActionListener(this);
 
+        Modify_Doctor.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = ManageDoctorsTable.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Please select an admin to modify.");
+                }else {
+                    new Super_AdminAddNewDoctor("Edit", getSelectedDoctorUsername());
+                }
+            }
+        });
+
         Add_Doctor= new JButton("Add Doctor");
         Add_Doctor.setBounds(410, 380, 120, 30);
         Add_Doctor.setFocusable(false);
