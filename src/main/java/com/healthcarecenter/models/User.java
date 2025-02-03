@@ -47,81 +47,71 @@ public class User extends GetUserData {
     }
 
     public static void setName(String username, String name) {
-        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
         try {
-            setField(filePath, "name", name);
+            setField(username, "name", name);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
         }
     }
     public static void setUserName(String username, String newUsername) {
-        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
         try {
-            setField(filePath, "username", newUsername);
+            setField(username, "username", newUsername);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
         }
     }
     public static void setAge(String username, String age) {
-        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
         try {
-            setField(filePath, "age", age);
+            setField(username, "age", age);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
         }
     }
     public static void setEmail(String username, String email) {
-        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
         try {
-            setField(filePath, "email", email);
+            setField(username, "email", email);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
         }
     }
     public static void setAddress(String username, String address) {
-        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
         try {
-            setField(filePath, "address", address);
+            setField(username, "address", address);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
         }
     }
     public static void setContactNumber(String username, String contactNumber) {
-        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
         try {
-            setField(filePath, "contactNumber", contactNumber);
+            setField(username, "contactNumber", contactNumber);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
         }
     }
     public static void setPassword(String username, String password) {
-        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
         try {
-            setField(filePath, "password", password);
+            setField(username, "password", password);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
         }
     }
     public static void setBloodGroup(String username, String bloodGroup) {
-        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
         try {
-            setField(filePath, "bloodGroup", bloodGroup);
+            setField(username, "bloodGroup", bloodGroup);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
         }
     }
     public static void setGender(String username, String gender) {
-        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
         try {
-            setField(filePath, "gender", gender);
+            setField(username, "gender", gender);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
         }
     }
     public static void setIsDonor(String username, String isDonor) {
-        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
         try {
-            setField(filePath, "isDonor", isDonor);
+            setField(username, "isDonor", isDonor);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
         }
