@@ -32,38 +32,6 @@ public class GetDoctorData {
         return null;
     }
 
-    public static void updateField(String username, String fieldName, String newValue) {
-        String filePath = "/data/doctors/" + username + ".txt";
-        filePath = FileUtils.getFile(filePath).getAbsolutePath();
-        StringBuilder fileContent = new StringBuilder();
-        boolean fieldFound = false;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith(fieldName + "=")) {
-                    fileContent.append(fieldName).append("=").append(newValue).append("\n");
-                    fieldFound = true;
-                } else {
-                    fileContent.append(line).append("\n");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        if (!fieldFound) {
-            fileContent.append(fieldName).append("=").append(newValue).append("\n");
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath()))) {
-            writer.write(fileContent.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static HashMap<String, String> getDoctorDetails(String username) {
         String filePath = FileUtils.getFile("/data/doctors/" + username + ".txt").getAbsolutePath();
         HashMap<String, String> doctorDetails = new HashMap<>();

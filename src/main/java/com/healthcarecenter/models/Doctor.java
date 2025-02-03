@@ -2,7 +2,10 @@ package com.healthcarecenter.models;
 
 import com.healthcarecenter.frames.*;
 import com.healthcarecenter.utils.FileUtils;
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.*;
@@ -97,6 +100,88 @@ public void saveToFile(JFrame frame){
             JOptionPane.showMessageDialog(null, "Error saving user data: " + e.getMessage());
         }
 }
+
+    public static void setName(String username, String name) {
+        updateField(username, "fullName", name);
+    }
+    public static void setUsername(String username, String newUsername) {
+        updateField(username, "username", newUsername);
+    }
+    public static void setAge(String username, String age) {
+        updateField(username, "age", age);
+    }
+    public static void setEmail(String username, String email) {
+        updateField(username, "email", email);
+    }
+    public static void setContactNumber(String username, String contactNumber) {
+        updateField(username, "contactNumber", contactNumber);
+    }
+    public static void setAddress(String username, String address) {
+        updateField(username, "address", address);
+    }
+    public static void setPassword(String username, String password) {
+        updateField(username, "password", password);
+    }
+    public static void setGender(String username, String gender) {
+        updateField(username, "gender", gender);
+    }
+    public static void setBloodGroup(String username, String bloodGroup) {
+        updateField(username, "bloodGroup", bloodGroup);
+    }
+    public static void setSpecialization(String username, String specialization) {
+        updateField(username, "specialization", specialization);
+    }
+    public static void setQualifications(String username, String qualifications) {
+        updateField(username, "qualifications", qualifications);
+    }
+    public static void setMedicalLicenseNumber(String username, String medicalLicenseNumber) {
+        updateField(username, "medicalLicenseNumber", medicalLicenseNumber);
+    }
+    public static void setConsultationHours(String username, String consultationHours) {
+        updateField(username, "consultationHours", consultationHours);
+    }
+    public static void setDaysAvailable(String username, String daysAvailable) {
+        updateField(username, "daysAvailable", daysAvailable);
+    }
+    public static void setConsultationFee(String username, double consultationFee) {
+        updateField(username, "consultationFee", String.valueOf(consultationFee));
+    }
+    public static void setSalary(String username, double salary) {
+        updateField(username, "salary", String.valueOf(salary));
+    }
+
+    
+    public static void updateField(String username, String fieldName, String newValue) {
+        String filePath = "/data/doctors/" + username + ".txt";
+        filePath = FileUtils.getFile(filePath).getAbsolutePath();
+        StringBuilder fileContent = new StringBuilder();
+        boolean fieldFound = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith(fieldName + "=")) {
+                    fileContent.append(fieldName).append("=").append(newValue).append("\n");
+                    fieldFound = true;
+                } else {
+                    fileContent.append(line).append("\n");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        if (!fieldFound) {
+            fileContent.append(fieldName).append("=").append(newValue).append("\n");
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath()))) {
+            writer.write(fileContent.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 public static void addAppointment(String doctorUsername, String patientName, String patientEmail, String patientUsername, String date, String status) {
     String filePath = "/data/doctors/"+doctorUsername+".txt";    
