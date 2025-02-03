@@ -4,6 +4,8 @@ import java.io.*;
 
 import javax.swing.JOptionPane;
 
+import com.healthcarecenter.frames.WelcomePage;
+
 public class FileUtils {
 
 
@@ -78,5 +80,20 @@ public class FileUtils {
             }
         }
         return true;
+    }
+
+    public static void deleteFile(String username) throws IOException {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        File file = new File(filePath);
+        if (file.exists()) {
+            if (!file.delete()) {
+                throw new IOException("Failed to delete the file: " + filePath);
+            } else {
+                JOptionPane.showMessageDialog(null, "Account deleted successfully");
+                new WelcomePage();
+            }
+        } else {
+            throw new IOException("File not found: " + filePath);
+        }
     }
 }
