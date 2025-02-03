@@ -43,7 +43,7 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
             registerButton.setText("Save Changes");
             loadDoctorData(username);
         }
-        else if (EditMode.equals("Delete")) {
+        else if (EditMode.equals("Add")) {
             registerButton.setText("Register Doctor");
         }
         setupUI();
@@ -416,6 +416,6 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new Super_AdminAddNewDoctor("Edit","Alice_Doctor");
+        new Super_AdminAddNewDoctor("Add","");
     }
 }

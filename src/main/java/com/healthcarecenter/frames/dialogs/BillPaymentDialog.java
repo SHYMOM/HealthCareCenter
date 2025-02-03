@@ -2,11 +2,14 @@ package com.healthcarecenter.frames.dialogs;
 
 import com.healthcarecenter.utils.GetUserData;
 import com.healthcarecenter.models.PaymentHistory;
+import com.healthcarecenter.models.User;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.io.IOException;
 
 public class BillPaymentDialog extends JFrame {
@@ -253,6 +256,12 @@ public class BillPaymentDialog extends JFrame {
                 new JLabel("Date: " + timestamp)
             };
             PaymentHistory.savePaymentHistory(name, username, email, billAmount, paymentMethod.getSelectedItem().toString(), accountInfo.getText(), transactionId, timestamp);
+            HashMap<String, Double> paymentData = new HashMap<>();
+            paymentData.put("appointmentCost", 0.00);
+            paymentData.put("medicineCost", 0.00);
+            paymentData.put("testCost", 0.00);
+            paymentData.put("otherCost", 0.00);
+            User.addBills(username, paymentData , true);
 
             for (JLabel label : labels) {
                 label.setAlignmentX(Component.CENTER_ALIGNMENT);

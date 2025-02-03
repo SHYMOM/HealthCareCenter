@@ -1,0 +1,21 @@
+<<<Doctor-Start>>>
+fullName=Doc
+username=Doctor2
+age=32
+email=Doctor2@gmail.com
+contactNumber=123456789
+address=Zoshor
+password=12345678
+gender= Female
+bloodGroup=  B+
+role=Doctor
+specialization=Neurology
+qualifications=MBBS
+medicalLicenseNumber=123456789
+consultationHours=10:00 AM - 02:00 PM
+daysAvailable=Monday, Friday
+consultationFee=699.0
+salary=0.0
+<<<Doctor-End>>>
+
+[Appointments]

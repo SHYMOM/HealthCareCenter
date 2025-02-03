@@ -100,31 +100,32 @@ public class User extends GetUserData {
     public static void addAppointment(String filePath, Map<String, String> appointmentDetails) throws IOException {
         File file = FileUtils.getFile(filePath);
         List<String> lines = new ArrayList<>();
-        boolean insideAppointmentsSection = false;
         boolean appointmentInserted = false;
-
+        
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
-
+                
+                // Insert appointment details right after the [Appointments] section
                 if (line.equals("[Appointments]")) {
-                    insideAppointmentsSection = true;
-                } else if (insideAppointmentsSection && line.startsWith("[")) {
-                    //! If another section starts, insert the appointment before it
-                    if (!appointmentInserted) {
-                        insertAppointmentData(lines, appointmentDetails);
-                        appointmentInserted = true;
+                    // Add a blank line after the section header if it's not already there
+                    if (lines.size() < lines.size() - 1 || !lines.get(lines.size() - 1).trim().isEmpty()) {
+                        lines.add("");
                     }
-                    insideAppointmentsSection = false;
+                    insertAppointmentData(lines, appointmentDetails);
+                    appointmentInserted = true;
                 }
             }
         }
-
-        if (insideAppointmentsSection && !appointmentInserted) {
+        
+        // If [Appointments] section wasn't found, append it at the end
+        if (!appointmentInserted) {
+            lines.add("[Appointments]");
+            lines.add("");
             insertAppointmentData(lines, appointmentDetails);
         }
-
+        
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (String l : lines) {
                 writer.write(l + "\n");
@@ -132,7 +133,7 @@ public class User extends GetUserData {
         }
     }
 
-    //! Helper method to insert appointment details
+    // Helper method remains the same
     private static void insertAppointmentData(List<String> lines, Map<String, String> appointmentDetails) {
         lines.add("<<<Appoint-Start>>>");
         for (Map.Entry<String, String> entry : appointmentDetails.entrySet()) {

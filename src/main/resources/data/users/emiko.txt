@@ -2,79 +2,26 @@
 [User]
 name=Emiko
 username=emiko
-age=17
+age=18
 email=emiko@gmail.com
 address=Tokyo, Japan
-contactNumber=1234567890
+contactNumber=123456765432
 password=12345678
-bloodGroup=B-
+bloodGroup=B+
 gender=Female
 role=User
 isDonor=false
 <<<User-End>>>
 
 [Bills]
-medicineCost=2411.00
+medicineCost=0.00
 otherCost=0.00
-testCost=199.00
+testCost=0.00
 appointmentCost=0.00
-
 
 [Appointments]
 
-<<<Appoint-Start>>>
-dateAndTime=February 10, 2025 11:12 AM
-consultationFee=549.0
-fullName=Alice
-specialization=2ewregfb,agfg,wrgf
-email=ergth@sfdg.sdfg
-<<<Appoint-End>>>
-
 [HealthRecords]
-<<<Appoint-Start>>>
-dateAndTime=February 10, 2025 11:00 AM
-fullName=Alice
-specialization=2ewregfb,agfg,wrgf
-email=ergth@sfdg.sdfg
-consultationFee=549.0
-<<<Appoint-End>>>
 
 
 
-
-
-
-
-<<<HealthRecord-Start>>>
-doctorName=Alice
-doctorNote=adsfadfgafg
-tests=asfsdfasd
-medicine=afasdf
-Date=03-02-2025
-<<<HealthRecord-End>>>
-
-<<<HealthRecord-Start>>>
-doctorName=Alice
-tests=asd
-doctorNote=asd
-diseases=
-medicine=asd
-Date=03-02-2025
-<<<HealthRecord-End>>>
-
-<<<HealthRecord-Start>>>
-doctorName=Alice
-tests=asdfasd
-doctorNote=3425sdfg
-diseases=Daefa
-medicine=asdfsdd
-Date=03-02-2025
-<<<HealthRecord-End>>>
-
-<<<HealthRecord-Start>>>
-doctorName=Alice
-doctorNote=adsfadfgafg
-tests=asfsdfasd
-medicine=afasdf
-Date=03-02-2025
-<<<HealthRecord-End>>>
