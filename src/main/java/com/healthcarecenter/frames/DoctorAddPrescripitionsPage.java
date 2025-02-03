@@ -1,4 +1,5 @@
 package com.healthcarecenter.frames;
+import com.healthcarecenter.models.User;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetDoctorData;
