@@ -79,7 +79,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -97,7 +97,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
+        JLabel userlabel = new JLabel("Emiko");
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setBounds(5,5,100,30);
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
@@ -130,7 +130,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
          appoinment.setText("View Appoinment");
          appoinment.setForeground(new Color(0, 0, 0));
          appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		 appoinment.setForeground(Color.RED);
+		 appoinment.setForeground(Color.white);
          appoinment.setBounds(110, 15, 120, 20);
 
         //level for records
@@ -179,16 +179,16 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
           
 
 
-            appoinment.addMouseListener(new MouseAdapter() {
+             /*  appoinment.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                appoinment.setForeground(Color.RED);
+                appoinment.setForeground(Color.white);
                 appoinment.setFont(new Font("SansSerif", Font.PLAIN, 17));
 				appoinment.setBounds(105, 10, 130, 30);
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                appoinment.setForeground(Color.RED);
+                appoinment.setForeground(Color.white);
                 appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
 				appoinment.setBounds(110, 15, 120, 20);
             }
@@ -197,7 +197,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
                // SwingUtilities.getWindowAncestor(appoinment).dispose();
                 
             }
-        });
+        });   */
 
         records.addMouseListener(new MouseAdapter() {
             @Override

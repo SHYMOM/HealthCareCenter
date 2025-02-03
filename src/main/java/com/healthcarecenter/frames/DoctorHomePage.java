@@ -2,6 +2,7 @@ package com.healthcarecenter.frames;
 
 import com.healthcarecenter.models.CurrentUser;
 import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetUserData;
 import com.healthcarecenter.utils.HealthTips;
 import java.awt.*;
@@ -100,7 +101,7 @@ public class DoctorHomePage extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -142,7 +143,7 @@ public class DoctorHomePage extends JFrame implements ActionListener
 		//level for home 
 		JLabel home= new JLabel();
          home.setText("Home");
-         home.setForeground(Color.red);
+         home.setForeground(Color.white);
          home.setFont(new Font("SansSerif", Font.PLAIN, 15));
          home.setBounds(25, 15, 42, 20);
 
@@ -167,34 +168,23 @@ public class DoctorHomePage extends JFrame implements ActionListener
          prescripitions.setForeground(new Color(000000));
          prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
          prescripitions.setBounds(500, 15, 125, 20);
+
+         //level for logout
+         JLabel log_out = new JLabel();
+         log_out.setText("Log out");
+         log_out.setForeground(new Color(000000));
+         log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         log_out.setBounds(650, 15, 60, 20);
+ 
  
           //add level in middle_panel
 		  middle_panel.add(home);
           middle_panel.add(appoinment);
           middle_panel.add(records);
           middle_panel.add(prescripitions);
-		  
-		  home.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                home.setForeground(Color.red);
-                home.setFont(new Font("SansSerif", Font.PLAIN, 17));
-				home.setBounds(23, 10, 48, 30);
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                home.setForeground(Color.red);
-                home.setFont(new Font("SansSerif", Font.PLAIN, 15));
-				home.setBounds(25, 15, 42, 20);
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                //SwingUtilities.getWindowAncestor(home).dispose();
-				//new home();
-				
-                
-            }
-        });
+		  middle_panel.add(log_out);
+        
+  
           
 
 
@@ -262,6 +252,35 @@ public class DoctorHomePage extends JFrame implements ActionListener
                 
             }
         });
+
+
+
+         log_out.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseEntered(MouseEvent e) {
+            log_out.setForeground(new Color(0x00FF00));
+            log_out.setFont(new Font("SansSerif", Font.PLAIN, 17));
+			log_out.setBounds(648, 12, 66, 25);
+			
+          }
+          @Override
+        public void mouseExited(MouseEvent e) {
+            log_out.setForeground(new Color(0, 0, 0));
+            log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+			log_out.setBounds(650, 15, 60, 20);
+			
+          }
+         @Override
+         public void mouseClicked(MouseEvent e)  
+         {
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+         FrameUtils.frameLogOut(frame);
+     }
+ });
+
+
+
+
 
 
         return middle_panel;
