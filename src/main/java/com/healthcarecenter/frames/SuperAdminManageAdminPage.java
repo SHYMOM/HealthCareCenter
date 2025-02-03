@@ -296,6 +296,18 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
         Modify_Admin.setFocusable(false);
         Modify_Admin.addActionListener(this);
 
+        Modify_Admin.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = ManageAdminTable.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Please select an admin to modify.");
+                }else {
+                    new Super_AdminAddNewAdmins("Edit", getSelectedAdminUsername());
+                }
+            }
+        });
+
         Add_Admin = new JButton("Add Admin");
         Add_Admin.setBounds(410, 380, 120, 30);
         Add_Admin.setFocusable(false);
@@ -314,6 +326,21 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
         Remove_Admin.setBounds(540, 380, 130,30);
         Remove_Admin.setFocusable(false);
         Remove_Admin.addActionListener(this);
+
+        Remove_Admin.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = ManageAdminTable.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Please select an admin to remove.");
+                }else {
+                    String selectedUsername = getSelectedAdminUsername();
+                    if (selectedUsername != null) {
+                        
+                    }
+                }
+            }
+        });
 
         getDetails = new JButton("Get Details");
         getDetails.setBounds(410, 340, 120, 30);
