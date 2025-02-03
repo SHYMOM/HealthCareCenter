@@ -4,6 +4,7 @@ import com.healthcarecenter.models.CurrentUser;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetUserData;
+import com.healthcarecenter.utils.GetDoctorData;
 import com.healthcarecenter.utils.HealthTips;
 import java.awt.*;
 import java.awt.event.*;
@@ -19,7 +20,11 @@ public class DoctorHomePage extends JFrame implements ActionListener
         if (!isUsername) {
             try {
                 username = FileUtils.getUsernameByEmail(value, "/data/doctors/");
-               
+                try {
+                    CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", value, "doctor");
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
+                }
                 if (username == null) {
                         JOptionPane.showMessageDialog(null, "No user found with the given email."+value);
                         new WelcomePage();
@@ -44,18 +49,12 @@ public class DoctorHomePage extends JFrame implements ActionListener
         }
 
         try {
-            this.name = GetUserData.getName(username);
+            this.name = GetDoctorData.getName(username);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
             new WelcomePage();
             this.dispose();
             return;
-        }
-
-        try {
-            CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", GetUserData.getEmail(username), "user");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
         }
 
         UserUI();
@@ -317,7 +316,7 @@ public class DoctorHomePage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new DoctorHomePage("emiko",true);
+        new DoctorHomePage("Doctor2",true);
     }
 
 }

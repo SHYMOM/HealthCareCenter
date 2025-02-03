@@ -15,6 +15,9 @@ public class GetDoctorData {
     public static String getName(String username) throws IOException {
         return getFieldValue(username, "fullName");
     }
+    public static String getEmail(String username) throws IOException {
+        return getFieldValue(username, "email");
+    }
 
     public static String getFieldValue(String username, String fieldName) {
         String filePath = "/data/doctors/" + username + ".txt";
