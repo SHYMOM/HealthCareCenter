@@ -20,3 +20,11 @@ salary=0.0
 <<<Doctor-End>>>
 
 [Appointments]
+
+<<<Appoint-Start>>>
+patientName=Emiko
+patientEmail=emiko@gmail.com
+patientUsername=emiko
+date=February 10, 2025 11:00 AM
+status=Confirmed
+<<<Appoint-End>>>

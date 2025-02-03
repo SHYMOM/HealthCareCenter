@@ -14,15 +14,35 @@ isDonor=false
 <<<User-End>>>
 
 [Bills]
-medicineCost=66.00
+medicineCost=2411.00
 otherCost=0.00
-testCost=147.00
+testCost=199.00
 appointmentCost=0.00
 
 
 [Appointments]
 
+<<<Appoint-Start>>>
+dateAndTime=February 10, 2025 11:12 AM
+consultationFee=549.0
+fullName=Alice
+specialization=2ewregfb,agfg,wrgf
+email=ergth@sfdg.sdfg
+<<<Appoint-End>>>
+
 [HealthRecords]
+<<<Appoint-Start>>>
+dateAndTime=February 10, 2025 11:00 AM
+fullName=Alice
+specialization=2ewregfb,agfg,wrgf
+email=ergth@sfdg.sdfg
+consultationFee=549.0
+<<<Appoint-End>>>
+
+
+
+
+
 
 
 <<<HealthRecord-Start>>>
@@ -42,3 +62,19 @@ medicine=asd
 Date=03-02-2025
 <<<HealthRecord-End>>>
 
+<<<HealthRecord-Start>>>
+doctorName=Alice
+tests=asdfasd
+doctorNote=3425sdfg
+diseases=Daefa
+medicine=asdfsdd
+Date=03-02-2025
+<<<HealthRecord-End>>>
+
+<<<HealthRecord-Start>>>
+doctorName=Alice
+doctorNote=adsfadfgafg
+tests=asfsdfasd
+medicine=afasdf
+Date=03-02-2025
+<<<HealthRecord-End>>>

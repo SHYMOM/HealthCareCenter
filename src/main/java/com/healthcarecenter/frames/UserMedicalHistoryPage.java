@@ -118,47 +118,57 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
 
 
 
-         //level for appoinment
-         JLabel appoinment= new JLabel();
-         appoinment.setText("Book Appoinment");
-         appoinment.setForeground(new Color(000000));
-         appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         appoinment.setBounds(90, 15, 120, 20);
+         //level for appointment
+         JLabel appointment= new JLabel();
+         appointment.setText("Book Appointment");
+         appointment.setForeground(new Color(000000));
+         appointment.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         appointment.setBounds(85, 15, 120, 20);
+
+         //level for Appointment History
+         JLabel appointmentHistory = new JLabel();
+         appointmentHistory.setText("View Appointment History");
+         appointmentHistory.setForeground(new Color(000000));
+         appointmentHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         appointmentHistory.setBounds(225, 15, 165, 20);
 
           //level for history
         JLabel History = new JLabel();
         History.setText("View Medicle History");
         History.setForeground(Color.red);
         History.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        History.setBounds(235, 15, 140, 20);
+        History.setBounds(410, 15, 140, 20);
+
+          //level for bill
+          JLabel bill = new JLabel();
+          bill.setText("Pay Bill");
+          bill.setForeground(new Color(000000));
+          bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
+          bill.setBounds(570, 15, 50, 20);
+
 
          //level for billingHistory
          JLabel billingHistory = new JLabel();
          billingHistory.setText("Billing History");
          billingHistory.setForeground(new Color(000000));
          billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         billingHistory.setBounds(400, 15, 80,  20);
+         billingHistory.setBounds(640, 15, 90, 20);
 
-          //level for bill
-        JLabel bill = new JLabel();
-        bill.setText("Pay Bill");
-        bill.setForeground(new Color(000000));
-        bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        bill.setBounds(505, 15, 50, 20);
 
          //level for log out
          JLabel log_out = new JLabel();
-         log_out.setText("log_out");
+         log_out.setText("LogOut");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(580, 15, 50, 20);
+         log_out.setBounds(750, 15, 50, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
-          middle_panel.add(appoinment);
+          middle_panel.add(appointment);
+          middle_panel.add(appointmentHistory);
           middle_panel.add(History);
-          middle_panel.add(billingHistory);
           middle_panel.add(bill);
+          middle_panel.add(billingHistory);
           middle_panel.add(log_out);
 
 
@@ -186,19 +196,18 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
 
 
 
-        appoinment.addMouseListener(new MouseAdapter() {
+        appointment.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                appoinment.setForeground(new Color(0x00FF00));
-                appoinment.setBounds(85, 10, 130, 30);
-                appoinment.setFont(new Font("SansSerif", Font.PLAIN, 17));
-
+                appointment.setForeground(new Color(0x00FF00));
+                appointment.setBounds(80, 10, 135, 30);
+                appointment.setFont(new Font("SansSerif", Font.PLAIN, 17));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                appoinment.setForeground(new Color(000000));
-                appoinment.setBounds(90, 15, 120, 20);
-                appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
+                appointment.setForeground(new Color(000000));
+                appointment.setBounds(85, 15, 120, 20);
+                appointment.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -207,62 +216,62 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
             }
         });
 
+
+        appointmentHistory.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                appointmentHistory.setForeground(new Color(0x00FF00));
+                appointmentHistory.setBounds(220, 10, 180, 30);
+                appointmentHistory.setFont(new Font("SansSerif", Font.PLAIN, 16));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                appointmentHistory.setForeground(new Color(000000));
+                appointmentHistory.setBounds(225, 15, 165, 20);
+                appointmentHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                SwingUtilities.getWindowAncestor(History).dispose();
+                new UserViewAppointmentHistoryPage(username);
+            }
+        });
+
+
         History.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 History.setForeground(Color.red);
-                History.setBounds(235, 15, 140, 20);
-                History.setFont(new Font("SansSerif", Font.PLAIN, 15));
+                History.setBounds(410, 15, 140, 20);
+                History.setFont(new Font("SansSerif", Font.PLAIN,15));
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 History.setForeground(Color.red);
-                History.setBounds(235, 15, 140, 20);
+                History.setBounds(410, 15, 140, 20);
                 History.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-               // SwingUtilities.getWindowAncestor(History).dispose();  
+              
             }
         });
         
 
 
-        billingHistory .addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                billingHistory .setForeground(new Color(0x00FF00));
-                billingHistory.setBounds(398, 10, 85, 30);
-                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 17));
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                billingHistory .setForeground(new Color(000000));
-                billingHistory.setBounds(400, 15, 80,  20);
-                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(History).dispose();
-                new UserBillingHistoryPage(username); 
-            }
-        });
-
-
-
-        bill.addMouseListener(new MouseAdapter() {
-          @Override
-          public void mouseEntered(MouseEvent e) {
+     bill.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseEntered(MouseEvent e) {
             bill.setForeground(new Color(0x00FF00));
-            bill.setBounds(503, 10, 55, 30);
+            bill.setBounds(565, 10, 55, 30);
             bill.setFont(new Font("SansSerif", Font.PLAIN, 17));
-          }
-          @Override
-          public void mouseExited(MouseEvent e) {
+        }
+        @Override
+        public void mouseExited(MouseEvent e) {
             bill.setForeground(new Color(000000));
-            bill.setBounds(505, 15, 50, 20);
+            bill.setBounds(570, 15, 50, 20);
             bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
-          }
+        }
           @Override
           public void mouseClicked(MouseEvent e) {
             SwingUtilities.getWindowAncestor(History).dispose();  
@@ -271,19 +280,43 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
       });
 
 
+
+      billingHistory .addMouseListener(new MouseAdapter() {
+        @Override
+            public void mouseEntered(MouseEvent e) {
+                billingHistory .setForeground(new Color(0x00FF00));
+                billingHistory.setBounds(638, 10, 100,  30);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 17));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                billingHistory .setForeground(new Color(000000));
+                billingHistory.setBounds(640, 15, 90, 20);
+                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            }
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            SwingUtilities.getWindowAncestor(History).dispose();
+            new UserBillingHistoryPage(username); 
+        }
+    });
+
+
+
+
       log_out.addMouseListener(new MouseAdapter() {
-          @Override
-          public void mouseEntered(MouseEvent e) {
+        @Override
+        public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
-            log_out.setBounds(578, 10, 60, 30);
+            log_out.setBounds(748, 10, 60, 30);
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 17));
-          }
-          @Override
+        }
+        @Override
         public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(000000));
-            log_out.setBounds(580, 15, 50, 20);
+            log_out.setBounds(750, 15, 50,20);
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-          }
+        }
           @Override
           public void mouseClicked(MouseEvent e) 
           {
@@ -318,7 +351,7 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
         
 
         tableModel = new DefaultTableModel(new String[]
-            { "Date", "Doctor Name","Medicle Test","Diagnosis","Prescription","Doctor Note"}, 0) 
+            { "Date", "Doctor Name","Medicle Test","Disease","Prescription","Doctor Note"}, 0) 
         {
             @Override
             public boolean isCellEditable(int row, int column)
@@ -329,7 +362,7 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
 
             ViewHistoryTable = new JTable(tableModel);
 
-            loadPatientHistory();
+            loadPatientMedicleHistory();
 
             ViewHistoryTable = new JTable(tableModel);
             ViewHistoryTable.getTableHeader().setReorderingAllowed(false);
@@ -376,7 +409,7 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
     }
 
 
-    private void loadPatientHistory()
+    private void loadPatientMedicleHistory()
         {
             try {
                 ArrayList<HashMap<String, String>> AllHistory = GetUserData.getHealthRecords(username);
@@ -384,11 +417,13 @@ public class UserMedicalHistoryPage extends JFrame implements ActionListener
         {
             tableModel.addRow(new Object[] 
             {
-                History.get("fullName"),
-                History.get("specialization"),
-                History.get("daysAvailable"),
-                History.get("consultationHours"),
-                History.get("consultationFee")
+                 History.get("Date"),
+                 History.get("doctorName"),
+                 History.get("tests"),
+                 History.get("disease"),
+                 History.get("medicine"),
+                 History.get("doctorNote")  
+              
             });
         }
             } catch (Exception e) {

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 
 public class GetDoctorData {
@@ -177,7 +176,7 @@ public class GetDoctorData {
         try {
             appointmentDateTime = LocalDateTime.parse(userInput, formatter);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Invalid date format!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid date format!"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
