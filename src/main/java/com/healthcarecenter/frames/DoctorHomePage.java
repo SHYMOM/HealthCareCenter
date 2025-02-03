@@ -22,7 +22,11 @@ public class DoctorHomePage extends JFrame implements ActionListener
         if (!isUsername) {
             try {
                 username = FileUtils.getUsernameByEmail(value, "/data/doctors/");
-               
+                try {
+                    CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", value, "doctor");
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
+                }
                 if (username == null) {
                         JOptionPane.showMessageDialog(null, "No user found with the given email."+value);
                         new WelcomePage();
