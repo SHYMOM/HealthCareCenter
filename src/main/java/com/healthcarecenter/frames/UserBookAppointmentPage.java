@@ -6,7 +6,6 @@ import com.healthcarecenter.models.User;
 import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -418,7 +417,7 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
                                     
                                     User.addAppointment("/data/users/" + username + ".txt", appointmentDetails);
 
-                                    Doctor.addAppoinment(FileUtils.getUsernameByEmail(appoinmentTable.getValueAt(selectedRow, 1).toString(), "/data/doctors/") , name , User.getEmail(username) , username , DateAndTime , "Confirmed");
+                                    Doctor.addAppointment(FileUtils.getUsernameByEmail(appoinmentTable.getValueAt(selectedRow, 1).toString(), "/data/doctors/") , name , User.getEmail(username) , username , DateAndTime , "Confirmed");
                                     
 
                                     JOptionPane.showMessageDialog(null, "Take Appoinment Successfully!");

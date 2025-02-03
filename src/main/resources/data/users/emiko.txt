@@ -31,6 +31,14 @@ email=ergth@sfdg.sdfg
 <<<Appoint-End>>>
 
 [HealthRecords]
+<<<Appoint-Start>>>
+dateAndTime=February 10, 2025 11:00 AM
+fullName=Alice
+specialization=2ewregfb,agfg,wrgf
+email=ergth@sfdg.sdfg
+consultationFee=549.0
+<<<Appoint-End>>>
+
 
 
 
