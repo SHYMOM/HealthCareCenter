@@ -214,7 +214,7 @@ public class AppointmentDateAndTimePicker {
 
     private static String formatSelectedDateTime() {
         if (selectedDateTime == null) return null;
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy HH:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy hh:mm a");
         return sdf.format(selectedDateTime);
     }
 

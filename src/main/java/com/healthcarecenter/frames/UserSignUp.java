@@ -4,6 +4,7 @@ import com.healthcarecenter.models.*;
 import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -24,12 +25,15 @@ public class UserSignUp extends JFrame implements ActionListener {
     private final JTextField email;
     private final JTextField contactNumber;
     private final JTextField address;
+
+    private String EditMode;
+
     private final JComboBox<String> genderComboBox;
     private final JComboBox<String> bloodGroupComboBox;
     private final JPasswordField password;
     private final JCheckBox termsAndConditionsCheckBox;
 
-    public UserSignUp() {
+    public UserSignUp(String EditMode, String username) {
         this.signUp = createStyledButton("Sign Up", ACCENT_COLOR);
         this.signIn = createStyledButton("Sign In", PRIMARY_COLOR);
         this.name = createStyledTextField();
@@ -42,8 +46,39 @@ public class UserSignUp extends JFrame implements ActionListener {
         this.bloodGroupComboBox = createStyledComboBox(new String[]{"A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"});
         this.password = createStyledPasswordField();
         this.termsAndConditionsCheckBox = createStyledCheckBox("I agree to the ");
+        
+
+        if (EditMode.equals("Edit")) {
+            this.EditMode = EditMode;
+            this.signUp.setText("Save Changes");
+            this.username.setEditable(false);
+            loadUserData(username);
+        }
+        else if (EditMode.equals("Add")) {
+            this.EditMode = EditMode;
+            this.signUp.setText("Register");
+        }
+        
 
         initializeUI();
+    }
+
+
+    private void loadUserData(String username) {
+        try {
+            HashMap<String, String> userData = GetUserData.getUserDetails(username);
+            this.name.setText(userData.get("name"));
+            this.age.setText(userData.get("age"));
+            this.username.setText(userData.get("username"));
+            this.email.setText(userData.get("email"));
+            this.contactNumber.setText(userData.get("contactNumber"));
+            this.address.setText(userData.get("address"));
+            this.password.setText(userData.get("password"));
+            this.genderComboBox.setSelectedItem(userData.get("gender"));
+            this.bloodGroupComboBox.setSelectedItem(userData.get("bloodGroup"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initializeUI() {
@@ -307,21 +342,43 @@ public class UserSignUp extends JFrame implements ActionListener {
             else if (!termsAndConditionsCheckBox.isSelected()) {
                 JOptionPane.showMessageDialog(null, "Please agree to the terms and conditions", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            else if (checkValidations.isEmailRegistered(email.getText(), "/data/users/")) {
-                JOptionPane.showMessageDialog(null, "Email Already Registered", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            else if (FileUtils.doesFileExist("/data/users/"+username.getText()+".txt")) {
-                JOptionPane.showMessageDialog(null, "Username Already Registered", "Error", JOptionPane.ERROR_MESSAGE);
-            }
             else {
-                User user = new User(name.getText(), username.getText(), Integer.parseInt(age.getText()), email.getText(), address.getText(), contactNumber.getText(), password.getText(), selectedBloodGroup, selectedGender);
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
-                user.saveToFile(frame);
+                if(EditMode.equals("Add")){
+                    if (checkValidations.isEmailRegistered(email.getText(), "/data/users/")) {
+                        JOptionPane.showMessageDialog(null, "Email Already Registered", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else if (FileUtils.doesFileExist("/data/users/"+username.getText()+".txt")) {
+                        JOptionPane.showMessageDialog(null, "Username Already Registered", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else{
+                        User user = new User(name.getText(), username.getText(), Integer.parseInt(age.getText()), email.getText(), address.getText(), contactNumber.getText(), password.getText(), selectedBloodGroup, selectedGender);
+                        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
+                        user.saveToFile(frame);
+                    }
+                }
+                else if(EditMode.equals("Edit")){
+                try{
+                  User.setName(username.getText(), name.getText());
+                  User.setAge(username.getText(),age.getText());
+                  User.setEmail(username.getText(), email.getText());
+                  User.setAddress(username.getText(), address.getText());
+                  User.setContactNumber(username.getText(), contactNumber.getText());
+                  User.setPassword(username.getText(), password.getText()); 
+                  User.setBloodGroup(username.getText(), selectedBloodGroup);
+                  User.setGender(username.getText(), selectedGender);
+                 
+                  new LoginPage("User");
+                  this.dispose();
+
+                }catch(Exception ex){
+                    
+                }   
+                }
             }
         }
     }
 
     public static void main(String[] args) {
-        new UserSignUp();
+        new UserSignUp("Edit","emiko");
     }
 }

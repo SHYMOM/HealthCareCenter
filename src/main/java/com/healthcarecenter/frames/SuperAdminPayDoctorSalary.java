@@ -9,8 +9,10 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
 {
     JButton pay_DoctorsSalary = new JButton("Pay Doctors Salary");
 
-    public SuperAdminPayDoctorSalary ()
-    {
+    private String email;
+    
+    public SuperAdminPayDoctorSalary(String email) {
+       this.email = email;
         UserUI();
     }
 
@@ -61,14 +63,14 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
        //create userpanel for upper_panel
         JPanel user_panel = new JPanel(); 
         user_panel.setLayout(null);
-        user_panel.setBounds(5,5,200,40);
+        user_panel.setBounds(5,5,250,40);
 		upper_panel.setBackground(new Color(0x3a8cdb));
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
-        userlabel.setHorizontalAlignment(JLabel.CENTER);
-        userlabel.setBounds(5,5,100,30);
+        JLabel userlabel = new JLabel(email);
+        userlabel.setHorizontalAlignment(JLabel.LEFT);
+        userlabel.setBounds(5,5,400,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
@@ -159,7 +161,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminHomePage();
+				new SuperAdminHomePage(email);
             }
         });
 
@@ -181,7 +183,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageDoctorPage();
+				new SuperAdminManageDoctorPage(email);
                 
             }
         });
@@ -204,7 +206,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminUpdateBloodStockPage();
+				new SuperAdminBillingHistory(email);
                 
             }
         });
@@ -227,7 +229,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageAdminPage();
+				new SuperAdminManageAdminPage(email);
                 
             }
         });
@@ -326,7 +328,7 @@ public class SuperAdminPayDoctorSalary extends JFrame implements ActionListener
 
    
     public static void main(String[] args) {
-        new SuperAdminPayDoctorSalary();
+        new SuperAdminPayDoctorSalary("shymom@helthcarecenter.com");
     }
 
 }

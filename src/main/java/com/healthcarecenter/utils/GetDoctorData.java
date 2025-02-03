@@ -8,10 +8,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 
 public class GetDoctorData {
+
+    public static String getName(String username) throws IOException {
+        return getFieldValue(username, "fullName");
+    }
 
     public static String getFieldValue(String username, String fieldName) {
         String filePath = "/data/doctors/" + username + ".txt";
@@ -27,38 +30,6 @@ public class GetDoctorData {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static void updateField(String username, String fieldName, String newValue) {
-        String filePath = "/data/doctors/" + username + ".txt";
-        filePath = FileUtils.getFile(filePath).getAbsolutePath();
-        StringBuilder fileContent = new StringBuilder();
-        boolean fieldFound = false;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith(fieldName + "=")) {
-                    fileContent.append(fieldName).append("=").append(newValue).append("\n");
-                    fieldFound = true;
-                } else {
-                    fileContent.append(line).append("\n");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        if (!fieldFound) {
-            fileContent.append(fieldName).append("=").append(newValue).append("\n");
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath()))) {
-            writer.write(fileContent.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public static HashMap<String, String> getDoctorDetails(String username) {
@@ -83,9 +54,7 @@ public class GetDoctorData {
                     if (parts.length == 2 && !parts[0].isEmpty() && !parts[1].isEmpty()) {
                         String key = parts[0].trim();
                         String value = parts[1].trim();
-                        if (!key.equalsIgnoreCase("password")) {
-                            doctorDetails.put(key, value);
-                        }
+                        doctorDetails.put(key, value);
                     }
                 }
             }
@@ -173,7 +142,7 @@ public class GetDoctorData {
         try {
             appointmentDateTime = LocalDateTime.parse(userInput, formatter);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Invalid date format!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Invalid date format!"+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 

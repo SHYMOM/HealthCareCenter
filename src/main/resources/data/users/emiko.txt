@@ -2,12 +2,12 @@
 [User]
 name=Emiko
 username=emiko
-age=17
+age=18
 email=emiko@gmail.com
 address=Tokyo, Japan
-contactNumber=1234567890
+contactNumber=123456765432
 password=12345678
-bloodGroup=B-
+bloodGroup=B+
 gender=Female
 role=User
 isDonor=false
@@ -21,5 +21,17 @@ appointmentCost=0.00
 
 [Appointments]
 
+<<<Appoint-Start>>>
+dateAndTime=February 10, 2025 11:30 AM
+fullName=Doc
+specialization=Neurology
+email=Doctor2@gmail.com
+consultationFee=699.0
+status=Waiting
+<<<Appoint-End>>>
+
+
 [HealthRecords]
+
+
 

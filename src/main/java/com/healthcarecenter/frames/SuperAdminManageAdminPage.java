@@ -19,10 +19,13 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
     private JTable ManageAdminTable;
     private DefaultTableModel tableModel;
 
-    public SuperAdminManageAdminPage()
-    {
+    private String email;
+    
+    public SuperAdminManageAdminPage(String email) {
+       this.email = email;
         UserUI();
     }
+    
 
     private void UserUI()
     {
@@ -73,14 +76,14 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
        //create userpanel for upper_panel
         JPanel user_panel = new JPanel(); 
         user_panel.setLayout(null);
-        user_panel.setBounds(5,5,200,40);
+        user_panel.setBounds(5,5,250,40);
 		upper_panel.setBackground(new Color(0x3a8cdb));
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
-        userlabel.setHorizontalAlignment(JLabel.CENTER);
-        userlabel.setBounds(5,5,100,30);
+        JLabel userlabel = new JLabel(email);
+        userlabel.setHorizontalAlignment(JLabel.LEFT);
+        userlabel.setBounds(5,5,400,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
@@ -170,7 +173,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminHomePage();
+				new SuperAdminHomePage(email);
 			}
 				
         });
@@ -191,7 +194,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageDoctorPage();
+				new SuperAdminManageDoctorPage(email);
                 
             }
         });
@@ -214,7 +217,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminUpdateBloodStockPage();
+				new SuperAdminBillingHistory(email);
                 
             }
         });
@@ -264,10 +267,10 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
                 Object[] options = {"Pay Admin Salary", "Pay Doctor Salary", "Cancel"};
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
-						new SuperAdminPayAdminSalaryPage();
+						new SuperAdminPayAdminSalaryPage(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else if (choice == 1) {
-						new SuperAdminPayDoctorSalary();
+						new SuperAdminPayDoctorSalary(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else {
 						
@@ -297,7 +300,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
          @Override
           public void mouseClicked(MouseEvent e)  
           {
-               JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
             FrameUtils.frameLogOut(frame);
         }
     });
@@ -320,10 +323,19 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
         Add_Admin = new JButton("Add Admin");
         Add_Admin.setBounds(410, 380, 120, 30);
         Add_Admin.setFocusable(false);
-        Add_Admin.addActionListener(this);
+        
+
+        Add_Admin.addMouseListener(new MouseAdapter() {
+            @Override
+        public void mouseClicked(MouseEvent e) {
+            SwingUtilities.getWindowAncestor(Add_Admin).dispose();
+            new Super_AdminAddNewAdmins("Add","");
+            
+        }
+    });
         
         Remove_Admin = new JButton("Remove Admin");
-        Remove_Admin.setBounds(540, 380, 120,30);
+        Remove_Admin.setBounds(540, 380, 130,30);
         Remove_Admin.setFocusable(false);
         Remove_Admin.addActionListener(this);
 
@@ -445,7 +457,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new SuperAdminManageAdminPage();
+        new SuperAdminManageAdminPage("shymom@healthcarecenter.com");
     }
 
 }

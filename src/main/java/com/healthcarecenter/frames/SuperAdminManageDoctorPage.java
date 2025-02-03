@@ -18,11 +18,12 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
     private JTable ManageDoctorsTable;
     private DefaultTableModel tableModel;
 
-    public SuperAdminManageDoctorPage()
-    {
+    private String email;
+    
+    public SuperAdminManageDoctorPage(String email) {
+       this.email = email;
         UserUI();
     }
-
     private void UserUI()
     {
         JPanel panel = new JPanel();                                  
@@ -72,14 +73,14 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
        //create userpanel for upper_panel
         JPanel user_panel = new JPanel(); 
         user_panel.setLayout(null);
-        user_panel.setBounds(5,5,200,40);
+        user_panel.setBounds(5,5,250,40);
 		upper_panel.setBackground(new Color(0x3a8cdb));
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
-        userlabel.setHorizontalAlignment(JLabel.CENTER);
-        userlabel.setBounds(5,5,100,30);
+        JLabel userlabel = new JLabel(email);
+        userlabel.setHorizontalAlignment(JLabel.LEFT);
+        userlabel.setBounds(5,5,400,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
@@ -169,7 +170,7 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminHomePage();
+				new SuperAdminHomePage(email);
             }
         });
 
@@ -215,7 +216,7 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminUpdateBloodStockPage();
+				new SuperAdminBillingHistory(email);
                 
             }
         });
@@ -238,7 +239,7 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
 				SwingUtilities.getWindowAncestor(home).dispose();
-				new SuperAdminManageAdminPage();
+				new SuperAdminManageAdminPage(email);
                 
             }
         });
@@ -265,10 +266,10 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
                 Object[] options = {"Pay Admin Salary", "Pay Doctor Salary", "Cancel"};
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
-						new SuperAdminPayAdminSalaryPage();
+						new SuperAdminPayAdminSalaryPage(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else if (choice == 1) {
-						new SuperAdminPayDoctorSalary();
+						new SuperAdminPayDoctorSalary(email);
                         SwingUtilities.getWindowAncestor(home).dispose();
 					} else {
 						
@@ -323,10 +324,19 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
         Add_Doctor= new JButton("Add Doctor");
         Add_Doctor.setBounds(410, 380, 120, 30);
         Add_Doctor.setFocusable(false);
-        Add_Doctor.addActionListener(this);
+        
+
+        Add_Doctor.addMouseListener(new MouseAdapter() {
+            @Override
+        public void mouseClicked(MouseEvent e) {
+            SwingUtilities.getWindowAncestor(Add_Doctor).dispose();
+            new Super_AdminAddNewDoctor("Add","");
+            
+        }
+    });
         
         Remove_Doctor = new JButton("Remove Doctor");
-        Remove_Doctor.setBounds(540, 380, 120,30);
+        Remove_Doctor.setBounds(540, 380, 130,30);
         Remove_Doctor.setFocusable(false);
         Remove_Doctor.addActionListener(this);
 
@@ -444,7 +454,7 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new SuperAdminManageDoctorPage();
+        new SuperAdminManageDoctorPage("shymom@healthcarecenter.com");
     }
 
 }

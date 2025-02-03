@@ -25,7 +25,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
         this.username = username;
 
         try {
-            this.name = GetUserData.getName(username);
+            this.name = GetDoctorData.getName(username);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
             new WelcomePage();
@@ -236,8 +236,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-				 SwingUtilities.getWindowAncestor(prescripitions).dispose();
-                new DoctorAddPrescripitionsPage(username);
+				JOptionPane.showMessageDialog(null, "Please select a patient and click the button below", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -278,16 +277,15 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
             }
         });
 
-       
 
         tableModel = new DefaultTableModel(new String[]
-             { "Full Name", "email" , "Specialization", "Days", "Time", "Fee"}, 0) 
+            { "Patient Name", "Patient Email" , "Appointment Date", "Status"}, 0) 
         {
             @Override
             public boolean isCellEditable(int row, int column)
-             {
+            {
                 return false;
-             }
+            }
         };
 
             viewappoinmentTable = new JTable(tableModel);
@@ -351,17 +349,15 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
     private void loadDoctorData()
     {
 
-        ArrayList<HashMap<String, String>> allDoctors = GetDoctorData.getAllDoctorsDetails();
+        ArrayList<HashMap<String, String>> appointments = GetDoctorData.getAppointments(username);
 
-        for (HashMap<String, String> doctor : allDoctors)
+        for (HashMap<String, String> appointment : appointments)
         {
             tableModel.addRow(new Object[] {
-                doctor.get("fullName"),
-                doctor.get("email"),
-                doctor.get("specialization"),
-                doctor.get("daysAvailable"),
-                doctor.get("consultationHours"),
-                doctor.get("consultationFee")
+                appointment.get("patientName"),
+                appointment.get("patientEmail"),
+                appointment.get("date"),
+                appointment.get("status")
             });
         }
 
@@ -378,29 +374,6 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
         return FileUtils.getUsernameByEmail(tableModel.getValueAt(selectedRow, 1).toString(),"/data/doctors/");
     }
 
-
-
-
-
-    /*private JPanel createLowerpanel()
-    {
-        JPanel lower_panel = new JPanel();                                  
-        lower_panel.setLayout(null);
-        lower_panel.setBounds(0,180,900,500);
-        lower_panel.setBackground(new Color(0xECF8FD));
-        
-
-
-
-
-        return lower_panel;
-    }*/
-
-
-
-
-
-
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -408,7 +381,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new DoctorViewAppoinmentsPage("emiko");
+        new DoctorViewAppoinmentsPage("Doctor2");
     }
 
 }

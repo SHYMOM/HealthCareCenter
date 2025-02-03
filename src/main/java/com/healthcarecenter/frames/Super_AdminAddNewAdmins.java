@@ -1,8 +1,10 @@
 package com.healthcarecenter.frames;
 
+import com.healthcarecenter.models.Admin;
 import com.healthcarecenter.utils.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.HashMap;
 import javax.swing.*;
 
@@ -20,6 +22,8 @@ public class Super_AdminAddNewAdmins extends JFrame implements ActionListener {
     private final JCheckBox termsAndConditionsCheckBox = new JCheckBox("I agree to the ");
     private final JButton registerButton = new JButton("Register Admin");
 
+    private String EditMode;
+
     private static final Color PRIMARY_COLOR = new Color(41, 128, 185);
     private static final Color SECONDARY_COLOR = new Color(52, 152, 219);
     private static final Color BACKGROUND_COLOR = new Color(236, 240, 241);
@@ -28,7 +32,9 @@ public class Super_AdminAddNewAdmins extends JFrame implements ActionListener {
 
     public Super_AdminAddNewAdmins(String EditMode, String username) {
         if (EditMode.equals("Edit")) {
+            this.EditMode = EditMode;
             registerButton.setText("Save Changes");
+            this.username.setEditable(false);
             loadAdminData(username);
         }
         else if (EditMode.equals("Add")) {
@@ -276,11 +282,81 @@ public class Super_AdminAddNewAdmins extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == registerButton) {
-            
+            All_Validations checkValidations = new All_Validations();
+            if (name.getText().isEmpty() || username.getText().isEmpty() || age.getText().isEmpty() || 
+                email.getText().isEmpty() || address.getText().isEmpty() || number.getText().isEmpty() || 
+                password.getText().isEmpty() || salary.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please Fill All The Credentials");
+            }
+            else if (!checkValidations.isValidName(name.getText())) {
+                JOptionPane.showMessageDialog(null, "Name should not contain numbers or special characters", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (!checkValidations.isValidAge(age.getText())) {
+                JOptionPane.showMessageDialog(null, "Age should be a positive number", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (!checkValidations.isValidContactNumber(number.getText())) {
+                JOptionPane.showMessageDialog(null, "Contact number should be a digit number", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (!checkValidations.isValidEmail(email.getText())) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid email address", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (!checkValidations.isValidPassword(password.getText())) {
+                JOptionPane.showMessageDialog(null, "Password must be at least 6 characters long", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (!checkValidations.isValidAmount(salary.getText())) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid salary amount", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (!termsAndConditionsCheckBox.isSelected()) {
+                JOptionPane.showMessageDialog(null, "Please agree to the terms and conditions", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (genderComboBox.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Please select a gender", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (bloodComboBox.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Please select a blood group", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                if(EditMode.equals("Add")){
+                    Admin admin = new Admin(
+                    name.getText(),
+                    username.getText(),
+                    age.getText(),
+                    address.getText(),
+                    bloodComboBox.getSelectedItem().toString(),
+                    email.getText(),
+                    number.getText(), 
+                    password.getText(),
+                    genderComboBox.getSelectedItem().toString(),  
+                    Double.parseDouble(salary.getText())
+                );
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
+                    admin.saveToFile(frame);
+                }
+                else if(EditMode.equals("Edit")){
+                    try {
+                        Admin.setName(username.getText(), name.getText());
+                        Admin.setAge(username.getText(), age.getText());
+                        Admin.setAddress(username.getText(), address.getText());
+                        Admin.setBloodGroup(username.getText(), bloodComboBox.getSelectedItem().toString());
+                        Admin.setEmail(username.getText(), email.getText());
+                        Admin.setContactNumber(username.getText(), number.getText());
+                        Admin.setPassword(username.getText(), password.getText());
+                        Admin.setGender(username.getText(), genderComboBox.getSelectedItem().toString());
+                        Admin.setSalary(username.getText(), salary.getText());
+                        
+                        new LoginPage("Admin");
+                        this.dispose();
+                    } catch (IOException ex) {
+                    }
+
+                }
+                }
+            }
         }
-    }
+    
 
     public static void main(String[] args) {
-        new Super_AdminAddNewAdmins("Add","alice_admin");
+        new Super_AdminAddNewAdmins("Edit","Admin_UserName");
     }
+
 }
