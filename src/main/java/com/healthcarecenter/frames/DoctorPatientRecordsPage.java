@@ -261,18 +261,7 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
     }
 
     private JPanel createLowerpanel()
-
-{       JButton Addprescripitions = new JButton("Add Prescripitions");
-        Addprescripitions.setBounds(445, 310, 120, 40);
-        Addprescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        Addprescripitions.setBorder(BorderFactory.createLineBorder(new Color(0x1A75FF), 2, true));
-        Addprescripitions.setFocusable(false);
-
-        JButton AccesspatientRecords = new JButton("Access patient Records");
-        AccesspatientRecords.setBounds(305, 310, 120, 40);
-        AccesspatientRecords.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        AccesspatientRecords.setBorder(BorderFactory.createLineBorder(new Color(0x1A75FF), 2, true));
-        AccesspatientRecords.setFocusable(false);
+    {
 
 
         tableModel = new DefaultTableModel(new String[]
@@ -322,7 +311,7 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
                 });
                 
                         JScrollPane scrollPane = new JScrollPane(PatientRecords);
-                        scrollPane.setBounds(0, 0, 900,300);
+                        scrollPane.setBounds(0, 0, 900,385);
                         scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
                         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
                 
@@ -330,8 +319,6 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
                         lower_panel.setLayout(null);
                         lower_panel.setBounds(0,180,900,385);
                         lower_panel.setBackground(Color.white);
-                        lower_panel.add(Addprescripitions);
-                        lower_panel.add(AccesspatientRecords);
                         lower_panel.add(scrollPane);
                         return lower_panel;
                     }
