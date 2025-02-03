@@ -109,14 +109,25 @@ public class UserHomePage extends JFrame implements ActionListener
         settings.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Object[] options = {"Edit Profile", "Cancel"};
+                Object[] options = {"Edit Profile", "Cancel","Delete Account"};
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
 						new UserSignUp("Edit", username);
 					} else if (choice == 1) {
 						
-					} else {
-						
+					} else if (choice == 2) {
+                        String confirmText = JOptionPane.showInputDialog(null, "Write 'Confirm' to delete account");
+                        if (confirmText != null && confirmText.equals("Confirm")) {
+                            try {
+                                FileUtils.deleteFile("/data/users/" + username + ".txt");
+                                new WelcomePage();
+                                dispose();
+                            } catch (IOException ex) {
+                                JOptionPane.showMessageDialog(null, "Error deleting account: " + ex.getMessage());
+                            }
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Confirmation text does not match.");
+                        }
 					}
             }
         });
