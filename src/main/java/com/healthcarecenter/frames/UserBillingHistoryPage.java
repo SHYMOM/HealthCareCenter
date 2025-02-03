@@ -335,7 +335,7 @@ public class UserBillingHistoryPage extends JFrame implements ActionListener
     {
     
         tableModel = new DefaultTableModel(new String[]
-             { "Date","Full Name", "Email" , "Amount", "Account Information", "Tranjection Id"}, 0) 
+             { "Date","Full Name", "Email" , "Amount", "Account Information", "Tranjection ID"}, 0) 
         {
             @Override
             public boolean isCellEditable(int row, int column)

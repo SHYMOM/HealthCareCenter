@@ -281,12 +281,14 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
         JLabel welcome= new JLabel(email);
         welcome.setHorizontalAlignment(JLabel.CENTER);
         welcome.setBounds(300,380,300,30);
+        welcome.setForeground(new Color(205,194,245));
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
 
         HealthTips healthTips = new HealthTips();
         JLabel health_tips = new JLabel(healthTips.getRandomHealthTip());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
         health_tips.setBounds(0,350,900,30);
+        health_tips.setForeground(new Color(229,222,207));
         health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
 
         lower_panel.add(welcome);

@@ -384,7 +384,7 @@ public class UserHomePage extends JFrame implements ActionListener
         lower_panel.setBackground(new Color(0xECF8FD));
        
 
-        JLabel welcome= new JLabel(name);
+        JLabel welcome= new JLabel("Welcome "+name);
         welcome.setHorizontalAlignment(JLabel.CENTER);
         welcome.setBounds(300,380,300,30);
         welcome.setForeground(new Color(205,194,245));

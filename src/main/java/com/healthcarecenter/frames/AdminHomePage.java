@@ -274,15 +274,17 @@ public class AdminHomePage extends JFrame implements ActionListener
         lower_panel.setBackground(new Color(0xECF8FD));
        
 
-        JLabel welcome= new JLabel(name);
+        JLabel welcome= new JLabel("Welcome "+name);
         welcome.setHorizontalAlignment(JLabel.CENTER);
         welcome.setBounds(300,380,300,30);
+        welcome.setForeground(new Color(205,194,245));
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
 
         HealthTips healthTips = new HealthTips();
         JLabel health_tips= new JLabel(healthTips.getRandomHealthTip());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
         health_tips.setBounds(0,350,900,30);
+        health_tips.setForeground(new Color(229,222,207));
         health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
 
 

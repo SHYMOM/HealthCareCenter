@@ -19,10 +19,6 @@ public class GetDoctorData {
         return getFieldValue(username, "email");
     }
 
-    public static String getEmail(String username) throws IOException {
-        return getFieldValue(username, "email");
-    }
-
     public static String getFieldValue(String username, String fieldName) {
         String filePath = "/data/doctors/" + username + ".txt";
         filePath = FileUtils.getFile(filePath).getAbsolutePath();
