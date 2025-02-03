@@ -1,5 +1,5 @@
 <<<Current User>>>
-username=emiko
-email=emiko@gmail.com
-role=user
+username=Admin_UserName
+email=adminemail@gmail.com
+role=admin
 <<<Current User - End>>>

@@ -72,7 +72,7 @@ public class AdminBillingHistoryPage extends JFrame implements ActionListener
 
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
-        label.setBounds(100,10,400,50);
+        label.setBounds(100,10,600,50);
         label.setForeground(new Color(0x00FF00));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
@@ -91,7 +91,7 @@ public class AdminBillingHistoryPage extends JFrame implements ActionListener
 
         JLabel userlabel = new JLabel(name);
         userlabel.setHorizontalAlignment(JLabel.LEFT);
-        userlabel.setBounds(5,5,100,30);
+        userlabel.setBounds(5,5,150,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
@@ -167,7 +167,7 @@ public class AdminBillingHistoryPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new AdminHomePage("alice.johnson@example.com", false);
+				new AdminHomePage(username, true);
             }
         });
 

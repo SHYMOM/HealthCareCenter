@@ -15,6 +15,11 @@ public class AdminHomePage extends JFrame implements ActionListener
         if (!isUsername) {
             try {
                 username = FileUtils.getUsernameByEmail(value, "/data/admins/");
+                try {
+                    CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", value, "admin");
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
+                }
                
                 if (username == null) {
                         JOptionPane.showMessageDialog(null, "No user found with the given email."+value);
@@ -46,12 +51,6 @@ public class AdminHomePage extends JFrame implements ActionListener
             new WelcomePage();
             this.dispose();
             return;
-        }
-
-        try {
-            CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", GetAdminData.getEmail(username), "admin");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
         }
 
         UserUI();
@@ -113,7 +112,7 @@ public class AdminHomePage extends JFrame implements ActionListener
 
         JLabel userlabel = new JLabel(name);
         userlabel.setHorizontalAlignment(JLabel.CENTER);
-        userlabel.setBounds(5,5,100,30);
+        userlabel.setBounds(5,5,150,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
@@ -268,9 +267,11 @@ public class AdminHomePage extends JFrame implements ActionListener
         return middle_panel;
     }
 
-    private JPanel createLowerpanel()
+    private ImagePanel createLowerpanel()
     {
-        JPanel lower_panel = new JPanel();                                  
+        ImagePanel lower_panel = new ImagePanel(GetRandomImage.getRandomImage());
+
+                                         
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,130,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));
@@ -301,7 +302,7 @@ public class AdminHomePage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new AdminHomePage("alice.johnson@example.com", false);
+        new AdminHomePage("adminemail@gmail.com", false);
     }
     
 

@@ -174,7 +174,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new AdminHomePage("alice.johnson@example.com", false);
+				new AdminHomePage(username, true);
             }
         });
 
