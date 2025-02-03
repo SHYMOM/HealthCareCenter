@@ -1,4 +1,10 @@
 <<<Super Admins>>>
 email=shymom@healthcarecenter.com
 password=@shymom
+email=shanto@healthcarecenter.com
+password=@shanto
+email=ishtiaque@healthcarecenter.com
+password=@ishtiaque
+email=arafat@healthcarecenter.com
+password=@arafat
 <<<Super Admins - End>>>
