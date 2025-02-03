@@ -101,7 +101,7 @@ public class LoginPage extends JFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new ForgetPasswordPage();
+                new ForgetPasswordPage(userRole);
             }
         });
         gbc.insets = new Insets(5, 0, 20, 0);
