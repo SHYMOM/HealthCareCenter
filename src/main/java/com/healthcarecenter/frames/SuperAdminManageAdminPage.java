@@ -336,7 +336,18 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
                 }else {
                     String selectedUsername = getSelectedAdminUsername();
                     if (selectedUsername != null) {
-                        
+                        String confirmText = JOptionPane.showInputDialog(null, "Write 'Confirm' to delete account");
+                        if (confirmText != null && confirmText.equals("Confirm")) {
+                            try {
+                                FileUtils.deleteFile("/data/admins/" + selectedUsername + ".txt");
+                                new WelcomePage();
+                                dispose();
+                            } catch (IOException ex) {
+                                JOptionPane.showMessageDialog(null, "Error deleting account: " + ex.getMessage());
+                            }
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Confirmation text does not match.");
+                        }
                     }
                 }
             }

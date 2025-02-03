@@ -5,6 +5,7 @@ import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetDoctorData;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
@@ -351,6 +352,32 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
         Remove_Doctor.setBounds(540, 380, 130,30);
         Remove_Doctor.setFocusable(false);
         Remove_Doctor.addActionListener(this);
+
+        Remove_Doctor.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = ManageDoctorsTable.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Please select an doctor to remove.");
+                }else {
+                    String selectedUsername = getSelectedDoctorUsername();
+                    if (selectedUsername != null) {
+                        String confirmText = JOptionPane.showInputDialog(null, "Write 'Confirm' to delete account");
+                        if (confirmText != null && confirmText.equals("Confirm")) {
+                            try {
+                                FileUtils.deleteFile("/data/doctors/" + selectedUsername + ".txt");
+                                new WelcomePage();
+                                dispose();
+                            } catch (IOException ex) {
+                                JOptionPane.showMessageDialog(null, "Error deleting account: " + ex.getMessage());
+                            }
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Confirmation text does not match.");
+                        }
+                    }
+                }
+            }
+        });
 
         getDetails = new JButton("Get Details");
         getDetails.setBounds(410, 340, 120, 30);
