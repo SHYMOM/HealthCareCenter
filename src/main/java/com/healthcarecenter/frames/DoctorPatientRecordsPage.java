@@ -228,8 +228,7 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-             SwingUtilities.getWindowAncestor(prescripitions).dispose(); 
-             new DoctorAddPrescripitionsPage(username);			 
+                JOptionPane.showMessageDialog(null, "Please select a patient from appoinment section first", "Error", JOptionPane.ERROR_MESSAGE);			 
             }
         });
 

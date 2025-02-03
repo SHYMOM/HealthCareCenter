@@ -472,23 +472,9 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
       @Override
         public void actionPerformed(ActionEvent e)
         {
+            
         }
 
-            /*if(e.getSource() ==pay_AdminSalary )
-            {
-                
-                try {
-                    String salaryInput = JOptionPane.showInputDialog("Enter salary for Admin " + GetAdminData.getName(getSelectedAdminUsername()) + ":");
-                   double salary = Double.parseDouble(salaryInput);
-                   JOptionPane.showMessageDialog(null, "Pay Salary: " + salary + " to Admin " + GetAdminData.getName(getSelectedAdminUsername()));
-               } catch (IOException ex) {
-                   JOptionPane.showMessageDialog(null, "Invalid salary entered. Please enter a valid number.");
-               }
-             }
-             else {
-               JOptionPane.showMessageDialog(null, "No admin name entered. Operation cancelled.");
-            }
-        }*/
     
         public static void main(String[] args) {
             new SuperAdminPayAdminSalaryPage("shymom@healthcarecenter.com");

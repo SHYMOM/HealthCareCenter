@@ -123,39 +123,6 @@ public class GetUserData {
         return null;
     }
 
-    private static void setField(String username, String fieldName, String newValue) throws IOException {
-        String filePath = "/data/users/" + username + ".txt";
-        filePath = FileUtils.getFile(filePath).getAbsolutePath();
-        File tempFile = new File(filePath + ".tmp");
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-
-            String line;
-            boolean userSection = false;
-
-            while ((line = reader.readLine()) != null) {
-                if (line.equals("<<<User-Start>>>")) {
-                    userSection = true;
-                    writer.write(line + "\n");
-                    continue;
-                }
-                if (line.equals("<<<User-End>>>")) {
-                    userSection = false;
-                    writer.write(line + "\n");
-                    continue;
-                }
-                if (userSection && line.startsWith(fieldName + "=")) {
-                    writer.write(fieldName + "=" + newValue + "\n");
-                } else {
-                    writer.write(line + "\n");
-                }
-            }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
-        }
-        tempFile.renameTo(new File(filePath));
-    }
-
     public static ArrayList<HashMap<String, String>> getAllUsersDetails() {
         ArrayList<HashMap<String, String>> allUsers = new ArrayList<>();
         String directoryPath = null;

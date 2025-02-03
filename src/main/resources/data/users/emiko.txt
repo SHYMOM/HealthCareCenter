@@ -17,9 +17,19 @@ isDonor=false
 medicineCost=0.00
 otherCost=0.00
 testCost=0.00
-appointmentCost=0.00
+appointmentCost=699.00
 
 [Appointments]
+
+<<<Appoint-Start>>>
+dateAndTime=February 10, 2025 11:30 AM
+fullName=Doc
+specialization=Neurology
+email=Doctor2@gmail.com
+consultationFee=699.0
+status=Waiting
+<<<Appoint-End>>>
+
 
 [HealthRecords]
 
