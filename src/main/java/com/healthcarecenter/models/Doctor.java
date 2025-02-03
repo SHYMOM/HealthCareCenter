@@ -176,7 +176,7 @@ public void saveToFile(JFrame frame){
             fileContent.append(fieldName).append("=").append(newValue).append("\n");
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FileUtils.getFile(filePath).getAbsolutePath()))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(fileContent.toString());
         } catch (IOException e) {
             e.printStackTrace();
