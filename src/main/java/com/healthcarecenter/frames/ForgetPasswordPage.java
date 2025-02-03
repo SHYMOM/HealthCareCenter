@@ -11,7 +11,10 @@ public class ForgetPasswordPage extends JFrame implements ActionListener {
     private final JTextField username = new JTextField();
     private final JPasswordField password = new JPasswordField();
 
-    public ForgetPasswordPage() {
+    private String userRole;
+
+    public ForgetPasswordPage(String userRole) {
+        this.userRole = userRole;
         initializeFrame();
     }
 
@@ -150,17 +153,39 @@ public class ForgetPasswordPage extends JFrame implements ActionListener {
             String usernameText = username.getText();
             if (usernameText.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter a username.", "Error", JOptionPane.ERROR_MESSAGE);
-            } else if (!FileUtils.doesFileExist("/data/users/"+usernameText+".txt")) {
-                JOptionPane.showMessageDialog(null, "Can,t Find Your Account", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            else {
-                this.dispose();
-                new UserSignUp("Edit",usernameText);
-            }    
+            else if (userRole.equals("User")) { 
+                if (!FileUtils.doesFileExist("/data/users/"+usernameText+".txt")) {
+                    JOptionPane.showMessageDialog(null, "Can,t Find Your Account", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    this.dispose();
+                    new UserSignUp("Edit",usernameText);
+                }    
+            }
+            else if (userRole.equals("Admin")) { 
+                if (!FileUtils.doesFileExist("/data/admins/"+usernameText+".txt")) {
+                    JOptionPane.showMessageDialog(null, "Can,t Find Your Account", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    this.dispose();
+                    new Super_AdminAddNewAdmins("Edit",usernameText);
+                }    
+            }
+            else if (userRole.equals("Doctor")) { 
+                if (!FileUtils.doesFileExist("/data/doctors/"+usernameText+".txt")) {
+                    JOptionPane.showMessageDialog(null, "Can,t Find Your Account", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    this.dispose();
+                    new Super_AdminAddNewDoctor("Edit",usernameText);
+                }    
+            }
         }
+
     }
 
     public static void main(String[] args) {
-        new ForgetPasswordPage();
+        new ForgetPasswordPage("User");
     }
 }
