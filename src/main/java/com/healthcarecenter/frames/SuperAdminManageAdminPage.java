@@ -327,6 +327,21 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
         Remove_Admin.setFocusable(false);
         Remove_Admin.addActionListener(this);
 
+        Remove_Admin.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = ManageAdminTable.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Please select an admin to remove.");
+                }else {
+                    String selectedUsername = getSelectedAdminUsername();
+                    if (selectedUsername != null) {
+                        
+                    }
+                }
+            }
+        });
+
         getDetails = new JButton("Get Details");
         getDetails.setBounds(410, 340, 120, 30);
         getDetails.setFocusable(false);
