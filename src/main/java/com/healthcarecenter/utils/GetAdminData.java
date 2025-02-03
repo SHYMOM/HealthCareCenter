@@ -11,6 +11,9 @@ public class GetAdminData {
     public static String getName(String username) throws IOException {
         return getFieldValue(username, "fullName");
     }
+    public static String getEmail(String username) throws IOException {
+        return getFieldValue(username, "email");
+    }
 
     public static String getDetail(String username, String key) throws IOException {
         String filePath = "/data/admins/"+username+".txt";
@@ -118,7 +121,7 @@ public class GetAdminData {
     }
 
     public static String getFieldValue(String username, String fieldName) {
-        String filePath = "/data/doctors/" + username + ".txt";
+        String filePath = "/data/admins/" + username + ".txt";
         filePath = FileUtils.getFile(filePath).getAbsolutePath();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;

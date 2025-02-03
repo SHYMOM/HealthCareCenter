@@ -4,6 +4,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
+import com.healthcarecenter.utils.GetAdminData;
 import com.healthcarecenter.utils.GetUserData;
 
 import java.awt.event.*;
@@ -18,7 +19,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
     {
         this.username = username;
         try {
-            this.name = GetUserData.getName(username);
+            this.name = GetAdminData.getName(username);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
             new WelcomePage();
@@ -85,8 +86,8 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
 
 
         JLabel userlabel = new JLabel(name);
-        userlabel.setHorizontalAlignment(JLabel.CENTER);
-        userlabel.setBounds(5,5,100,30);
+        userlabel.setHorizontalAlignment(JLabel.LEFT);
+        userlabel.setBounds(5,5,250,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
@@ -163,7 +164,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
             @Override
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.getWindowAncestor(home).dispose();
-				new AdminHomePage("emiko", true);
+				new AdminHomePage("alice.johnson@example.com", false);
             }
         });
 
@@ -260,7 +261,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new AdminManageDoctorPage("username");
+        new AdminManageDoctorPage("alice_admin");
     }
 
 }
