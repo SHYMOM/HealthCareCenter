@@ -45,11 +45,13 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
             this.EditMode = EditMode;
             registerButton.setText("Save Changes");
             this.username.setEditable(false);
+            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             loadDoctorData(username);
         }
         else if (EditMode.equals("Add")) {
             this.EditMode = EditMode;
             registerButton.setText("Register Doctor");
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
         setupUI();
     }
@@ -77,7 +79,6 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
     private void setupUI() {
         setTitle("Doctor Registration - Health Care Center");
         setSize(900, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
 

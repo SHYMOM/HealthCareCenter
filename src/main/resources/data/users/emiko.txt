@@ -14,9 +14,9 @@ isDonor=false
 <<<User-End>>>
 
 [Bills]
-medicineCost=0.00
+medicineCost=34.00
 otherCost=0.00
-testCost=0.00
+testCost=23.00
 appointmentCost=0.00
 
 [Appointments]
@@ -34,4 +34,13 @@ status=Waiting
 [HealthRecords]
 
 
+
+<<<HealthRecord-Start>>>
+doctorName=Alice
+tests=Test Name
+doctorNote=sdfgshsyjdh
+diseases=Disease Name
+medicine=sdfg
+Date=04-02-2025
+<<<HealthRecord-End>>>
 

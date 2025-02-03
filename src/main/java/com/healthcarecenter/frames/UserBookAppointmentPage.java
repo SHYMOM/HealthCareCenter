@@ -398,13 +398,13 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
                                     appointmentDetails.put("specialization", appoinmentTable.getValueAt(selectedRow, 2).toString());
                                     appointmentDetails.put("dateAndTime", DateAndTime);
                                     appointmentDetails.put("consultationFee", appoinmentTable.getValueAt(selectedRow, 5).toString());
-                                    appointmentDetails.put("status", "Waiting");
+                                    appointmentDetails.put("status", "Confirmed");
                                     
                                     User.addAppointment("/data/users/" + username + ".txt", appointmentDetails);
                                     HashMap<String, Double> paymentData = new HashMap<String, Double> ();
                                     paymentData.put("appointmentCost", Double.parseDouble(appoinmentTable.getValueAt(selectedRow, 5).toString()));
                                     User.addBills(username, paymentData, false);
-                                    Doctor.addAppointment(FileUtils.getUsernameByEmail(appoinmentTable.getValueAt(selectedRow, 1).toString(), "/data/doctors/") , name , User.getEmail(username) , username , DateAndTime , "Waiting");
+                                    Doctor.addAppointment(FileUtils.getUsernameByEmail(appoinmentTable.getValueAt(selectedRow, 1).toString(), "/data/doctors/") , name , User.getEmail(username) , username , DateAndTime , "Confirmed");
                                     
 
                                     JOptionPane.showMessageDialog(null, "Take Appoinment Successfully!");

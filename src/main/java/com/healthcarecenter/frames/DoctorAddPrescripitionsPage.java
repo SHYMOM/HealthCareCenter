@@ -188,8 +188,6 @@ public class DoctorAddPrescripitionsPage extends JFrame implements ActionListene
                 
             }
         });
-          
-          
 
 
             appoinment.addMouseListener(new MouseAdapter() {
@@ -227,8 +225,8 @@ public class DoctorAddPrescripitionsPage extends JFrame implements ActionListene
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-             SwingUtilities.getWindowAncestor(records).dispose();
-             new DoctorPatientRecordsPage(username);			 
+                SwingUtilities.getWindowAncestor(records).dispose();
+                new DoctorPatientRecordsPage(username , patientUsername);			 
             }
         });
         

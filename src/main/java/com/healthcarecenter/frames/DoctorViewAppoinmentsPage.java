@@ -97,7 +97,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("Emiko");
+        JLabel userlabel = new JLabel(name);
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setBounds(5,5,100,30);
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
@@ -114,7 +114,6 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
         JPanel middle_panel = new JPanel();                                  
         middle_panel.setLayout(null);
         middle_panel.setBounds(0,130,900,50);
-        //middle_panel.setBackground(new Color(10, 10, 10));
 		middle_panel.setBackground(new Color(0x3a8cdb));
 		
 		//level for home 
@@ -140,12 +139,12 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
         records.setFont(new Font("SansSerif", Font.PLAIN, 15));
         records.setBounds(275, 15, 165, 20);
 
-         //level for prescripitions
-         JLabel prescripitions = new JLabel();
-         prescripitions.setText("Add prescripitions");
-         prescripitions.setForeground(new Color(000000));
-         prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         prescripitions.setBounds(500, 15, 125, 20);
+         //level for prescription
+         JLabel prescription = new JLabel();
+         prescription.setText("Add Prescription");
+         prescription.setForeground(new Color(000000));
+         prescription.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         prescription.setBounds(500, 15, 125, 20);
 
          //level for log out
          JLabel log_out = new JLabel();
@@ -159,7 +158,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
 		  middle_panel.add(home);
           middle_panel.add(appoinment);
           middle_panel.add(records);
-          middle_panel.add(prescripitions);
+          middle_panel.add(prescription);
 		  middle_panel.add(log_out);
 
 
@@ -186,28 +185,6 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
         });
 		  
 		  
-          
-
-
-             /*  appoinment.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                appoinment.setForeground(Color.white);
-                appoinment.setFont(new Font("SansSerif", Font.PLAIN, 17));
-				appoinment.setBounds(105, 10, 130, 30);
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                appoinment.setForeground(Color.white);
-                appoinment.setFont(new Font("SansSerif", Font.PLAIN, 15));
-				appoinment.setBounds(110, 15, 120, 20);
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-               // SwingUtilities.getWindowAncestor(appoinment).dispose();
-                
-            }
-        });   */
 
         records.addMouseListener(new MouseAdapter() {
             @Override
@@ -224,29 +201,42 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-				 SwingUtilities.getWindowAncestor(records).dispose();
-                new DoctorPatientRecordsPage(username);
+                String selectedUsername = getSelectedPatientUsername();
+				if (selectedUsername != null) {
+                    new DoctorPatientRecordsPage(username , selectedUsername);
+                    SwingUtilities.getWindowAncestor(records).dispose();
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "No patient selected.");
+                }
             }
         });
         
 
 
-        prescripitions.addMouseListener(new MouseAdapter() {
+        prescription.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                prescripitions .setForeground(new Color(0x00FF00));
-                prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 17));
-				prescripitions.setBounds(495, 10, 170, 30);
+                prescription .setForeground(new Color(0x00FF00));
+                prescription.setFont(new Font("SansSerif", Font.PLAIN, 17));
+				prescription.setBounds(495, 10, 170, 30);
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                prescripitions.setForeground(new Color(0, 0, 0));
-                prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		        prescripitions.setBounds(500, 15, 125, 20);
+                prescription.setForeground(new Color(0, 0, 0));
+                prescription.setFont(new Font("SansSerif", Font.PLAIN, 15));
+		        prescription.setBounds(500, 15, 125, 20);
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "Please select a patient and click the button below", "Error", JOptionPane.ERROR_MESSAGE);
+                String selectedUsername = getSelectedPatientUsername();
+				if (selectedUsername != null) {
+                    new DoctorAddPrescripitionsPage(username, selectedUsername);
+                    SwingUtilities.getWindowAncestor(prescription).dispose();
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "No patient selected.");
+                }
             }
         });
 
@@ -287,12 +277,25 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
     private JPanel createLowerpanel()
     {
 
-        JButton Addprescripitions = new JButton("Add Prescripitions");
-        Addprescripitions.setBounds(455, 320, 135, 30);
-        Addprescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        Addprescripitions.setBorder(BorderFactory.createLineBorder(new Color(0x1A75FF), 2, true));
-        Addprescripitions.setFocusable(false);
+        JButton Addprescription = new JButton("Add prescription");
+        Addprescription.setBounds(455, 320, 135, 30);
+        Addprescription.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        Addprescription.setBorder(BorderFactory.createLineBorder(new Color(0x1A75FF), 2, true));
+        Addprescription.setFocusable(false);
 
+        Addprescription.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedUsername = getSelectedPatientUsername();
+                if (selectedUsername != null) {
+                    new DoctorAddPrescripitionsPage(username, selectedUsername);
+                    SwingUtilities.getWindowAncestor(Addprescription).dispose();
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "No patient selected.");
+                }
+            }
+        });
         JButton AccesspatientRecords = new JButton("Access patient");
         AccesspatientRecords.setBounds(305, 320, 135, 30);
         AccesspatientRecords.setFont(new Font("SansSerif", Font.PLAIN, 15));
@@ -304,10 +307,11 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
             public void actionPerformed(ActionEvent e) {
                 String selectedUsername = getSelectedPatientUsername();
                 if (selectedUsername != null) {
-                    new DoctorPatientRecordsPage(selectedUsername);
+                    new DoctorPatientRecordsPage(username , selectedUsername);
+                    SwingUtilities.getWindowAncestor(AccesspatientRecords).dispose();
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "No doctor selected.");
+                    JOptionPane.showMessageDialog(null, "No patient selected.");
                 }
             }
         });
@@ -346,11 +350,8 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
 
          viewappoinmentTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                    boolean isSelected, boolean hasFocus, int row, int column) {
-                Component comp = super.getTableCellRendererComponent(table, value, isSelected, 
-                        hasFocus, row, column);
-
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (isSelected) {
                     comp.setBackground(new Color(70, 130, 230));
                     comp.setForeground(Color.WHITE);
@@ -373,7 +374,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,180,900,385);
         lower_panel.setBackground(Color.white);
-        lower_panel.add(Addprescripitions);
+        lower_panel.add(Addprescription);
         lower_panel.add(AccesspatientRecords);
         lower_panel.add(scrollPane);
         return lower_panel;
@@ -406,7 +407,7 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
         if (selectedRow == -1) {
             return null;
         }
-        return FileUtils.getUsernameByEmail(tableModel.getValueAt(selectedRow, 1).toString(),"/data/doctors/");
+        return FileUtils.getUsernameByEmail(tableModel.getValueAt(selectedRow, 1).toString(),"/data/users/");
     }
 
     @Override

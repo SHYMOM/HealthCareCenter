@@ -33,7 +33,7 @@ public class BillPaymentDialog extends JFrame {
         }
         this.setTitle("Bill Payment Portal");
         this.setSize(500, 400);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel();

@@ -176,10 +176,7 @@ public class User extends GetUserData {
             String line;
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
-                
-                // Insert appointment details right after the [Appointments] section
                 if (line.equals("[Appointments]")) {
-                    // Add a blank line after the section header if it's not already there
                     if (lines.size() < lines.size() - 1 || !lines.get(lines.size() - 1).trim().isEmpty()) {
                         lines.add("");
                     }
@@ -188,8 +185,6 @@ public class User extends GetUserData {
                 }
             }
         }
-        
-        // If [Appointments] section wasn't found, append it at the end
         if (!appointmentInserted) {
             lines.add("[Appointments]");
             lines.add("");
@@ -202,8 +197,6 @@ public class User extends GetUserData {
             }
         }
     }
-
-    // Helper method remains the same
     private static void insertAppointmentData(List<String> lines, Map<String, String> appointmentDetails) {
         lines.add("<<<Appoint-Start>>>");
         for (Map.Entry<String, String> entry : appointmentDetails.entrySet()) {
@@ -212,14 +205,10 @@ public class User extends GetUserData {
         lines.add("<<<Appoint-End>>>");
         lines.add("");
     }
-
-
     public static void addBills(String username, HashMap<String, Double> newBills, boolean reset) throws IOException {
         String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
         File originalFile = new File(filePath);
         File tempFile = new File(filePath + ".tmp");
-        
-        // Get and update existing bills
         HashMap<String, Double> existingBills = GetUserData.getBills(username);
         for (String key : existingBills.keySet()) {
             double newValue = reset ? 0.00 : existingBills.get(key) + newBills.getOrDefault(key, 0.00);
@@ -235,7 +224,6 @@ public class User extends GetUserData {
             while ((line = reader.readLine()) != null) {
                 if (line.equals("[Bills]")) {
                     writer.write(line + "\n");
-                    // Write all bills immediately after the [Bills] section
                     for (Map.Entry<String, Double> entry : existingBills.entrySet()) {
                         writer.write(entry.getKey() + "=" + String.format("%.2f", entry.getValue()) + "\n");
                     }
@@ -243,7 +231,6 @@ public class User extends GetUserData {
                     continue;
                 }
                 
-                // Skip existing bill lines but keep writing once we hit a new section
                 if (inBillsSection && (line.trim().isEmpty() || line.startsWith("["))) {
                     inBillsSection = false;
                 }
@@ -255,8 +242,6 @@ public class User extends GetUserData {
         } catch (IOException e) {
             throw new IOException("Error updating bills: " + e.getMessage());
         }
-        
-        // Replace original file with temp file
         if (!tempFile.renameTo(originalFile)) {
             Files.copy(tempFile.toPath(), originalFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             tempFile.delete();

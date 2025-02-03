@@ -35,10 +35,12 @@ public class Super_AdminAddNewAdmins extends JFrame implements ActionListener {
             this.EditMode = EditMode;
             registerButton.setText("Save Changes");
             this.username.setEditable(false);
+            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             loadAdminData(username);
         }
         else if (EditMode.equals("Add")) {
             registerButton.setText("Register Admin");
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
         setupUI();
     }
@@ -65,7 +67,6 @@ public class Super_AdminAddNewAdmins extends JFrame implements ActionListener {
     private void setupUI() {
         setTitle("Admin Registration - Health Care Center");
         setSize(900, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
 
