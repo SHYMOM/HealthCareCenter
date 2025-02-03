@@ -46,6 +46,86 @@ public class User extends GetUserData {
         bills.put("otherCost", 0.0);
     }
 
+    public static void setName(String username, String name) {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        try {
+            setField(filePath, "name", name);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }
+    }
+    public static void setUserName(String username, String newUsername) {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        try {
+            setField(filePath, "username", newUsername);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }
+    }
+    public static void setAge(String username, String age) {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        try {
+            setField(filePath, "age", age);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }
+    }
+    public static void setEmail(String username, String email) {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        try {
+            setField(filePath, "email", email);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }
+    }
+    public static void setAddress(String username, String address) {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        try {
+            setField(filePath, "address", address);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }
+    }
+    public static void setContactNumber(String username, String contactNumber) {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        try {
+            setField(filePath, "contactNumber", contactNumber);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }
+    }
+    public static void setPassword(String username, String password) {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        try {
+            setField(filePath, "password", password);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }
+    }
+    public static void setBloodGroup(String username, String bloodGroup) {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        try {
+            setField(filePath, "bloodGroup", bloodGroup);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }
+    }
+    public static void setGender(String username, String gender) {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        try {
+            setField(filePath, "gender", gender);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }
+    }
+    public static void setIsDonor(String username, String isDonor) {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        try {
+            setField(filePath, "isDonor", isDonor);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }
+    }
     public void saveToFile(JFrame frame) {
     
     String filePath = "/data/users/"+username+".txt";
@@ -145,51 +225,84 @@ public class User extends GetUserData {
 
 
     public static void addBills(String username, HashMap<String, Double> newBills, boolean reset) throws IOException {
-    String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
-    File originalFile = new File(filePath);
-    File tempFile = new File(filePath + ".tmp");
-    
-    // Get and update existing bills
-    HashMap<String, Double> existingBills = GetUserData.getBills(username);
-    for (String key : existingBills.keySet()) {
-        double newValue = reset ? 0.00 : existingBills.get(key) + newBills.getOrDefault(key, 0.00);
-        existingBills.put(key, newValue);
-    }
-    
-    try (BufferedReader reader = new BufferedReader(new FileReader(originalFile));
-         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+        String filePath = FileUtils.getFile("/data/users/" + username + ".txt").getAbsolutePath();
+        File originalFile = new File(filePath);
+        File tempFile = new File(filePath + ".tmp");
         
-        String line;
-        boolean inBillsSection = false;
-        
-        while ((line = reader.readLine()) != null) {
-            if (line.equals("[Bills]")) {
-                writer.write(line + "\n");
-                // Write all bills immediately after the [Bills] section
-                for (Map.Entry<String, Double> entry : existingBills.entrySet()) {
-                    writer.write(entry.getKey() + "=" + String.format("%.2f", entry.getValue()) + "\n");
-                }
-                inBillsSection = true;
-                continue;
-            }
-            
-            // Skip existing bill lines but keep writing once we hit a new section
-            if (inBillsSection && (line.trim().isEmpty() || line.startsWith("["))) {
-                inBillsSection = false;
-            }
-            
-            if (!inBillsSection) {
-                writer.write(line + "\n");
-            }
+        // Get and update existing bills
+        HashMap<String, Double> existingBills = GetUserData.getBills(username);
+        for (String key : existingBills.keySet()) {
+            double newValue = reset ? 0.00 : existingBills.get(key) + newBills.getOrDefault(key, 0.00);
+            existingBills.put(key, newValue);
         }
-    } catch (IOException e) {
-        throw new IOException("Error updating bills: " + e.getMessage());
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(originalFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+            
+            String line;
+            boolean inBillsSection = false;
+            
+            while ((line = reader.readLine()) != null) {
+                if (line.equals("[Bills]")) {
+                    writer.write(line + "\n");
+                    // Write all bills immediately after the [Bills] section
+                    for (Map.Entry<String, Double> entry : existingBills.entrySet()) {
+                        writer.write(entry.getKey() + "=" + String.format("%.2f", entry.getValue()) + "\n");
+                    }
+                    inBillsSection = true;
+                    continue;
+                }
+                
+                // Skip existing bill lines but keep writing once we hit a new section
+                if (inBillsSection && (line.trim().isEmpty() || line.startsWith("["))) {
+                    inBillsSection = false;
+                }
+                
+                if (!inBillsSection) {
+                    writer.write(line + "\n");
+                }
+            }
+        } catch (IOException e) {
+            throw new IOException("Error updating bills: " + e.getMessage());
+        }
+        
+        // Replace original file with temp file
+        if (!tempFile.renameTo(originalFile)) {
+            Files.copy(tempFile.toPath(), originalFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            tempFile.delete();
+        }
     }
-    
-    // Replace original file with temp file
-    if (!tempFile.renameTo(originalFile)) {
-        Files.copy(tempFile.toPath(), originalFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        tempFile.delete();
+
+    private static void setField(String username, String fieldName, String newValue) throws IOException {
+        String filePath = "/data/users/" + username + ".txt";
+        filePath = FileUtils.getFile(filePath).getAbsolutePath();
+        File tempFile = new File(filePath + ".tmp");
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String line;
+            boolean userSection = false;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.equals("<<<User-Start>>>")) {
+                    userSection = true;
+                    writer.write(line + "\n");
+                    continue;
+                }
+                if (line.equals("<<<User-End>>>")) {
+                    userSection = false;
+                    writer.write(line + "\n");
+                    continue;
+                }
+                if (userSection && line.startsWith(fieldName + "=")) {
+                    writer.write(fieldName + "=" + newValue + "\n");
+                } else {
+                    writer.write(line + "\n");
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading file: " + e.getMessage());
+        }
+        tempFile.renameTo(new File(filePath));
     }
-}
 }
