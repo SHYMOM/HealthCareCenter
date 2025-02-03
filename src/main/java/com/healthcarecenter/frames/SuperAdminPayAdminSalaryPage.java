@@ -64,7 +64,7 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -253,7 +253,7 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
             public void mouseEntered(MouseEvent e) {
                 paySalary .setForeground(new Color(0x00FF00));
                 paySalary .setFont(new Font("SansSerif", Font.PLAIN, 18));
-				paySalary .setBounds(530, 10, 170, 30);
+				paySalary .setBounds(530, 10, 135, 30);
 				paySalary .setForeground(new Color(255,255,255));
 				
             }
@@ -261,7 +261,7 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
             public void mouseExited(MouseEvent e) {
                 paySalary .setForeground(new Color(0, 0, 0));
                 paySalary .setFont(new Font("SansSerif", Font.PLAIN, 15));
-				paySalary .setBounds(540, 15, 160, 20);
+				paySalary .setBounds(560, 15, 110, 20);
 				paySalary .setForeground(new Color(255,255,255));
 				
             }
@@ -278,14 +278,14 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(740, 10, 200, 30);
+			log_out.setBounds(693, 10, 80, 30);
 			
           }
           @Override
         public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(750, 15, 250, 20);
+			log_out.setBounds(700, 15, 70, 20);
 			
           }
          @Override
@@ -344,10 +344,6 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
              else {
                JOptionPane.showMessageDialog(null, "No admin name entered. Operation cancelled.");
             }
-
-                    
-
-                    
                     
                     
                 }
