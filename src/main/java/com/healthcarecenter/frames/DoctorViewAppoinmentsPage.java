@@ -1,7 +1,7 @@
 package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetDoctorData;
-import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -146,13 +146,23 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
          prescripitions.setForeground(new Color(000000));
          prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
          prescripitions.setBounds(500, 15, 125, 20);
+
+         //level for log out
+         JLabel log_out = new JLabel();
+         log_out.setText("Log out");
+         log_out.setForeground(new Color(000000));
+         log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         log_out.setBounds(650, 15, 60, 20);
+ 
  
           //add level in middle_panel
 		  middle_panel.add(home);
           middle_panel.add(appoinment);
           middle_panel.add(records);
           middle_panel.add(prescripitions);
-		  
+		  middle_panel.add(log_out);
+
+
 		  home.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -240,6 +250,31 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
             }
         });
 
+         log_out.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseEntered(MouseEvent e) {
+            log_out.setForeground(new Color(0x00FF00));
+            log_out.setFont(new Font("SansSerif", Font.PLAIN, 17));
+			log_out.setBounds(648, 12, 66, 25);
+			
+          }
+          @Override
+        public void mouseExited(MouseEvent e) {
+            log_out.setForeground(new Color(0, 0, 0));
+            log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+			log_out.setBounds(650, 15, 60, 20);
+			
+          }
+         @Override
+         public void mouseClicked(MouseEvent e)  
+         {
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+         FrameUtils.frameLogOut(frame);
+     }
+ });
+
+
+
 
         return middle_panel;
     }
@@ -253,13 +288,13 @@ public class DoctorViewAppoinmentsPage extends JFrame implements ActionListener
     {
 
         JButton Addprescripitions = new JButton("Add Prescripitions");
-        Addprescripitions.setBounds(445, 310, 120, 40);
+        Addprescripitions.setBounds(455, 320, 135, 30);
         Addprescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
         Addprescripitions.setBorder(BorderFactory.createLineBorder(new Color(0x1A75FF), 2, true));
         Addprescripitions.setFocusable(false);
 
-        JButton AccesspatientRecords = new JButton("Access patient Records");
-        AccesspatientRecords.setBounds(305, 310, 120, 40);
+        JButton AccesspatientRecords = new JButton("Access patient");
+        AccesspatientRecords.setBounds(305, 320, 135, 30);
         AccesspatientRecords.setFont(new Font("SansSerif", Font.PLAIN, 15));
         AccesspatientRecords.setBorder(BorderFactory.createLineBorder(new Color(0x1A75FF), 2, true));
         AccesspatientRecords.setFocusable(false);

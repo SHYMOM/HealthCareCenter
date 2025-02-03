@@ -481,7 +481,7 @@ private JPanel createLowerpanel() {
     }
 
     public static void main(String[] args) {
-        new DoctorAddPrescripitionsPage("Alice_Doctor", "emiko");
+        new DoctorAddPrescripitionsPage("Doctor2", "emiko");
     }
 
 }

@@ -1,5 +1,6 @@
 package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
 import java.awt.event.*;
@@ -144,13 +145,20 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
          prescripitions.setForeground(new Color(000000));
          prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
          prescripitions.setBounds(500, 15, 125, 20);
+
+         //level for log out
+         JLabel log_out = new JLabel();
+         log_out.setText("Log out");
+         log_out.setForeground(new Color(000000));
+         log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         log_out.setBounds(650, 15, 60, 20);
  
           //add level in middle_panel
 		  middle_panel.add(home);
           middle_panel.add(appoinment);
           middle_panel.add(records);
           middle_panel.add(prescripitions);
-		  
+		  middle_panel.add(log_out);
 		  
 		    home.addMouseListener(new MouseAdapter() {
             @Override
@@ -238,6 +246,31 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
                 JOptionPane.showMessageDialog(null, "Please select a patient from appoinment section first", "Error", JOptionPane.ERROR_MESSAGE);			 
             }
         });
+
+
+        
+        log_out.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseEntered(MouseEvent e) {
+            log_out.setForeground(new Color(0x00FF00));
+            log_out.setFont(new Font("SansSerif", Font.PLAIN, 17));
+			log_out.setBounds(648, 12, 66, 25);
+			
+          }
+          @Override
+        public void mouseExited(MouseEvent e) {
+            log_out.setForeground(new Color(0, 0, 0));
+            log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+			log_out.setBounds(650, 15, 60, 20);
+			
+          }
+         @Override
+         public void mouseClicked(MouseEvent e)  
+         {
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+         FrameUtils.frameLogOut(frame);
+     }
+ });
 
 
         return middle_panel;
