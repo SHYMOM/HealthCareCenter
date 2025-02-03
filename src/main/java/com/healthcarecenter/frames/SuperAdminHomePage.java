@@ -291,9 +291,9 @@ public class SuperAdminHomePage extends JFrame implements ActionListener
         return middle_panel;
     }
 
-    private JPanel createLowerpanel()
+    private ImagePanel createLowerpanel()
     {
-        JPanel lower_panel = new JPanel();                                  
+        ImagePanel lower_panel = new ImagePanel(FileUtils.getFile("/Images/homeBG.jpg").getAbsolutePath());                                  
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,130,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));

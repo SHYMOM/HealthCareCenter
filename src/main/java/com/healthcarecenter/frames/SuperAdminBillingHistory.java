@@ -2,13 +2,11 @@ package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetPaymentHistory;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -313,7 +311,7 @@ public class SuperAdminBillingHistory extends JFrame implements ActionListener
     {
     
         tableModel = new DefaultTableModel(new String[]
-             { "Date","Full Name", "Email" , "Amount", "Account Information", "Tranjection Id"}, 0) 
+             { "Date","Full Name", "Email" , "Amount", "Account Information", "Tranjection ID"}, 0) 
         {
             @Override
             public boolean isCellEditable(int row, int column)
@@ -366,7 +364,7 @@ public class SuperAdminBillingHistory extends JFrame implements ActionListener
         billingHistoryTable.setGridColor(new Color(230, 230, 230));
 
         JScrollPane scrollPane = new JScrollPane(billingHistoryTable);
-        scrollPane.setBounds(2, 00, 880,300);
+        scrollPane.setBounds(2, 00, 900,500);
         scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 

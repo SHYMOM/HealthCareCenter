@@ -2,14 +2,21 @@ package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetAdminData;
-import com.healthcarecenter.utils.GetUserData;
+import com.healthcarecenter.utils.GetPaymentHistory;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 public class AdminBillingHistoryPage extends JFrame implements ActionListener
 {
+
+    private JTable billingHistoryTable;
+    private DefaultTableModel tableModel;
 
     private String username;
     private String name;
@@ -240,12 +247,96 @@ public class AdminBillingHistoryPage extends JFrame implements ActionListener
 
     private JPanel createLowerpanel()
     {
+
+         tableModel = new DefaultTableModel(new String[]
+             { "Date","Full Name", "Email" , "Amount", "Account Information", "Tranjection ID"}, 0) 
+        {
+            @Override
+            public boolean isCellEditable(int row, int column)
+             {
+                return false;
+             }
+        };
+
+         billingHistoryTable = new JTable(tableModel);
+           
+      
+        
+
+        loadBillingHistoryData();
+
+         //! Style Of The Header
+        JTableHeader header = billingHistoryTable.getTableHeader();
+        header.setBackground(new Color(51, 102, 204));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+          billingHistoryTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, 
+                        hasFocus, row, column);
+
+                if (isSelected) {
+                    comp.setBackground(new Color(70, 130, 230));
+                    comp.setForeground(Color.WHITE);
+                } else {
+                    comp.setBackground(row % 2 == 0 ? new Color(240, 240, 255) : Color.WHITE);
+                    comp.setForeground(Color.BLACK);
+                }
+                ((JLabel) comp).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                
+                return comp;
+            }
+        });
+
+        billingHistoryTable.getTableHeader().setReorderingAllowed(false);
+        billingHistoryTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        billingHistoryTable.setRowHeight(30);
+        billingHistoryTable.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        billingHistoryTable.setShowGrid(true);
+        billingHistoryTable.setGridColor(new Color(230, 230, 230));
+
+        JScrollPane scrollPane = new JScrollPane(billingHistoryTable);
+        scrollPane.setBounds(2, 00, 900,500);
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
         JPanel lower_panel = new JPanel();                                  
         lower_panel.setLayout(null);
-        lower_panel.setBounds(0,130,900,500);
-        lower_panel.setBackground(new Color(0xECF8FD));
+        lower_panel.setBounds(0,180,900,500);
+        lower_panel.setBackground(Color.white);
+       
+        lower_panel.add(scrollPane);
+
        
         return lower_panel;
+    }
+
+     private void loadBillingHistoryData()
+    {
+
+        try {
+            ArrayList<HashMap<String, String>> PaymentHistory = GetPaymentHistory.getAllPaymentHistory();
+            
+            for (HashMap<String, String> payment : PaymentHistory)
+            {
+                tableModel.addRow(new Object[] {
+                    payment.get("date"),
+                    payment.get("name"),
+                    payment.get("email"),
+                    payment.get("amount"),
+                    payment.get("accountInfo"),
+                    payment.get("TransactionID")
+                });
+            }
+        } catch (IOException ex) {
+
+        }
+
+
+
     }
 
     @Override

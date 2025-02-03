@@ -2,7 +2,6 @@ package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetAdminData;
-import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -324,10 +323,19 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
         Add_Admin = new JButton("Add Admin");
         Add_Admin.setBounds(410, 380, 120, 30);
         Add_Admin.setFocusable(false);
-        Add_Admin.addActionListener(this);
+        
+
+        Add_Admin.addMouseListener(new MouseAdapter() {
+            @Override
+        public void mouseClicked(MouseEvent e) {
+            SwingUtilities.getWindowAncestor(Add_Admin).dispose();
+            new Super_AdminAddNewAdmins("Add","");
+            
+        }
+    });
         
         Remove_Admin = new JButton("Remove Admin");
-        Remove_Admin.setBounds(540, 380, 120,30);
+        Remove_Admin.setBounds(540, 380, 130,30);
         Remove_Admin.setFocusable(false);
         Remove_Admin.addActionListener(this);
 
