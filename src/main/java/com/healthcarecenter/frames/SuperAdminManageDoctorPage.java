@@ -324,10 +324,19 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
         Add_Doctor= new JButton("Add Doctor");
         Add_Doctor.setBounds(410, 380, 120, 30);
         Add_Doctor.setFocusable(false);
-        Add_Doctor.addActionListener(this);
+        
+
+        Add_Doctor.addMouseListener(new MouseAdapter() {
+            @Override
+        public void mouseClicked(MouseEvent e) {
+            SwingUtilities.getWindowAncestor(Add_Doctor).dispose();
+            new Super_AdminAddNewDoctor("Add","");
+            
+        }
+    });
         
         Remove_Doctor = new JButton("Remove Doctor");
-        Remove_Doctor.setBounds(540, 380, 120,30);
+        Remove_Doctor.setBounds(540, 380, 130,30);
         Remove_Doctor.setFocusable(false);
         Remove_Doctor.addActionListener(this);
 

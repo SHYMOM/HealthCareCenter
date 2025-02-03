@@ -1,17 +1,27 @@
 package com.healthcarecenter.frames;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
+import com.healthcarecenter.frames.dialogs.DoctorDetailsDialog;
 import com.healthcarecenter.utils.FileUtils;
 import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetAdminData;
+import com.healthcarecenter.utils.GetDoctorData;
 import com.healthcarecenter.utils.GetUserData;
 
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.awt.*;
 public class AdminManageDoctorPage extends JFrame implements ActionListener
 {
+
+    JButton getDetails;
+    private JTable ManageDoctorsTable;
+    private DefaultTableModel tableModel;
    
     private String username;
     private String name;
@@ -249,10 +259,105 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,130,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));
+
+        getDetails = new JButton("Get Details");
+        getDetails.setBounds(410, 340, 120, 30);
+        getDetails.setFocusable(false);
+        getDetails.addActionListener(this);
+
+         getDetails.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedUsername = getSelectedDoctorUsername();
+                if (selectedUsername != null) {
+                    HashMap<String, String> doctorDetails = GetDoctorData.getDoctorDetails(selectedUsername);
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component)e.getSource());
+                    DoctorDetailsDialog.showDoctorDetails(frame, doctorDetails,"Admin");
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "No doctor selected.");
+                }
+            }
+        });
+
+        lower_panel.add(getDetails);
+
+        tableModel = new DefaultTableModel(new String[]{
+            "Full Name", "Email", "Contact Number", "Gender", "Salary"},0) 
+            {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        loadDoctorData();
+
+        ManageDoctorsTable = new JTable(tableModel);
+        ManageDoctorsTable.getTableHeader().setReorderingAllowed(false);
+        ManageDoctorsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ManageDoctorsTable.setRowHeight(30);
+        ManageDoctorsTable.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        ManageDoctorsTable.setShowGrid(true);
+        ManageDoctorsTable.setGridColor(new Color(230, 230, 230));
+
+         //! Style Of The Header
+        JTableHeader header = ManageDoctorsTable.getTableHeader();
+        header.setBackground(new Color(51, 102, 204));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+        ManageDoctorsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, 
+                        hasFocus, row, column);
+
+                if (isSelected) {
+                    comp.setBackground(new Color(70, 130, 230));
+                    comp.setForeground(Color.WHITE);
+                } else {
+                    comp.setBackground(row % 2 == 0 ? new Color(240, 240, 255) : Color.WHITE);
+                    comp.setForeground(Color.BLACK);
+                }
+                ((JLabel) comp).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                
+                return comp;
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(ManageDoctorsTable);
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        scrollPane.setBounds(0, 50, 900, 280);
+
+        lower_panel.add(scrollPane);
        
 
         return lower_panel;
     }
+
+     private void loadDoctorData() {
+            ArrayList<HashMap<String, String>> allDoctors = GetDoctorData.getAllDoctorsDetails();
+            for (HashMap<String, String> doctor : allDoctors) {
+                tableModel.addRow(new Object[]{
+                        doctor.get("fullName"),
+                        doctor.get("email"),
+                        doctor.get("contactNumber"),
+                        doctor.get("gender"),
+                        doctor.get("salary")
+                });
+            }
+        }
+
+        private String getSelectedDoctorUsername() {
+            int selectedRow = ManageDoctorsTable.getSelectedRow();
+            if (selectedRow == -1) {
+                return null;
+            }
+            return FileUtils.getUsernameByEmail(tableModel.getValueAt(selectedRow, 1).toString(),"/data/doctors/");
+        }
+
 
     @Override
     public void actionPerformed(ActionEvent e)

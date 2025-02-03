@@ -365,7 +365,7 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
                 if (selectedUsername != null) {
                     HashMap<String, String> doctorDetails = GetDoctorData.getDoctorDetails(selectedUsername);
                     JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component)e.getSource());
-                    DoctorDetailsDialog.showDoctorDetails(frame, doctorDetails,"Admin");
+                    DoctorDetailsDialog.showDoctorDetails(frame, doctorDetails,"User");
                 }
                 else {
                     JOptionPane.showMessageDialog(null, "No doctor selected.");
