@@ -2,8 +2,12 @@ package com.healthcarecenter.frames;
 
 import com.healthcarecenter.models.CurrentUser;
 import com.healthcarecenter.utils.FileUtils;
-import com.healthcarecenter.utils.GetUserData;
+import com.healthcarecenter.utils.FrameUtils;
+import com.healthcarecenter.utils.GetDoctorData;
+import com.healthcarecenter.utils.GetRandomImage;
 import com.healthcarecenter.utils.HealthTips;
+import com.healthcarecenter.utils.ImageCompressor;
+import com.healthcarecenter.utils.ImagePanel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -43,7 +47,7 @@ public class DoctorHomePage extends JFrame implements ActionListener
         }
 
         try {
-            this.name = GetUserData.getName(username);
+            this.name = GetDoctorData.getName(username);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
             new WelcomePage();
@@ -52,7 +56,7 @@ public class DoctorHomePage extends JFrame implements ActionListener
         }
 
         try {
-            CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", GetUserData.getEmail(username), "user");
+            CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", GetDoctorData.getEmail(username), "doctor");
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
         }
@@ -100,13 +104,32 @@ public class DoctorHomePage extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
 
         
         
+        ImageIcon settingIcon = ImageCompressor.compressImage(FileUtils.getFile("/Icons/settings.png").getAbsolutePath(), 25, 25);
+        JLabel settings = new JLabel(settingIcon);
+        settings.setBounds(850, 10, 25, 25);
+        settings.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        settings.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Object[] options = {"Edit Profile", "Cancel"};
+				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+					if (choice == 0) {
+						new UserSignUp("Edit", username);
+					} else if (choice == 1) {
+						
+					} else {
+						
+					}
+            }
+        });
+
 
        //create userpanel for upper_panel
         JPanel user_panel = new JPanel(); 
@@ -123,6 +146,7 @@ public class DoctorHomePage extends JFrame implements ActionListener
         userlabel.setBounds(5,5,100,30);
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
+        upper_panel.add(settings);
         upper_panel.add(createMiddlepanel());
 
         
@@ -142,7 +166,7 @@ public class DoctorHomePage extends JFrame implements ActionListener
 		//level for home 
 		JLabel home= new JLabel();
          home.setText("Home");
-         home.setForeground(Color.red);
+         home.setForeground(Color.white);
          home.setFont(new Font("SansSerif", Font.PLAIN, 15));
          home.setBounds(25, 15, 42, 20);
 
@@ -167,34 +191,23 @@ public class DoctorHomePage extends JFrame implements ActionListener
          prescripitions.setForeground(new Color(000000));
          prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
          prescripitions.setBounds(500, 15, 125, 20);
+
+         //level for logout
+         JLabel log_out = new JLabel();
+         log_out.setText("Log out");
+         log_out.setForeground(new Color(000000));
+         log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         log_out.setBounds(650, 15, 60, 20);
+ 
  
           //add level in middle_panel
 		  middle_panel.add(home);
           middle_panel.add(appoinment);
           middle_panel.add(records);
           middle_panel.add(prescripitions);
-		  
-		  home.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                home.setForeground(Color.red);
-                home.setFont(new Font("SansSerif", Font.PLAIN, 17));
-				home.setBounds(23, 10, 48, 30);
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                home.setForeground(Color.red);
-                home.setFont(new Font("SansSerif", Font.PLAIN, 15));
-				home.setBounds(25, 15, 42, 20);
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                //SwingUtilities.getWindowAncestor(home).dispose();
-				//new home();
-				
-                
-            }
-        });
+		  middle_panel.add(log_out);
+        
+  
           
 
 
@@ -234,8 +247,7 @@ public class DoctorHomePage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-				SwingUtilities.getWindowAncestor(records).dispose();
-				new DoctorPatientRecordsPage(username);
+                JOptionPane.showMessageDialog(null, "Please select a patient from appoinment section first", "Error", JOptionPane.ERROR_MESSAGE);               
                 
             }
         });
@@ -262,31 +274,64 @@ public class DoctorHomePage extends JFrame implements ActionListener
         });
 
 
+
+         log_out.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseEntered(MouseEvent e) {
+            log_out.setForeground(new Color(0x00FF00));
+            log_out.setFont(new Font("SansSerif", Font.PLAIN, 17));
+			log_out.setBounds(648, 12, 66, 25);
+			
+          }
+          @Override
+        public void mouseExited(MouseEvent e) {
+            log_out.setForeground(new Color(0, 0, 0));
+            log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+			log_out.setBounds(650, 15, 60, 20);
+			
+          }
+         @Override
+         public void mouseClicked(MouseEvent e)  
+         {
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+         FrameUtils.frameLogOut(frame);
+     }
+ });
+
+
+
+
+
+
         return middle_panel;
     }
 
-    private JPanel createLowerpanel()
+    private ImagePanel createLowerpanel()
     {
-        JPanel lower_panel = new JPanel();                                  
-        lower_panel.setLayout(null);
-        lower_panel.setBounds(0,180,900,500);
-        lower_panel.setBackground(new Color(0xECF8FD));
-        
+        ImagePanel lower_panel = new ImagePanel(GetRandomImage.getRandomImage());
 
-        JLabel welcome= new JLabel("Welcome "+name);
+                                         
+        lower_panel.setLayout(null);
+        lower_panel.setBounds(0,130,900,500);
+        lower_panel.setBackground(new Color(0xECF8FD));
+       
+
+        JLabel welcome= new JLabel(name);
         welcome.setHorizontalAlignment(JLabel.CENTER);
-        welcome.setBounds(300,330,300,30);
+        welcome.setBounds(300,380,300,30);
+        welcome.setForeground(new Color(205,194,245));
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
 
         HealthTips healthTips = new HealthTips();
         JLabel health_tips= new JLabel(healthTips.getRandomHealthTip());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
-        health_tips.setBounds(0,300,900,30);
+        health_tips.setBounds(0,350,900,30);
+        health_tips.setForeground(new Color(229,222,207));
         health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
 
 
         lower_panel.add(welcome);
-        lower_panel.add(health_tips, BorderLayout.CENTER);
+        lower_panel.add(health_tips);
 
         return lower_panel;
     }
@@ -298,7 +343,7 @@ public class DoctorHomePage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new DoctorHomePage("emiko",true);
+        new DoctorHomePage("Doctor2",true);
     }
 
 }

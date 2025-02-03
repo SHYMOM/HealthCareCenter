@@ -1,6 +1,7 @@
 package com.healthcarecenter.frames;
 import com.healthcarecenter.frames.dialogs.BillPaymentDialog;
 import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
 import java.awt.event.*;
@@ -66,7 +67,7 @@ public class UserPayBillPage extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -135,7 +136,7 @@ public class UserPayBillPage extends JFrame implements ActionListener
           //level for bill
           JLabel bill = new JLabel();
           bill.setText("Pay Bill");
-          bill.setForeground(Color.red);
+          bill.setForeground(new Color(255, 255, 255));
           bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
           bill.setBounds(570, 15, 50, 20);
 
@@ -257,13 +258,13 @@ public class UserPayBillPage extends JFrame implements ActionListener
         bill.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                bill.setForeground(Color.red);
+                bill.setForeground(new Color(255, 255, 255));
                 bill.setBounds(570, 15, 50, 20);
                 bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                bill.setForeground(Color.red);
+                bill.setForeground(new Color(255, 255, 255));
                 bill.setBounds(570, 15, 50, 20);
                 bill.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
@@ -308,28 +309,12 @@ public class UserPayBillPage extends JFrame implements ActionListener
             log_out.setBounds(750, 15, 50,20);
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
         }
-          @Override
-          public void mouseClicked(MouseEvent e)  
-          {
-            int result = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
-            if (result == JOptionPane.YES_OPTION)
-             {
-                System.out.println("Yes selected");
-                SwingUtilities.getWindowAncestor(bill).dispose();
-                 //new loginFrame();
-             }  
-            else if (result == JOptionPane.NO_OPTION)
-             {
-                System.out.println("No selected");
-             } 
-            else if (result == JOptionPane.CANCEL_OPTION) 
-             {
-                 System.out.println("Cancel selected");
-             }
-          }
-           
-           
-      });
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+            FrameUtils.frameLogOut(frame);
+        }
+    });
 
         return middle_panel;
     }
@@ -465,7 +450,7 @@ public class UserPayBillPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-              SwingUtilities.getWindowAncestor(payButton).dispose();
+              
               new BillPaymentDialog(username, totalAmount);
             }
         });

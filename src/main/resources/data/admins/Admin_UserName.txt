@@ -1,5 +1,5 @@
 <<<Admin-Start>>>
-fullName=Admin Full Name
+fullName=Admin name
 username=Admin_UserName
 age=28
 address=Basundhara

@@ -1,13 +1,21 @@
 package com.healthcarecenter.frames;
 import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.FrameUtils;
 import com.healthcarecenter.utils.GetUserData;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 public class DoctorPatientRecordsPage extends JFrame implements ActionListener
 {
 
+     private JTable PatientRecords;
+    private DefaultTableModel tableModel;
     private String username;
     private String name;
 
@@ -69,7 +77,7 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -87,7 +95,7 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
+        JLabel userlabel = new JLabel("Emiko");
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setBounds(5,5,100,30);
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
@@ -128,7 +136,7 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
         records.setText("Access patient Records");
         records.setForeground(new Color(000000));
         records.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		records.setForeground(Color.RED);
+		records.setForeground(Color.white);
         records.setBounds(275, 15, 165, 20);
 
          //level for prescripitions
@@ -137,13 +145,20 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
          prescripitions.setForeground(new Color(000000));
          prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
          prescripitions.setBounds(500, 15, 125, 20);
+
+         //level for log out
+         JLabel log_out = new JLabel();
+         log_out.setText("Log out");
+         log_out.setForeground(new Color(000000));
+         log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         log_out.setBounds(650, 15, 60, 20);
  
           //add level in middle_panel
 		  middle_panel.add(home);
           middle_panel.add(appoinment);
           middle_panel.add(records);
           middle_panel.add(prescripitions);
-		  
+		  middle_panel.add(log_out);
 		  
 		    home.addMouseListener(new MouseAdapter() {
             @Override
@@ -151,7 +166,7 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
 				home.setForeground(Color.RED);
                 home.setForeground(new Color(0x00FF00));
                 home.setFont(new Font("SansSerif", Font.PLAIN, 17));
-				home.setBounds(23, 10, 48, 20);
+				home.setBounds(23, 10, 48, 30);
             }
             @Override
             public void mouseExited(MouseEvent e) {
@@ -192,16 +207,16 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
             }
         });
 
-        records.addMouseListener(new MouseAdapter() {
+        /*records.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                records.setForeground(Color.RED);
+                records.setForeground(Color.white);
                 records.setFont(new Font("SansSerif", Font.PLAIN, 17));
 				records.setBounds(270, 10, 180, 30);
             }
             @Override
             public void mouseExited(MouseEvent e) {
-               records.setForeground(Color.RED);
+               records.setForeground(Color.white);
                 records.setFont(new Font("SansSerif", Font.PLAIN, 15));
 				records.setBounds(275, 15, 165, 20);
             }
@@ -209,7 +224,7 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
             public void mouseClicked(MouseEvent e) {
                 
             }
-        });
+        }); */
         
 
 
@@ -233,38 +248,166 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
         });
 
 
+        
+        log_out.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseEntered(MouseEvent e) {
+            log_out.setForeground(new Color(0x00FF00));
+            log_out.setFont(new Font("SansSerif", Font.PLAIN, 17));
+			log_out.setBounds(648, 12, 66, 25);
+			
+          }
+          @Override
+        public void mouseExited(MouseEvent e) {
+            log_out.setForeground(new Color(0, 0, 0));
+            log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+			log_out.setBounds(650, 15, 60, 20);
+			
+          }
+         @Override
+         public void mouseClicked(MouseEvent e)  
+         {
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+         FrameUtils.frameLogOut(frame);
+     }
+ });
+
+
         return middle_panel;
     }
 
     private JPanel createLowerpanel()
+
+{       JButton Addprescripitions = new JButton("Add Prescripitions");
+        Addprescripitions.setBounds(445, 310, 120, 40);
+        Addprescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        Addprescripitions.setBorder(BorderFactory.createLineBorder(new Color(0x1A75FF), 2, true));
+        Addprescripitions.setFocusable(false);
+
+        JButton AccesspatientRecords = new JButton("Access patient Records");
+        AccesspatientRecords.setBounds(305, 310, 120, 40);
+        AccesspatientRecords.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        AccesspatientRecords.setBorder(BorderFactory.createLineBorder(new Color(0x1A75FF), 2, true));
+        AccesspatientRecords.setFocusable(false);
+
+        AccesspatientRecords.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedUsername = getSelectedPatientUsername();
+                                if (selectedUsername != null) {
+                                    new DoctorPatientRecordsPage(selectedUsername);
+                                }
+                                else {
+                                    JOptionPane.showMessageDialog(null, "No doctor selected.");
+                                }
+                            }
+                        });
+                
+                       
+                
+                        tableModel = new DefaultTableModel(new String[]
+                             { "Date", "Doctor" , "Test", "Medicine", "Doctor note"}, 0) 
+                        {
+                            @Override
+                            public boolean isCellEditable(int row, int column)
+                             {
+                                return false;
+                             }
+                        };
+                
+                        PatientRecords = new JTable(tableModel);
+                           
+                      
+                        
+                
+                        loadPatientMedicleHistory();
+                
+                        PatientRecords = new JTable(tableModel);
+                        PatientRecords.getTableHeader().setReorderingAllowed(false);
+                        PatientRecords.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                        PatientRecords.setRowHeight(30);
+                        PatientRecords.setFont(new Font("SansSerif", Font.PLAIN, 12));
+                        PatientRecords.setShowGrid(true);
+                        PatientRecords.setGridColor(new Color(230, 230, 230));
+                
+                         //! Style Of The Header
+                        JTableHeader header = PatientRecords.getTableHeader();
+                        header.setBackground(new Color(51, 102, 204));
+                        header.setForeground(Color.WHITE);
+                        header.setFont(new Font("SansSerif", Font.BOLD, 12));
+                
+                         PatientRecords.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+                            @Override
+                            public Component getTableCellRendererComponent(JTable table, Object value,
+                                    boolean isSelected, boolean hasFocus, int row, int column) {
+                                Component comp = super.getTableCellRendererComponent(table, value, isSelected, 
+                                        hasFocus, row, column);
+                
+                                if (isSelected) {
+                                    comp.setBackground(new Color(70, 130, 230));
+                                    comp.setForeground(Color.WHITE);
+                                } else {
+                                    comp.setBackground(row % 2 == 0 ? new Color(240, 240, 255) : Color.WHITE);
+                                    comp.setForeground(Color.BLACK);
+                                }
+                                ((JLabel) comp).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                                
+                                return comp;
+                            }
+                        });
+                
+                        JScrollPane scrollPane = new JScrollPane(PatientRecords);
+                        scrollPane.setBounds(0, 0, 900,300);
+                        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+                        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+                
+                        JPanel lower_panel = new JPanel();                                  
+                        lower_panel.setLayout(null);
+                        lower_panel.setBounds(0,180,900,385);
+                        lower_panel.setBackground(Color.white);
+                        lower_panel.add(Addprescripitions);
+                        lower_panel.add(AccesspatientRecords);
+                        lower_panel.add(scrollPane);
+                        return lower_panel;
+                    }
+                
+                
+                
+                    protected String getSelectedPatientUsername() {
+                        // TODO Auto-generated method stub
+                        throw new UnsupportedOperationException("Unimplemented method 'getSelectedPatientUsername'");
+                    }
+                
+                    private void loadPatientMedicleHistory()
     {
-        JPanel lower_panel = new JPanel();                                  
-        lower_panel.setLayout(null);
-        lower_panel.setBounds(0,180,900,500);
-        lower_panel.setBackground(new Color(0xECF8FD));
-        
-		/*JPanel image_panel = new JPanel();
-        image_panel.setBounds(0,0,900,300);
-        image_panel.setLayout(null);
-        image_panel.setOpaque(false);
-        lower_panel.add(image_panel);*/
-
-        JLabel welcome= new JLabel("Welcome User");
-        welcome.setHorizontalAlignment(JLabel.CENTER);
-        welcome.setBounds(300,330,300,30);
-        welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
-
-        JLabel health_tips= new JLabel("Random Health Tips");
-        health_tips.setHorizontalAlignment(JLabel.CENTER);
-        health_tips.setBounds(350,300,200,30);
-        health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
-
-
-        lower_panel.add(welcome);
-        lower_panel.add(health_tips);
-
-        return lower_panel;
+        try {
+            ArrayList<HashMap<String, String>> AllHistory = GetUserData.getHealthRecords(username);
+            for (HashMap<String, String> History : AllHistory)
+    {
+        tableModel.addRow(new Object[] 
+        {
+             History.get("Date"),
+             History.get("doctorName"),
+             History.get("tests"),
+             History.get("disease"),
+             History.get("medicine"),
+             History.get("doctorNote")  
+          
+        });
     }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    
+    }
+
+
+    
+
+
+
+
+
 
     @Override
     public void actionPerformed(ActionEvent e)
@@ -273,10 +416,15 @@ public class DoctorPatientRecordsPage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new DoctorPatientRecordsPage("Username");
+        new DoctorPatientRecordsPage("emiko");
     }
 
 }
+
+
+
+
+        
 
 
 

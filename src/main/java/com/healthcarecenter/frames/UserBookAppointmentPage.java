@@ -74,7 +74,7 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -122,7 +122,7 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
           //level for appointment
           JLabel appointment= new JLabel();
           appointment.setText("Book Appointment");
-          appointment.setForeground(Color.red);
+          appointment.setForeground(new Color(255, 255, 255));
           appointment.setFont(new Font("SansSerif", Font.PLAIN, 15));
           appointment.setBounds(85, 15, 120, 20);
  
@@ -201,14 +201,14 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
         appointment.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                appointment.setForeground(Color.red);
+                appointment.setForeground(new Color(255, 255, 255));
                 appointment.setBounds(85, 15, 120, 20);
                 appointment.setFont(new Font("SansSerif", Font.PLAIN, 15));
 
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                appointment.setForeground(Color.red);
+                appointment.setForeground(new Color(255, 255, 255));
                 appointment.setBounds(85, 15, 120, 20);
                 appointment.setFont(new Font("SansSerif", Font.PLAIN, 15));
             }
@@ -303,41 +303,25 @@ public class UserBookAppointmentPage extends JFrame implements ActionListener
 
 
 
-      log_out.addMouseListener(new MouseAdapter() 
-     {
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            log_out.setForeground(new Color(0x00FF00));
-            log_out.setBounds(748, 10, 60, 30);
-            log_out.setFont(new Font("SansSerif", Font.PLAIN, 17));
-        }
-        @Override
-        public void mouseExited(MouseEvent e) {
-            log_out.setForeground(new Color(000000));
-            log_out.setBounds(750, 15, 50,20);
-            log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        }
-          @Override
-          public void mouseClicked(MouseEvent e) 
-          {
-            int result = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION);
-            if (result == JOptionPane.YES_OPTION)
-             {
-                System.out.println("Yes selected");
-                SwingUtilities.getWindowAncestor(appointment).dispose();
-                //new loginFrame();
-             }  
-            else if (result == JOptionPane.NO_OPTION)
-             {
-                System.out.println("No selected");
-             } 
-            else if (result == JOptionPane.CANCEL_OPTION) 
-             {
-                 System.out.println("Cancel selected");
-             }
-          }
-           
-      });
+        log_out.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                log_out.setForeground(new Color(0x00FF00));
+                log_out.setBounds(748, 10, 60, 30);
+                log_out.setFont(new Font("SansSerif", Font.PLAIN, 17));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                log_out.setForeground(new Color(000000));
+                log_out.setBounds(750, 15, 50,20);
+                log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+                FrameUtils.frameLogOut(frame);
+            }
+        });
 
 
         return middle_panel;

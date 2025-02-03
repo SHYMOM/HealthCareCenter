@@ -1,15 +1,15 @@
 package com.healthcarecenter.frames;
-import com.healthcarecenter.utils.FileUtils;
-import com.healthcarecenter.utils.GetDoctorData;
 import com.healthcarecenter.models.User;
+import com.healthcarecenter.utils.FileUtils;
+import com.healthcarecenter.utils.FrameUtils;
+import com.healthcarecenter.utils.GetDoctorData;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import javax.swing.*;
 import java.util.HashMap;
+import javax.swing.*;
 public class DoctorAddPrescripitionsPage extends JFrame implements ActionListener
 {
 
@@ -84,7 +84,7 @@ public class DoctorAddPrescripitionsPage extends JFrame implements ActionListene
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -102,7 +102,7 @@ public class DoctorAddPrescripitionsPage extends JFrame implements ActionListene
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
+        JLabel userlabel = new JLabel("Emiko");
         userlabel.setHorizontalAlignment(JLabel.CENTER);
         userlabel.setBounds(5,5,100,30);
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
@@ -150,14 +150,22 @@ public class DoctorAddPrescripitionsPage extends JFrame implements ActionListene
          prescripitions.setText("Add prescripitions");
          prescripitions.setForeground(new Color(000000));
          prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		 prescripitions.setForeground(Color.RED);
+		 prescripitions.setForeground(Color.white);
          prescripitions.setBounds(500, 15, 125, 20);
+         
+         //level for log out
+         JLabel log_out = new JLabel();
+         log_out.setText("Log out");
+         log_out.setForeground(new Color(000000));
+         log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+         log_out.setBounds(650, 15, 60, 20);
  
           //add level in middle_panel
 		  middle_panel.add(home);
           middle_panel.add(appoinment);
           middle_panel.add(records);
           middle_panel.add(prescripitions);
+          middle_panel.add(log_out);
 		  
 		  home.addMouseListener(new MouseAdapter() {
             @Override
@@ -226,16 +234,16 @@ public class DoctorAddPrescripitionsPage extends JFrame implements ActionListene
         
 
 
-        prescripitions.addMouseListener(new MouseAdapter() {
+        /*  prescripitions.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                prescripitions.setForeground(Color.RED);
+                prescripitions.setForeground(Color.white);
                 prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 17));
 				prescripitions.setBounds(495, 10, 170, 30);
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                prescripitions.setForeground(Color.RED);
+                prescripitions.setForeground(Color.white);
                 prescripitions.setFont(new Font("SansSerif", Font.PLAIN, 15));
 		        prescripitions.setBounds(500, 15, 125, 20);
             }
@@ -243,8 +251,30 @@ public class DoctorAddPrescripitionsPage extends JFrame implements ActionListene
             public void mouseClicked(MouseEvent e) {
                 
             }
-        });
+        });*/ 
 
+        log_out.addMouseListener(new MouseAdapter() {
+          @Override
+          public void mouseEntered(MouseEvent e) {
+            log_out.setForeground(new Color(0x00FF00));
+            log_out.setFont(new Font("SansSerif", Font.PLAIN, 17));
+			log_out.setBounds(648, 12, 66, 25);
+			
+          }
+          @Override
+        public void mouseExited(MouseEvent e) {
+            log_out.setForeground(new Color(0, 0, 0));
+            log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
+			log_out.setBounds(650, 15, 60, 20);
+			
+          }
+         @Override
+         public void mouseClicked(MouseEvent e)  
+         {
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+         FrameUtils.frameLogOut(frame);
+     }
+ });
 
         return middle_panel;
     }
@@ -451,7 +481,7 @@ private JPanel createLowerpanel() {
     }
 
     public static void main(String[] args) {
-        new DoctorAddPrescripitionsPage("Alice_Doctor", "emiko");
+        new DoctorAddPrescripitionsPage("Doctor2", "emiko");
     }
 
 }
