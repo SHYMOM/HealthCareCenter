@@ -75,16 +75,16 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
        //create userpanel for upper_panel
         JPanel user_panel = new JPanel(); 
         user_panel.setLayout(null);
-        user_panel.setBounds(5,5,200,40);
+        user_panel.setBounds(5,5,250,40);
 		upper_panel.setBackground(new Color(0x3a8cdb));
         upper_panel.add(user_panel);
 
 
-        JLabel userlabel = new JLabel("User Name");
-        userlabel.setHorizontalAlignment(JLabel.CENTER);
-        userlabel.setBounds(5,5,100,30);
+        JLabel userlabel = new JLabel(email);
+        userlabel.setHorizontalAlignment(JLabel.LEFT);
+        userlabel.setBounds(5,5,400,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
-        userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
+        userlabel.setFont(new Font("SensSerif", Font.PLAIN, 14));
         user_panel.add(userlabel);
         upper_panel.add(createMiddlepanel());
 
@@ -315,6 +315,51 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
         pay_AdminSalary.addActionListener(this);
         this.add(pay_AdminSalary);
 
+        pay_AdminSalary.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedUsername = getSelectedAdminUsername();
+                if (selectedUsername != null) {
+                     if(e.getSource() ==pay_AdminSalary )
+            {
+
+                if(e.getSource() ==pay_AdminSalary )
+                {
+                    
+                    try {
+                        String salaryInput = JOptionPane.showInputDialog("Enter salary for Admin " + GetAdminData.getName(getSelectedAdminUsername()) + ":");
+                       double salary = Double.parseDouble(salaryInput);
+                       JOptionPane.showMessageDialog(null, "Pay Salary: " + salary + " to Admin " + GetAdminData.getName(getSelectedAdminUsername()));
+                   } catch (IOException ex) {
+                       JOptionPane.showMessageDialog(null, "Invalid salary entered. Please enter a valid number.");
+                   }
+                 }
+                 else {
+                   JOptionPane.showMessageDialog(null, "No admin name entered. Operation cancelled.");
+                }
+              
+
+
+             }
+             else {
+               JOptionPane.showMessageDialog(null, "No admin name entered. Operation cancelled.");
+            }
+
+                    
+
+                    
+                    
+                    
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "No admin selected.");
+                }
+            }
+        });
+    
+
+
+
         getDetails = new JButton("Get Details");
         getDetails.setBounds(400, 335, 120, 30);
         getDetails.setFocusable(false);
@@ -427,20 +472,23 @@ public class SuperAdminPayAdminSalaryPage extends JFrame implements ActionListen
       @Override
         public void actionPerformed(ActionEvent e)
         {
-            if(e.getSource() ==pay_AdminSalary )
+        }
+
+            /*if(e.getSource() ==pay_AdminSalary )
             {
-                String salaryInput = JOptionPane.showInputDialog("Enter salary for Admin " + GetAdminData.getName(getSelectedAdminUsername()) + ":");
+                
                 try {
+                    String salaryInput = JOptionPane.showInputDialog("Enter salary for Admin " + GetAdminData.getName(getSelectedAdminUsername()) + ":");
                    double salary = Double.parseDouble(salaryInput);
                    JOptionPane.showMessageDialog(null, "Pay Salary: " + salary + " to Admin " + GetAdminData.getName(getSelectedAdminUsername()));
-               } catch (NumberFormatException ex) {
+               } catch (IOException ex) {
                    JOptionPane.showMessageDialog(null, "Invalid salary entered. Please enter a valid number.");
                }
              }
              else {
                JOptionPane.showMessageDialog(null, "No admin name entered. Operation cancelled.");
             }
-        }
+        }*/
     
         public static void main(String[] args) {
             new SuperAdminPayAdminSalaryPage("shymom@healthcarecenter.com");

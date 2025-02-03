@@ -40,7 +40,7 @@ public class AdminHomePage extends JFrame implements ActionListener
         }
 
         try {
-            this.name = GetUserData.getName(username);
+            this.name = GetAdminData.getName(username);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error fetching user data: " + e.getMessage());
             new WelcomePage();
@@ -49,7 +49,7 @@ public class AdminHomePage extends JFrame implements ActionListener
         }
 
         try {
-            CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", GetUserData.getEmail(username), "user");
+            CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", GetAdminData.getEmail(username), "admin");
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
         }
@@ -278,13 +278,13 @@ public class AdminHomePage extends JFrame implements ActionListener
 
         JLabel welcome= new JLabel(name);
         welcome.setHorizontalAlignment(JLabel.CENTER);
-        welcome.setBounds(300,330,300,30);
+        welcome.setBounds(300,380,300,30);
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
 
         HealthTips healthTips = new HealthTips();
         JLabel health_tips= new JLabel(healthTips.getRandomHealthTip());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
-        health_tips.setBounds(0,300,900,30);
+        health_tips.setBounds(0,350,900,30);
         health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
 
 
@@ -301,7 +301,7 @@ public class AdminHomePage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new AdminHomePage("emiko", true);
+        new AdminHomePage("alice.johnson@example.com", false);
     }
     
 
