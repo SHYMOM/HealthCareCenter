@@ -15,6 +15,11 @@ public class AdminHomePage extends JFrame implements ActionListener
         if (!isUsername) {
             try {
                 username = FileUtils.getUsernameByEmail(value, "/data/admins/");
+                try {
+                    CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", value, "admin");
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
+                }
                
                 if (username == null) {
                         JOptionPane.showMessageDialog(null, "No user found with the given email."+value);
@@ -46,12 +51,6 @@ public class AdminHomePage extends JFrame implements ActionListener
             new WelcomePage();
             this.dispose();
             return;
-        }
-
-        try {
-            CurrentUser.saveCurrentUserToFile("/data/CurrentUser/CurrentUser.txt", GetAdminData.getEmail(username), "admin");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error saving current user data: " + e.getMessage());
         }
 
         UserUI();
@@ -95,7 +94,7 @@ public class AdminHomePage extends JFrame implements ActionListener
         JLabel label = new JLabel("Health Care Center");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setBounds(100,10,600,50);
-        label.setForeground(new Color(0x00FF00));
+        label.setForeground(new Color(000000));
         label.setFont(new Font("MV Boli", Font.BOLD, 20));
         label.setLayout(null);
         upper_panel.add(label);
@@ -113,7 +112,7 @@ public class AdminHomePage extends JFrame implements ActionListener
 
         JLabel userlabel = new JLabel(name);
         userlabel.setHorizontalAlignment(JLabel.CENTER);
-        userlabel.setBounds(5,5,100,30);
+        userlabel.setBounds(5,5,150,30);
 		user_panel.setBackground(new Color(0x3a8cdb));
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
@@ -135,7 +134,7 @@ public class AdminHomePage extends JFrame implements ActionListener
         //level for home
         JLabel home = new JLabel();
         home.setText("Home");
-        home.setForeground(Color.RED );
+        home.setForeground(new Color(255,255,255) );
         home.setFont(new Font("SansSerif", Font.PLAIN, 15));
         home.setBounds(20, 15, 60, 20);
 
@@ -146,14 +145,14 @@ public class AdminHomePage extends JFrame implements ActionListener
          Mang_Doc.setText("Manage Doctors");
          Mang_Doc.setForeground(new Color(000000));
          Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         Mang_Doc.setBounds(80, 15, 140, 20);
+         Mang_Doc.setBounds(80, 15, 120, 20);
 
           //level forbillingHistory
          JLabel billingHistory = new JLabel();
          billingHistory.setText("Billing History");
          billingHistory.setForeground(new Color(000000));
          billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         billingHistory.setBounds(225, 15, 160, 20);
+         billingHistory.setBounds(225, 15, 110, 20);
 		 
 		
          //level for log out
@@ -161,7 +160,7 @@ public class AdminHomePage extends JFrame implements ActionListener
          log_out.setText("Log out");
          log_out.setForeground(new Color(000000));
          log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-         log_out.setBounds(450, 15, 130, 20);
+         log_out.setBounds(350, 15, 90, 20);
  
           //add level in middle_panel
           middle_panel.add(home);
@@ -170,28 +169,6 @@ public class AdminHomePage extends JFrame implements ActionListener
           middle_panel.add(log_out);
 
 
-        home.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-               home.setForeground(Color.red);
-               home.setBounds(15, 10, 70, 30);
-               home.setFont(new Font("SansSerif", Font.PLAIN, 18));
-    
-            }
-            @Override
-          public void mouseExited(MouseEvent e) {
-                home.setForeground(Color.red); 
-                home.setBounds(20, 15, 60, 20);
-                home.setFont(new Font("SansSerif", Font.PLAIN, 15));
-                 
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                
-            
-            }
-        });
-
 
 
         Mang_Doc.addMouseListener(new MouseAdapter() {
@@ -199,13 +176,13 @@ public class AdminHomePage extends JFrame implements ActionListener
             public void mouseEntered(MouseEvent e) {
                 Mang_Doc.setForeground(new Color(0x00FF00));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 18));
-				Mang_Doc.setBounds(70, 10, 150, 30);
+				Mang_Doc.setBounds(70, 10, 140, 30);
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 Mang_Doc.setForeground(new Color(0, 0, 0));
                 Mang_Doc.setFont(new Font("SansSerif", Font.PLAIN, 15));
-				Mang_Doc.setBounds(80, 15, 140, 20);
+				Mang_Doc.setBounds(80, 15, 120, 20);
             }
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -220,14 +197,14 @@ public class AdminHomePage extends JFrame implements ActionListener
             public void mouseEntered(MouseEvent e) {
                billingHistory.setForeground(new Color(0x00FF00));
                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			   billingHistory.setBounds(215, 10, 170, 30);
+			   billingHistory.setBounds(215, 10, 120, 30);
 			  
             }
             @Override
             public void mouseExited(MouseEvent e) {
                billingHistory.setForeground(new Color(0, 0, 0));
                billingHistory.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			   billingHistory.setBounds(225, 15, 160, 20);
+			   billingHistory.setBounds(225, 15, 110, 20);
 			  
             }
             @Override
@@ -245,14 +222,14 @@ public class AdminHomePage extends JFrame implements ActionListener
           public void mouseEntered(MouseEvent e) {
             log_out.setForeground(new Color(0x00FF00));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 18));
-			log_out.setBounds(443, 10, 100, 30);
+			log_out.setBounds(343, 10, 80, 30);
 			
           }
           @Override
          public void mouseExited(MouseEvent e) {
             log_out.setForeground(new Color(0, 0, 0));
             log_out.setFont(new Font("SansSerif", Font.PLAIN, 15));
-			log_out.setBounds(450, 15, 130, 20);
+			log_out.setBounds(350, 15, 70, 20);
 			
           }
        @Override
@@ -268,9 +245,11 @@ public class AdminHomePage extends JFrame implements ActionListener
         return middle_panel;
     }
 
-    private JPanel createLowerpanel()
+    private ImagePanel createLowerpanel()
     {
-        JPanel lower_panel = new JPanel();                                  
+        ImagePanel lower_panel = new ImagePanel(GetRandomImage.getRandomImage());
+
+                                         
         lower_panel.setLayout(null);
         lower_panel.setBounds(0,130,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));
@@ -301,7 +280,7 @@ public class AdminHomePage extends JFrame implements ActionListener
     }
 
     public static void main(String[] args) {
-        new AdminHomePage("alice.johnson@example.com", false);
+        new AdminHomePage("adminemail@gmail.com", false);
     }
     
 

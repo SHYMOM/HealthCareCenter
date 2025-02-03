@@ -1,0 +1,11 @@
+
+<<<Payment - Start>>>
+name=Emiko
+username=emiko
+email=emiko@gmail.com
+amount=699.0
+method=Bank Transfer
+accountInfo=123456789101
+TransactionID=TXN1738583930627
+date=2025-02-03 17:58:50
+<<<Payment - End>>>
