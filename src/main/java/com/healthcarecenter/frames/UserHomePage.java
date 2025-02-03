@@ -102,7 +102,24 @@ public class UserHomePage extends JFrame implements ActionListener
         upper_panel.add(label);
 
         
-        
+        ImageIcon settingIcon = ImageCompressor.compressImage(FileUtils.getFile("/Icons/settings.png").getAbsolutePath(), 25, 25);
+        JLabel settings = new JLabel(settingIcon);
+        settings.setBounds(850, 10, 25, 25);
+        settings.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        settings.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Object[] options = {"Edit Profile", "Cancel"};
+				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+					if (choice == 0) {
+						new UserSignUp("Edit", username);
+					} else if (choice == 1) {
+						
+					} else {
+						
+					}
+            }
+        });
 
        //create userpanel for upper_panel
         JPanel user_panel = new JPanel(); 
@@ -117,6 +134,7 @@ public class UserHomePage extends JFrame implements ActionListener
         userlabel.setBounds(5,5,100,30);
         userlabel.setFont(new Font("SensSerif", Font.PLAIN, 15));
         user_panel.add(userlabel);
+        upper_panel.add(settings);
         upper_panel.add(createMiddlepanel());
 
         
@@ -358,12 +376,14 @@ public class UserHomePage extends JFrame implements ActionListener
         JLabel welcome= new JLabel(name);
         welcome.setHorizontalAlignment(JLabel.CENTER);
         welcome.setBounds(300,380,300,30);
+        welcome.setForeground(new Color(205,194,245));
         welcome.setFont(new Font("SensSerif", Font.PLAIN, 20));
 
         HealthTips healthTips = new HealthTips();
         JLabel health_tips= new JLabel(healthTips.getRandomHealthTip());
         health_tips.setHorizontalAlignment(JLabel.CENTER);
         health_tips.setBounds(0,350,900,30);
+        health_tips.setForeground(new Color(229,222,207));
         health_tips.setFont(new Font("SensSerif", Font.PLAIN, 15));
 
 
