@@ -19,7 +19,7 @@ import java.awt.*;
 public class AdminManageDoctorPage extends JFrame implements ActionListener
 {
 
-    JButton getDetails;
+    JButton Add_Doctor,Remove_Doctor,Modify_Doctor,getDetails;
     private JTable ManageDoctorsTable;
     private DefaultTableModel tableModel;
    
@@ -238,12 +238,75 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
         lower_panel.setBounds(0,130,900,500);
         lower_panel.setBackground(new Color(0xECF8FD));
 
+        Modify_Doctor = new JButton("Modify Doctor");
+        Modify_Doctor.setBounds(280, 380, 120, 30);
+        Modify_Doctor.setFocusable(false);
+        Modify_Doctor.addActionListener(this);
+
+        Modify_Doctor.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = ManageDoctorsTable.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Please select an admin to modify.");
+                }else {
+                    new Super_AdminAddNewDoctor("Edit", getSelectedDoctorUsername());
+                }
+            }
+        });
+
+        Add_Doctor= new JButton("Add Doctor");
+        Add_Doctor.setBounds(410, 380, 120, 30);
+        Add_Doctor.setFocusable(false);
+        
+
+        Add_Doctor.addMouseListener(new MouseAdapter() {
+            @Override
+        public void mouseClicked(MouseEvent e) {
+            SwingUtilities.getWindowAncestor(Add_Doctor).dispose();
+            new Super_AdminAddNewDoctor("Add","");
+            
+        }
+    });
+        
+        Remove_Doctor = new JButton("Remove Doctor");
+        Remove_Doctor.setBounds(540, 380, 130,30);
+        Remove_Doctor.setFocusable(false);
+        Remove_Doctor.addActionListener(this);
+
+        Remove_Doctor.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = ManageDoctorsTable.getSelectedRow();
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "Please select an doctor to remove.");
+                }else {
+                    String selectedUsername = getSelectedDoctorUsername();
+                    if (selectedUsername != null) {
+                        String confirmText = JOptionPane.showInputDialog(null, "Write 'Confirm' to delete account");
+                        if (confirmText != null && confirmText.equals("Confirm")) {
+                            try {
+                                FileUtils.deleteFile("/data/doctors/" + selectedUsername + ".txt");
+                                new WelcomePage();
+                                dispose();
+                            } catch (IOException ex) {
+                                JOptionPane.showMessageDialog(null, "Error deleting account: " + ex.getMessage());
+                            }
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Confirmation text does not match.");
+                        }
+                    }
+                }
+            }
+        });
+
         getDetails = new JButton("Get Details");
         getDetails.setBounds(410, 340, 120, 30);
         getDetails.setFocusable(false);
         getDetails.addActionListener(this);
 
-         getDetails.addActionListener(new ActionListener() {
+
+        getDetails.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String selectedUsername = getSelectedDoctorUsername();
@@ -258,7 +321,11 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
             }
         });
 
+        lower_panel.add(Modify_Doctor);
+        lower_panel.add(Add_Doctor);  
+        lower_panel.add(Remove_Doctor);
         lower_panel.add(getDetails);
+        
 
         tableModel = new DefaultTableModel(new String[]{
             "Full Name", "Email", "Contact Number", "Gender", "Salary"},0) 
@@ -279,11 +346,12 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
         ManageDoctorsTable.setShowGrid(true);
         ManageDoctorsTable.setGridColor(new Color(230, 230, 230));
 
-         //! Style Of The Header
+        //! Style Of The Header
         JTableHeader header = ManageDoctorsTable.getTableHeader();
         header.setBackground(new Color(51, 102, 204));
         header.setForeground(Color.WHITE);
         header.setFont(new Font("SansSerif", Font.BOLD, 12));
+
 
         ManageDoctorsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
@@ -310,8 +378,7 @@ public class AdminManageDoctorPage extends JFrame implements ActionListener
         scrollPane.setBounds(0, 50, 900, 280);
 
         lower_panel.add(scrollPane);
-       
-
+            
         return lower_panel;
     }
 
