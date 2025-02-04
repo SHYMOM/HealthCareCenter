@@ -342,7 +342,6 @@ public class SuperAdminManageDoctorPage extends JFrame implements ActionListener
         Add_Doctor.addMouseListener(new MouseAdapter() {
             @Override
         public void mouseClicked(MouseEvent e) {
-            SwingUtilities.getWindowAncestor(Add_Doctor).dispose();
             new Super_AdminAddNewDoctor(null,"Add","","Super Admin");
             
         }
