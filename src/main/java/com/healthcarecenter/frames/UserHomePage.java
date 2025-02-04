@@ -119,7 +119,7 @@ public class UserHomePage extends JFrame implements ActionListener
                         String confirmText = JOptionPane.showInputDialog(null, "Write 'Confirm' to delete account");
                         if (confirmText != null && confirmText.equals("Confirm")) {
                             try {
-                                FileUtils.deleteFile("/data/users/" + username + ".txt");
+                                FileUtils.deleteFile(username);
                                 new WelcomePage();
                                 dispose();
                             } catch (IOException ex) {

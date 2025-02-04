@@ -172,7 +172,6 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.getWindowAncestor(home).dispose();
 				new SuperAdminHomePage(email);
 			}
 				
@@ -303,7 +302,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
                 if (selectedRow == -1) {
                     JOptionPane.showMessageDialog(null, "Please select an admin to modify.");
                 }else {
-                    new Super_AdminAddNewAdmins("Edit", getSelectedAdminUsername());
+                    new Super_AdminAddNewAdmins(null,"Edit", getSelectedAdminUsername(),"Super Admin");
                 }
             }
         });
@@ -316,9 +315,7 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
         Add_Admin.addMouseListener(new MouseAdapter() {
             @Override
         public void mouseClicked(MouseEvent e) {
-            SwingUtilities.getWindowAncestor(Add_Admin).dispose();
-            new Super_AdminAddNewAdmins("Add","");
-            
+            new Super_AdminAddNewAdmins(null,"Add","","Super Admin");
         }
     });
         
@@ -340,8 +337,6 @@ public class SuperAdminManageAdminPage extends JFrame implements ActionListener
                         if (confirmText != null && confirmText.equals("Confirm")) {
                             try {
                                 FileUtils.deleteFile("/data/admins/" + selectedUsername + ".txt");
-                                new WelcomePage();
-                                dispose();
                             } catch (IOException ex) {
                                 JOptionPane.showMessageDialog(null, "Error deleting account: " + ex.getMessage());
                             }

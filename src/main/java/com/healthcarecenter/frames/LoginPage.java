@@ -13,9 +13,9 @@ public class LoginPage extends JFrame implements ActionListener {
     private final JTextField email;
     private final JPasswordField password;
     private final String userRole;
-    private static final Color PRIMARY_COLOR = new Color(0, 128, 128); // Teal
-    private static final Color ACCENT_COLOR = new Color(144, 238, 144); // Light green
-    private static final Color TEXT_COLOR = new Color(248, 248, 255); // White smoke
+    private static final Color PRIMARY_COLOR = new Color(0, 128, 128); //? Teal
+    private static final Color ACCENT_COLOR = new Color(144, 238, 144); //? Light green
+    private static final Color TEXT_COLOR = new Color(248, 248, 255); //? White smoke
     private static final Font TITLE_FONT = new Font("Segoe UI", Font.BOLD, 28);
     private static final Font REGULAR_FONT = new Font("Segoe UI", Font.PLAIN, 14);
 
@@ -78,24 +78,24 @@ public class LoginPage extends JFrame implements ActionListener {
         welcomeLabel.setForeground(PRIMARY_COLOR);
         panel.add(welcomeLabel, gbc);
 
-        //! Role indicator
+        //! Role Set
         JLabel roleLabel = new JLabel("Login as " + userRole, SwingConstants.CENTER);
         roleLabel.setFont(REGULAR_FONT);
         roleLabel.setForeground(PRIMARY_COLOR.darker());
         panel.add(roleLabel, gbc);
 
-        //! Add some spacing
+        //! Spacing For next section
         gbc.insets = new Insets(20, 0, 5, 0);
 
-        //! Email field with icon
-        JPanel emailPanel = createInputPanel("Email", email, "/Icons/email_icon.png");
+        //! Email field
+        JPanel emailPanel = createInputPanel("Email", email, "/Icons/email.png");
         panel.add(emailPanel, gbc);
 
-        //! Password field with icon
-        JPanel passwordPanel = createInputPanel("Password", password, "/Icons/password_icon.png");
+        //! Password field
+        JPanel passwordPanel = createInputPanel("Password", password, "/Icons/password.png");
         panel.add(passwordPanel, gbc);
 
-        //! Forgot password link
+        //! Forgot password Test
         JLabel forgotPassword = createClickableLabel("Forgot Password?");
         forgotPassword.addMouseListener(new MouseAdapter() {
             @Override
@@ -131,7 +131,7 @@ public class LoginPage extends JFrame implements ActionListener {
                 ImageIcon icon = new ImageIcon(FileUtils.getFile(iconPath).getAbsolutePath());
                 Image img = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
                 JLabel iconLabel = new JLabel(new ImageIcon(img));
-                iconLabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                iconLabel.setBorder(BorderFactory.createEmptyBorder(20, 5, 0, 5));
                 panel.add(iconLabel, BorderLayout.WEST);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -248,7 +248,7 @@ public class LoginPage extends JFrame implements ActionListener {
         }
         else{
             if(GetSuperAdminData.isSuperAdminEmail(email.getText()) && GetSuperAdminData.getSuperAdminPassword(email.getText()).equals(password.getText())){
-                new SuperAdminHomePage("email");
+                new SuperAdminHomePage(email.getText());
                 this.dispose();
             }
             else{
@@ -308,11 +308,6 @@ public class LoginPage extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        SwingUtilities.invokeLater(() -> new LoginPage("User"));
+        new LoginPage("User");
     }
 }
