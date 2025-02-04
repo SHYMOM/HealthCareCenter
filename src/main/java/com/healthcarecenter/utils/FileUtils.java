@@ -11,7 +11,7 @@ public class FileUtils {
 
     public static File getFile(String filePath) {
         String projectBasePath = System.getProperty("user.dir");
-        File file = new File(projectBasePath + "/HealthCareCenter/src/main/resources" + filePath).getAbsoluteFile();
+        File file = new File(projectBasePath + "/src/main/resources" + filePath).getAbsoluteFile();
         return file;
     }
 
