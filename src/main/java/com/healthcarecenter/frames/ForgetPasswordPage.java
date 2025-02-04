@@ -169,7 +169,7 @@ public class ForgetPasswordPage extends JFrame implements ActionListener {
                 }
                 else {
                     this.dispose();
-                    new Super_AdminAddNewAdmins("Edit",usernameText);
+                    new Super_AdminAddNewAdmins(null,"Edit",usernameText, "Admin");
                 }    
             }
             else if (userRole.equals("Doctor")) { 
@@ -178,7 +178,7 @@ public class ForgetPasswordPage extends JFrame implements ActionListener {
                 }
                 else {
                     this.dispose();
-                    new Super_AdminAddNewDoctor("Edit",usernameText);
+                    new Super_AdminAddNewDoctor(null,"Edit",usernameText, "Doctor");
                 }    
             }
         }

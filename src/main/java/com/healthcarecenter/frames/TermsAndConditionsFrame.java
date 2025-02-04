@@ -20,7 +20,6 @@ public class TermsAndConditionsFrame extends JFrame implements ActionListener {
     }
 
     private void initializeUI() {
-        // Frame settings
         ImageIcon appIcon = new ImageIcon(FileUtils.getFile("/Icons/appIcon.png").getAbsolutePath());
         this.setIconImage(appIcon.getImage());
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -29,27 +28,21 @@ public class TermsAndConditionsFrame extends JFrame implements ActionListener {
         this.setResizable(true);
         this.setMinimumSize(new Dimension(800, 500));
         
-        // Main panel with padding
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(20, 20));
         mainPanel.setBackground(primaryColor);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         this.setContentPane(mainPanel);
 
-        // Header panel
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BorderLayout());
         headerPanel.setBackground(primaryColor);
         headerPanel.add(createHeaderLabel(), BorderLayout.CENTER);
         mainPanel.add(headerPanel, BorderLayout.NORTH);
 
-        // Content panel
         mainPanel.add(createTermsPanel(), BorderLayout.CENTER);
-        
-        // Button panel
         mainPanel.add(createButtonPanel(), BorderLayout.SOUTH);
 
-        // Center the frame on screen
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -113,7 +106,7 @@ public class TermsAndConditionsFrame extends JFrame implements ActionListener {
 
         JScrollPane scrollPane = new JScrollPane(termsTextArea);
         scrollPane.setBorder(BorderFactory.createCompoundBorder(
-            new EmptyBorder(0, 0, 10, 0),
+            new EmptyBorder(0, 0, 0, 0),
             BorderFactory.createLineBorder(accentColor)
         ));
         
@@ -126,23 +119,19 @@ public class TermsAndConditionsFrame extends JFrame implements ActionListener {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanel.setBackground(primaryColor);
 
-        // Checkbox for acknowledgment
         acknowledgeCheckbox = new JCheckBox("I have read and understand the terms and conditions");
         acknowledgeCheckbox.setForeground(textColor);
         acknowledgeCheckbox.setBackground(primaryColor);
         acknowledgeCheckbox.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         acknowledgeCheckbox.addActionListener(e -> updateButtonStates());
 
-        // Style buttons
         styleButton(agreeButton, successColor);
         styleButton(disagreeButton, dangerColor);
         agreeButton.setEnabled(false);
 
-        // Add action listeners
         agreeButton.addActionListener(this);
         disagreeButton.addActionListener(this);
 
-        // Add components to panel
         JPanel checkboxPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         checkboxPanel.setBackground(primaryColor);
         checkboxPanel.add(acknowledgeCheckbox);
@@ -167,7 +156,7 @@ public class TermsAndConditionsFrame extends JFrame implements ActionListener {
         button.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // Add hover effect
+        //! Hover effect
         button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 button.setBackground(backgroundColor.darker());

@@ -450,8 +450,12 @@ public class UserPayBillPage extends JFrame implements ActionListener
             }
             @Override
             public void mouseClicked(MouseEvent e) {
-              
-              new BillPaymentDialog(username, totalAmount);
+                if (totalAmount <= 0) {
+                    JOptionPane.showMessageDialog(null, "No bills to pay", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    new BillPaymentDialog(username, totalAmount);
+                }
             }
         });
 

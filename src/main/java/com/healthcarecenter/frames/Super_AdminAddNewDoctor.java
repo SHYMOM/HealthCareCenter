@@ -33,6 +33,8 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
     private final JCheckBox termsAndConditionsCheckBox = new JCheckBox("I agree to the ");
 
     private String EditMode;
+    private String editorRole;
+    private JFrame parentFrame;
 
     private static final Color PRIMARY_COLOR = new Color(41, 128, 185);
     private static final Color SECONDARY_COLOR = new Color(52, 152, 219);
@@ -40,9 +42,11 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
     private static final Color TEXT_COLOR = new Color(44, 62, 80);
     private static final Color ACCENT_COLOR = new Color(46, 204, 113);
 
-    public Super_AdminAddNewDoctor(String EditMode, String username) {
+    public Super_AdminAddNewDoctor(JFrame parentFrame, String EditMode, String username, String editorRole) {
+        this.parentFrame = parentFrame;
         if (EditMode.equals("Edit")) {
             this.EditMode = EditMode;
+            this.editorRole = editorRole;
             registerButton.setText("Save Changes");
             this.username.setEditable(false);
             this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -50,8 +54,9 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
         }
         else if (EditMode.equals("Add")) {
             this.EditMode = EditMode;
+            this.editorRole = editorRole;
             registerButton.setText("Register Doctor");
-            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
         setupUI();
     }
@@ -435,8 +440,15 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
                     Doctor.setDaysAvailable(username.getText(), daysAvailable);
                     Doctor.setConsultationFee(username.getText(), Double.parseDouble(fee.getText()));
                     Doctor.setSalary(username.getText(), Double.parseDouble(salary.getText()));
-                    new LoginPage("Doctor");
-                    this.dispose();
+                    if (editorRole.equals("Super Admin") || editorRole.equals("Admin")) {
+                        this.dispose();
+                    } else if (editorRole.equals("Doctor")) {
+                        new LoginPage("Doctor");
+                        this.dispose();
+                        if (parentFrame != null) {
+                            parentFrame.dispose();
+                        }
+                    }
                 }
                 
             }
@@ -444,6 +456,6 @@ public class Super_AdminAddNewDoctor extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new Super_AdminAddNewDoctor("Edit","Doctor2");
+        new Super_AdminAddNewDoctor(null,"Edit","Doctor2","Admin");
     }
 }

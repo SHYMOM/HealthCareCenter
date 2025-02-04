@@ -110,7 +110,8 @@ public class AdminHomePage extends JFrame implements ActionListener
                 Object[] options = {"Edit Profile", "Cancel"};
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
-						new Super_AdminAddNewAdmins("Edit", username);
+                        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(settings);
+						new Super_AdminAddNewAdmins(parentFrame,"Edit", username, "Admin");
 					} else if (choice == 1) {
 						
 					} else {

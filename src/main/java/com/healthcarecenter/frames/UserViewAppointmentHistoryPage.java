@@ -381,7 +381,7 @@ public class UserViewAppointmentHistoryPage extends JFrame implements ActionList
         });
 
         JScrollPane scrollPane = new JScrollPane(appointmentHistoryTable);
-        scrollPane.setBounds(2, 00, 880,300);
+        scrollPane.setBounds(2, 00, 880,500);
         scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 

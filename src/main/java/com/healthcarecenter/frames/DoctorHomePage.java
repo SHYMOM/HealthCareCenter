@@ -125,7 +125,8 @@ public class DoctorHomePage extends JFrame implements ActionListener
                 Object[] options = {"Edit Profile", "Cancel"};
 				int choice = JOptionPane.showOptionDialog(null,"Choose an option:","Custom Option Dialog",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
 					if (choice == 0) {
-						new Super_AdminAddNewDoctor("Edit", username);
+                        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(e.getComponent());
+						new Super_AdminAddNewDoctor(parentFrame,"Edit", username, "Doctor");
 					} else if (choice == 1) {
 						
 					} else {
